@@ -1,0 +1,77 @@
+import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
+
+class TempleModel extends TempleEntity {
+  const TempleModel({
+    int? templeId,
+    String? templeName,
+    String? ttempleName,
+    int? jurisOfficeCode,
+    String? districtCode,
+    String? talukCode,
+    String? villageCode,
+    int? templeTypecode,
+    int? instituteCategorycode,
+    int? templesectionCode,
+    int? managementTypecode,
+    int? managementSubtypecode,
+    int? worshipCode,
+    String? urlTemplewebsite,
+    String? postalAvail,
+    String? annadhanamEnabled,
+    String? degree360Avail,
+    String? degree360view,
+    String? templeLatitude,
+    String? templeLangitude,
+    List<MaintowerImage>? maintowerImage,
+  }) : super(
+          templeId: templeId,
+          templeName: templeName,
+          ttempleName: ttempleName,
+          jurisOfficeCode: jurisOfficeCode,
+          districtCode: districtCode,
+          talukCode: talukCode,
+          villageCode: villageCode,
+          templeTypecode: templeTypecode,
+          instituteCategorycode: instituteCategorycode,
+          templesectionCode: templesectionCode,
+          managementTypecode: managementTypecode,
+          managementSubtypecode: managementSubtypecode,
+          worshipCode: worshipCode,
+          urlTemplewebsite: urlTemplewebsite,
+          postalAvail: postalAvail,
+          annadhanamEnabled: annadhanamEnabled,
+          degree360Avail: degree360Avail,
+          degree360view: degree360view,
+          templeLatitude: templeLatitude,
+          templeLangitude: templeLangitude,
+          maintowerImage: maintowerImage,
+        );
+
+  factory TempleModel.fromJson(Map<String, dynamic> json) {
+    return TempleModel(
+      templeId: json['temple_id'],
+      templeName: json['temple_name'] ?? "",
+      ttempleName: json['ttemple_name'] ?? "",
+      jurisOfficeCode: json['juris_office_code'],
+      districtCode: json['district_code'] ?? "",
+      talukCode: json['taluk_code'] ?? "",
+      villageCode: json['village_code'] ?? "",
+      templeTypecode: json['temple_typecode'],
+      instituteCategorycode: json['institute_categorycode'],
+      templesectionCode: json['templesection_code'],
+      managementTypecode: json['management_typecode'],
+      managementSubtypecode: json['management_subtypecode'],
+      worshipCode: json['worship_code'],
+      urlTemplewebsite: json['url_templewebsite'] ?? "",
+      postalAvail: json["postal_avail"] ?? "",
+      annadhanamEnabled: json["annadhanam_enabled"] ?? "",
+      degree360Avail: json["degree360_avail"] ?? "",
+      degree360view: json["degree_360view"] ?? "",
+      templeLatitude: json["temple_latitude"] ?? "",
+      templeLangitude: json["temple_langitude"] ?? "",
+      maintowerImage: (json['maintower_image'] as List<dynamic>?)
+          ?.map((e) => MaintowerImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
