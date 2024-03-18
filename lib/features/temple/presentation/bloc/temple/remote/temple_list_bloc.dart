@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/core/resources/data_state.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/usecases/get_temple.dart';
-import 'package:news_app_clean_architecture/features/temple/presentation/bloc/temple/remote/temple_list_event.dart';
-import 'package:news_app_clean_architecture/features/temple/presentation/bloc/temple/remote/temple_list_state.dart';
+
+import '../../../../../../core/resources/data_state.dart';
+import '../../../../domain/usecases/get_temple.dart';
+import 'temple_list_event.dart';
+import 'temple_list_state.dart';
 
 class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
   final GetTempleUseCase _getTempleListUseCase;

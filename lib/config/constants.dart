@@ -1,17 +1,17 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiCredentials {
   // api credentials
-  static const String baseUrl = kDebugMode
-      ? 'https://hrce.tn.gov.in/demoapp/webservice/webservices.php'
-      : "https://hrce.tn.gov.in/webservice/webservices.php";
-  static const String requestorUserPwd =
-      'd119518a934336d4676ba623e36d1b9902581777064452283ca46d1f8ead5913';
+  static const String baseUrl =
+      "https://hrce.tn.gov.in/demoapp/webservice/webservices.php";
+  static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
+
+  // for encryption & decryption of requests and responses
+  static String? keyUTF8 = dotenv.env['KEYUTF8'];
+  static String? ivUTF8 = dotenv.env['IVUTF8'];
+
   static const String requestorUserId = 'hrcevendor1';
   static const String serviceRequester = 'HRCEVENDR1';
-  // for encryption & decryption of requests and responses
-  static const String keyUTF8 = 'fWe6qWEJCWb2gcH4+APJL1YmtZmn0NVS';
-  static const String ivUTF8 = 'c1aeB65F17A1c7f3';
 }
 
 class NetworkImages {

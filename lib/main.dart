@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
@@ -9,6 +10,7 @@ import 'features/temple/presentation/pages/home/temple_list.dart';
 import 'injection_container.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env_dev");
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(const MyApp());

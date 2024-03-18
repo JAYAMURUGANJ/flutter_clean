@@ -34,10 +34,19 @@ dependencies:
   
   #chached image 
   cached_network_image: ^3.2.0
+
+  #api request & response
   dio: ^5.4.1
+
+  # encryption
   crypto: ^3.0.3
   encrypt: ^5.0.3
+
+  # model creation
   json_annotation: ^4.8.1
+
+  #environment-specific
+  flutter_dotenv: ^5.1.0
 
 
   
@@ -54,7 +63,8 @@ dev_dependencies:
   
 
 flutter:
-
+  assets:
+    - .env_dev
   uses-material-design: true
 
  

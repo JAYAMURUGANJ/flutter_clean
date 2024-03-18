@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../config/common/class/cryption.dart';
+import '../../../../config/constants.dart';
 import '../../../../core/data_sources/remote/news_api_service.dart';
 import '../../../../core/models/encrypted_response.dart';
 import '../../../../core/resources/data_state.dart';
@@ -20,7 +21,7 @@ class TempleRepositoryImpl implements TempleRepository {
   Future<DataState<List<TempleModel>>> getTempleList(formData) async {
     try {
       final httpResponse = await _apiService.getTempleList({
-        'service_requester': "Constants.serviceRequester",
+        'service_requester': ApiCredentials.serviceRequester,
         'form_data': formData,
         'service_id': '7019'
       });

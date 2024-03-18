@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
+
+import '../../../../domain/entities/temple.dart';
 
 abstract class TempleListState extends Equatable {
   final List<TempleEntity>? templeList;

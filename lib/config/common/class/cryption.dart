@@ -6,8 +6,8 @@ import 'package:encrypt/encrypt.dart';
 import '../../constants.dart';
 
 class Authentication {
-  final key = Key.fromUtf8(ApiCredentials.keyUTF8); //32 chars
-  final iv = IV.fromUtf8(ApiCredentials.ivUTF8); //16 chars
+  final key = Key.fromUtf8(ApiCredentials.keyUTF8!); //32 chars
+  final iv = IV.fromUtf8(ApiCredentials.ivUTF8!); //16 chars
 
 // Flutter encryption
   String encrypt(String text) {

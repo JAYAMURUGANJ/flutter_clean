@@ -10,7 +10,7 @@ part of 'news_api_service.dart';
 
 class _HRCEApiService implements HRCEApiService {
   _HRCEApiService(this._dio) {
-    baseUrl ??= 'https://hrce.tn.gov.in/demoapp/webservice/webservices.php';
+    baseUrl ??= ApiCredentials.baseUrl;
   }
 
   final Dio _dio;

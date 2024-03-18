@@ -1,7 +1,6 @@
-import 'package:news_app_clean_architecture/core/resources/data_state.dart';
-import 'package:news_app_clean_architecture/core/usecase/usecase.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
-
+import '../../../../core/resources/data_state.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../entities/temple.dart';
 import '../repository/temple_repository.dart';
 
 class GetTempleUseCase implements UseCase<DataState<List<TempleEntity>>, void> {
