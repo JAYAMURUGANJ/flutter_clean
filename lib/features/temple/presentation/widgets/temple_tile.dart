@@ -5,12 +5,12 @@ import 'package:news_app_clean_architecture/features/temple/domain/entities/temp
 
 class TempleListTile extends StatelessWidget {
   final TempleEntity? temple;
-  final void Function(TempleEntity article)? onArticlePressed;
+  final void Function(TempleEntity article)? onTemplePressed;
 
   const TempleListTile({
     Key? key,
     this.temple,
-    this.onArticlePressed,
+    this.onTemplePressed,
   }) : super(key: key);
 
   @override
@@ -133,8 +133,8 @@ class TempleListTile extends StatelessWidget {
   }
 
   void _onTap() {
-    if (onArticlePressed != null) {
-      onArticlePressed!(temple!);
+    if (onTemplePressed != null) {
+      onTemplePressed!(temple!);
     }
   }
 }

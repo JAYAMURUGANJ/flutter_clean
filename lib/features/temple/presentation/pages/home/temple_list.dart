@@ -1,11 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple/presentation/bloc/temple/remote/temple_list_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple/presentation/bloc/temple/remote/temple_list_state.dart';
 
 import '../../../domain/entities/temple.dart';
+import '../../bloc/temple/remote/temple_list_bloc.dart';
+import '../../bloc/temple/remote/temple_list_state.dart';
 import '../../widgets/temple_tile.dart';
 
 class TempleList extends StatelessWidget {
@@ -29,38 +28,35 @@ class TempleList extends StatelessWidget {
   }
 
   _buildBody() {
-    return BlocBuilder<TempleListBloc, TempleListState>(
-      builder: (_, state) {
+    return BlocConsumer<TempleListBloc, TempleListState>(
+      listener: (context, state) {
+        if (state is TempleListLodingError) {
+          Navigator.pushNamed(context, '/DioException',
+              arguments: state.error!);
+        }
+        if (state is TempleListLoadingSomthingWentWrong) {
+          Navigator.pushNamed(context, '/SomthingWentWrong',
+              arguments: state.responseStatus!);
+
+          // Center(
+          //     child: Text(
+          //   state.responseStatus!,
+          //   textAlign: TextAlign.center,
+          // ));
+        }
+      },
+      builder: (context, state) {
         if (state is TempleListLoading) {
           return const Center(child: CupertinoActivityIndicator());
         }
-        if (state is TempleListLodingError) {
-          DioException? error = state.error;
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(Icons.dangerous),
-                Text(error!.response!.statusCode.toString())
-              ],
-            ),
-          );
-        }
-        if (state is TempleListLoadingSomthingWentWrong) {
-          return Center(
-              child: Text(
-            state.responseStatus!,
-            textAlign: TextAlign.center,
-          ));
-        }
+
         if (state is TempleListLoaded) {
           return ListView.builder(
             itemBuilder: (context, index) {
               return TempleListTile(
                 temple: state.templeList![index],
-                onArticlePressed: (article) =>
-                    _onArticlePressed(context, article),
+                onTemplePressed: (article) =>
+                    _onTemplePressed(context, article),
               );
             },
             itemCount: state.templeList!.length,
@@ -71,11 +67,7 @@ class TempleList extends StatelessWidget {
     );
   }
 
-  void _onArticlePressed(BuildContext context, TempleEntity article) {
-    Navigator.pushNamed(context, '/ArticleDetails', arguments: article);
-  }
-
-  void _onShowSavedArticlesViewTapped(BuildContext context) {
-    Navigator.pushNamed(context, '/SavedArticles');
+  void _onTemplePressed(BuildContext context, TempleEntity article) {
+    Navigator.pushNamed(context, '/TempleDetails', arguments: article);
   }
 }

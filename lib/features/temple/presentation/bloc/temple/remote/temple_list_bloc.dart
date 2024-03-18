@@ -14,7 +14,7 @@ class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
 
   void onGetTempleList(
       GetTempleList event, Emitter<TempleListState> emit) async {
-    final dataState = await _getTempleListUseCase(params: event.formData);
+    final dataState = await _getTempleListUseCase(event.formData);
 
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&

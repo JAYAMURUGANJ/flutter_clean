@@ -18,7 +18,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TempleRepository>(TempleRepositoryImpl(sl()));
 
   //UseCases
-  sl.registerSingleton<GetTempleUseCase>(GetTempleUseCase(sl(), sl()));
+  sl.registerSingleton<GetTempleUseCase>(GetTempleUseCase(sl()));
 
   //Blocs
   sl.registerFactory<TempleListBloc>(() => TempleListBloc(sl()));

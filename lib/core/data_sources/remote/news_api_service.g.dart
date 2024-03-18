@@ -25,7 +25,7 @@ class _HRCEApiService implements HRCEApiService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(json);
-    debugPrint(_data.toString());
+    debugPrint("Dio Response => $_data");
     final _result = await _dio.fetch<List>(_setStreamType<FormData>(Options(
       method: 'POST',
       headers: _headers,

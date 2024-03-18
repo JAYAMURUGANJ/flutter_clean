@@ -3,5 +3,5 @@ import 'package:news_app_clean_architecture/features/temple/domain/entities/temp
 
 abstract class TempleRepository {
   // API methods
-  Future<DataState<List<TempleEntity>>> getTempleList(String formData);
+  Future<DataState<List<TempleEntity>>> getTempleList(formData);
 }

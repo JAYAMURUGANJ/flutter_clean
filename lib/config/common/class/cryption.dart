@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 class Authentication {
   final key = Key.fromUtf8(Constants.keyUTF8); //32 chars
