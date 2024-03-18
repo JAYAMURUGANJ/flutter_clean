@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
-import '../widget/network_image_cache.dart';
+import '../../../constants.dart';
+import '../../widgets/network_image_cache.dart';
 
 class SomethingWentWrong extends StatelessWidget {
   final String error;

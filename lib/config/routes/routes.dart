@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../features/temple/domain/entities/temple.dart';
 import '../../features/temple/presentation/pages/home/temple_list.dart';
 import '../../features/temple/presentation/pages/temple_detail/temple_details.dart';
-import '../common/page/dio_exception_screen.dart';
-import '../common/page/something_went_wrong_screen.dart';
+import '../common/pages/error/dio_exception_screen.dart';
+import '../common/pages/error/something_went_wrong_screen.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {

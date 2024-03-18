@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../config/constants/constants.dart';
+import '../../../config/constants.dart';
 import '../../models/form_data.dart';
 
 part 'news_api_service.g.dart';
 
-@RestApi(baseUrl: Constants.baseUrl)
+@RestApi(baseUrl: ApiCredentials.baseUrl)
 abstract class HRCEApiService {
   // factory HRCEApiService(Dio dio) = _HRCEApiService;
 

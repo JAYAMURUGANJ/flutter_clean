@@ -1,14 +1,10 @@
-const String newsAPIBaseURL = 'https://newsapi.org/v2';
-const String newsAPIKey = 'ff957763c54c44d8b00e5e082bc76cb0';
-const String countryQuery = 'us';
-const String categoryQuery = 'general';
-const String kDefaultImage =
-    "https://www.google.com/search?q=default+image&client=firefox-b-d&sxsrf=APq-WBskmtr-ix6NUAqqiHFNpsJX6JSOTg:1650026644151&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjEi_qfjJb3AhXvQd8KHd02BKUQ_AUoAXoECAEQAw#imgrc=A0pMe2lq2NT_jM";
+import 'package:flutter/foundation.dart';
 
-class Constants {
+class ApiCredentials {
   // api credentials
-  static const String baseUrl =
-      'https://hrce.tn.gov.in/demoapp/webservice/webservices.php';
+  static const String baseUrl = kDebugMode
+      ? 'https://hrce.tn.gov.in/demoapp/webservice/webservices.php'
+      : "https://hrce.tn.gov.in/webservice/webservices.php";
   static const String requestorUserPwd =
       'd119518a934336d4676ba623e36d1b9902581777064452283ca46d1f8ead5913';
   static const String requestorUserId = 'hrcevendor1';
@@ -19,6 +15,7 @@ class Constants {
 }
 
 class NetworkImages {
+  // Network images URLs
   static const String dioError =
       "https://static.vecteezy.com/system/resources/previews/026/766/398/non_2x/error-server-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
 

@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:news_app_clean_architecture/core/models/encrypted_response.dart';
-import 'package:news_app_clean_architecture/core/resources/data_state.dart';
-import 'package:news_app_clean_architecture/features/temple/data/models/temple.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/repository/temple_repository.dart';
 
 import '../../../../config/common/class/cryption.dart';
 import '../../../../core/data_sources/remote/news_api_service.dart';
+import '../../../../core/models/encrypted_response.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../domain/repository/temple_repository.dart';
+import '../models/temple.dart';
 
 class TempleRepositoryImpl implements TempleRepository {
   final HRCEApiService _apiService;

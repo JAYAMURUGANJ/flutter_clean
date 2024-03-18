@@ -1,4 +1,4 @@
-import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
+import '../../domain/entities/temple.dart';
 
 class TempleModel extends TempleEntity {
   const TempleModel({
