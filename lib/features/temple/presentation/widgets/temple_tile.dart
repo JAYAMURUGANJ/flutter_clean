@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
+
+import '../../../../config/common/widgets/network_image_cache.dart';
+import '../../domain/entities/temple.dart';
+import '/config/common/extensions.dart';
 
 class TempleListTile extends StatelessWidget {
   final TempleEntity? temple;
@@ -24,61 +25,16 @@ class TempleListTile extends StatelessWidget {
         height: MediaQuery.of(context).size.width / 2.2,
         child: Row(
           children: [
-            _buildImage(context),
+            buildImage(
+                context,
+                temple!.maintowerImage![0].fileLocation!.isUrl()
+                    ? temple!.maintowerImage![0].fileLocation!
+                    : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
             _buildTitleAndDescription(),
           ],
         ),
       ),
     );
-  }
-
-  Widget _buildImage(BuildContext context) {
-    return CachedNetworkImage(
-        // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
-        imageUrl:
-            "https://pics.craiyon.com/2023-07-04/d2196b89b47448e3aa40073992249187.webp",
-        imageBuilder: (context, imageProvider) => Padding(
-              padding: const EdgeInsetsDirectional.only(end: 14),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: double.maxFinite,
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.08),
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover)),
-                ),
-              ),
-            ),
-        progressIndicatorBuilder: (context, url, downloadProgress) => Padding(
-              padding: const EdgeInsetsDirectional.only(end: 14),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.08),
-                  ),
-                  child: const CupertinoActivityIndicator(),
-                ),
-              ),
-            ),
-        errorWidget: (context, url, error) => Padding(
-              padding: const EdgeInsetsDirectional.only(end: 14),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.08),
-                  ),
-                  child: const Icon(Icons.error),
-                ),
-              ),
-            ));
   }
 
   Widget _buildTitleAndDescription() {

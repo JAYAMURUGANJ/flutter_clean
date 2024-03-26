@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:news_app_clean_architecture/features/temple/domain/entities/temple.dart';
 
+import '../../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../../injection_container.dart';
+import '../../../domain/entities/temple.dart';
 import '../../bloc/temple/remote/temple_list_bloc.dart';
+import '/config/common/extensions.dart';
 
 class TempleDetailsView extends StatelessWidget {
   final TempleEntity? temple;
@@ -17,7 +19,7 @@ class TempleDetailsView extends StatelessWidget {
       create: (_) => sl<TempleListBloc>(),
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: _buildBody(),
+        body: _buildBody(context),
       ),
     );
   }
@@ -34,12 +36,16 @@ class TempleDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           _buildArticleTitleAndDate(),
-          _buildArticleImage(),
+          buildImage(
+              context,
+              temple!.maintowerImage![0].fileLocation!.isUrl()
+                  ? temple!.maintowerImage![0].fileLocation!
+                  : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
           _buildArticleDescription(),
         ],
       ),
@@ -63,30 +69,18 @@ class TempleDetailsView extends StatelessWidget {
 
           const SizedBox(height: 14),
           // DateTime
-          Row(
+          const Row(
             children: [
-              const Icon(Ionicons.time_outline, size: 16),
-              const SizedBox(width: 4),
+              Icon(Ionicons.time_outline, size: 16),
+              SizedBox(width: 4),
               Text(
-                temple!.jurisOfficeCode!.toString(),
-                style: const TextStyle(fontSize: 12),
+                " temple!.jurisOfficeCode!.toString()",
+                style: TextStyle(fontSize: 12),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildArticleImage() {
-    return Container(
-      width: double.maxFinite,
-      height: 250,
-      margin: const EdgeInsets.only(top: 14),
-      child: Image.network(
-          "https://pics.craiyon.com/2023-07-04/d2196b89b47448e3aa40073992249187.webp",
-          //Image.network(temple!.maintowerImage![0].fileLocation!,
-          fit: BoxFit.cover),
     );
   }
 

@@ -27,16 +27,16 @@ class TempleRepositoryImpl implements TempleRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String decryptedResponse =
+                String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log("TEMPLE LIST");
         log("API RESPONSE", name: decryptedResponse);
-        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+                var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
-          List<TempleModel> resultSet =
+                   List<TempleModel> resultSet =
               EncryptedResponse.fromJson(clientJsonResponse[0])
                   .resultSet!
                   .map<TempleModel>((dynamic i) =>
@@ -48,7 +48,7 @@ class TempleRepositoryImpl implements TempleRepository {
           return DataSuccess([], "Server Response NULL: $decryptedResponse");
         }
       } else {
-        return DataFailed(
+                 return DataFailed(
           DioException(
             error: httpResponse.response.statusMessage,
             response: httpResponse.response,
@@ -58,7 +58,7 @@ class TempleRepositoryImpl implements TempleRepository {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
+                 log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
             error: e);
         return DataFailed(
           DioException(
@@ -71,7 +71,7 @@ class TempleRepositoryImpl implements TempleRepository {
           ),
         );
       } else {
-        log("Something happened in setting up or sending the request that triggered an Error!",
+                   log("Something happened in setting up or sending the request that triggered an Error!",
             error: e.type);
         return DataFailed(
           DioException(
@@ -86,4 +86,8 @@ class TempleRepositoryImpl implements TempleRepository {
       }
     }
   }
+
+
+
+
 }

@@ -48,6 +48,9 @@ dependencies:
   #environment-specific
   flutter_dotenv: ^5.1.0
 
+  #google_fonts
+  google_fonts: ^6.2.1
+
 
   
 
@@ -67,12 +70,4 @@ flutter:
     - .env_dev
   uses-material-design: true
 
- 
-  fonts:
-    - family: Muli
-      fonts:
-        - asset: assets/fonts/muli/Muli.ttf
-        - asset: assets/fonts/muli/Muli-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/muli/Muli-Light.ttf
-          weight: 300
+

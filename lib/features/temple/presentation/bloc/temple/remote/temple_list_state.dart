@@ -1,17 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/temple.dart';
 
-abstract class TempleListState extends Equatable {
-  final List<TempleEntity>? templeList;
+abstract class TempleListState {
+  final List<dynamic>? templeList;
   final String? responseStatus;
   final DioException? error;
 
   const TempleListState({this.responseStatus, this.templeList, this.error});
-
-  @override
-  List<Object> get props => [templeList!, error!, responseStatus!];
 }
 
 class TempleListLoading extends TempleListState {

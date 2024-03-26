@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+// ThemeData theme(String language) {
 ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Muli',
-    appBarTheme: appBarTheme()
+    appBarTheme: appBarTheme(),
+   // textTheme: GoogleFonts.tiroTamilTextTheme(),
   );
 }
 

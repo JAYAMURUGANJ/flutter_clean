@@ -20,7 +20,7 @@ class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(TempleListLoaded(dataState.resultSet!));
+                emit(TempleListLoaded(dataState.resultSet!));
       } else {
         emit(TempleListLoadingSomthingWentWrong(dataState.responseStatus!));
       }
