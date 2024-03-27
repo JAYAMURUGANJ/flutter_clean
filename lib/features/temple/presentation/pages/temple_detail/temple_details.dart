@@ -39,25 +39,28 @@ class TempleDetailsView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildArticleTitleAndDate(),
-          _buildArticleImage(context),
-          _buildArticleDescription(),
+          _buildTempleTitleAndDate(),
+          _buildTempleImage(context, temple),
+          _buildTempleDescription(),
         ],
       ),
     );
   }
 
-  Widget _buildArticleImage(context) {
+  Widget _buildTempleImage(context, temple) {
     return Container(
       width: double.maxFinite,
       height: 250,
       margin: const EdgeInsets.only(top: 14),
-      child: buildImage(context,
-          'https://media.istockphoto.com/id/1172857007/photo/srirangam-is-one-of-the-most-famous-temples-of-lord-vishnu.jpg?s=612x612&w=0&k=20&c=jnqSkgPJjNkeC0Nc0fSEDmhwBk5pJeHEoVmVNXPLXGs='),
+      child: buildImage(
+          context,
+          temple!.maintowerImage!.isNotEmpty
+              ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
+              : 'https://cdn-icons-png.freepik.com/512/89/89020.png'),
     );
   }
 
-  Widget _buildArticleTitleAndDate() {
+  Widget _buildTempleTitleAndDate() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22),
       child: Column(
@@ -89,7 +92,7 @@ class TempleDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildArticleDescription() {
+  Widget _buildTempleDescription() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
       child: Text(

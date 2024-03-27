@@ -66,10 +66,12 @@ Map<String, dynamic> _$IpaddressToJson(Ipaddress instance) => <String, dynamic>{
 FilterData _$FilterDataFromJson(Map<String, dynamic> json) => FilterData(
       districtCode: json['district_code'] as String?,
       degree360Avail: json['degree360_avail'] as String?,
+      templeId: json['temple_id'] as String?,
     );
 
 Map<String, dynamic> _$FilterDataToJson(FilterData instance) =>
     <String, dynamic>{
       'district_code': instance.districtCode,
       'degree360_avail': instance.degree360Avail,
+      'temple_id': instance.templeId,
     };

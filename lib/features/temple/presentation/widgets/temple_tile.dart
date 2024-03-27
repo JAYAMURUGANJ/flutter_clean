@@ -15,7 +15,6 @@ class TempleListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print("TOWER IMAGE:${temple!.maintowerImage![0].fileLocation!}");
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
@@ -25,13 +24,11 @@ class TempleListTile extends StatelessWidget {
         height: MediaQuery.of(context).size.width / 2.2,
         child: Row(
           children: [
-            // buildImage(
-            //     context,
-            //     temple!.maintowerImage![0].fileLocation!.isUrl()
-            //         ? temple!.maintowerImage![0].fileLocation!
-            //         : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
-            buildImage(context,
-                'https://media.istockphoto.com/id/1172857007/photo/srirangam-is-one-of-the-most-famous-temples-of-lord-vishnu.jpg?s=612x612&w=0&k=20&c=jnqSkgPJjNkeC0Nc0fSEDmhwBk5pJeHEoVmVNXPLXGs='),
+            buildImage(
+                context,
+                temple!.maintowerImage!.isNotEmpty
+                    ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
+                    : 'https://cdn-icons-png.freepik.com/512/89/89020.png'),
             _buildTitleAndDescription(),
           ],
         ),
