@@ -4,19 +4,18 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../../injection_container.dart';
-import '../../../domain/entities/temple.dart';
-import '../../bloc/temple/remote/temple_list_bloc.dart';
-import '/config/common/extensions.dart';
+import '../../../domain/entities/itms_response.dart';
+import '../../bloc/itms/itms.dart';
 
 class TempleDetailsView extends StatelessWidget {
-  final TempleEntity? temple;
+  final ItmsResponseEntity? temple;
 
   const TempleDetailsView({Key? key, this.temple}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<TempleListBloc>(),
+      create: (_) => sl<ITMSBloc>(),
       child: Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(context),
@@ -41,14 +40,20 @@ class TempleDetailsView extends StatelessWidget {
       child: Column(
         children: [
           _buildArticleTitleAndDate(),
-          buildImage(
-              context,
-              temple!.maintowerImage![0].fileLocation!.isUrl()
-                  ? temple!.maintowerImage![0].fileLocation!
-                  : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
+          _buildArticleImage(context),
           _buildArticleDescription(),
         ],
       ),
+    );
+  }
+
+  Widget _buildArticleImage(context) {
+    return Container(
+      width: double.maxFinite,
+      height: 250,
+      margin: const EdgeInsets.only(top: 14),
+      child: buildImage(context,
+          'https://media.istockphoto.com/id/1172857007/photo/srirangam-is-one-of-the-most-famous-temples-of-lord-vishnu.jpg?s=612x612&w=0&k=20&c=jnqSkgPJjNkeC0Nc0fSEDmhwBk5pJeHEoVmVNXPLXGs='),
     );
   }
 

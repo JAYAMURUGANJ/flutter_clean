@@ -1,20 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'temple.dart';
+part of 'itms_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TempleEntity _$TempleEntityFromJson(Map<String, dynamic> json) => TempleEntity(
-      worshipCode: json['worship_code'] as int?,
-      urlTemplewebsite: json['url_templewebsite'] as String?,
-      postalAvail: json['postal_avail'] as String?,
-      annadhanamEnabled: json['annadhanam_enabled'] as String?,
-      degree360Avail: json['degree360_avail'] as String?,
-      degree360view: json['degree_360view'] as String?,
-      templeLatitude: json['temple_latitude'] as String?,
-      templeLangitude: json['temple_langitude'] as String?,
+ItmsResponseEntity _$TempleEntityFromJson(Map<String, dynamic> json) =>
+    ItmsResponseEntity(
       templeId: json['temple_Id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
@@ -27,12 +20,22 @@ TempleEntity _$TempleEntityFromJson(Map<String, dynamic> json) => TempleEntity(
       templesectionCode: json['templesection_code'] as int?,
       managementTypecode: json['management_typecode'] as int?,
       managementSubtypecode: json['management_subtype_code'] as int?,
+      worshipCode: json['worship_code'] as int?,
+      urlTemplewebsite: json['url_templewebsite'] as String?,
+      postalAvail: json['postal_avail'] as String?,
+      annadhanamEnabled: json['annadhanam_enabled'] as String?,
+      degree360Avail: json['degree360_avail'] as String?,
+      degree360view: json['degree_360view'] as String?,
+      templeLatitude: json['temple_latitude'] as String?,
+      templeLangitude: json['temple_langitude'] as String?,
       maintowerImage: (json['maintower_image'] as List<dynamic>?)
           ?.map((e) => MaintowerImage.fromJson(e as Map<String, dynamic>))
           .toList(),
+      errorCode: json['error_code'] as String?,
+      responseDesc: json['response_desc'] as String?,
     );
 
-Map<String, dynamic> _$TempleEntityToJson(TempleEntity instance) =>
+Map<String, dynamic> _$TempleEntityToJson(ItmsResponseEntity instance) =>
     <String, dynamic>{
       'temple_Id': instance.templeId,
       'temple_name': instance.templeName,
@@ -55,6 +58,8 @@ Map<String, dynamic> _$TempleEntityToJson(TempleEntity instance) =>
       'temple_latitude': instance.templeLatitude,
       'temple_langitude': instance.templeLangitude,
       'maintower_image': instance.maintowerImage,
+      'error_code': instance.errorCode,
+      'response_desc': instance.responseDesc,
     };
 
 MaintowerImage _$MaintowerImageFromJson(Map<String, dynamic> json) =>

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/common/widgets/network_image_cache.dart';
-import '../../domain/entities/temple.dart';
-import '/config/common/extensions.dart';
+import '../../domain/entities/itms_response.dart';
 
 class TempleListTile extends StatelessWidget {
-  final TempleEntity? temple;
-  final void Function(TempleEntity article)? onTemplePressed;
+  final ItmsResponseEntity? temple;
+  final void Function(ItmsResponseEntity article)? onTemplePressed;
 
   const TempleListTile({
     Key? key,
@@ -16,6 +15,7 @@ class TempleListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print("TOWER IMAGE:${temple!.maintowerImage![0].fileLocation!}");
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
@@ -25,11 +25,13 @@ class TempleListTile extends StatelessWidget {
         height: MediaQuery.of(context).size.width / 2.2,
         child: Row(
           children: [
-            buildImage(
-                context,
-                temple!.maintowerImage![0].fileLocation!.isUrl()
-                    ? temple!.maintowerImage![0].fileLocation!
-                    : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
+            // buildImage(
+            //     context,
+            //     temple!.maintowerImage![0].fileLocation!.isUrl()
+            //         ? temple!.maintowerImage![0].fileLocation!
+            //         : 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'),
+            buildImage(context,
+                'https://media.istockphoto.com/id/1172857007/photo/srirangam-is-one-of-the-most-famous-temples-of-lord-vishnu.jpg?s=612x612&w=0&k=20&c=jnqSkgPJjNkeC0Nc0fSEDmhwBk5pJeHEoVmVNXPLXGs='),
             _buildTitleAndDescription(),
           ],
         ),

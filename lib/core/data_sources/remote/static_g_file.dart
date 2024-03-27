@@ -1,6 +1,6 @@
 // // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// part of 'news_api_service.dart';
+// part of 'ITMS_API_service.dart';
 
 // // **************************************************************************
 // // RetrofitGenerator
@@ -10,7 +10,7 @@
 
 // class _HRCEApiService implements HRCEApiService {
 //   _HRCEApiService(this._dio) {
-//     baseUrl ??= 'https://hrce.tn.gov.in/demoapp/webservice/webservices.php';
+//     baseUrl ??= ApiCredentials.baseUrl;
 //   }
 
 //   final Dio _dio;
@@ -25,7 +25,6 @@
 //     final _headers = <String, dynamic>{};
 //     final _data = <String, dynamic>{};
 //     _data.addAll(json);
-//     debugPrint(_data.toString());
 //     final _result = await _dio.fetch<List>(_setStreamType<FormData>(Options(
 //       method: 'POST',
 //       headers: _headers,

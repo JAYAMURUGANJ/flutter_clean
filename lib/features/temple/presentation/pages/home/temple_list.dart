@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/temple.dart';
-import '../../bloc/temple/remote/temple_list_bloc.dart';
-import '../../bloc/temple/remote/temple_list_state.dart';
+import '../../../domain/entities/itms_response.dart';
+import '../../bloc/itms/itms.dart';
+import '../../bloc/itms/itms_state.dart';
 import '../../widgets/temple_tile.dart';
 
 class TempleList extends StatelessWidget {
@@ -28,7 +28,7 @@ class TempleList extends StatelessWidget {
   }
 
   _buildBody() {
-    return BlocConsumer<TempleListBloc, TempleListState>(
+    return BlocConsumer<ITMSBloc, ITMSState>(
       listener: (context, state) {
         if (state is TempleListLodingError) {
           Navigator.pushNamed(context, '/DioException',
@@ -37,12 +37,6 @@ class TempleList extends StatelessWidget {
         if (state is TempleListLoadingSomthingWentWrong) {
           Navigator.pushNamed(context, '/SomthingWentWrong',
               arguments: state.responseStatus!);
-
-          // Center(
-          //     child: Text(
-          //   state.responseStatus!,
-          //   textAlign: TextAlign.center,
-          // ));
         }
       },
       builder: (context, state) {
@@ -67,7 +61,7 @@ class TempleList extends StatelessWidget {
     );
   }
 
-  void _onTemplePressed(BuildContext context, TempleEntity article) {
+  void _onTemplePressed(BuildContext context, ItmsResponseEntity article) {
     Navigator.pushNamed(context, '/TempleDetails', arguments: article);
   }
 }

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import 'core/data_sources/remote/news_api_service.dart';
-import 'features/temple/data/repository/temple_repository_impl.dart';
-import 'features/temple/domain/repository/temple_repository.dart';
-import 'features/temple/domain/usecases/get_temple.dart';
-import 'features/temple/presentation/bloc/temple/remote/temple_list_bloc.dart';
+import 'core/data_sources/remote/ITMS_API_service.dart';
+import 'features/temple/data/repository/itms_repository_impl.dart';
+import 'features/temple/domain/repository/itms_repository.dart';
+import 'features/temple/domain/usecases/itms_response.dart';
+import 'features/temple/presentation/bloc/itms/itms.dart';
 
 final sl = GetIt.instance;
 
@@ -16,11 +16,11 @@ Future<void> initializeDependencies() async {
   // Dependencies
   sl.registerSingleton<HRCEApiService>(HRCEApiService(sl()));
 
-  sl.registerSingleton<TempleRepository>(TempleRepositoryImpl(sl()));
+  sl.registerSingleton<ItmsRepository>(ItmsRepositoryImpl(sl()));
 
   //UseCases
-  sl.registerSingleton<GetTempleUseCase>(GetTempleUseCase(sl()));
+  sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
 
   //Blocs
-  sl.registerFactory<TempleListBloc>(() => TempleListBloc(sl()));
+  sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
 }

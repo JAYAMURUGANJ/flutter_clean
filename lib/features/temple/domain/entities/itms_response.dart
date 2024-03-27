@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'temple.g.dart';
+part 'itms_response.g.dart';
 
 @JsonSerializable()
-class TempleEntity extends Equatable {
+class ItmsResponseEntity extends Equatable {
   @JsonKey(name: 'temple_Id')
   final int? templeId;
   @JsonKey(name: 'temple_name')
@@ -47,16 +47,12 @@ class TempleEntity extends Equatable {
   final String? templeLangitude;
   @JsonKey(name: 'maintower_image')
   final List<MaintowerImage>? maintowerImage;
+  @JsonKey(name: 'error_code')
+  final String? errorCode;
+  @JsonKey(name: 'response_desc')
+  final String? responseDesc;
 
-  const TempleEntity({
-    this.worshipCode,
-    this.urlTemplewebsite,
-    this.postalAvail,
-    this.annadhanamEnabled,
-    this.degree360Avail,
-    this.degree360view,
-    this.templeLatitude,
-    this.templeLangitude,
+  const ItmsResponseEntity({
     this.templeId,
     this.templeName,
     this.ttempleName,
@@ -69,10 +65,20 @@ class TempleEntity extends Equatable {
     this.templesectionCode,
     this.managementTypecode,
     this.managementSubtypecode,
+    this.worshipCode,
+    this.urlTemplewebsite,
+    this.postalAvail,
+    this.annadhanamEnabled,
+    this.degree360Avail,
+    this.degree360view,
+    this.templeLatitude,
+    this.templeLangitude,
     this.maintowerImage,
+    this.errorCode,
+    this.responseDesc,
   });
 
-  factory TempleEntity.fromJson(Map<String, dynamic> json) =>
+  factory ItmsResponseEntity.fromJson(Map<String, dynamic> json) =>
       _$TempleEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$TempleEntityToJson(this);
@@ -101,6 +107,8 @@ class TempleEntity extends Equatable {
       templeLatitude,
       templeLangitude,
       maintowerImage,
+      errorCode,
+      responseDesc,
     ];
   }
 }

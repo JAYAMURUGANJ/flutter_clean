@@ -50,6 +50,8 @@ dependencies:
 
   #google_fonts
   google_fonts: ^6.2.1
+  device_apps: ^2.2.0
+  shared_preferences: ^2.2.2
 
 
   

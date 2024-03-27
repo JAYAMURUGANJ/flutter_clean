@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/temple/domain/entities/temple.dart';
+import '../../features/temple/domain/entities/itms_response.dart';
 import '../../features/temple/presentation/pages/home/temple_list.dart';
 import '../../features/temple/presentation/pages/temple_detail/temple_details.dart';
 import '../common/pages/error/dio_exception_screen.dart';
@@ -14,8 +14,8 @@ class AppRoutes {
         return _materialRoute(const TempleList());
 
       case '/TempleDetails':
-        return _materialRoute(
-            TempleDetailsView(temple: settings.arguments as TempleEntity));
+        return _materialRoute(TempleDetailsView(
+            temple: settings.arguments as ItmsResponseEntity));
 
       case '/SomthingWentWrong':
         return _materialRoute(

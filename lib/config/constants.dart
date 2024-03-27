@@ -2,13 +2,21 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiCredentials {
   // api credentials
-  static const String baseUrl =
-      "https://hrce.tn.gov.in/demoapp/webservice/webservices.php";
+  static const String domain = "https://hrce.tn.gov.in/webservice/";
+  static const String webService = "webservices.php";
+  static const String filePath = "documentview.php?file_path=";
+
+  static const String baseUrl = domain + webService;
+  static const String documents = domain + filePath;
+
   static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
 
   // for encryption & decryption of requests and responses
   static String? keyUTF8 = dotenv.env['KEYUTF8'];
   static String? ivUTF8 = dotenv.env['IVUTF8'];
+
+  // version date for the appliction version when it was launched
+  static String? versionData = dotenv.env['VERSION_DATE'];
 
   static const String requestorUserId = 'hrcevendor1';
   static const String serviceRequester = 'HRCEVENDR1';

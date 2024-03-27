@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'news_api_service.dart';
+part of 'ITMS_API_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -25,7 +25,6 @@ class _HRCEApiService implements HRCEApiService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(json);
-    debugPrint("Dio Response => $_data");
     final _result = await _dio.fetch<List>(_setStreamType<FormData>(Options(
       method: 'POST',
       headers: _headers,

@@ -7,40 +7,39 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../config/common/class/cryption.dart';
 import '../../../../config/constants.dart';
-import '../../../../core/data_sources/remote/news_api_service.dart';
+import '../../../../core/data_sources/remote/ITMS_API_service.dart';
 import '../../../../core/models/encrypted_response.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../domain/repository/temple_repository.dart';
-import '../models/temple.dart';
+import '../../domain/repository/itms_repository.dart';
+import '../models/itms_response.dart';
 
-class TempleRepositoryImpl implements TempleRepository {
+class ItmsRepositoryImpl implements ItmsRepository {
   final HRCEApiService _apiService;
-  TempleRepositoryImpl(this._apiService);
+  ItmsRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<TempleModel>>> getTempleList(formData) async {
+  Future<DataState<List<ItmsResponse>>> getResponse(formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
         'form_data': formData,
-        'service_id': '7019'
+        'service_id': serviceId
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-                String decryptedResponse =
+        String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log("TEMPLE LIST");
-        log("API RESPONSE", name: decryptedResponse);
-                var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+        log(decryptedResponse, name: "API RESPONSE");
+        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
-                   List<TempleModel> resultSet =
+          List<ItmsResponse> resultSet =
               EncryptedResponse.fromJson(clientJsonResponse[0])
                   .resultSet!
-                  .map<TempleModel>((dynamic i) =>
-                      TempleModel.fromJson(i as Map<String, dynamic>))
+                  .map<ItmsResponse>((dynamic i) =>
+                      ItmsResponse.fromJson(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
@@ -48,7 +47,7 @@ class TempleRepositoryImpl implements TempleRepository {
           return DataSuccess([], "Server Response NULL: $decryptedResponse");
         }
       } else {
-                 return DataFailed(
+        return DataFailed(
           DioException(
             error: httpResponse.response.statusMessage,
             response: httpResponse.response,
@@ -58,7 +57,7 @@ class TempleRepositoryImpl implements TempleRepository {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-                 log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
+        log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
             error: e);
         return DataFailed(
           DioException(
@@ -71,7 +70,7 @@ class TempleRepositoryImpl implements TempleRepository {
           ),
         );
       } else {
-                   log("Something happened in setting up or sending the request that triggered an Error!",
+        log("Something happened in setting up or sending the request that triggered an Error!",
             error: e.type);
         return DataFailed(
           DioException(
@@ -86,8 +85,4 @@ class TempleRepositoryImpl implements TempleRepository {
       }
     }
   }
-
-
-
-
 }

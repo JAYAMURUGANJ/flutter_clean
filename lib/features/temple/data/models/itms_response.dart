@@ -1,7 +1,7 @@
-import '../../domain/entities/temple.dart';
+import '../../domain/entities/itms_response.dart';
 
-class TempleModel extends TempleEntity {
-  const TempleModel({
+class ItmsResponse extends ItmsResponseEntity {
+  const ItmsResponse({
     int? templeId,
     String? templeName,
     String? ttempleName,
@@ -23,6 +23,8 @@ class TempleModel extends TempleEntity {
     String? templeLatitude,
     String? templeLangitude,
     List<MaintowerImage>? maintowerImage,
+    String? errorCode,
+    String? responseDesc,
   }) : super(
           templeId: templeId,
           templeName: templeName,
@@ -45,10 +47,12 @@ class TempleModel extends TempleEntity {
           templeLatitude: templeLatitude,
           templeLangitude: templeLangitude,
           maintowerImage: maintowerImage,
+          errorCode: errorCode,
+          responseDesc: responseDesc,
         );
 
-  factory TempleModel.fromJson(Map<String, dynamic> json) {
-    return TempleModel(
+  factory ItmsResponse.fromJson(Map<String, dynamic> json) {
+    return ItmsResponse(
       templeId: json['temple_id'],
       templeName: json['temple_name'] ?? "",
       ttempleName: json['ttemple_name'] ?? "",
@@ -69,6 +73,8 @@ class TempleModel extends TempleEntity {
       degree360view: json["degree_360view"] ?? "",
       templeLatitude: json["temple_latitude"] ?? "",
       templeLangitude: json["temple_langitude"] ?? "",
+      errorCode: json["error_code"] ?? "",
+      responseDesc: json["response_desc"] ?? "",
       maintowerImage: (json['maintower_image'] as List<dynamic>?)
           ?.map((e) => MaintowerImage.fromJson(e as Map<String, dynamic>))
           .toList(),

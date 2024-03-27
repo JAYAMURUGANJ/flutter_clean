@@ -10,21 +10,25 @@ class SomethingWentWrong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsetsDirectional.only(
-                start: 14, end: 14, bottom: 7, top: 7),
-            height: MediaQuery.of(context).size.width / 2.2,
-            child: buildImage(context, NetworkImages.somthingWentWrong),
+      body: SizedBox(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsetsDirectional.only(
+                    start: 14, end: 14, bottom: 7, top: 7),
+                height: MediaQuery.of(context).size.width / 2.2,
+                child: buildImage(context, NetworkImages.somthingWentWrong),
+              ),
+              Text(
+                error,
+                textAlign: TextAlign.center,
+              )
+            ],
           ),
-          Text(
-            error,
-            textAlign: TextAlign.center,
-          )
-        ],
+        ),
       ),
     );
   }

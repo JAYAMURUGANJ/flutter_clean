@@ -1,11 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../config/constants.dart';
 import '../../models/form_data.dart';
 
-part 'news_api_service.g.dart';
+part 'ITMS_API_service.g.dart';
 
 @RestApi(baseUrl: ApiCredentials.baseUrl)
 abstract class HRCEApiService {

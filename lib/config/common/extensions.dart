@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension UrlValidator on String {
   bool isUrl() {
     try {
@@ -6,5 +8,11 @@ extension UrlValidator on String {
     } catch (_) {
       return false;
     }
+  }
+}
+
+extension DataToString on dynamic {
+  String get toStringForm {
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(this).toString();
   }
 }
