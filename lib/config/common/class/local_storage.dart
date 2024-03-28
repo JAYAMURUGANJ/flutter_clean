@@ -6,8 +6,7 @@ const String spLocalLanguage = 'EN';
 const String spAppVersion = "1.0.0";
 
 class Prefs {
-  static SharedPreferences _prefs =
-      SharedPreferences.getInstance() as SharedPreferences;
+  static late SharedPreferences _prefs;
 
   // call this method from iniState() function of mainApp().
   static Future<SharedPreferences> init() async {

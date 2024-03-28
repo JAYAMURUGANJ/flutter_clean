@@ -18,19 +18,22 @@ class TempleListTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: Container(
-        padding: const EdgeInsetsDirectional.only(
-            start: 14, end: 14, bottom: 7, top: 7),
-        height: MediaQuery.of(context).size.width / 2.2,
-        child: Row(
-          children: [
-            buildImage(
-                context,
-                temple!.maintowerImage!.isNotEmpty
-                    ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
-                    : 'https://cdn-icons-png.freepik.com/512/89/89020.png'),
-            _buildTitleAndDescription(),
-          ],
+      child: Card(
+        color: Colors.transparent,
+        elevation: 0,
+        child: SizedBox(
+          height: 120,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildImage(
+                  context,
+                  temple!.maintowerImage!.isNotEmpty
+                      ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
+                      : 'https://cdn-icons-png.freepik.com/512/89/89020.png'),
+              _buildTitleAndDescription(),
+            ],
+          ),
         ),
       ),
     );
@@ -39,7 +42,7 @@ class TempleListTile extends StatelessWidget {
   Widget _buildTitleAndDescription() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,35 +54,10 @@ class TempleListTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: 'Butler',
-                fontWeight: FontWeight.w900,
-                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
                 color: Colors.black87,
               ),
-            ),
-
-            // Description
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  temple!.ttempleName ?? '',
-                  maxLines: 2,
-                ),
-              ),
-            ),
-
-            // Datetime
-            Row(
-              children: [
-                const Icon(Icons.timeline_outlined, size: 16),
-                const SizedBox(width: 4),
-                Text(
-                  temple!.templeId!.toString(),
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

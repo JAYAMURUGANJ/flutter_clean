@@ -4,6 +4,11 @@ abstract class ITMSEvent {
 
 class GetTempleList extends ITMSEvent {}
 
+class FilterTempleList extends ITMSEvent {
+  final String value;
+  FilterTempleList(this.value);
+}
+
 class GetTempleHistory extends ITMSEvent {
   String templeId;
   GetTempleHistory({

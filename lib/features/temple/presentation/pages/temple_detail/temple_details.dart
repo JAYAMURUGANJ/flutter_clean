@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -5,7 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import '../../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../../injection_container.dart';
 import '../../../domain/entities/itms_response.dart';
-import '../../bloc/itms/itms.dart';
+import '../../bloc/itms/itms_bloc.dart';
 
 class TempleDetailsView extends StatelessWidget {
   final ItmsResponseEntity? temple;
@@ -38,6 +39,7 @@ class TempleDetailsView extends StatelessWidget {
   Widget _buildBody(context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _buildTempleTitleAndDate(),
           _buildTempleImage(context, temple),
@@ -73,6 +75,7 @@ class TempleDetailsView extends StatelessWidget {
                 fontFamily: 'Butler',
                 fontSize: 20,
                 fontWeight: FontWeight.w900),
+            textAlign: TextAlign.center,
           ),
 
           const SizedBox(height: 14),

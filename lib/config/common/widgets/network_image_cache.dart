@@ -9,9 +9,9 @@ Widget buildImage(BuildContext context, String url) {
     imageBuilder: (context, imageProvider) => Padding(
       padding: const EdgeInsetsDirectional.only(end: 14),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(12.0),
         child: Container(
-          width: MediaQuery.of(context).size.width / 3,
+          width: 120,
           height: double.maxFinite,
           decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.08),

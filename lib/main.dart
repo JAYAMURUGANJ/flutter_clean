@@ -19,6 +19,7 @@ void main() {
       Bloc.observer = MyBlocObserver();
       await dotenv.load(fileName: ".env_dev");
       WidgetsFlutterBinding.ensureInitialized();
+      await Prefs.init();
       await initializeDependencies();
       Prefs.setString(spLocalLanguage, 'EN');
       AppInfo().getIPAddress().then((ip) async {
