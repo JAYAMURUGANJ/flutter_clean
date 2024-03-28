@@ -21,15 +21,16 @@ class ITMSRequestHandler {
           deviceTime: DateTime.now().toStringForm,
           serverTime: DateTime.now().toStringForm)
     ];
+
     print("2 AM IN FORM DATA");
     List<Ipaddress> ipAddress = [
       Ipaddress(
           ip: "spNetworkIp",
+
           deviceId: '1e7d538a43388eee',
           deviceName: 'PAX A910')
     ];
     String requestTime = DateTime.now().toStringForm;
-    print("3AM IN FORM DATA");
     List<ITMSRequest> request = [
       ITMSRequest(
           adparam: adparam,
@@ -46,10 +47,11 @@ class ITMSRequestHandler {
           serviceRequester: ApiCredentials.serviceRequester)
     ];
     print("Before Encryption: ${request[0].toJson()}");
-    print("4 AM IN FORM DATA");
     formData = Authentication().encrypt(itmsRequestToJson(request));
     print("encrypted form_data: $formData");
-    print("5 AM IN FORM DATA");
+    formData = Authentication().encrypt(itmsRequestToJson(request));
+    print("encrypted form_data: $formData");
+
     return formData;
   }
 }
