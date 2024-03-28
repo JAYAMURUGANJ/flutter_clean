@@ -1,6 +1,6 @@
-# news_app_clean_architecture
+# Thirukoil version 2
 
-A new Flutter project.
+For HR&CE Department of Tamil Nadu.
 
 ## Getting Started
 
