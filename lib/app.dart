@@ -5,7 +5,7 @@ import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'features/temple/presentation/bloc/itms/itms.dart';
 import 'features/temple/presentation/bloc/itms/itms_event.dart';
-import 'features/temple/presentation/pages/home/temple_list.dart';
+import 'features/temple/presentation/pages/temple_list/temple_list.dart';
 import 'injection_container.dart';
 
 class App extends StatefulWidget {
