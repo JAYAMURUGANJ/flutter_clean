@@ -3,12 +3,14 @@ import 'package:news_app_clean_architecture/core/models/itms_request.dart';
 
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/resources/itms_request_handler.dart';
+import '../../../domain/entities/itms_response.dart';
 import '../../../domain/usecases/itms_response.dart';
 import 'itms_event.dart';
 import 'itms_state.dart';
 
 class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
   final ItmsResponseUseCase _getItmsResponseUseCase;
+  List<ItmsResponseEntity> templesList = [];
 
   ITMSBloc(this._getItmsResponseUseCase) : super(const TempleListLoading()) {
     on<GetTempleHistory>(onGetTempleHistory);
@@ -26,6 +28,7 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     on<GetTempleWhatsnew>(onGetTempleWhatsnew);
     on<GetTempleFacility>(onGetTempleFacility);
     on<GetTempleList>(onGetTempleList);
+    on<FilterTempleList>(onFilterTempleList);
   }
 
   void onGetTempleHistory(
@@ -48,6 +51,18 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     // [ { "result_set": [ { "history_typedesc": "History", "history_desc": "HISTORY OF ARULMIGU KAPALEESWARAR KARPAGAMBAL TEMPLE\r \r * Goddess Uma in the guise of Peacock worshiped Lord Shiva \r * Lord Muruga got his Sakthivel from Lord Shiva and Mother Uma \r * Lord Brahma got back his job of creation after shedding his pride \r * Vedas worshiped Lord Kapaleeswarar and hence Mylai is known as Vedapuri \r * Sukaran prayed to Lord Shiva here. Hence Mylai is also called Sukarapuri \r * Lord Sri Rama stayed here and performed pujas to Lord Shiva with festivals \r * In this holy soil, Thirugnana Sambandar restored Poompavai from her ashes and preserved bones. \r * Birth place of saint Vaylar, one of the 63 saints \r * Birth place of peiazhwar, one of the twelve azhwars, \r * Saint Arunagirinathar sang the glory of Lord Singaravelan in Thirupugazh. \r * Birth place of great saint and poet Thiruvalluvar whose Thirukural is a classic Tamil Sangam literature consisting of 1330 couplets \r * On this holy soil, Saint Sambandhar sang the first piece of literature Muttatta Punnayam.", "history_image": [ { "file_location": "aHJjZXBhdGgvdGVtcGxlaW5mby9oaXN0b3J5LzEvMS9pbWFnZV8xLmpwZw==" } ] }, { "history_typedesc": "Literary Background", "history_desc": "Literary Background\r The temple was also patronized by the great Tamil saint Thirugnana Sambandar. He sang the first hymn Matita Punnaiangal in praise of Kapaleeswarar and made Myalai famous as a divine worship centre. It was here that Sambandar restored Poompavai to life from the bones and ashes preserved by her father Sivanesar with the fond hope that one day she will come back to life. Poompavai father wanted her daughter to be married to a saint . But she died of snake bite and her father preserved the bones in a pot which he handed over to the child saint when he visited Mylai. Sambandar sang (10 verses Pathigam) with the beginning Mattita Punnai listing the various festivals of Lord Shiva", "history_image": [ { "file_location": "aHJjZXBhdGgvdGVtcGxlaW5mby9oaXN0b3J5LzEvMy9pbWFnZV8xLmpwZw==" } ] }, { "history_typedesc": "Thala Puranam", "history_desc": "THALA PURANAM:\r \r The name Mylapore is derived from the legend that the Goddess Uma worshipped Siva in the form of a peacock (or mayil in Tamil). We can see a representation of this legend on stone in a small Shrine under a Punnai tree (Sthala Vriksha) in the Courtyard of the temple. Once, Goddess Uma desired to know the complete interpretation of the five letter mantra Na Ma Shi Va and the splender of the sacred ash (Vibuthi). Goddess Uma persuaded Shiva to touch teach her. Shiva consented and commenced teaching. However Goddess Uma was distracted by a beautiful peacock nd her attention wandered. Siva was infuriated and cursed her to go to sacred Thondai Nadu and perform penance. Goddess Uma worshipped the Shivalinga under the punnai Tree in the temple vicinity. Moved by Goddess Uma utmost devotion, Lord appeared before Her and released Her from the curse and fondly called her as Karpagavalli. Goddess Uma requested Lord Shiva to name the place Mylapore and stay back with her to bestow blessings on all the devotees. Accordingly, Mylai became the abode of Kapaleeswarar and Karpagambal.\r \r \r There is another legend associated with Mylai being called Kapalesswaram. Lord Brahama thought that he was as great and equal to Lord Shiva as he too had five heads. Shiva known for his spontaneous reaction decided to teach Brahma a lesson and cut down his ego. Shiva nipped one head and held the skull in his hand. Therefore Lord Shiva was praised as Kapaleeswarar and the place of worship is called Kapaleeswaram.", "history_image": [ { "file_location": "aHJjZXBhdGgvdGVtcGxlaW5mby9oaXN0b3J5LzEvMi9pbWFnZV8xLmpwZw==" } ] } ], "response_status": "SUCCESS" } ]
     if (dataState is DataFailed) {
       emit(TempleListLodingError(dataState.error!));
+    }
+  }
+
+  onFilterTempleList(FilterTempleList event, Emitter<ITMSState> emit) {
+    List<ItmsResponseEntity> filteredTemples = templesList
+        .where((item) =>
+            item.templeName!.toLowerCase().contains(event.value.toLowerCase()))
+        .toList();
+    if (event.value.isEmpty) {
+      emit(TempleListLoaded(templesList));
+    } else {
+      emit(TempleListLoaded(filteredTemples));
     }
   }
 
@@ -329,6 +344,7 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
+        templesList = dataState.resultSet!;
         emit(TempleListLoaded(dataState.resultSet!));
       } else {
         emit(TempleListLoadingSomthingWentWrong(

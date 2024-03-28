@@ -70,6 +70,7 @@ dev_dependencies:
 flutter:
   assets:
     - .env_dev
+    - assets/images/god/
   uses-material-design: true
 
 

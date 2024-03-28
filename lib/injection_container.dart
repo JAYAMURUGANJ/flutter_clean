@@ -5,7 +5,7 @@ import 'core/data_sources/remote/ITMS_API_service.dart';
 import 'features/temple/data/repository/itms_repository_impl.dart';
 import 'features/temple/domain/repository/itms_repository.dart';
 import 'features/temple/domain/usecases/itms_response.dart';
-import 'features/temple/presentation/bloc/itms/itms.dart';
+import 'features/temple/presentation/bloc/itms/itms_bloc.dart';
 
 final sl = GetIt.instance;
 

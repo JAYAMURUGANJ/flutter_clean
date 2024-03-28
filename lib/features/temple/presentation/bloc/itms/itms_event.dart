@@ -101,3 +101,8 @@ class GetTempleFacility extends ITMSEvent {
     required this.templeId,
   });
 }
+
+class FilterTempleList extends ITMSEvent {
+  final String value;
+  FilterTempleList(this.value);
+}

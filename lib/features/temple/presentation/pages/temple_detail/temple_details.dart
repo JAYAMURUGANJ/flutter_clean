@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import '../../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../../injection_container.dart';
 import '../../../domain/entities/itms_response.dart';
-import '../../bloc/itms/itms.dart';
+import '../../bloc/itms/itms_bloc.dart';
 
 class TempleDetailsView extends StatelessWidget {
   final ItmsResponseEntity? temple;
