@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart';
 
 import '../../../../../config/constants.dart';
 import '../../../domain/entities/itms_response.dart';
@@ -20,21 +22,23 @@ class TempleList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: SafeArea(
-              child: Padding(
+        preferredSize: const Size.fromHeight(80.0),
+        child: SafeArea(
+          child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Row(
               children: [
-                const FlutterLogo(),
-                const SizedBox(
-                  width: 5,
+                const AppIcon(
+                  height: 60,
                 ),
+                5.pw,
                 Expanded(child: searchWidget(context, searchFieldController)),
                 IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
               ],
             ),
-          ))),
+          ),
+        ),
+      ),
       body: _templeListBuilder(),
       bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
@@ -101,26 +105,26 @@ class TempleList extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ListView.builder(
-          padding: const EdgeInsets.only(right: 8),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemExtent: 110,
-          itemCount: godList.length,
-          itemBuilder: (context, index) => GestureDetector(
-              onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                alignment: Alignment.bottomCenter,
-                decoration: BoxDecoration(
-                    // color: Colors.black.withOpacity(0.1),
-                    image: DecorationImage(
-                        image: AssetImage(godList[index].imageLink!)),
-                    color: Colors
-                        .primaries[Random().nextInt(Colors.primaries.length)]
-                        .shade600,
-                    borderRadius: BorderRadius.circular(16)),
-                //child: Image.asset(godList[index].imageLink!),
-              ))),
+        padding: const EdgeInsets.only(right: 3),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemExtent: 110,
+        itemCount: godList.length,
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () {},
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            alignment: Alignment.bottomCenter,
+            decoration: BoxDecoration(
+              image:
+                  DecorationImage(image: AssetImage(godList[index].imageLink!)),
+              color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
+                  .shade600,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

@@ -32,6 +32,10 @@ class NetworkImages {
       "https://static.vecteezy.com/system/resources/previews/012/003/110/large_2x/information-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
 }
 
+class LocalImages {
+  String appLogo = "assets/images/logo/logo.png";
+}
+
 // God list
 List<God> godList = [
   God(

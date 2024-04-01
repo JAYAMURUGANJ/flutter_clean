@@ -71,6 +71,7 @@ flutter:
   assets:
     - .env_dev
     - assets/images/god/
+    - assets/images/logo/
   uses-material-design: true
 
 

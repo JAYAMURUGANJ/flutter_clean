@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 import 'package:news_app_clean_architecture/core/models/itms_request.dart';
@@ -15,7 +16,7 @@ class ITMSRequestHandler {
 
   String getFormData() {
     String formData = "";
-    print("AM IN FORM DATA");
+    debugPrint("AM IN FORM DATA");
     List<Adparam> adparam = [
       Adparam(
           deviceTime: DateTime.now().toStringForm,
@@ -45,10 +46,10 @@ class ITMSRequestHandler {
               "13dda615f7495d354a891c6406290db6cd4a443d180bac547208e769e3c18932",
           serviceRequester: ApiCredentials.serviceRequester)
     ];
-    print("Before Encryption: ${request[0].toJson()}");
+    debugPrint("Before Encryption: ${request[0].toJson()}");
 
     formData = Authentication().encrypt(itmsRequestToJson(request));
-    print("encrypted form_data: $formData");
+    debugPrint("encrypted form_data: $formData");
     return formData;
   }
 }

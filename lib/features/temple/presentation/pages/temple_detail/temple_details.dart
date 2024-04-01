@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
 import '../../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../../injection_container.dart';
@@ -75,7 +76,7 @@ class TempleDetailsView extends StatelessWidget {
                 fontWeight: FontWeight.w900),
           ),
 
-          const SizedBox(height: 14),
+          14.ph,
           // DateTime
           const Row(
             children: [
