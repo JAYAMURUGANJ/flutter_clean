@@ -8,7 +8,7 @@ class ApiCredentials {
   static const String filePath = "documentview.php?file_path=";
 
   static const String baseUrl = domain + webService;
-  static const String documents = domain + filePath;
+  String documents = domain + filePath;
 
   static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
 

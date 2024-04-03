@@ -70,28 +70,18 @@ class TempleList extends StatelessWidget {
         }
 
         if (state is TempleListLoaded) {
+          dynamic templeList = state.templeList!;
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _godCategoriesWidget(),
-                // temple list
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: TempleListTile(
-                        temple: state.templeList![index],
-                        onTemplePressed: (article) =>
-                            _onTemplePressed(context, article),
-                      ),
-                    );
-                  },
-                  itemCount: state.templeList!.length,
-                ),
+                Text("Categories",
+                    style: Theme.of(context).textTheme.headlineSmall),
+                _godCategories(),
+                Text("Temples",
+                    style: Theme.of(context).textTheme.headlineSmall),
+                _templeList(templeList, state),
               ],
             ),
           );
@@ -101,7 +91,24 @@ class TempleList extends StatelessWidget {
     );
   }
 
-  _godCategoriesWidget() {
+  _templeList(templeList, TempleListLoaded state) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: TempleListTile(
+            temple: templeList[index],
+            onTemplePressed: (article) => _onTemplePressed(context, article),
+          ),
+        );
+      },
+      itemCount: state.templeList!.length,
+    );
+  }
+
+  _godCategories() {
     return SizedBox(
       height: 100,
       child: ListView.builder(
@@ -128,7 +135,7 @@ class TempleList extends StatelessWidget {
     );
   }
 
-  void _onTemplePressed(BuildContext context, ItmsResponseEntity article) {
+  _onTemplePressed(BuildContext context, ItmsResponseEntity article) {
     Navigator.pushNamed(context, '/TempleDetails', arguments: article);
   }
 }
