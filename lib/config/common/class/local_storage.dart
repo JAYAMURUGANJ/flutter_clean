@@ -24,6 +24,10 @@ class Prefs {
     return await _prefs.setString(key, value);
   }
 
+  static Future<bool> setInt(String key, int value) async {
+    return await _prefs.setInt(key, value);
+  }
+
   //gets
   static bool? getBool(String key) {
     return _prefs.getBool(key);
@@ -31,6 +35,10 @@ class Prefs {
 
   static String? getString(String key) {
     return _prefs.getString(key);
+  }
+
+  static int? getInt(String key) {
+    return _prefs.getInt(key);
   }
 
   static Future<bool> remove(String key) async => await _prefs.remove(key);

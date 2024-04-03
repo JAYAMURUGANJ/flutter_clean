@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../widgets/network_image_cache.dart';
+import '../../widgets/something_went_wrong.dart';
 
 class SomethingWentWrong extends StatelessWidget {
   final String error;
@@ -11,24 +12,7 @@ class SomethingWentWrong extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsetsDirectional.only(
-                    start: 14, end: 14, bottom: 7, top: 7),
-                height: MediaQuery.of(context).size.width / 2.2,
-                child: buildImage(context, NetworkImages.somthingWentWrong),
-              ),
-              Text(
-                error,
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-        ),
+        child: somthingWentWrong(context, error),
       ),
     );
   }

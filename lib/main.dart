@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import 'app.dart';
 import 'config/common/class/app_info.dart';
@@ -20,7 +21,9 @@ void main() {
       await dotenv.load(fileName: ".env_dev");
       WidgetsFlutterBinding.ensureInitialized();
       await initializeDependencies();
-      Prefs.setString(spLocalLanguage, 'EN');
+      await Prefs.init();
+      await Locales.init(['en', 'ta']);
+      await Prefs.setString(spLocalLanguage, 'EN');
       AppInfo().getIPAddress().then((ip) async {
         debugPrint("Network Ip: $ip");
         await Prefs.setString(

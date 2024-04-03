@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/temple/domain/entities/itms_response.dart';
-import '../../features/temple/presentation/pages/home/temple_list.dart';
-import '../../features/temple/presentation/pages/temple_detail/temple_details.dart';
+import '../../features/temple_list/domain/entities/itms_response.dart';
+import '../../features/temple_list/presentation/pages/temple_list.dart';
+import '../../features/temple_details/presentation/pages/temple_details.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
 
