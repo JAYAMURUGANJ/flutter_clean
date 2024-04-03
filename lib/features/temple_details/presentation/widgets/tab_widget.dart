@@ -43,7 +43,7 @@ Flexible buildTabView(BuildContext context, TabController tabController) {
       child: TabBarView(
           controller: tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: [
+          children: const [
             TempleInfoWidget(),
             Text("Timing",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),

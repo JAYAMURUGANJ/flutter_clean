@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/common/widgets/network_image_cache.dart';
+import '../../../../config/constants.dart';
 import '../../domain/entities/itms_response.dart';
 
 class TempleListTile extends StatelessWidget {
@@ -29,7 +30,8 @@ class TempleListTile extends StatelessWidget {
               buildImage(
                 context,
                 temple!.maintowerImage!.isNotEmpty
-                    ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
+                    ? ApiCredentials().documents +
+                        temple!.maintowerImage![0].fileLocation.toString()
                     : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
               ),
               _buildTitleAndDescription(context),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app_clean_architecture/config/theme/button_theme.g.dart';
-import 'package:news_app_clean_architecture/config/theme/text_theme.g.dart';
 
 // ThemeData theme(String language) {
 ThemeData theme() {

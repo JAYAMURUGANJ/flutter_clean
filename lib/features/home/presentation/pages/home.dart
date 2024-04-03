@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/settings/presentation/pages/settings.dart';
 import 'package:news_app_clean_architecture/features/temple_list/presentation/pages/temple_list.dart';
+
 import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
 
 List<Widget> _pages = [
-  TempleList(),
-  Icon(Icons.abc),
-  Icon(Icons.abc),
-  Settings()
+  const TempleList(),
+  const Icon(Icons.abc),
+  const Icon(Icons.abc),
+  const Settings()
 ];
 
 class Home extends StatelessWidget {

@@ -1,18 +1,31 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/temple_info.dart';
+import '../../domain/entities/temple_info.dart';
 
 class TempleInfo extends TempleInfoEntity {
+  @override
   String? description;
+  @override
   String? moolavarSwamiName;
+  @override
   String? moolavarAmbalName;
+  @override
   dynamic aagamamDesc;
+  @override
   String? poetName;
+  @override
   dynamic historicalName;
+  @override
   String? sthalaVirutcham;
+  @override
   String? templeTheertham;
+  @override
   List<TempleImage>? templeImages;
+  @override
   String? errorCode;
+  @override
   String? responseDesc;
 
   TempleInfo({

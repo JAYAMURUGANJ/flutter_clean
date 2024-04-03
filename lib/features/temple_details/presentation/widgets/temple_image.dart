@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/constants.dart';
+
 Widget buildTempleImage(context, temple) {
   return Container(
     height: 275,
@@ -16,7 +18,8 @@ Widget buildTempleImage(context, temple) {
           child: CachedNetworkImage(
             // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
             imageUrl: temple!.maintowerImage!.isNotEmpty
-                ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
+                ? ApiCredentials().documents +
+                    temple!.maintowerImage![0].fileLocation.toString()
                 : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
 
             imageBuilder: (context, imageProvider) => ClipRRect(
