@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import '../../widgets/network_image_cache.dart';
 import '../../widgets/something_went_wrong.dart';
 
 class SomethingWentWrong extends StatelessWidget {

@@ -45,11 +45,6 @@ class TempleListItem extends StatelessWidget {
   }
 
   Widget _buildParallaxBackground(BuildContext context, String imageUrl) {
-    // return Image.network(
-    //   imageUrl,
-    //   key: _backgroundImageKey,
-    //   fit: BoxFit.cover,
-    // );
     return ParallaxImage(
         backgroundImageKey: _backgroundImageKey, imageUrl: imageUrl);
   }

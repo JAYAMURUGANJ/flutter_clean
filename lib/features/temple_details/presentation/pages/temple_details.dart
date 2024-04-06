@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
+
 import '../../../../injection_container.dart';
+import '../../../dashboard/presentation/widgets/service_list.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
 import '../widgets/tab_widget.dart';
@@ -36,7 +39,23 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
       create: (_) => sl<ITMSBloc>(),
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: _buildBody(context),
+        body: NestedScrollView(
+          headerSliverBuilder: (context, value) {
+            return [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    buildTempleImage(context, widget.temple),
+                    _buildTempleTitle(context),
+                    buildServices(),
+                    buildTabBar(context, tabController),
+                  ],
+                ),
+              ),
+            ];
+          },
+          body: buildTabView(context, tabController),
+        ),
       ),
     );
   }
@@ -69,17 +88,37 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
     );
   }
 
-  Widget _buildBody(context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        buildTempleImage(context, widget.temple),
-        _buildTempleTitle(context),
-        buildTabBar(context, tabController),
-        buildTabView(context, tabController)
-      ],
-    );
-  }
+  // Widget _buildBody(context) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.stretch,
+  //     children: [
+  //       buildTempleImage(context, widget.temple),
+  //       _buildTempleTitle(context),
+  //       buildTabBar(context, tabController),
+  //       buildTabView(context, tabController)
+  //     ],
+  //   );
+  // }
+
+  // Widget _buildBody(context) {
+  //   return CustomScrollView(
+  //     shrinkWrap: true,
+  //     slivers: [
+  //       SliverToBoxAdapter(
+  //         child: buildTempleImage(context, widget.temple),
+  //       ),
+  //       SliverToBoxAdapter(
+  //         child: _buildTempleTitle(context),
+  //       ),
+  //       SliverToBoxAdapter(
+  //         child: buildTabBar(context, tabController),
+  //       ),
+  //       SliverFillRemaining(
+  //         child: buildTabView(context, tabController),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildTempleTitle(context) {
     return Padding(
@@ -97,5 +136,24 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
 
   void _onBackButtonTapped(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  buildServices() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          LocaleText(
+            'services',
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary),
+          ),
+          buildServicesList(),
+        ],
+      ),
+    );
   }
 }

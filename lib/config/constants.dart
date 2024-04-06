@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app_clean_architecture/core/models/booking_services.dart';
 import 'package:news_app_clean_architecture/core/models/god.dart';
 
 class ApiCredentials {
@@ -39,33 +41,79 @@ class LocalImages {
 // God list
 List<God> godList = [
   God(
-      id: 1,
-      name: "Vinayagar Temple ",
-      tName: "விநாயகர் கோயில்",
-      imageLink: "assets/images/god/vinayagar.png"),
+    id: 1,
+    name: "Vinayagar Temple ",
+    tName: "விநாயகர் கோயில்",
+    imageLink: "assets/images/god/vinayagar.png",
+    bgColor: Colors.deepOrange.shade100,
+  ),
   God(
-      id: 2,
-      name: "Shivan temple",
-      tName: "சிவன் கோயில்",
-      imageLink: "assets/images/god/shivan.png"),
+    id: 2,
+    name: "Shivan temple",
+    tName: "சிவன் கோயில்",
+    imageLink: "assets/images/god/shivan.png",
+    bgColor: Colors.blue.shade100,
+  ),
   God(
-      id: 7,
-      name: "Perumal Temple",
-      tName: "பெருமாள் கோயில்",
-      imageLink: "assets/images/god/perumal.png"),
+    id: 7,
+    name: "Perumal Temple",
+    tName: "பெருமாள் கோயில்",
+    imageLink: "assets/images/god/perumal.png",
+    bgColor: Colors.deepPurple.shade100,
+  ),
   God(
-      id: 3,
-      name: "Murugan Temple ",
-      tName: "முருகன் கோயில்",
-      imageLink: "assets/images/god/murugan.png"),
+    id: 3,
+    name: "Murugan Temple ",
+    tName: "முருகன் கோயில்",
+    imageLink: "assets/images/god/murugan.png",
+    bgColor: Colors.deepOrange.shade100,
+  ),
   God(
-      id: 4,
-      name: "Amman Temple",
-      tName: "அம்மன் கோயில்",
-      imageLink: "assets/images/god/amman.png"),
+    id: 4,
+    name: "Amman Temple",
+    tName: "அம்மன் கோயில்",
+    imageLink: "assets/images/god/amman.png",
+    bgColor: Colors.blue.shade100,
+  ),
   //13,14,15,16
 
   // God(id:5,name: "ஐயப்பன் கோயில்", imageLink: "assets/ayyappan.png"),
   // God(id:9,name: "ஆஞ்சநேயர் கோயில்", imageLink: "assets/hanuman.png"),
   // God(id:11,name: "நரசிம்மர் கோயில்", imageLink: "assets/narasimar.png"),
+];
+
+// Booking Services list
+List<BookingServices> bookingServicesList = [
+  BookingServices(
+    id: 1,
+    name: "Paid",
+    tName: "கட்டண சேவைகள்",
+    imageLink: "assets/images/god/vinayagar.png",
+    emoji: "🙏",
+    bgColor: Colors.deepOrange.shade100,
+  ),
+  BookingServices(
+    id: 2,
+    name: "Free",
+    tName: "இலவச சேவைகள்",
+    imageLink: "assets/images/god/vinayagar.png",
+    emoji: "🎟️",
+    bgColor: Colors.lightBlue.shade100,
+  ),
+  BookingServices(
+    id: 3,
+    name: "Donation",
+    tName: "நன்கொடை சேவைகள்",
+    imageLink: "assets/images/icons/donation.png",
+    emoji: "🗳️",
+    bgColor: Colors.deepOrange.shade100,
+  ),
+  BookingServices(
+    id: 4,
+    name: "Books",
+    tName: "புத்தகங்கள்",
+    imageLink: "assets/images/god/vinayagar.png",
+    emoji: "📚",
+    bgColor: Colors.lightBlue.shade100,
+  ),
 ];

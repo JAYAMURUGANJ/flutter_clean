@@ -1,10 +1,7 @@
 part of 'temple_info_bloc.dart';
 
-class TempleInfoEvent extends Equatable {
+abstract class TempleInfoEvent {
   const TempleInfoEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class GetTempleInfo extends TempleInfoEvent {

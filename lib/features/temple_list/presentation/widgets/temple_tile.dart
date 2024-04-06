@@ -18,23 +18,31 @@ class TempleListTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: Card(
-        color: Colors.transparent,
-        elevation: 0,
-        child: SizedBox(
-          height: 120,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildImage(
+      child: Container(
+        height: 120,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildImage(
                 context,
                 temple!.maintowerImage!.isNotEmpty
                     ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
                     : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
-              ),
-              _buildTitleAndDescription(context),
-            ],
-          ),
+                width: 120),
+            _buildTitleAndDescription(context),
+          ],
         ),
       ),
     );
@@ -43,22 +51,15 @@ class TempleListTile extends StatelessWidget {
   Widget _buildTitleAndDescription(context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title
-            Text(
-              temple!.templeName ?? '',
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        child: Text(
+          temple!.templeName ?? '',
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
       ),
     );

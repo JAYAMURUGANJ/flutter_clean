@@ -28,7 +28,7 @@ class TempleInfoEntity extends Equatable {
   @JsonKey(name: 'response_desc')
   final String? responseDesc;
 
-  TempleInfoEntity({
+  const TempleInfoEntity({
     this.description,
     this.moolavarSwamiName,
     this.moolavarAmbalName,
@@ -48,8 +48,21 @@ class TempleInfoEntity extends Equatable {
   Map<String, dynamic> toJson() => _$TempleInfoToJson(this);
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props {
+    return [
+      description,
+      moolavarSwamiName,
+      moolavarAmbalName,
+      aagamamDesc,
+      poetName,
+      historicalName,
+      sthalaVirutcham,
+      templeTheertham,
+      templeImages,
+      errorCode,
+      responseDesc,
+    ];
+  }
 }
 
 @JsonSerializable()

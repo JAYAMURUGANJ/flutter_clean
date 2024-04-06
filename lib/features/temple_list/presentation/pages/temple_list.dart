@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart';
 
+import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
 import '../../domain/entities/itms_response.dart';
 import '../bloc/itms/itms_bloc.dart';
@@ -26,24 +24,10 @@ class _TempleListState extends State<TempleList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Row(
-              children: [
-                const AppIcon(
-                  height: 60,
-                ),
-                5.pw,
-                Expanded(child: searchWidget(context, searchFieldController)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
-              ],
-            ),
-          ),
-        ),
-      ),
+      appBar: appHeader(
+          context: context,
+          body: searchWidget(context, searchFieldController),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: _templeListBuilder(),
     );
   }
@@ -72,11 +56,9 @@ class _TempleListState extends State<TempleList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("Categories",
-                    style: Theme.of(context).textTheme.headlineSmall),
+                buildHeadingText(context, "categories"),
                 _godCategories(),
-                Text("Temples",
-                    style: Theme.of(context).textTheme.headlineSmall),
+                buildHeadingText(context, "temples"),
                 _templeList(templeList, state),
               ],
             ),
@@ -91,9 +73,10 @@ class _TempleListState extends State<TempleList> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      itemExtent: 140,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
           child: TempleListTile(
             temple: templeList[index],
             onTemplePressed: (article) => _onTemplePressed(context, article),
@@ -106,25 +89,37 @@ class _TempleListState extends State<TempleList> {
 
   _godCategories() {
     return SizedBox(
-      height: 100,
+      height: 110,
       child: ListView.builder(
         padding: const EdgeInsets.only(right: 3),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemExtent: 110,
+        itemExtent: 100,
         itemCount: godList.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {},
-          child: Container(
-            margin: const EdgeInsets.all(5),
-            alignment: Alignment.bottomCenter,
-            decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage(godList[index].imageLink!)),
-              color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
-                  .shade600,
-              borderRadius: BorderRadius.circular(16),
-            ),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(14),
+                width: 75,
+                height: 75,
+                decoration: BoxDecoration(
+                  color: godList[index].bgColor,
+                  image: DecorationImage(
+                      image: AssetImage(godList[index].imageLink!)),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

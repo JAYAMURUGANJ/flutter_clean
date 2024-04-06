@@ -43,7 +43,7 @@ class _SettingsState extends State<Settings> {
 
 class LabelText extends StatelessWidget {
   final String label;
-  const LabelText({key, required this.label});
+  const LabelText({Key? key, required this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
