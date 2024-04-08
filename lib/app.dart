@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/features/home/presentation/pages/home.dart';
-import 'package:news_app_clean_architecture/features/settings/presentation/bloc/theme/theme_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:news_app_clean_architecture/splash.dart';
 
+import '../features/settings/presentation/bloc/theme/theme_bloc.dart';
+import '../features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
@@ -21,6 +22,12 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  @override
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LocaleBuilder(builder: (Locale? locale) {
@@ -51,7 +58,7 @@ class _AppState extends State<App> {
                   ? ThemeMode.dark
                   : ThemeMode.light,
               onGenerateRoute: AppRoutes.onGenerateRoutes,
-              home: const Home(),
+              home: const SplashScreen(),
             );
           },
         ),

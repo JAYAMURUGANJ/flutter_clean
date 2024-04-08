@@ -32,3 +32,24 @@ const TextTheme appTextTheme = TextTheme(
   labelSmall:
       TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white),
 );
+
+final Shader linearGradient = const LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: <Color>[Colors.orange, Colors.yellow, Colors.red, Colors.black],
+).createShader(
+  const Rect.fromLTRB(500.0, 50.0, 200.0, 400.0),
+);
+
+const gradient = LinearGradient(
+  colors: [Colors.pink, Colors.green],
+);
+
+// final Shader linearGradient_2 = LinearGradient(
+//   begin: Alignment.topLeft,
+//   end: Alignment.bottomRight,
+//   colors: gradient,
+// ).createShader(Rect.fromCircle(
+//   center: Offset(fontSize, -200),
+//   radius: fontSize / 3,
+// ));

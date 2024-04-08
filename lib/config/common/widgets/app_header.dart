@@ -5,8 +5,9 @@ import 'app_logo.dart';
 
 PreferredSize appHeader(
     {required BuildContext context,
-    Widget leading =
-        const Row(children: [AppIcon(height: 60), SizedBox(width: 5)]),
+    Widget leading = const Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [AppIcon(height: 60), SizedBox(width: 5)]),
     required Widget body,
     required Widget trailing}) {
   return PreferredSize(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../dashboard/presentation/pages/dashboard.dart';
+import '../../../paid_service/presentation/pages/paid_service.dart';
 import '../../../settings/presentation/pages/settings.dart';
 import '../../../temple_list/presentation/pages/temple_list.dart';
 import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
@@ -8,7 +10,7 @@ import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
 List<Widget> _pages = [
   const Dashboard(),
   const TempleList(),
-  const Icon(Icons.abc),
+  const TicketBookingPage(),
   const Settings(),
 ];
 
@@ -48,7 +50,7 @@ class Home extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_month_outlined), label: "Booking"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline_rounded), label: "Profile"),
+                  icon: Icon(Icons.settings), label: "Settings"),
             ]);
       },
     );

@@ -36,6 +36,7 @@ class NetworkImages {
 
 class LocalImages {
   String appLogo = "assets/images/logo/logo.png";
+  String tnLogo = "assets/images/logo/tn_logo.png";
 }
 
 // God list
@@ -88,17 +89,17 @@ List<BookingServices> bookingServicesList = [
     id: 1,
     name: "Paid",
     tName: "கட்டண சேவைகள்",
-    imageLink: "assets/images/god/vinayagar.png",
+    imageLink: "assets/images/icons/paid.png",
     emoji: "🙏",
-    bgColor: Colors.deepOrange.shade100,
+    bgColor: Colors.deepPurple.shade300,
   ),
   BookingServices(
     id: 2,
     name: "Free",
     tName: "இலவச சேவைகள்",
-    imageLink: "assets/images/god/vinayagar.png",
+    imageLink: "assets/images/icons/free.png",
     emoji: "🎟️",
-    bgColor: Colors.lightBlue.shade100,
+    bgColor: Colors.lightBlue.shade300,
   ),
   BookingServices(
     id: 3,
@@ -106,14 +107,17 @@ List<BookingServices> bookingServicesList = [
     tName: "நன்கொடை சேவைகள்",
     imageLink: "assets/images/icons/donation.png",
     emoji: "🗳️",
-    bgColor: Colors.deepOrange.shade100,
+    bgColor: Colors.deepOrange.shade300,
   ),
   BookingServices(
     id: 4,
     name: "Books",
     tName: "புத்தகங்கள்",
-    imageLink: "assets/images/god/vinayagar.png",
+    imageLink: "assets/images/icons/book.png",
     emoji: "📚",
-    bgColor: Colors.lightBlue.shade100,
+    bgColor: Colors.lightGreen.shade300,
   ),
 ];
+
+
+

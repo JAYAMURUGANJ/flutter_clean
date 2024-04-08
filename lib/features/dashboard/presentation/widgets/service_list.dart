@@ -16,9 +16,9 @@ buildServicesList() {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.all(14),
-              width: 65,
-              height: 65,
+              margin: const EdgeInsets.all(12),
+              width: 100,
+              height: 80,
               decoration: BoxDecoration(
                 color: bookingServicesList[index].bgColor,
                 borderRadius: BorderRadius.circular(12),
@@ -32,14 +32,19 @@ buildServicesList() {
                 ],
               ),
               child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    bookingServicesList[index].emoji!,
-                    style: const TextStyle(fontSize: 35),
-                    textAlign: TextAlign.center,
-                  )
-                  // Image(image: AssetImage(bookingServicesList[index].imageLink!)),
-                  ),
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  bookingServicesList[index].imageLink!,
+                ),
+
+                // Text(
+                //   bookingServicesList[index].emoji!,
+                //   style: const TextStyle(fontSize: 35),
+                //   textAlign: TextAlign.center,
+                // )
+                // Image(image: AssetImage(bookingServicesList[index].imageLink!)),
+              ),
+
               //  color: Colors.white,
               //  borderRadius: BorderRadius.circular(16),
             ),
@@ -50,7 +55,10 @@ buildServicesList() {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall!,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ],

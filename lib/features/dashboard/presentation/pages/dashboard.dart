@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/app_header.dart';
 
+import '../../../../config/theme/text_theme.g.dart';
 import '../widgets/service_list.dart';
 
 class Dashboard extends StatelessWidget {
@@ -10,14 +12,22 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LocaleText(
-          "thirukoil",
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.w800),
+        title: appHeader(
+          context: context,
+          body: Align(
+            alignment: Alignment.topCenter,
+            child: LocaleText(
+              "thirukoil",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.w800,
+                  foreground: Paint()..shader = linearGradient),
+            ),
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {},
+          ),
         ),
-        //  centerTitle: false,
       ),
       body: _buildBody(context),
     );

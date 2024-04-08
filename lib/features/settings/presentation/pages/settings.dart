@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/widgets/app_header.dart';
 import '../widgets/language_list.dart';
 import '../widgets/theme_list.dart';
 
@@ -15,9 +16,13 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
-      ),
+      appBar: appHeader(
+          context: context,
+          body: Text('Settings',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.headlineSmall),
+          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
