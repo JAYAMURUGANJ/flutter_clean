@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 
 import '../../../../config/common/widgets/something_went_wrong.dart';
+import '../../../../config/common/widgets/text_widgets.dart';
 import '../../domain/entities/temple_info.dart';
 
 class TempleInfoWidget extends StatelessWidget {
@@ -28,16 +31,29 @@ class TempleInfoWidget extends StatelessWidget {
         if (state is TempleInfoLoaded) {
           final TempleInfoEntity? templeInfo = state.templeInfo![0];
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              buildlabelValueTxt(
+                  context, "moolavar", templeInfo!.moolavarSwamiName),
+              buildlabelValueTxt(
+                  context, "moolavar_ambal", templeInfo.moolavarAmbalName),
+              buildlabelValueTxt(
+                  context, "thala_virutcham", templeInfo.sthalaVirutcham),
+              buildlabelValueTxt(
+                  context, "theertham", templeInfo.templeTheertham),
+              buildlabelValueTxt(context, "aagamam", templeInfo.aagamamDesc),
+              buildlabelValueTxt(
+                  context, "historical_name", templeInfo.historicalName),
+              buildlabelValueTxt(context, "saints_poets", templeInfo.poetName),
               Text(
-                templeInfo!.description ?? "-",
+                templeInfo.description ?? "-",
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ],
           );
         }
-        return const Text(" No data");
+        return const Center(child: Text(" No data Available"));
       },
     );
   }

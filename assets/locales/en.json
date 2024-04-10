@@ -31,5 +31,21 @@
     "poojas": "Pooja",
     "categories": "Categories",
     "devotee_services": "Devotee Services",
-    "thirukoil": "Thirukoil"
+    "thirukoil": "Thirukoil",
+    "moolavar": "Moolavar",
+    "moolavar_ambal": "Moolavar Ambal",
+    "thala_virutcham": "Thala Virutcham",
+    "theertham": "Theertham",
+    "aagamam": "Aagamam",
+    "historical_name": "Historical Name",
+    "saints_poets": "Saints/Poets",
+    "morning": "Morning",
+    "evening": "Evening",
+    "opening_time": "Opening Time",
+    "closing_time": "Closing Time",
+    "remarks": "Remarks",
+    "paid": "Paid",
+    "free": "Free",
+    "donation": "Donation",
+    "books": "Books"
 }

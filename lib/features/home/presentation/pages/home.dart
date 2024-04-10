@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined), label: "Home"),
-              BottomNavigationBarItem(
+              BottomNavigationBarItem( 
                   icon: Icon(Icons.temple_hindu_outlined), label: "Temples"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_month_outlined), label: "Booking"),

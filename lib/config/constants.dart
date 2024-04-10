@@ -87,7 +87,7 @@ List<God> godList = [
 List<BookingServices> bookingServicesList = [
   BookingServices(
     id: 1,
-    name: "Paid",
+    name: "paid",
     tName: "கட்டண சேவைகள்",
     imageLink: "assets/images/icons/paid.png",
     emoji: "🙏",
@@ -95,7 +95,7 @@ List<BookingServices> bookingServicesList = [
   ),
   BookingServices(
     id: 2,
-    name: "Free",
+    name: "free",
     tName: "இலவச சேவைகள்",
     imageLink: "assets/images/icons/free.png",
     emoji: "🎟️",
@@ -103,7 +103,7 @@ List<BookingServices> bookingServicesList = [
   ),
   BookingServices(
     id: 3,
-    name: "Donation",
+    name: "donation",
     tName: "நன்கொடை சேவைகள்",
     imageLink: "assets/images/icons/donation.png",
     emoji: "🗳️",
@@ -111,7 +111,7 @@ List<BookingServices> bookingServicesList = [
   ),
   BookingServices(
     id: 4,
-    name: "Books",
+    name: "books",
     tName: "புத்தகங்கள்",
     imageLink: "assets/images/icons/book.png",
     emoji: "📚",

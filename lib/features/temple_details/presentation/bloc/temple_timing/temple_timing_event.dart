@@ -1,8 +1,12 @@
 part of 'temple_timing_bloc.dart';
 
- class TempleTimingEvent extends Equatable {
+abstract class TempleTimingEvent {
   const TempleTimingEvent();
+}
 
-  @override
-  List<Object> get props => [];
+class GetTempleTiming extends TempleTimingEvent {
+  String templeId;
+  GetTempleTiming({
+    required this.templeId,
+  });
 }

@@ -335,9 +335,9 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
   void onGetTempleList(GetTempleList event, Emitter<ITMSState> emit) async {
     //temple list with 360 view and tower image
     String serviceId = "7019";
-    String formData =
-        ITMSRequestHandler(serviceId, [FilterData(degree360Avail: "Y")])
-            .getFormData();
+    String formData = ITMSRequestHandler(serviceId, [
+      FilterData(degree360Avail: "Y", seniorgradeTemples: "Y")
+    ]).getFormData();
 
     final dataState = await _getItmsResponseUseCase(formData, serviceId);
 

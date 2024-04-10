@@ -1,11 +1,13 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:news_app_clean_architecture/splash.dart';
+import 'package:news_app_clean_architecture/features/settings/presentation/bloc/theme/theme_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
-import '../features/settings/presentation/bloc/theme/theme_bloc.dart';
-import '../features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
@@ -39,6 +41,7 @@ class _AppState extends State<App> {
           BlocProvider<BottomNavigationCubit>(create: (context) => sl()),
           BlocProvider<ThemeBloc>(create: (context) => sl()),
           BlocProvider<TempleInfoBloc>(create: (context) => sl()),
+          BlocProvider<TempleTimingBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
@@ -47,7 +50,9 @@ class _AppState extends State<App> {
               localizationsDelegates: Locales.delegates,
               supportedLocales: Locales.supportedLocales,
               locale: locale,
-              theme: theme().copyWith(
+              theme:
+                  //FlexThemeData.light(scheme: FlexScheme.barossa),
+                  theme().copyWith(
                 colorScheme: themeState is LightModeState
                     ? lightColorScheme[themeState.index]
                     : lightColorScheme[0],

@@ -55,7 +55,9 @@ dependencies:
 
   flutter_locales: ^3.0.1
   date_picker_timeline: ^1.2.5
+  easy_image_viewer: ^1.4.1
   flutter_native_splash: ^2.4.0
+  flex_color_scheme: ^7.3.1
   
 
 

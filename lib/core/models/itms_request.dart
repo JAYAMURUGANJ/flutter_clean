@@ -94,10 +94,16 @@ class FilterData {
   String? degree360Avail;
   @JsonKey(name: 'temple_id')
   String? templeId;
+  @JsonKey(name: 'section_code')
+  String? sectionCode;
+  @JsonKey(name: 'seniorgrade_temples')
+  String? seniorgradeTemples;
   FilterData({
     this.districtCode,
     this.degree360Avail,
     this.templeId,
+    this.sectionCode,
+    this.seniorgradeTemples,
   });
 
   factory FilterData.fromJson(Map<String, dynamic> json) =>

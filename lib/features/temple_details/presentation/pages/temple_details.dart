@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_details/temple_info_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
 import '../../../../injection_container.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
@@ -27,9 +28,11 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
   late TabController tabController;
   @override
   void initState() {
+    super.initState();
     BlocProvider.of<TempleInfoBloc>(context)
         .add(GetTempleInfo(templeId: widget.temple!.templeId.toString()));
-    super.initState();
+    BlocProvider.of<TempleTimingBloc>(context)
+        .add(GetTempleTiming(templeId: widget.temple!.templeId.toString()));
   }
 
   @override
@@ -124,7 +127,9 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 24, bottom: 14),
       child: Text(
-        widget.temple!.templeName ?? '',
+        Locales.currentLocale(context)!.languageCode == "en"
+            ? widget.temple!.templeName ?? '-'
+            : widget.temple!.ttempleName ?? "-",
         style: const TextStyle(
           fontFamily: 'Butler',
           fontSize: 18,

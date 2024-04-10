@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/constants.dart';
 
@@ -68,7 +69,7 @@ Column _devoteeServiceCard(int index, BuildContext context, double width,
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: Text(
+        child: LocaleText(
           bookingServicesList[index].name!,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,

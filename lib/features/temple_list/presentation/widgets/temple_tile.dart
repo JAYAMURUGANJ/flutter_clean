@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../config/constants.dart';
@@ -55,7 +56,9 @@ class TempleListTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
         child: Text(
-          temple!.templeName ?? '',
+          Locales.currentLocale(context)!.languageCode == "en"
+              ? temple!.templeName ?? '-'
+              : temple!.ttempleName ?? "-",
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context)

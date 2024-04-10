@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/temple_info.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/temple_timing.dart';
 
 buildTabBar(BuildContext context, TabController tabController) {
   return Padding(
@@ -24,13 +25,6 @@ buildTabBar(BuildContext context, TabController tabController) {
               .titleMedium!
               .copyWith(fontWeight: FontWeight.bold),
           tabs: const [
-            //  Tab(
-            //   child: LocaleText(
-            //     "services",
-            //     textAlign: TextAlign.center,
-            //     //  style: Theme.of(context).textTheme.bodySmall,
-            //   ),
-            // ),
             Tab(
               child: LocaleText(
                 "details",
@@ -64,8 +58,7 @@ buildTabView(BuildContext context, TabController tabController) {
           // Text("Services",
           //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
           SingleChildScrollView(child: TempleInfoWidget()),
-          Text("Timing",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          SingleChildScrollView(child: TempleTiming()),
           Text("Pooja",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ]),
