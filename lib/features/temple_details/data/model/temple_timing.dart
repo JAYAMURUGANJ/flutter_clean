@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:news_app_clean_architecture/features/temple_details/domain/entities/temple_timing.dart';
 
 class TempleTiming extends TempleTimingEntity {
-  TempleTiming({
+  const TempleTiming({
     String? mrngOpeningtime,
     String? mrngClosingTime,
     String? evngOpeningTime,
