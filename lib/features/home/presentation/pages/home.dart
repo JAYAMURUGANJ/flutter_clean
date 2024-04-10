@@ -37,6 +37,7 @@ class Home extends StatelessWidget {
     return BlocBuilder<BottomNavigationCubit, int>(
       builder: (context, selectedIndex) {
         return BottomNavigationBar(
+            elevation: 0.0,
             type: BottomNavigationBarType.fixed,
             currentIndex: selectedIndex,
             onTap: (value) {

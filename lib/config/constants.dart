@@ -46,35 +46,35 @@ List<God> godList = [
     name: "Vinayagar Temple ",
     tName: "விநாயகர் கோயில்",
     imageLink: "assets/images/god/vinayagar.png",
-    bgColor: Colors.deepOrange.shade100,
+    bgColor: Colors.deepOrange.shade300,
   ),
   God(
     id: 2,
     name: "Shivan temple",
     tName: "சிவன் கோயில்",
     imageLink: "assets/images/god/shivan.png",
-    bgColor: Colors.blue.shade100,
+    bgColor: Colors.blue.shade300,
   ),
   God(
     id: 7,
     name: "Perumal Temple",
     tName: "பெருமாள் கோயில்",
     imageLink: "assets/images/god/perumal.png",
-    bgColor: Colors.deepPurple.shade100,
+    bgColor: Colors.deepPurple.shade300,
   ),
   God(
     id: 3,
     name: "Murugan Temple ",
     tName: "முருகன் கோயில்",
     imageLink: "assets/images/god/murugan.png",
-    bgColor: Colors.deepOrange.shade100,
+    bgColor: Colors.deepOrange.shade300,
   ),
   God(
     id: 4,
     name: "Amman Temple",
     tName: "அம்மன் கோயில்",
     imageLink: "assets/images/god/amman.png",
-    bgColor: Colors.blue.shade100,
+    bgColor: Colors.blue.shade300,
   ),
   //13,14,15,16
 
@@ -118,6 +118,3 @@ List<BookingServices> bookingServicesList = [
     bgColor: Colors.lightGreen.shade300,
   ),
 ];
-
-
-
