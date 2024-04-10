@@ -9,7 +9,7 @@ import '../bloc/itms/itms_bloc.dart';
 import '../bloc/itms/itms_state.dart';
 import 'temple_tile.dart';
 
-templeListBuilder({required String listType}) {
+templeListBuilder() {
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
       if (state is TempleListLodingError) {
@@ -27,30 +27,72 @@ templeListBuilder({required String listType}) {
 
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        return listType == "FULL"
-            ? SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    buildHeadingText(context, "categories"),
-                    godCategories(),
-                    buildHeadingText(context, "temples"),
-                    templeList(templeList, state),
-                  ],
-                ),
-              )
-            : const SizedBox(
-                height: 100,
-                child: Center(child: Text("Main Temples")),
-              );
+        return fullTempleListView(context, templeList, state);
       }
       return const SizedBox();
     },
   );
 }
 
-templeList(templeList, TempleListLoaded state) {
+mainTempleListBuilder() {
+  return BlocConsumer<ITMSBloc, ITMSState>(
+    listener: (context, state) {
+      if (state is TempleListLodingError) {
+        Navigator.pushNamed(context, '/DioException', arguments: state.error!);
+      }
+      if (state is TempleListLoadingSomthingWentWrong) {
+        Navigator.pushNamed(context, '/SomthingWentWrong',
+            arguments: state.responseStatus!);
+      }
+    },
+    builder: (context, state) {
+      if (state is TempleListLoading) {
+        return const Center(child: CupertinoActivityIndicator());
+      }
+
+      if (state is TempleListLoaded) {
+        dynamic templeList = state.templeList!;
+        return mainTempleListView(context, templeList, state);
+      }
+      return const SizedBox();
+    },
+  );
+}
+
+fullTempleListView(BuildContext context, templeList, TempleListLoaded state) {
+  return SingleChildScrollView(
+    padding: const EdgeInsets.symmetric(horizontal: 14),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        buildHeadingText(context, "categories"),
+        _godCategories(),
+        buildHeadingText(context, "temples"),
+        _templeList(templeList, state),
+      ],
+    ),
+  );
+}
+
+mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
+  return SizedBox(
+    height: 150,
+    child: ListView.builder(
+      shrinkWrap: true,
+      itemExtent: 140,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return MainTempleListTile(
+          temple: templeList[index],
+          onTemplePressed: (article) => _onTemplePressed(context, article),
+        );
+      },
+      itemCount: state.templeList!.length,
+    ),
+  );
+}
+
+_templeList(templeList, TempleListLoaded state) {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -60,7 +102,7 @@ templeList(templeList, TempleListLoaded state) {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
         child: TempleListTile(
           temple: templeList[index],
-          onTemplePressed: (article) => onTemplePressed(context, article),
+          onTemplePressed: (article) => _onTemplePressed(context, article),
         ),
       );
     },
@@ -68,7 +110,7 @@ templeList(templeList, TempleListLoaded state) {
   );
 }
 
-godCategories() {
+_godCategories() {
   return SizedBox(
     height: 110,
     child: ListView.builder(
@@ -107,6 +149,6 @@ godCategories() {
   );
 }
 
-onTemplePressed(BuildContext context, ItmsResponseEntity article) {
+_onTemplePressed(BuildContext context, ItmsResponseEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

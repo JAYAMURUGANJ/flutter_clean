@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget buildImage(BuildContext context, String url, {double? width}) {
+Widget buildImage(BuildContext context, String url,
+    {double? width, double? height}) {
   return CachedNetworkImage(
     // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
     imageUrl: url,
@@ -11,7 +12,7 @@ Widget buildImage(BuildContext context, String url, {double? width}) {
           topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
       child: Container(
         width: width ?? MediaQuery.of(context).size.width / 3,
-        height: double.maxFinite,
+        height: height ?? double.maxFinite,
         decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.08),
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),

@@ -21,7 +21,7 @@ class _TempleListState extends State<TempleList> {
           context: context,
           body: searchWidget(context, searchFieldController),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
-      body: templeListBuilder(listType: "FULL"),
+      body: templeListBuilder(),
     );
   }
 }
