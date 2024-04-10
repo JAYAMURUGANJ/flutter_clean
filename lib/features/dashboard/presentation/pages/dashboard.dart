@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/config/common/widgets/app_header.dart';
 
 import '../../../../config/common/widgets/cloud_arc.dart';
 import '../../../../config/theme/text_theme.g.dart';
+import '../../../temple_list/presentation/widgets/temple_list.dart';
 import '../widgets/service_list.dart';
 
 class Dashboard extends StatelessWidget {
@@ -32,18 +34,28 @@ class Dashboard extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 180),
-              painter: CloudArcPainter(
-                  themeColor: Theme.of(context).colorScheme.primary),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: CustomPaint(
+                size: Size(MediaQuery.of(context).size.width, 180),
+                painter: CloudArcPainter(
+                    themeColor: Theme.of(context).colorScheme.primary),
+              ),
             ),
           ),
-          Center(
-            child: _buildBody(context),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buildBody(context),
+                50.ph,
+                templeListBuilder(listType: "MAIN"),
+              ],
+            ),
           )
         ],
       ),

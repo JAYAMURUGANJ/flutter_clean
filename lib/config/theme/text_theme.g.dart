@@ -40,11 +40,6 @@ final Shader linearGradient = const LinearGradient(
 ).createShader(
   const Rect.fromLTRB(500.0, 50.0, 200.0, 400.0),
 );
-
-const gradient = LinearGradient(
-  colors: [Colors.pink, Colors.green],
-);
-
 // final Shader linearGradient_2 = LinearGradient(
 //   begin: Alignment.topLeft,
 //   end: Alignment.bottomRight,
