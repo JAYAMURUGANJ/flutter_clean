@@ -151,7 +151,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary),
           ),
-          buildServicesList(),
+          buildDevoteeServicesList(listType: "HL"),
         ],
       ),
     );

@@ -46,7 +46,7 @@ class Dashboard extends StatelessWidget {
                 .titleMedium!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          buildServicesList()
+          buildDevoteeServicesList(listType: 'HL')
         ],
       ),
     );
