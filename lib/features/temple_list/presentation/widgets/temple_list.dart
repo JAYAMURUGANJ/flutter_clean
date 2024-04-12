@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
@@ -9,7 +11,7 @@ import '../bloc/itms/itms_bloc.dart';
 import '../bloc/itms/itms_state.dart';
 import 'temple_tile.dart';
 
-templeListBuilder() {
+alltempleListBlocBuilder() {
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
       if (state is TempleListLodingError) {
@@ -27,14 +29,14 @@ templeListBuilder() {
 
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        return fullTempleListView(context, templeList, state);
+        return allTempleListPageView(context, templeList, state);
       }
       return const SizedBox();
     },
   );
 }
 
-mainTempleListBuilder() {
+mainTempleListBlocBuilder() {
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
       if (state is TempleListLodingError) {
@@ -47,19 +49,37 @@ mainTempleListBuilder() {
     },
     builder: (context, state) {
       if (state is TempleListLoading) {
-        return const Center(child: CupertinoActivityIndicator());
+        return const SizedBox(
+            height: 350, child: Center(child: CupertinoActivityIndicator()));
       }
 
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        return mainTempleListView(context, templeList, state);
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              LocaleText(
+                "main_temples",
+                textAlign: TextAlign.left,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              mainTempleListView(context, templeList, state),
+            ],
+          ),
+        );
       }
       return const SizedBox();
     },
   );
 }
 
-fullTempleListView(BuildContext context, templeList, TempleListLoaded state) {
+allTempleListPageView(
+    BuildContext context, templeList, TempleListLoaded state) {
   return SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 14),
     child: Column(
@@ -68,7 +88,7 @@ fullTempleListView(BuildContext context, templeList, TempleListLoaded state) {
         buildHeadingText(context, "categories"),
         _godCategories(),
         buildHeadingText(context, "temples"),
-        _templeList(templeList, state),
+        allTempleListView(templeList, state),
       ],
     ),
   );
@@ -76,23 +96,21 @@ fullTempleListView(BuildContext context, templeList, TempleListLoaded state) {
 
 mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
   return SizedBox(
-    height: 150,
-    child: ListView.builder(
-      shrinkWrap: true,
-      itemExtent: 140,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return MainTempleListTile(
-          temple: templeList[index],
-          onTemplePressed: (article) => _onTemplePressed(context, article),
-        );
-      },
-      itemCount: state.templeList!.length,
+    height: 400,
+    child: CardSwiper(
+      backCardOffset: const Offset(0, 24),
+      numberOfCardsDisplayed: 3,
+      cardsCount: templeList.length,
+      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
+          MainTempleListTile(
+        temple: templeList[index],
+        onTemplePressed: (article) => _onTemplePressed(context, article),
+      ),
     ),
   );
 }
 
-_templeList(templeList, TempleListLoaded state) {
+allTempleListView(templeList, TempleListLoaded state) {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),

@@ -54,7 +54,8 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     }
   }
 
-  onFilterTempleList(FilterTempleList event, Emitter<ITMSState> emit) {
+  // search temple from the temple list
+  void onFilterTempleList(FilterTempleList event, Emitter<ITMSState> emit) {
     List<ItmsResponseEntity> filteredTemples = templesList
         .where((item) =>
             item.templeName!.toLowerCase().contains(event.value.toLowerCase()))
@@ -336,7 +337,8 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     //temple list with 360 view and tower image
     String serviceId = "7019";
     String formData = ITMSRequestHandler(serviceId, [
-      FilterData(degree360Avail: "Y", seniorgradeTemples: "Y")
+      FilterData(
+          degree360Avail: "Y", seniorgradeTemples: event.seniorgradeTemples)
     ]).getFormData();
 
     final dataState = await _getItmsResponseUseCase(formData, serviceId);

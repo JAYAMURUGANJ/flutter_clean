@@ -6,17 +6,15 @@ import '../../../../config/constants.dart';
 buildDevoteeServicesList({required String listType}) {
   return listType != 'GRID'
       ? SizedBox(
-          height: 130,
+          height: 100,
           child: ListView.builder(
             padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemExtent: 90,
             itemCount: bookingServicesList.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {},
-              child: _devoteeServiceCard(index, context, 100, 80, 14),
-            ),
+            itemBuilder: (context, index) =>
+                _devoteeServiceCard(index, context, 100, 60, 12),
           ),
         )
       : GridView.builder(
@@ -33,53 +31,73 @@ buildDevoteeServicesList({required String listType}) {
         );
 }
 
-Column _devoteeServiceCard(int index, BuildContext context, double width,
+_devoteeServiceCard(int index, BuildContext context, double width,
     double height, double fontSize) {
-  return Column(
-    children: [
-      Container(
-        margin: const EdgeInsets.all(12),
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: bookingServicesList[index].bgColor,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            bookingServicesList[index].imageLink!,
+  return GestureDetector(
+    onTap: () =>
+        _pageNavigation(bookingServicesList[index].page.toString(), context),
+    child: Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(10),
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: bookingServicesList[index].bgColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
           ),
-
-          // Text(
-          //   bookingServicesList[index].emoji!,
-          //   style: const TextStyle(fontSize: 35),
-          //   textAlign: TextAlign.center,
-          // )
-          // Image(image: AssetImage(bookingServicesList[index].imageLink!)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              bookingServicesList[index].imageLink!,
+            ),
+          ),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: LocaleText(
-          bookingServicesList[index].name!,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: LocaleText(
+            bookingServicesList[index].name!,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(fontWeight: FontWeight.bold, fontSize: fontSize),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+_pageNavigation(String routeName, BuildContext context) {
+  return routeName != "" ? Navigator.pushNamed(context, routeName) : () {};
+}
+
+buildDevoteeServiceList(context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        LocaleText(
+          "devotee_services",
           style: Theme.of(context)
               .textTheme
               .titleSmall!
-              .copyWith(fontWeight: FontWeight.bold, fontSize: fontSize),
+              .copyWith(fontWeight: FontWeight.bold),
         ),
-      ),
-    ],
+        buildDevoteeServicesList(listType: 'HL')
+      ],
+    ),
   );
 }

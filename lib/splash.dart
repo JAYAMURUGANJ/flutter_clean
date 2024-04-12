@@ -9,7 +9,6 @@ import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart'
 import 'config/common/widgets/app_header.dart';
 import 'config/constants.dart';
 import 'config/theme/text_theme.g.dart';
-import 'features/home/presentation/pages/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -34,12 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     // _controller.forward();
 
     Timer(const Duration(seconds: 4), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Home(),
-        ),
-      );
+      Navigator.pushReplacementNamed(context, "Home");
     });
   }
 

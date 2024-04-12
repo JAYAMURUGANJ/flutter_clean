@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../dashboard/presentation/pages/dashboard.dart';
@@ -19,9 +20,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-      bottomNavigationBar: _buildBottomBar(),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool? shouldPop = await _showBackDialog(context);
+        if (shouldPop ?? false) {
+          navigator.pop();
+        }
+      },
+      child: Scaffold(
+        body: _buildBody(),
+        bottomNavigationBar: _buildBottomBar(),
+      ),
     );
   }
 
@@ -46,13 +60,38 @@ class Home extends StatelessWidget {
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined), label: "Home"),
-              BottomNavigationBarItem( 
+              BottomNavigationBarItem(
                   icon: Icon(Icons.temple_hindu_outlined), label: "Temples"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_month_outlined), label: "Booking"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: "Settings"),
             ]);
+      },
+    );
+  }
+
+  Future<bool?> _showBackDialog(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure you want to exit?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
       },
     );
   }

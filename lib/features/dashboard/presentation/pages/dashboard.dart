@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
@@ -6,7 +8,7 @@ import '../../../../config/common/widgets/cloud_arc.dart';
 import '../../../../config/theme/text_theme.g.dart';
 import '../../../temple_list/presentation/widgets/temple_list.dart';
 import '../widgets/service_list.dart';
-import '/config/common/extensions.dart';
+import '../widgets/whats_new.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -36,52 +38,30 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  Stack _buildBody(BuildContext context) {
+  _buildBody(BuildContext context) {
     return Stack(
       children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 180),
-              painter: CloudArcPainter(
-                  themeColor: Theme.of(context).colorScheme.primary),
-            ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: CustomPaint(
+            size: Size(MediaQuery.of(context).size.width, 180),
+            painter: CloudArcPainter(
+                themeColor: Theme.of(context).colorScheme.primary),
           ),
         ),
         SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _buildDevoteeServiceList(context),
-              50.ph,
-              mainTempleListBuilder(),
+              buildDevoteeServiceList(context),
+              buildWhatsNewList(context),
+              mainTempleListBlocBuilder(),
             ],
           ),
-        )
+        ),
       ],
-    );
-  }
-
-  _buildDevoteeServiceList(context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          LocaleText(
-            "devotee_services",
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          buildDevoteeServicesList(listType: 'HL')
-        ],
-      ),
     );
   }
 }

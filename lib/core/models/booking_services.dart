@@ -8,6 +8,7 @@ class BookingServices {
   String? emoji;
   Color? bgColor;
   bool value;
+  String? page;
 
   BookingServices(
       {required this.id,
@@ -16,18 +17,19 @@ class BookingServices {
       required this.imageLink,
       required this.emoji,
       required this.bgColor,
-      this.value = false});
+      this.value = false,
+      this.page});
 
   factory BookingServices.fromJson(Map<String, dynamic> jsonData) {
     return BookingServices(
-      id: jsonData['id'],
-      name: jsonData['name'],
-      tName: jsonData['t_name'],
-      imageLink: jsonData['imageLink'],
-      emoji: jsonData['emoji'],
-      bgColor: jsonData['bg_color'],
-      value: jsonData['value'],
-    );
+        id: jsonData['id'],
+        name: jsonData['name'],
+        tName: jsonData['t_name'],
+        imageLink: jsonData['imageLink'],
+        emoji: jsonData['emoji'],
+        bgColor: jsonData['bg_color'],
+        value: jsonData['value'],
+        page: jsonData['page']);
   }
 
   static Map<String, dynamic> toMap(BookingServices bookingServices) => {
@@ -38,5 +40,6 @@ class BookingServices {
         'emoji': bookingServices.emoji,
         'bg_color': bookingServices.bgColor,
         'value': bookingServices.value,
+        'page': bookingServices.page,
       };
 }

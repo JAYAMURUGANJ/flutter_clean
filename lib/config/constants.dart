@@ -92,6 +92,7 @@ List<BookingServices> bookingServicesList = [
     imageLink: "assets/images/icons/paid.png",
     emoji: "🙏",
     bgColor: Colors.deepPurple.shade300,
+    page: "/PaidService",
   ),
   BookingServices(
     id: 2,
@@ -100,6 +101,7 @@ List<BookingServices> bookingServicesList = [
     imageLink: "assets/images/icons/free.png",
     emoji: "🎟️",
     bgColor: Colors.lightBlue.shade300,
+    page: "",
   ),
   BookingServices(
     id: 3,
@@ -108,6 +110,7 @@ List<BookingServices> bookingServicesList = [
     imageLink: "assets/images/icons/donation.png",
     emoji: "🗳️",
     bgColor: Colors.deepOrange.shade300,
+    page: "",
   ),
   BookingServices(
     id: 4,
@@ -116,5 +119,13 @@ List<BookingServices> bookingServicesList = [
     imageLink: "assets/images/icons/book.png",
     emoji: "📚",
     bgColor: Colors.lightGreen.shade300,
+    page: "",
   ),
+];
+
+List<Color> colors = [
+  Colors.deepPurple.shade300,
+  Colors.lightGreen.shade300,
+  Colors.deepOrange.shade300,
+  Colors.lightBlue.shade300,
 ];

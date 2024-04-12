@@ -31,6 +31,7 @@
     "poojas": "Pooja",
     "categories": "Categories",
     "devotee_services": "Devotee Services",
+    "main_temples": "Main Temples",
     "thirukoil": "Thirukoil",
     "moolavar": "Moolavar",
     "moolavar_ambal": "Moolavar Ambal",
@@ -47,5 +48,6 @@
     "paid": "Paid",
     "free": "Free",
     "donation": "Donation",
-    "books": "Books"
+    "books": "Books",
+    "whats_new": "Whats New"
 }

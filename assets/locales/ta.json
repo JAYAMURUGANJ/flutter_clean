@@ -31,6 +31,7 @@
     "poojas": "பூஜை",
     "categories": "வகைபடுத்து",
     "devotee_services": "பக்தர் சேவைகள்",
+    "main_temples": "பிரதான கோயில்கள்",
     "thirukoil": "திருக்கோயில்",
     "moolavar": "மூலவர்",
     "moolavar_ambal": "மூலவர் அம்மன்",
@@ -47,5 +48,6 @@
     "paid": "கட்டணம்",
     "free": "இலவசம்",
     "donation": "நன்கொடை",
-    "books": "புத்தகம்"
+    "books": "புத்தகம்",
+    "whats_new": "புதியது என்ன"
 }

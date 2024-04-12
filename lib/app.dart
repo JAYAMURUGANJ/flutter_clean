@@ -13,7 +13,6 @@ import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bl
 import 'features/temple_list/presentation/bloc/itms/itms_bloc.dart';
 import 'features/temple_list/presentation/bloc/itms/itms_event.dart';
 import 'injection_container.dart';
-import 'splash.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -35,7 +34,8 @@ class _AppState extends State<App> {
       return MultiBlocProvider(
         providers: [
           BlocProvider<ITMSBloc>(
-            create: (context) => sl()..add(GetTempleList()),
+            create: (context) =>
+                sl()..add(GetTempleList(seniorgradeTemples: 'Y')),
           ),
           BlocProvider<BottomNavigationCubit>(create: (context) => sl()),
           BlocProvider<ThemeBloc>(create: (context) => sl()),
@@ -62,7 +62,7 @@ class _AppState extends State<App> {
                   ? ThemeMode.dark
                   : ThemeMode.light,
               onGenerateRoute: AppRoutes.onGenerateRoutes,
-              home: const SplashScreen(),
+              initialRoute: "/",
             );
           },
         ),

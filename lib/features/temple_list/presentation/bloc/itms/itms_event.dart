@@ -2,7 +2,12 @@ abstract class ITMSEvent {
   const ITMSEvent();
 }
 
-class GetTempleList extends ITMSEvent {}
+class GetTempleList extends ITMSEvent {
+  String seniorgradeTemples;
+  GetTempleList({
+    required this.seniorgradeTemples,
+  });
+}
 
 class GetTempleHistory extends ITMSEvent {
   String templeId;

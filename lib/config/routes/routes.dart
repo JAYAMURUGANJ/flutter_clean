@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app_clean_architecture/features/home/presentation/pages/home.dart';
+import 'package:news_app_clean_architecture/splash.dart';
 
+import '../../features/temple_details/presentation/pages/temple_details.dart';
 import '../../features/temple_list/domain/entities/itms_response.dart';
 import '../../features/temple_list/presentation/pages/temple_list.dart';
-import '../../features/temple_details/presentation/pages/temple_details.dart';
+import '../../features/ticket_booking/presentation/pages/paid_service.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
 
@@ -11,11 +14,16 @@ class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return _materialRoute(const TempleList());
+        return _materialRoute(const SplashScreen());
+      case 'Home':
+        return _materialRoute(const Home());
 
       case '/TempleDetails':
         return _materialRoute(TempleDetailsView(
             temple: settings.arguments as ItmsResponseEntity));
+
+      case '/PaidService':
+        return _materialRoute(const TicketBookingPage());
 
       case '/SomthingWentWrong':
         return _materialRoute(
