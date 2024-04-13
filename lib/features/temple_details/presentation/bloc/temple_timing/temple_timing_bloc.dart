@@ -19,6 +19,7 @@ class TempleTimingBloc extends Bloc<TempleTimingEvent, TempleTimingState> {
 
   void onGetTempleTiming(
       GetTempleTiming event, Emitter<TempleTimingState> emit) async {
+    emit(const TempleTimingLoading());
     String serviceId = "7010";
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])

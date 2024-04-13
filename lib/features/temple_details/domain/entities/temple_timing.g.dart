@@ -13,9 +13,6 @@ TempleTimingEntity _$TempleTimingEntityFromJson(Map<String, dynamic> json) =>
       evngOpeningTime: json['evng_opening_time'] as String?,
       evngClosingTime: json['evng_closing_time'] as String?,
       remarks: json['remarks'] as String?,
-      // closingTime: (json['closing_time'] as List<dynamic>?)
-      //     ?.map((e) => ClosingTime.fromJson(e as Map<String, dynamic>))
-      //     .toList(),
       errorCode: json['error_code'] as String?,
       responseDesc: json['response_desc'] as String?,
     );
@@ -27,7 +24,6 @@ Map<String, dynamic> _$TempleTimingEntityToJson(TempleTimingEntity instance) =>
       'evng_opening_time': instance.evngOpeningTime,
       'evng_closing_time': instance.evngClosingTime,
       'remarks': instance.remarks,
-      // 'closing_time': instance.closingTime,
       'error_code': instance.errorCode,
       'response_desc': instance.responseDesc,
     };

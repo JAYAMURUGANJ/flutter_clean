@@ -16,17 +16,17 @@ class _LanguageListState extends State<LanguageList> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(2, (index) {
+        selectedIndex = Locales.lang == "en" ? 0 : 1;
         return ChoiceChip(
           showCheckmark: false,
           labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          label: LocaleText(index == 0 ? 'english' : 'tamil'),
-          labelStyle: TextStyle(
+          label: Text(index == 0 ? 'English' : 'தமிழ்'),
+          labelStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: selectedIndex == index ? Colors.white : Colors.black,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               letterSpacing: 1.2),
           selected: selectedIndex == index,
-          selectedColor: Theme.of(context).primaryColor,
+          selectedColor: Theme.of(context).colorScheme.primary,
           backgroundColor: Colors.black.withOpacity(0.1),
           onSelected: (value) {
             index == 0

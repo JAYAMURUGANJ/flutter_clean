@@ -10,6 +10,7 @@ import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubi
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
+import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
 import 'features/temple_list/presentation/bloc/itms/itms_bloc.dart';
 import 'features/temple_list/presentation/bloc/itms/itms_event.dart';
 import 'injection_container.dart';
@@ -41,6 +42,7 @@ class _AppState extends State<App> {
           BlocProvider<ThemeBloc>(create: (context) => sl()),
           BlocProvider<TempleInfoBloc>(create: (context) => sl()),
           BlocProvider<TempleTimingBloc>(create: (context) => sl()),
+          BlocProvider<TemplePoojaBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

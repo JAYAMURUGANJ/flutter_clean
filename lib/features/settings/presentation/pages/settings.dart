@@ -24,7 +24,7 @@ class _SettingsState extends State<Settings> {
               style: Theme.of(context).textTheme.headlineSmall),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 32),
         child: SingleChildScrollView(
           child: Column(children: [
             LabelText(label: 'language'),
@@ -58,7 +58,10 @@ class LabelText extends StatelessWidget {
         width: double.infinity,
         child: LocaleText(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontWeight: FontWeight.bold),
           textAlign: TextAlign.left,
         ),
       ),

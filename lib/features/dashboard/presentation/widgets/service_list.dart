@@ -11,7 +11,7 @@ buildDevoteeServicesList({required String listType}) {
             padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemExtent: 90,
+            itemExtent: 110,
             itemCount: bookingServicesList.length,
             itemBuilder: (context, index) =>
                 _devoteeServiceCard(index, context, 100, 60, 12),

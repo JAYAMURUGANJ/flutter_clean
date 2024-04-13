@@ -36,7 +36,7 @@ class ThemeList extends StatelessWidget {
                             : Colors.transparent
                         : Colors.transparent,
                     child: CircleAvatar(
-                      radius: 23,
+                      radius: 22,
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: 18,

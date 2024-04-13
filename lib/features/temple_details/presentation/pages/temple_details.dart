@@ -9,6 +9,7 @@ import '../../../../injection_container.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
+import '../bloc/temple_pooja/temple_pooja_bloc.dart';
 import '../widgets/tab_widget.dart';
 import '../widgets/temple_image.dart';
 
@@ -33,11 +34,13 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
         .add(GetTempleInfo(templeId: widget.temple!.templeId.toString()));
     BlocProvider.of<TempleTimingBloc>(context)
         .add(GetTempleTiming(templeId: widget.temple!.templeId.toString()));
+    BlocProvider.of<TemplePoojaBloc>(context)
+        .add(GetTemplePooja(templeId: widget.temple!.templeId.toString()));
   }
 
   @override
   Widget build(BuildContext context) {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     return BlocProvider(
       create: (_) => sl<ITMSBloc>(),
       child: Scaffold(
@@ -126,15 +129,24 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
   Widget _buildTempleTitle(context) {
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 24, bottom: 14),
-      child: Text(
-        Locales.currentLocale(context)!.languageCode == "en"
-            ? widget.temple!.templeName ?? '-'
-            : widget.temple!.ttempleName ?? "-",
-        style: const TextStyle(
-          fontFamily: 'Butler',
-          fontSize: 18,
-          fontWeight: FontWeight.w900,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              Locales.lang == "en"
+                  ? widget.temple!.templeName ?? '-'
+                  : widget.temple!.ttempleName ?? "-",
+              softWrap: true,
+              style: const TextStyle(
+                fontFamily: 'Butler',
+                fontSize: 18,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline)),
+        ],
       ),
     );
   }

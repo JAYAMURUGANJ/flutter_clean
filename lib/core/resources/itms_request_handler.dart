@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 import 'package:news_app_clean_architecture/core/models/itms_request.dart';
@@ -35,7 +36,7 @@ class ITMSRequestHandler {
       ITMSRequest(
           adparam: adparam,
           ipaddress: ipAddress,
-          langType: "EN",
+          langType: Locales.lang == "en" ? "EN" : "TA",
           serviceId: serviceId,
           filterData: filterData,
           requestTime: requestTime,

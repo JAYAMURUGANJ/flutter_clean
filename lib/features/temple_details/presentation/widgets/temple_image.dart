@@ -77,6 +77,19 @@ Widget buildTempleImage(context, temple) {
                   ),
                 )),
             Positioned(
+                bottom: 65,
+                right: -10,
+                child: MaterialButton(
+                  onPressed: () {},
+                  shape: const CircleBorder(),
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Image.asset(
+                    "assets/images/icons/location_1.png",
+                    width: 32,
+                  ),
+                )),
+            Positioned(
               bottom: 15,
               left: 20,
               child: Container(

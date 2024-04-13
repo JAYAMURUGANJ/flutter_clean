@@ -18,6 +18,7 @@ class TempleInfoBloc extends Bloc<TempleInfoEvent, TempleInfoState> {
 
   void onGetTempleInfo(
       GetTempleInfo event, Emitter<TempleInfoState> emit) async {
+    emit(const TempleInfoLoading());
     String serviceId = "7009";
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])
