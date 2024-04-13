@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/extensions.dart';
-import '../../../../config/common/widgets/text_carousel.dart';
+import '../../../../config/common/widgets/card_carousel.dart';
+import '../../../../config/constants.dart';
 
 Padding buildWhatsNewList(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    padding: defaultPadding,
     child: SizedBox(
-      height: 130,
+      height: 150,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -21,15 +22,7 @@ Padding buildWhatsNewList(BuildContext context) {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           5.ph,
-          const TextCarousel(
-            texts: [
-              'Text 1',
-              'Text 2',
-              'Text 3',
-              'Text 4',
-              'Text 5',
-            ],
-          ),
+          const CardCarouselWithIndicator()
         ],
       ),
     ),

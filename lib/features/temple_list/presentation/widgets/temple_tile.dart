@@ -110,7 +110,8 @@ class MainTempleListTile extends StatelessWidget {
                 ),
               ],
             ),
-            height: 250,
+            height: 175,
+            width: 300,
             child: ClipRRect(
               borderRadius:
                   const BorderRadius.only(topRight: Radius.circular(50)),
@@ -134,6 +135,7 @@ class MainTempleListTile extends StatelessWidget {
     final borderColor = Theme.of(context).colorScheme.primary;
     return Container(
       height: 80,
+      width: 300,
       decoration: BoxDecoration(
         color: borderColor,
         border: Border.all(

@@ -55,8 +55,8 @@ class Dashboard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              buildDevoteeServiceList(context),
               buildWhatsNewList(context),
+              buildDevoteeServiceList(context),
               mainTempleListBlocBuilder(),
             ],
           ),

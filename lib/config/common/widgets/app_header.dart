@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../constants.dart';
 import 'app_logo.dart';
 
 PreferredSize appHeader(
@@ -14,7 +15,7 @@ PreferredSize appHeader(
     preferredSize: const Size.fromHeight(80.0),
     child: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: defaultPadding,
         child: Row(
           children: [
             leading,

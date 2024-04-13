@@ -129,3 +129,6 @@ List<Color> colors = [
   Colors.deepOrange.shade300,
   Colors.lightBlue.shade300,
 ];
+
+EdgeInsetsGeometry defaultPadding =
+    const EdgeInsets.symmetric(horizontal: 12, vertical: 5);

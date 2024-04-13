@@ -50,13 +50,13 @@ mainTempleListBlocBuilder() {
     builder: (context, state) {
       if (state is TempleListLoading) {
         return const SizedBox(
-            height: 350, child: Center(child: CupertinoActivityIndicator()));
+            height: 200, child: Center(child: CupertinoActivityIndicator()));
       }
 
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: defaultPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -96,7 +96,7 @@ allTempleListPageView(
 
 mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
   return SizedBox(
-    height: 400,
+    height: 320,
     child: CardSwiper(
       backCardOffset: const Offset(0, 24),
       numberOfCardsDisplayed: 3,

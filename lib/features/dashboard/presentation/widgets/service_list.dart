@@ -85,7 +85,7 @@ _pageNavigation(String routeName, BuildContext context) {
 
 buildDevoteeServiceList(context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    padding: defaultPadding,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
