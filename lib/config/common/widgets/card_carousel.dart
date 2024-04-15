@@ -24,7 +24,7 @@ class _CardCarouselWithIndicatorState extends State<CardCarouselWithIndicator> {
         CarouselSlider(
           items: [for (var item in colors) _buildCard(item)],
           options: CarouselOptions(
-            height: 100.0,
+            height: 80.0,
             viewportFraction: 0.8,
             autoPlay: true,
             enlargeCenterPage: true,
@@ -63,10 +63,10 @@ class _CardCarouselWithIndicatorState extends State<CardCarouselWithIndicator> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                radius: 40,
+                radius: 35,
                 child: CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.background,
-                  radius: 35,
+                  radius: 33,
                   child: const CircleAvatar(
                     backgroundImage: NetworkImage(
                         "https://hrce.tn.gov.in/demoapp/images/temple_div.png"), //NetworkImage
@@ -80,29 +80,27 @@ class _CardCarouselWithIndicatorState extends State<CardCarouselWithIndicator> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 150,
                   child: Text(
                     'Heading',
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                    ),
+                    overflow: TextOverflow.fade,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
                 1.ph,
-                const SizedBox(
+                SizedBox(
                   width: 150,
                   child: Text(
                     'The News description is available here.',
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.fade,
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

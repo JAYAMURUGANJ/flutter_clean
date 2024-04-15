@@ -5,7 +5,6 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/cloud_arc.dart';
-import '../../../../config/theme/text_theme.g.dart';
 import '../../../temple_list/presentation/widgets/temple_list.dart';
 import '../widgets/service_list.dart';
 import '../widgets/whats_new.dart';
@@ -23,9 +22,7 @@ class Dashboard extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: LocaleText(
               "thirukoil",
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontWeight: FontWeight.w800,
-                  foreground: Paint()..shader = linearGradient),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           trailing: IconButton(

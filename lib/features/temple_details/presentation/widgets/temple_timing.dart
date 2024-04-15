@@ -7,6 +7,8 @@ import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../domain/entities/temple_timing.dart';
 import '../bloc/temple_timing/temple_timing_bloc.dart';
+import '/config/common/extensions.dart';
+import '/config/constants.dart';
 
 class TempleTiming extends StatelessWidget {
   const TempleTiming({Key? key}) : super(key: key);
@@ -18,6 +20,10 @@ class TempleTiming extends StatelessWidget {
         if (state is TempleTimingLodingError) {
           Navigator.pushNamed(context, '/DioException',
               arguments: state.error!);
+        }
+        if (state is TempleTimingLoadingSomthingWentWrong) {
+          Navigator.pushNamed(context, '/SomthingWentWrong',
+              arguments: state.responseStatus!);
         }
       },
       builder: (context, state) {
@@ -35,10 +41,10 @@ class TempleTiming extends StatelessWidget {
             children: [
               _buildTimingCard(context, "morning",
                   templeTiming!.mrngOpeningtime, templeTiming.mrngClosingTime),
-              const SizedBox(height: 20),
+              20.ph,
               _buildTimingCard(context, "evening", templeTiming.evngOpeningTime,
                   templeTiming.evngClosingTime),
-              const SizedBox(height: 20),
+              20.ph,
               buildlabelValueTxt(context, "remarks", templeTiming.remarks),
             ],
           );
@@ -50,53 +56,66 @@ class TempleTiming extends StatelessWidget {
 
   _buildTimingCard(BuildContext context, String caption, String? openTime,
       String? closeTime) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: LocaleText(
+    return Padding(
+      padding: defaultPadding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          LocaleText(
             caption,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary),
           ),
-        ),
-        DataTable(
-            border: TableBorder.all(
-                width: 1,
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.black),
-            headingRowColor: MaterialStateProperty.all(
-                Theme.of(context).colorScheme.primaryContainer),
-            headingRowHeight: 45,
-            headingTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-            dataTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-            columnSpacing: 2,
-            clipBehavior: Clip.antiAlias,
-            columns: const [
-              DataColumn(
-                  label: Expanded(
-                child: LocaleText("opening_time", textAlign: TextAlign.center),
-              )),
-              DataColumn(
-                  label: Expanded(
-                      child: LocaleText("closing_time",
-                          textAlign: TextAlign.center))),
-            ],
-            rows: [
-              DataRow(cells: [
-                DataCell(Align(
-                    alignment: Alignment.center, child: Text(openTime ?? "-"))),
-                DataCell(Align(
-                    alignment: Alignment.center, child: Text(closeTime ?? "-")))
+          DataTable(
+              border: TableBorder.all(
+                  width: 1,
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.black),
+              headingRowColor: MaterialStateProperty.all(
+                  Theme.of(context).colorScheme.primaryContainer),
+              headingRowHeight: 45,
+              headingTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+              dataTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+              columnSpacing: 2,
+              clipBehavior: Clip.antiAlias,
+              columns: [
+                DataColumn(
+                    label: Expanded(
+                  child: LocaleText(
+                    "opening_time",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                )),
+                DataColumn(
+                    label: Expanded(
+                        child: LocaleText(
+                  "closing_time",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ))),
+              ],
+              rows: [
+                DataRow(cells: [
+                  DataCell(Align(
+                      alignment: Alignment.center,
+                      child: Text(openTime ?? "-"))),
+                  DataCell(Align(
+                      alignment: Alignment.center,
+                      child: Text(closeTime ?? "-")))
+                ]),
               ]),
-            ]),
-      ],
+        ],
+      ),
     );
   }
 }

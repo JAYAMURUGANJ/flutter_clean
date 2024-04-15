@@ -58,14 +58,14 @@ mainTempleListBlocBuilder() {
         return Padding(
           padding: defaultPadding,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LocaleText(
                 "main_temples",
                 textAlign: TextAlign.left,
                 style: Theme.of(context)
                     .textTheme
-                    .titleSmall!
+                    .labelSmall!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               mainTempleListView(context, templeList, state),
@@ -96,7 +96,8 @@ allTempleListPageView(
 
 mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
   return SizedBox(
-    height: 320,
+    width: MediaQuery.sizeOf(context).width / 1.1,
+    height: 350,
     child: CardSwiper(
       backCardOffset: const Offset(0, 24),
       numberOfCardsDisplayed: 3,

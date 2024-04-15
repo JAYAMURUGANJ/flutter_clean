@@ -100,7 +100,7 @@ class MainTempleListTile extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius:
-                  const BorderRadius.only(topRight: Radius.circular(50)),
+                  const BorderRadius.only(topRight: Radius.circular(40)),
               boxShadow: [
                 BoxShadow(
                   color: const Color.fromARGB(255, 48, 36, 36).withOpacity(0.4),
@@ -110,11 +110,11 @@ class MainTempleListTile extends StatelessWidget {
                 ),
               ],
             ),
-            height: 175,
+            height: 180,
             width: 300,
             child: ClipRRect(
               borderRadius:
-                  const BorderRadius.only(topRight: Radius.circular(50)),
+                  const BorderRadius.only(topRight: Radius.circular(40)),
               child: ParallaxImage(
                 imageUrl: temple!.maintowerImage!.isNotEmpty
                     ? ApiCredentials().documents +
@@ -134,7 +134,7 @@ class MainTempleListTile extends StatelessWidget {
   Widget _buildTitleAndDescription(context) {
     final borderColor = Theme.of(context).colorScheme.primary;
     return Container(
-      height: 80,
+      height: 90,
       width: 300,
       decoration: BoxDecoration(
         color: borderColor,
@@ -142,7 +142,7 @@ class MainTempleListTile extends StatelessWidget {
           color: borderColor,
           width: 12.0,
         ),
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(100)),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(50)),
         boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(255, 252, 251, 251).withOpacity(0.4),
@@ -153,13 +153,15 @@ class MainTempleListTile extends StatelessWidget {
         ],
       ),
       child: Text(
-        temple!.templeName ?? '',
+        Locales.lang == "en"
+            ? temple!.templeName ?? '-'
+            : temple!.ttempleName ?? "-",
         maxLines: 3,
-        overflow: TextOverflow.ellipsis,
+        overflow: TextOverflow.fade,
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
-            .bodyMedium!
+            .bodySmall!
             .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );

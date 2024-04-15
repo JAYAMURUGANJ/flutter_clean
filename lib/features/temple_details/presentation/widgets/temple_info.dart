@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../../../config/common/widgets/text_widgets.dart';
@@ -16,6 +18,10 @@ class TempleInfoWidget extends StatelessWidget {
         if (state is TempleInfoLodingError) {
           Navigator.pushNamed(context, '/DioException',
               arguments: state.error!);
+        }
+        if (state is TempleInfoLoadingSomthingWentWrong) {
+          Navigator.pushNamed(context, '/SomthingWentWrong',
+              arguments: state.responseStatus!);
         }
       },
       builder: (context, state) {
@@ -43,16 +49,21 @@ class TempleInfoWidget extends StatelessWidget {
               buildlabelValueTxt(
                   context, "historical_name", templeInfo.historicalName),
               buildlabelValueTxt(context, "saints_poets", templeInfo.poetName),
-              Text(
-                templeInfo.description ?? "-",
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
+              _templeDescription(templeInfo, context),
             ],
           );
         }
         return const Center(child: Text(" No data Available"));
       },
+    );
+  }
+
+  Padding _templeDescription(
+      TempleInfoEntity templeInfo, BuildContext context) {
+    return Padding(
+      padding: defaultPadding,
+      child: Text(templeInfo.description ?? "-",
+          style: Theme.of(context).textTheme.bodyMedium),
     );
   }
 }

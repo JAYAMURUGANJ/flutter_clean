@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app_clean_architecture/config/theme/button_theme.g.dart';
 
 // ThemeData theme(String language) {
 ThemeData theme() {
   return ThemeData(
-    useMaterial3: true,
-    //textTheme: appTextTheme,
-    elevatedButtonTheme: elevatedButtonTheme,
-    scaffoldBackgroundColor: Colors.white,
-    appBarTheme: appBarTheme(),
-    textTheme: GoogleFonts.exo2TextTheme()
-        .copyWith(titleMedium: const TextStyle(fontSize: 18)),
-    //textTheme: GoogleFonts.tiroTamilTextTheme(),
-  );
+      useMaterial3: true,
+      //textTheme: appTextTheme,
+      elevatedButtonTheme: elevatedButtonTheme,
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: appBarTheme(),
+      textTheme: Locales.lang == "en"
+          ? GoogleFonts.exo2TextTheme()
+              .copyWith(titleMedium: const TextStyle(fontSize: 18))
+          : GoogleFonts.tiroTamilTextTheme()
+              .copyWith(titleMedium: const TextStyle(fontSize: 18)));
 }
 
 AppBarTheme appBarTheme() {

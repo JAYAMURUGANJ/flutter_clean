@@ -8,7 +8,8 @@ PreferredSize appHeader(
     {required BuildContext context,
     Widget leading = const Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [AppIcon(height: 60), SizedBox(width: 5)]),
+        children: [AppIcon(height: 50), SizedBox(width: 5)]),
+    bool leadingAvail = true,
     required Widget body,
     required Widget trailing}) {
   return PreferredSize(
@@ -18,7 +19,7 @@ PreferredSize appHeader(
         padding: defaultPadding,
         child: Row(
           children: [
-            leading,
+            if (leadingAvail) leading,
             Expanded(child: body),
             trailing,
           ],

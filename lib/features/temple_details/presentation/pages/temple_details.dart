@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
+import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/constants.dart';
 import '../../../../injection_container.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
@@ -44,7 +45,25 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
     return BlocProvider(
       create: (_) => sl<ITMSBloc>(),
       child: Scaffold(
-        appBar: _buildAppBar(),
+        appBar: appHeader(
+            context: context,
+            leadingAvail: false,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Text(
+                Locales.lang == "en"
+                    ? widget.temple!.templeName ?? '-'
+                    : widget.temple!.ttempleName ?? "-",
+                softWrap: true,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
+            trailing: const Icon(Icons.language)),
         body: NestedScrollView(
           headerSliverBuilder: (context, value) {
             return [
@@ -52,8 +71,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                 child: Column(
                   children: [
                     buildTempleImage(context, widget.temple),
-                    _buildTempleTitle(context),
-                    buildServices(),
+                    buildServices(context),
                     buildTabBar(context, tabController),
                   ],
                 ),
@@ -65,112 +83,15 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
       ),
     );
   }
+}
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      leading: Builder(
-        builder: (context) => GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => _onBackButtonTapped(context),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              children: [
-                const Icon(Ionicons.chevron_back, color: Colors.black),
-                Text(
-                  "Back",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.start,
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      leadingWidth: 100,
-    );
-  }
+onBackButtonTapped(BuildContext context) {
+  Navigator.pop(context);
+}
 
-  // Widget _buildBody(context) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-  //     children: [
-  //       buildTempleImage(context, widget.temple),
-  //       _buildTempleTitle(context),
-  //       buildTabBar(context, tabController),
-  //       buildTabView(context, tabController)
-  //     ],
-  //   );
-  // }
-
-  // Widget _buildBody(context) {
-  //   return CustomScrollView(
-  //     shrinkWrap: true,
-  //     slivers: [
-  //       SliverToBoxAdapter(
-  //         child: buildTempleImage(context, widget.temple),
-  //       ),
-  //       SliverToBoxAdapter(
-  //         child: _buildTempleTitle(context),
-  //       ),
-  //       SliverToBoxAdapter(
-  //         child: buildTabBar(context, tabController),
-  //       ),
-  //       SliverFillRemaining(
-  //         child: buildTabView(context, tabController),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Widget _buildTempleTitle(context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, bottom: 14),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(
-            child: Text(
-              Locales.lang == "en"
-                  ? widget.temple!.templeName ?? '-'
-                  : widget.temple!.ttempleName ?? "-",
-              softWrap: true,
-              style: const TextStyle(
-                fontFamily: 'Butler',
-                fontSize: 18,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-          ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline)),
-        ],
-      ),
-    );
-  }
-
-  void _onBackButtonTapped(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  buildServices() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          LocaleText(
-            'services',
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary),
-          ),
-          buildDevoteeServicesList(listType: "HL"),
-        ],
-      ),
-    );
-  }
+buildServices(context) {
+  return Padding(
+    padding: defaultPadding,
+    child: buildDevoteeServicesList(listType: "HL"),
+  );
 }

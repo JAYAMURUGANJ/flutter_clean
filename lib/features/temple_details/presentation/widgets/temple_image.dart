@@ -63,19 +63,20 @@ Widget buildTempleImage(context, temple) {
               ),
             ),
             Positioned(
-                top: 8,
-                right: -10,
-                child: MaterialButton(
-                  onPressed: () {},
-                  shape: const CircleBorder(),
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Image.asset(
-                    "assets/images/icons/360_icon.png",
-                    width: 36,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                )),
+              top: 8,
+              right: -10,
+              child: MaterialButton(
+                onPressed: () {},
+                shape: const CircleBorder(),
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Image.asset(
+                  "assets/images/icons/360_icon.png",
+                  width: 36,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
             Positioned(
                 bottom: 65,
                 right: -10,

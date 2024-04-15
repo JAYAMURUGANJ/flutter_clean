@@ -48,7 +48,6 @@ class ITMSRequestHandler {
           serviceRequester: ApiCredentials.serviceRequester)
     ];
     debugPrint("Before Encryption: ${request[0].toJson()}");
-
     formData = Authentication().encrypt(itmsRequestToJson(request));
     debugPrint("encrypted form_data: $formData");
     return formData;

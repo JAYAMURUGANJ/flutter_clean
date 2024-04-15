@@ -8,7 +8,6 @@ import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart'
 
 import 'config/common/widgets/app_header.dart';
 import 'config/constants.dart';
-import 'config/theme/text_theme.g.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -68,9 +67,9 @@ class _SplashScreenState extends State<SplashScreen>
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: LocaleText(
                     "thirukoil",
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontWeight: FontWeight.w800,
-                        foreground: Paint()..shader = linearGradient),
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
                   ),
                 ),
               ),
@@ -78,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
                 alignment: Alignment.topRight,
                 child: Image.asset(
                   LocalImages().tnLogo,
-                  height: 55,
+                  height: 50,
                 ),
               ),
             ),

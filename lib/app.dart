@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -9,8 +10,8 @@ import 'config/theme/color_schemes.g.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
-import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
+import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 import 'features/temple_list/presentation/bloc/itms/itms_bloc.dart';
 import 'features/temple_list/presentation/bloc/itms/itms_event.dart';
 import 'injection_container.dart';
@@ -47,6 +48,7 @@ class _AppState extends State<App> {
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
             return MaterialApp(
+              builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,
               localizationsDelegates: Locales.delegates,
               supportedLocales: Locales.supportedLocales,

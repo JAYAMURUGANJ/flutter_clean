@@ -8,8 +8,7 @@ Widget buildImage(BuildContext context, String url,
     // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
     imageUrl: url,
     imageBuilder: (context, imageProvider) => ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: Container(
         width: width ?? MediaQuery.of(context).size.width / 3,
         height: height ?? double.maxFinite,
@@ -19,8 +18,7 @@ Widget buildImage(BuildContext context, String url,
       ),
     ),
     progressIndicatorBuilder: (context, url, downloadProgress) => ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: Container(
         width: width ?? MediaQuery.of(context).size.width / 3,
         height: double.maxFinite,
@@ -31,8 +29,7 @@ Widget buildImage(BuildContext context, String url,
       ),
     ),
     errorWidget: (context, url, error) => ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: Container(
         width: width ?? MediaQuery.of(context).size.width / 3,
         height: double.maxFinite,

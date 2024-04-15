@@ -9,18 +9,16 @@ Padding buildWhatsNewList(BuildContext context) {
   return Padding(
     padding: defaultPadding,
     child: SizedBox(
-      height: 150,
+      height: 126,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          LocaleText(
-            "whats_new",
-            textAlign: TextAlign.left,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
+          LocaleText("whats_new",
+              textAlign: TextAlign.left,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(fontWeight: FontWeight.bold)),
           5.ph,
           const CardCarouselWithIndicator()
         ],

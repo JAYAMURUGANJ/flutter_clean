@@ -26,7 +26,7 @@ buildDevoteeServicesList({required String listType}) {
           padding: const EdgeInsets.all(8.0), // padding around the grid
           itemCount: bookingServicesList.length, // total number of items
           itemBuilder: (context, index) {
-            return _devoteeServiceCard(index, context, 130, 120, 18);
+            return _devoteeServiceCard(index, context, 100, 100, 16);
           },
         );
 }
@@ -93,7 +93,7 @@ buildDevoteeServiceList(context) {
           "devotee_services",
           style: Theme.of(context)
               .textTheme
-              .titleSmall!
+              .labelSmall!
               .copyWith(fontWeight: FontWeight.bold),
         ),
         buildDevoteeServicesList(listType: 'HL')
