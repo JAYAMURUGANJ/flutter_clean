@@ -2,9 +2,10 @@
 
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
+import '/config/common/extensions.dart';
 
 class TicketBookingPage extends StatefulWidget {
   const TicketBookingPage({Key? key}) : super(key: key);
@@ -53,10 +54,11 @@ class _TicketBookingPageState extends State<TicketBookingPage> {
       resizeToAvoidBottomInset: true,
       appBar: appHeader(
           context: context,
-          body: Text('Paid Service',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headlineSmall),
+          body: LocaleText(
+            "paid",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: Stepper(
         type: StepperType.horizontal,

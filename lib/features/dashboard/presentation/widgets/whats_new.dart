@@ -20,7 +20,7 @@ Padding buildWhatsNewList(BuildContext context) {
                   .labelSmall!
                   .copyWith(fontWeight: FontWeight.bold)),
           5.ph,
-          const CardCarouselWithIndicator()
+          const WhatsNewIndicatior()
         ],
       ),
     ),

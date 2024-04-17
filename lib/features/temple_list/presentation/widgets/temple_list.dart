@@ -50,7 +50,7 @@ mainTempleListBlocBuilder() {
     builder: (context, state) {
       if (state is TempleListLoading) {
         return const SizedBox(
-            height: 200, child: Center(child: CupertinoActivityIndicator()));
+            height: 350, child: Center(child: CupertinoActivityIndicator()));
       }
 
       if (state is TempleListLoaded) {
@@ -96,7 +96,6 @@ allTempleListPageView(
 
 mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
   return SizedBox(
-    width: MediaQuery.sizeOf(context).width / 1.1,
     height: 350,
     child: CardSwiper(
       backCardOffset: const Offset(0, 24),

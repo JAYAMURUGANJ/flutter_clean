@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
-import '../../../../config/common/widgets/cloud_arc.dart';
+import '../../../../config/common/widgets/app_refer_card.dart';
 import '../../../temple_list/presentation/widgets/temple_list.dart';
 import '../widgets/service_list.dart';
 import '../widgets/whats_new.dart';
+import '/config/common/extensions.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -36,29 +37,19 @@ class Dashboard extends StatelessWidget {
   }
 
   _buildBody(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: CustomPaint(
-            size: Size(MediaQuery.of(context).size.width, 180),
-            painter: CloudArcPainter(
-                themeColor: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              buildWhatsNewList(context),
-              buildDevoteeServiceList(context),
-              mainTempleListBlocBuilder(),
-            ],
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          buildWhatsNewList(context),
+          buildDevoteeServiceList(context),
+          mainTempleListBlocBuilder(),
+          otherServiceList(context),
+          10.ph,
+          const AppReferalCard(),
+          10.ph,
+        ],
+      ),
     );
   }
 }

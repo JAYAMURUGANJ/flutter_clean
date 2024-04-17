@@ -6,15 +6,14 @@ import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
 import '../../constants.dart';
 
-class CardCarouselWithIndicator extends StatefulWidget {
-  const CardCarouselWithIndicator({Key? key}) : super(key: key);
+class WhatsNewIndicatior extends StatefulWidget {
+  const WhatsNewIndicatior({Key? key}) : super(key: key);
 
   @override
-  _CardCarouselWithIndicatorState createState() =>
-      _CardCarouselWithIndicatorState();
+  _WhatsNewIndicatiorState createState() => _WhatsNewIndicatiorState();
 }
 
-class _CardCarouselWithIndicatorState extends State<CardCarouselWithIndicator> {
+class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
   int _currentIndex = 0;
 
   @override

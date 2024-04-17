@@ -72,7 +72,7 @@ Widget buildTempleImage(context, temple) {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Image.asset(
                   "assets/images/icons/360_icon.png",
-                  width: 36,
+                  width: 35,
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
@@ -81,15 +81,31 @@ Widget buildTempleImage(context, temple) {
                 bottom: 65,
                 right: -10,
                 child: MaterialButton(
-                  onPressed: () {},
-                  shape: const CircleBorder(),
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Image.asset(
-                    "assets/images/icons/location_1.png",
-                    width: 32,
-                  ),
-                )),
+                    onPressed: () {},
+                    shape: const CircleBorder(),
+                    color: Colors.white,
+                    child: IconButton(
+                      onPressed: (() {}),
+                      icon: Icon(Icons.location_on_outlined,
+                          size: 35,
+                          color: Theme.of(context).colorScheme.primary),
+                    ))),
+            Positioned(
+              bottom: 140,
+              right: -10,
+              child: MaterialButton(
+                onPressed: () {},
+                shape: const CircleBorder(),
+                color: Colors.white,
+                child: IconButton(
+                  onPressed: (() {}),
+                  icon: Icon(Icons.contact_phone_sharp,
+                      size: 35, color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+            ),
+
+            // gopuram icon
             Positioned(
               bottom: 15,
               left: 20,

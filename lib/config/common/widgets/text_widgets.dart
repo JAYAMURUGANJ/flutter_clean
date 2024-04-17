@@ -26,7 +26,9 @@ Widget buildlabelValueTxt(BuildContext context, String title, String? value) {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary),
               ),
-              Text(value, style: Theme.of(context).textTheme.bodyMedium),
+              Text(value,
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
         )

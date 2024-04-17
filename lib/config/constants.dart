@@ -83,42 +83,124 @@ List<God> godList = [
   // God(id:11,name: "நரசிம்மர் கோயில்", imageLink: "assets/narasimar.png"),
 ];
 
-// Booking Services list
-List<BookingServices> bookingServicesList = [
-  BookingServices(
+// devotee Services list
+List<TempleServices> bookingServicesList = [
+  TempleServices(
     id: 1,
     name: "paid",
-    tName: "கட்டண சேவைகள்",
     imageLink: "assets/images/icons/paid.png",
-    emoji: "🙏",
     bgColor: Colors.deepPurple.shade300,
     page: "/PaidService",
   ),
-  BookingServices(
+  TempleServices(
     id: 2,
     name: "free",
-    tName: "இலவச சேவைகள்",
     imageLink: "assets/images/icons/free.png",
-    emoji: "🎟️",
     bgColor: Colors.lightBlue.shade300,
     page: "",
   ),
-  BookingServices(
+  TempleServices(
     id: 3,
     name: "donation",
-    tName: "நன்கொடை சேவைகள்",
     imageLink: "assets/images/icons/donation.png",
-    emoji: "🗳️",
     bgColor: Colors.deepOrange.shade300,
     page: "",
   ),
-  BookingServices(
+  TempleServices(
     id: 4,
-    name: "books",
-    tName: "புத்தகங்கள்",
-    imageLink: "assets/images/icons/book.png",
-    emoji: "📚",
+    name: "postal_prasadam",
+    imageLink: "assets/images/icons/postal.png",
     bgColor: Colors.lightGreen.shade300,
+    page: "",
+  ),
+];
+// temple Services list
+List<TempleServices> templeServicesList = [
+  TempleServices(
+    id: 1,
+    name: "Facility",
+    imageLink: "assets/images/icons/facility.png",
+    bgColor: Colors.deepOrange.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 2,
+    name: "booking",
+    imageLink: "assets/images/icons/booking.png",
+    bgColor: Colors.lightBlue.shade300,
+    page: "/BookingService",
+  ),
+  TempleServices(
+    id: 3,
+    name: "sculpture",
+    imageLink: "assets/images/icons/sculpture.png",
+    bgColor: Colors.indigo.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 4,
+    name: "shrine",
+    imageLink: "assets/images/icons/shrine.png",
+    bgColor: Colors.lightGreen.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 5,
+    name: "live",
+    imageLink: "assets/images/icons/live.png",
+    bgColor: Colors.black.withAlpha(255),
+    page: "",
+  ),
+  TempleServices(
+    id: 6,
+    name: "events",
+    imageLink: "assets/images/icons/events.png",
+    bgColor: Colors.lightBlue.shade300,
+    page: "",
+  ),
+];
+// other Services list
+List<TempleServices> otherServicesList = [
+  TempleServices(
+    id: 1,
+    name: "books",
+    imageLink: "assets/images/icons/book.png",
+    bgColor: Colors.deepPurple.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 2,
+    name: "events",
+    imageLink: "assets/images/icons/events.png",
+    bgColor: Colors.lightBlue.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 3,
+    name: "near_by_temples",
+    imageLink: "assets/images/icons/near_temple.png",
+    bgColor: Colors.deepOrange.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 5,
+    name: "divya_prabandam",
+    imageLink: "assets/images/icons/divya_prabandam.png",
+    bgColor: Colors.lightGreen.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 4,
+    name: "thirumurai",
+    imageLink: "assets/images/icons/thirumurai.png",
+    bgColor: Colors.yellow.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 6,
+    name: "live",
+    imageLink: "assets/images/icons/live.png",
+    bgColor: Colors.black.withAlpha(255),
     page: "",
   ),
 ];

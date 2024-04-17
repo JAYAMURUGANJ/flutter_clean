@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/constants.dart';
+import '../../../../core/models/booking_services.dart';
 
-buildDevoteeServicesList({required String listType}) {
+buildTempleServicesList(
+    {required String listType, required List<TempleServices> services}) {
   return listType != 'GRID'
       ? SizedBox(
-          height: 100,
+          height: 120,
           child: ListView.builder(
             padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemExtent: 110,
-            itemCount: bookingServicesList.length,
+            itemCount: services.length,
             itemBuilder: (context, index) =>
-                _devoteeServiceCard(index, context, 100, 60, 12),
+                _serviceCard(index, services, context, 100, 60, 12, "CIRCLE"),
           ),
         )
       : GridView.builder(
@@ -24,48 +26,65 @@ buildDevoteeServicesList({required String listType}) {
             crossAxisSpacing: 8.0, // spacing between columns
           ),
           padding: const EdgeInsets.all(8.0), // padding around the grid
-          itemCount: bookingServicesList.length, // total number of items
+          itemCount: services.length, // total number of items
           itemBuilder: (context, index) {
-            return _devoteeServiceCard(index, context, 100, 100, 16);
+            return _serviceCard(index, services, context, 100, 100, 16, "RECT");
           },
         );
 }
 
-_devoteeServiceCard(int index, BuildContext context, double width,
-    double height, double fontSize) {
+_serviceCard(int index, List<TempleServices> services, BuildContext context,
+    double width, double height, double fontSize, String cardType) {
   return GestureDetector(
-    onTap: () =>
-        _pageNavigation(bookingServicesList[index].page.toString(), context),
+    onTap: services[index].page.toString().isNotEmpty
+        ? () => _pageNavigation(services[index].page.toString(), context)
+        : () {
+            debugPrint(services[index].page.toString());
+          },
     child: Column(
       children: [
-        Container(
-          margin: const EdgeInsets.all(10),
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: bookingServicesList[index].bgColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                spreadRadius: 1,
-                blurRadius: 4,
-                offset: const Offset(0, 3), // changes position of shadow
+        cardType == "RECT"
+            ? Container(
+                margin: const EdgeInsets.all(10),
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  color: services[index].bgColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    services[index].imageLink!,
+                  ),
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: CircleAvatar(
+                  backgroundColor: services[index].bgColor,
+                  radius: 35,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      services[index].imageLink!,
+                    ),
+                  ),
+                ),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              bookingServicesList[index].imageLink!,
-            ),
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: LocaleText(
-            bookingServicesList[index].name!,
-            maxLines: 1,
+            services[index].name!,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: Theme.of(context)
@@ -96,7 +115,66 @@ buildDevoteeServiceList(context) {
               .labelSmall!
               .copyWith(fontWeight: FontWeight.bold),
         ),
-        buildDevoteeServicesList(listType: 'HL')
+        buildTempleServicesList(listType: 'HL', services: bookingServicesList)
+      ],
+    ),
+  );
+}
+
+otherServiceList(BuildContext context) {
+  List<Widget> children = List.generate(otherServicesList.length,
+      (e) => _otherServiceCard(e, context, 80, 80, 12));
+  return Padding(
+    padding: defaultPadding,
+    child: Wrap(
+      spacing: 15.0,
+      children: children,
+    ),
+  );
+}
+
+_otherServiceCard(int index, BuildContext context, double width, double height,
+    double fontSize) {
+  return GestureDetector(
+    onTap: () {},
+    child: Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(10),
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: otherServicesList[index].bgColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              otherServicesList[index].imageLink!,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: LocaleText(
+            otherServicesList[index].name!,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(fontWeight: FontWeight.bold, fontSize: fontSize),
+          ),
+        ),
       ],
     ),
   );

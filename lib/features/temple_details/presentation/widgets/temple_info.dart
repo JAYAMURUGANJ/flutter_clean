@@ -63,6 +63,7 @@ class TempleInfoWidget extends StatelessWidget {
     return Padding(
       padding: defaultPadding,
       child: Text(templeInfo.description ?? "-",
+          textAlign: TextAlign.justify,
           style: Theme.of(context).textTheme.bodyMedium),
     );
   }

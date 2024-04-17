@@ -6,6 +6,7 @@ import 'package:news_app_clean_architecture/splash.dart';
 import '../../features/temple_details/presentation/pages/temple_details.dart';
 import '../../features/temple_list/domain/entities/itms_response.dart';
 import '../../features/temple_list/presentation/pages/temple_list.dart';
+import '../../features/ticket_booking/presentation/pages/devotee_booking_service.dart';
 import '../../features/ticket_booking/presentation/pages/paid_service.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
@@ -17,14 +18,13 @@ class AppRoutes {
         return _materialRoute(const SplashScreen());
       case 'Home':
         return _materialRoute(const Home());
-
       case '/TempleDetails':
         return _materialRoute(TempleDetailsView(
             temple: settings.arguments as ItmsResponseEntity));
-
       case '/PaidService':
         return _materialRoute(const TicketBookingPage());
-
+      case '/BookingService':
+        return _materialRoute(const DevoteeBookingService());
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));
