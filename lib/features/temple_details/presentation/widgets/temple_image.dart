@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/config/common/widgets/full_screen_image_viewer.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/bottom_sheet.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
 
 import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
@@ -92,13 +94,12 @@ Widget buildTempleImage(context, temple) {
                     ))),
             Positioned(
               bottom: 140,
-              right: -10,
-              child: MaterialButton(
-                onPressed: () {},
-                shape: const CircleBorder(),
-                color: Colors.white,
+              right: 10,
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.white,
                 child: IconButton(
-                  onPressed: (() {}),
+                  onPressed: () => buildContactBottomSheet(context, temple),
                   icon: Icon(Icons.contact_phone_sharp,
                       size: 35, color: Theme.of(context).colorScheme.primary),
                 ),
@@ -109,40 +110,7 @@ Widget buildTempleImage(context, temple) {
             Positioned(
               bottom: 15,
               left: 20,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xffee2a7b),
-                      Color(0xff6228d7),
-                      Color(0xFFF9CE34)
-                    ],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.6),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                  shape: BoxShape.circle,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: CachedNetworkImage(
-                    // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
-                    imageUrl: temple!.maintowerImage!.isNotEmpty
-                        ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple!.maintowerImage![0].fileLocation}'
-                        : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
-
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                      radius: 46,
-                      backgroundImage: imageProvider,
-                    ),
-                  ),
-                ),
-              ),
+              child: mainTower(temple, 46),
             ),
           ],
         ),

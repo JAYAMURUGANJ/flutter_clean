@@ -42,23 +42,25 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     return BlocProvider(
       create: (_) => sl<ITMSBloc>(),
-      child: Scaffold(
-        appBar: appBar(context, widget.temple),
-        body: NestedScrollView(
-          headerSliverBuilder: (context, value) {
-            return [
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    buildTempleImage(context, widget.temple),
-                    buildTempleServices(context),
-                    buildTabBar(context, tabController),
-                  ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: appBar(context, widget.temple),
+          body: NestedScrollView(
+            headerSliverBuilder: (context, value) {
+              return [
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      buildTempleImage(context, widget.temple),
+                      buildTempleServices(context),
+                      buildTabBar(context, tabController),
+                    ],
+                  ),
                 ),
-              ),
-            ];
-          },
-          body: buildTabView(context, tabController),
+              ];
+            },
+            body: buildTabView(context, tabController),
+          ),
         ),
       ),
     );

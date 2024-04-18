@@ -32,9 +32,11 @@ class Home extends StatelessWidget {
           navigator.pop();
         }
       },
-      child: Scaffold(
-        body: _buildBody(),
-        bottomNavigationBar: _buildBottomBar(),
+      child: SafeArea(
+        child: Scaffold(
+          body: _buildBody(),
+          bottomNavigationBar: _buildBottomBar(),
+        ),
       ),
     );
   }

@@ -18,10 +18,11 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: appHeader(
           context: context,
-          body: Text('Settings',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headlineSmall),
+          body: LocaleText(
+            "settings",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 32),

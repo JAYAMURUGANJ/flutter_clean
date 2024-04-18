@@ -3,6 +3,7 @@
     "language": "Language",
     "settings": "Settings",
     "temples": "Temples",
+    "contact": "Contact",
     "app_theme": "App Theme",
     "app_lang": "App Language",
     "english": "English",
@@ -60,6 +61,10 @@
     "facility":"Facilitys",
     "sculpture":"Sculpures",
     "shrine":"Shrines",
+    "email": "E-mail",
+    "phone":"Phone Number",
+    "address":"Address",
+    "website":"Official Website",
     "refer_a_devotee":"Refer a Devotee",
     "referal_description":"Share with your loved ones to the spiritual journey ..."
 }

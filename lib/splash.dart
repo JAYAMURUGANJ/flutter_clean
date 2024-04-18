@@ -81,14 +81,6 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-            // Center(
-            //   child: FadeTransition(
-            //     opacity: _animation,
-            //     child: const FlutterLogo(
-            //       size: 200,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

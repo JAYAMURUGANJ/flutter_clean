@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../constants.dart';
 import 'app_logo.dart';
@@ -10,19 +9,23 @@ PreferredSize appHeader(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [AppIcon(height: 50), SizedBox(width: 5)]),
     bool leadingAvail = true,
+    Color bgColor = Colors.transparent,
     required Widget body,
     required Widget trailing}) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(80.0),
     child: SafeArea(
-      child: Padding(
-        padding: defaultPadding,
-        child: Row(
-          children: [
-            if (leadingAvail) leading,
-            Expanded(child: body),
-            trailing,
-          ],
+      child: Container(
+        color: bgColor,
+        child: Padding(
+          padding: defaultPadding,
+          child: Row(
+            children: [
+              if (leadingAvail) leading,
+              Expanded(child: body),
+              trailing,
+            ],
+          ),
         ),
       ),
     ),
