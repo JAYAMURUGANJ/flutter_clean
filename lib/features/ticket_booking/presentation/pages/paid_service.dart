@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/constants.dart';
 import '/config/common/extensions.dart';
 
-class TicketBookingPage extends StatefulWidget {
-  const TicketBookingPage({Key? key}) : super(key: key);
+class PaidServicePage extends StatefulWidget {
+  const PaidServicePage({Key? key}) : super(key: key);
 
   @override
-  _TicketBookingPageState createState() => _TicketBookingPageState();
+  _PaidServicePageState createState() => _PaidServicePageState();
 }
 
-class _TicketBookingPageState extends State<TicketBookingPage> {
+class _PaidServicePageState extends State<PaidServicePage> {
   String _selectedTemple = '';
   String _selectedTicket = '';
   String _selectedTimeSlot = '';
@@ -50,15 +51,13 @@ class _TicketBookingPageState extends State<TicketBookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: appHeader(
           context: context,
-          body: LocaleText(
-            "paid",
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          body: LocaleText("paid",
+              textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: Stepper(
         type: StepperType.horizontal,

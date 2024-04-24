@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../dashboard/presentation/pages/dashboard.dart';
 import '../../../settings/presentation/pages/settings.dart';
 import '../../../temple_list/presentation/pages/temple_list.dart';
-import '../../../ticket_booking/presentation/pages/devotee_booking_service.dart';
+import '../../../ticket_booking/presentation/pages/booking_service.dart';
 import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
 
 List<Widget> _pages = [
   const Dashboard(),
   const TempleList(),
-  const DevoteeBookingService(),
+  const BookingServicePage(),
   const Settings(),
 ];
 
@@ -27,7 +28,7 @@ class Home extends StatelessWidget {
           return;
         }
         final NavigatorState navigator = Navigator.of(context);
-        final bool? shouldPop = await _showBackDialog(context);
+        final bool? shouldPop = await _showDialog(context);
         if (shouldPop ?? false) {
           navigator.pop();
         }
@@ -73,28 +74,69 @@ class Home extends StatelessWidget {
     );
   }
 
-  Future<bool?> _showBackDialog(BuildContext context) async {
+  Future<bool?> _showDialog(BuildContext context) async {
     return showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Are you sure you want to exit?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
-              child: const Text('Yes'),
-            ),
-          ],
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          title: buildDialogReason(context, "app_close"),
+          actions: buildDialogAction(context),
         );
       },
     );
+  }
+
+  Text buildDialogReason(BuildContext context, String reason,
+      {bool isLocalReason = true}) {
+    return isLocalReason
+        ? LocaleText(
+            reason,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge!,
+          )
+        : Text(
+            reason,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge!,
+          );
+  }
+
+  List<Widget> buildDialogAction(BuildContext context,
+      {bool isActionRequired = true}) {
+    return <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: LocaleText(
+              "n",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(color: Colors.redAccent.shade400),
+            ),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              SystemNavigator.pop();
+            },
+            child: LocaleText(
+              "y",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge!
+                  .copyWith(color: Colors.blueAccent.shade400),
+            ),
+          ),
+        ],
+      )
+    ];
   }
 }

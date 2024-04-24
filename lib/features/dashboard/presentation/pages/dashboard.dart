@@ -5,6 +5,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/app_refer_card.dart';
+import '../../../../config/constants.dart';
 import '../../../temple_list/presentation/widgets/temple_list.dart';
 import '../widgets/service_list.dart';
 import '../widgets/whats_new.dart';
@@ -15,21 +16,16 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dynamic theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: appHeader(
-          context: context,
-          body: Align(
-            alignment: Alignment.topCenter,
-            child: LocaleText(
-              "thirukoil",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
+      resizeToAvoidBottomInset: true,
+      appBar: appHeader(
+        context: context,
+        body: LocaleText("thirukoil",
+            textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
+        trailing: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu),
         ),
       ),
       body: _buildBody(context),

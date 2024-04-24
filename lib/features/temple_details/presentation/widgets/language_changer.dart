@@ -5,13 +5,14 @@ languageChanger(BuildContext context) {
   return context.currentLocale!.languageCode == 'en'
       ? IconButton(
           onPressed: () => context.changeLocale("ta"),
+          isSelected: true,
           icon: CircleAvatar(
             child: Padding(
               padding: const EdgeInsets.all(3.0),
               child: Text(
                 "அ",
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontStyle: FontStyle.italic,
+                      fontStyle: FontStyle.normal,
                       color: Theme.of(context).colorScheme.primary,
                     ),
               ),
@@ -20,13 +21,14 @@ languageChanger(BuildContext context) {
         )
       : IconButton(
           onPressed: () => context.changeLocale("en"),
+          isSelected: true,
           icon: CircleAvatar(
             child: Padding(
               padding: const EdgeInsets.all(3.0),
               child: Text(
                 "A",
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontStyle: FontStyle.italic,
+                      fontStyle: FontStyle.normal,
                       color: Theme.of(context).colorScheme.primary,
                     ),
               ),

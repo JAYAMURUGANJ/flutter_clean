@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
             Align(
               alignment: Alignment.topLeft,
               child: Image.asset(
-                'assets/images/bg/splash.jpg',
+                LocalImages().splashBg,
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,

@@ -19,10 +19,14 @@ class AppReferalCard extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
           child: Container(
             width: 310.0,
-            height: 120.0,
+            height: 110.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.primary,
                   Theme.of(context).colorScheme.primary,
                   const Color.fromARGB(95, 252, 251, 251).withOpacity(0.5),
                 ],
@@ -46,10 +50,10 @@ class AppReferalCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(
-                      width: 160,
+                      width: 215,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +64,7 @@ class AppReferalCard extends StatelessWidget {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
+                                    color: Colors.amber,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14),
                           ),
@@ -75,7 +77,7 @@ class AppReferalCard extends StatelessWidget {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                  color: Theme.of(context).colorScheme.scrim,
+                                  color: Colors.white,
                                   fontSize: 12,
                                   letterSpacing: 1,
                                 ),
@@ -83,11 +85,11 @@ class AppReferalCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const CircleAvatar(
-                      radius: 50,
+                    CircleAvatar(
+                      radius: 35,
                       child: Image(
                         image: ExactAssetImage(
-                          "assets/images/icons/share.png",
+                          LocalImages().appLogo,
                         ),
                         fit: BoxFit.fill,
                       ),

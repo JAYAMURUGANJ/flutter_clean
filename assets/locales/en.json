@@ -3,7 +3,9 @@
     "language": "Language",
     "settings": "Settings",
     "temples": "Temples",
-    "contact": "Contact",
+    "contact": "Contact Details",
+    "location": "Location Map",
+    "360": "360° View",
     "app_theme": "App Theme",
     "app_lang": "App Language",
     "english": "English",
@@ -57,7 +59,7 @@
     "divya_prabandam":"Divya Prabandm",
     "live":"Live Telecast",
     "whats_new": "Whats New",
-    "booking":"Ticket Booking",
+    "booking":"Booking Services",
     "facility":"Facilitys",
     "sculpture":"Sculpures",
     "shrine":"Shrines",
@@ -66,5 +68,8 @@
     "address":"Address",
     "website":"Official Website",
     "refer_a_devotee":"Refer a Devotee",
-    "referal_description":"Share with your loved ones to the spiritual journey ..."
+    "referal_description":"Share with your loved ones to the spiritual journey ...",
+    "app_close":"Are you sure you want to close this app?",
+    "y":"Yes",
+    "n":"No"
 }

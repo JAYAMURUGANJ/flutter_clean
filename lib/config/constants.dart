@@ -37,6 +37,12 @@ class NetworkImages {
 class LocalImages {
   String appLogo = "assets/images/logo/logo.png";
   String tnLogo = "assets/images/logo/tn_logo.png";
+  String splashBg = "assets/images/bg/splash.jpg";
+  String location = "assets/images/icons/location.png";
+  String degreeView = "assets/images/icons/360_degree.png";
+  String contact = "assets/images/icons/contact.png";
+  String mapMarker = "assets/images/icons/marker.png";
+  
 }
 
 // God list
@@ -214,3 +220,9 @@ List<Color> colors = [
 
 EdgeInsetsGeometry defaultPadding =
     const EdgeInsets.symmetric(horizontal: 12, vertical: 5);
+
+// common test themes
+appbarTextStyleLarge(theme) =>
+    theme.textTheme.titleLarge!.copyWith(color: theme.colorScheme.primary);
+appbarTextStyleMedium(theme) =>
+    theme.textTheme.titleMedium!.copyWith(color: theme.colorScheme.primary);

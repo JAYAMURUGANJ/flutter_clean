@@ -9,6 +9,8 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
+import '360_degree_view.dart';
+import 'google_map_location.dart';
 
 Widget buildTempleImage(context, temple) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(
@@ -65,43 +67,68 @@ Widget buildTempleImage(context, temple) {
               ),
             ),
             Positioned(
-              top: 8,
-              right: -10,
-              child: MaterialButton(
-                onPressed: () {},
-                shape: const CircleBorder(),
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Image.asset(
-                  "assets/images/icons/360_icon.png",
-                  width: 35,
-                  color: Theme.of(context).colorScheme.primary,
+              bottom: 30,
+              left: 150,
+              child: Card(
+                child: Center(
+                  child: IconButton(
+                    onPressed: () => buildBottomSheet(
+                      context,
+                      temple,
+                      '360',
+                      const SizedBox(
+                        height: double.infinity,
+                        child: ShowTemple360View(
+                            url:
+                                'https://mylaikapaleeswarar.hrce.tn.gov.in/resources/docs/virtualtour/1/index.html'),
+                      ),
+                    ),
+                    icon: Image.asset(
+                      LocalImages().degreeView,
+                      fit: BoxFit.cover,
+                      width: 35,
+                    ),
+                  ),
                 ),
               ),
             ),
             Positioned(
-                bottom: 65,
-                right: -10,
-                child: MaterialButton(
-                    onPressed: () {},
-                    shape: const CircleBorder(),
-                    color: Colors.white,
-                    child: IconButton(
-                      onPressed: (() {}),
-                      icon: Icon(Icons.location_on_outlined,
-                          size: 35,
-                          color: Theme.of(context).colorScheme.primary),
-                    ))),
+              bottom: 30,
+              left: 220,
+              child: Card(
+                child: Center(
+                  child: IconButton(
+                    onPressed: () => buildBottomSheet(
+                      context,
+                      temple,
+                      'location',
+                      const TempleMapLocation(),
+                    ),
+                    icon: Image.asset(
+                      LocalImages().location,
+                      width: 35,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Positioned(
-              bottom: 140,
-              right: 10,
-              child: CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.white,
-                child: IconButton(
-                  onPressed: () => buildContactBottomSheet(context, temple),
-                  icon: Icon(Icons.contact_phone_sharp,
-                      size: 35, color: Theme.of(context).colorScheme.primary),
+              bottom: 30,
+              left: 290,
+              child: Card(
+                child: Center(
+                  child: IconButton(
+                    onPressed: () => buildBottomSheet(
+                      context,
+                      temple,
+                      'contact',
+                      buildContactBody(context, temple),
+                    ),
+                    icon: Image.asset(
+                      LocalImages().contact,
+                      width: 35,
+                    ),
+                  ),
                 ),
               ),
             ),

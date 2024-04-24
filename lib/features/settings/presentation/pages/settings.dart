@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/constants.dart';
 import '../widgets/language_list.dart';
 import '../widgets/theme_list.dart';
 
@@ -15,13 +16,14 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
+    dynamic theme = Theme.of(context);
     return Scaffold(
       appBar: appHeader(
           context: context,
           body: LocaleText(
             "settings",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: appbarTextStyleLarge(theme),
           ),
           trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
       body: const Padding(

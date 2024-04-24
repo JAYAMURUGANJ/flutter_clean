@@ -6,24 +6,22 @@ import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/cloud_arc.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
 
-class DevoteeBookingService extends StatefulWidget {
-  const DevoteeBookingService({Key? key}) : super(key: key);
+class BookingServicePage extends StatefulWidget {
+  const BookingServicePage({Key? key}) : super(key: key);
 
   @override
-  State<DevoteeBookingService> createState() => _DevoteeBookingServiceState();
+  State<BookingServicePage> createState() => _BookingServicePageState();
 }
 
-class _DevoteeBookingServiceState extends State<DevoteeBookingService> {
+class _BookingServicePageState extends State<BookingServicePage> {
   @override
   Widget build(BuildContext context) {
+    dynamic theme = Theme.of(context);
     return Scaffold(
       appBar: appHeader(
         context: context,
-        body: LocaleText(
-          "booking",
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        body: LocaleText("booking",
+            textAlign: TextAlign.center, style: appbarTextStyleMedium(theme)),
         trailing: IconButton(
           onPressed: () {},
           icon: const Icon(Icons.menu),
