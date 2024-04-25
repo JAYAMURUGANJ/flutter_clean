@@ -42,7 +42,7 @@ class LocalImages {
   String degreeView = "assets/images/icons/360_degree.png";
   String contact = "assets/images/icons/contact.png";
   String mapMarker = "assets/images/icons/marker.png";
-  
+  String drawerBg = "assets/images/icons/drawer_bg.png";
 }
 
 // God list
@@ -208,6 +208,38 @@ List<TempleServices> otherServicesList = [
     imageLink: "assets/images/icons/live.png",
     bgColor: Colors.black.withAlpha(255),
     page: "",
+  ),
+];
+
+// Navigation Drawer Services list
+List<TempleServices> drawerList = [
+  TempleServices(
+    id: 1,
+    name: "home",
+    imageLink: "assets/images/icons/home.png",
+    bgColor: Colors.deepPurple.shade300,
+    page: "Home",
+  ),
+  TempleServices(
+    id: 2,
+    name: "temples",
+    imageLink: "assets/images/icons/temple.png",
+    bgColor: Colors.amber.shade300,
+    page: "TempleList",
+  ),
+  TempleServices(
+    id: 3,
+    name: "Booking",
+    imageLink: "assets/images/icons/booking.png",
+    bgColor: Colors.lightBlue.shade300,
+    page: "/BookingService",
+  ),
+  TempleServices(
+    id: 4,
+    name: "settings",
+    imageLink: "assets/images/icons/setting.png",
+    bgColor: Colors.lightGreen.shade300,
+    page: "/Settings",
   ),
 ];
 

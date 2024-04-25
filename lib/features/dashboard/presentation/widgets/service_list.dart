@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
@@ -37,7 +39,7 @@ _serviceCard(int index, List<TempleServices> services, BuildContext context,
     double width, double height, double fontSize, String cardType) {
   return GestureDetector(
     onTap: services[index].page.toString().isNotEmpty
-        ? () => _pageNavigation(services[index].page.toString(), context)
+        ? () => pageNavigation(services[index].page.toString(), context)
         : () {
             debugPrint(services[index].page.toString());
           },
@@ -98,8 +100,14 @@ _serviceCard(int index, List<TempleServices> services, BuildContext context,
   );
 }
 
-_pageNavigation(String routeName, BuildContext context) {
+pageNavigation(String routeName, BuildContext context) {
   return routeName != "" ? Navigator.pushNamed(context, routeName) : () {};
+}
+
+popAndPushNamedNavigation(String routeName, BuildContext context) {
+  return routeName != ""
+      ? Navigator.pushReplacementNamed(context, routeName)
+      : () {};
 }
 
 buildDevoteeServiceList(context) {
@@ -123,7 +131,7 @@ buildDevoteeServiceList(context) {
 
 otherServiceList(BuildContext context) {
   List<Widget> children = List.generate(otherServicesList.length,
-      (e) => _otherServiceCard(e, context, 80, 80, 12));
+      (e) => otherServiceCard(e, context, 80, 80, 12, otherServicesList));
   return Padding(
     padding: defaultPadding,
     child: Wrap(
@@ -133,10 +141,21 @@ otherServiceList(BuildContext context) {
   );
 }
 
-_otherServiceCard(int index, BuildContext context, double width, double height,
-    double fontSize) {
+otherServiceCard(int index, BuildContext context, double width, double height,
+    double fontSize, List listName) {
   return GestureDetector(
-    onTap: () {},
+    onTap: listName[index].page.toString().isNotEmpty
+        ? () {
+            if (listName == drawerList) {
+              popAndPushNamedNavigation(
+                  listName[index].page.toString(), context);
+            } else {
+              pageNavigation(listName[index].page.toString(), context);
+            }
+          }
+        : () {
+            debugPrint(listName[index].page.toString());
+          },
     child: Column(
       children: [
         Container(
@@ -144,7 +163,7 @@ _otherServiceCard(int index, BuildContext context, double width, double height,
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: otherServicesList[index].bgColor,
+            color: listName[index].bgColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -158,14 +177,14 @@ _otherServiceCard(int index, BuildContext context, double width, double height,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              otherServicesList[index].imageLink!,
+              listName[index].imageLink!,
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: LocaleText(
-            otherServicesList[index].name!,
+            listName[index].name!,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

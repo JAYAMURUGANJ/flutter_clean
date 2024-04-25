@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
 import '/config/common/extensions.dart';
 
@@ -58,7 +59,9 @@ class _PaidServicePageState extends State<PaidServicePage> {
           context: context,
           body: LocaleText("paid",
               textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
-          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
+          trailing: IconButton(
+              onPressed: () => buildNavigationDrawer(context),
+              icon: const Icon(Icons.menu))),
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: _currentStep,

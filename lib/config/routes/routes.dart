@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app_clean_architecture/features/home/presentation/pages/home.dart';
+import 'package:news_app_clean_architecture/features/settings/presentation/pages/settings.dart';
 import 'package:news_app_clean_architecture/splash.dart';
 
 import '../../features/temple_details/presentation/pages/temple_details.dart';
@@ -21,10 +22,14 @@ class AppRoutes {
       case '/TempleDetails':
         return _materialRoute(TempleDetailsView(
             temple: settings.arguments as ItmsResponseEntity));
+      case '/TempleList':
+        return _materialRoute(const TempleList());
       case '/PaidService':
         return _materialRoute(const PaidServicePage());
       case '/BookingService':
         return _materialRoute(const BookingServicePage());
+      case '/Settings':
+        return _materialRoute(const Settings());
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));
