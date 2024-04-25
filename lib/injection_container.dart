@@ -1,5 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:news_app_clean_architecture/features/dashboard/data/model/live_events.dart';
+import 'package:news_app_clean_architecture/features/dashboard/data/repository/live_events_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/dashboard/domain/repository/live_events_repository.dart';
+import 'package:news_app_clean_architecture/features/dashboard/domain/usecases/live_events_usecase.dart';
+import 'package:news_app_clean_architecture/features/dashboard/domain/usecases/whats_new_usecase.dart';
+import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/whats_new/whats_new_bloc.dart';
 import 'package:news_app_clean_architecture/features/settings/presentation/bloc/theme/theme_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/temple_info_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/temple_info_repository.dart';
@@ -8,6 +15,8 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
 import 'core/data_sources/ITMS_API_service.dart';
+import 'features/dashboard/data/repository/whats_new_repository_impl.dart';
+import 'features/dashboard/domain/repository/whats_new_repository.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_timing_repository_impl.dart';
 import 'features/temple_details/domain/repository/temple_pooja_repository.dart';
@@ -35,12 +44,16 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TempleTimingRepository>(
       TempleTimingRepositoryImpl(sl()));
   sl.registerSingleton<TemplePoojaRepository>(TemplePoojaRepositoryImpl(sl()));
+  sl.registerSingleton<WhatsNewRepository>(WhatsNewRepositoryImpl(sl()));
+  sl.registerSingleton<LiveEventsRepository>(LiveEventsRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
   sl.registerSingleton<TempleInfoUseCase>(TempleInfoUseCase(sl()));
   sl.registerSingleton<TempleTimingUseCase>(TempleTimingUseCase(sl()));
   sl.registerSingleton<TemplePoojaUseCase>(TemplePoojaUseCase(sl()));
+  sl.registerSingleton<WhatsNewUseCase>(WhatsNewUseCase(sl()));
+  sl.registerSingleton<LiveEventsUseCase>(LiveEventsUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -49,4 +62,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<TempleInfoBloc>(() => TempleInfoBloc(sl()));
   sl.registerFactory<TempleTimingBloc>(() => TempleTimingBloc(sl()));
   sl.registerFactory<TemplePoojaBloc>(() => TemplePoojaBloc(sl()));
+  sl.registerFactory<WhatsNewBloc>(() => WhatsNewBloc(sl()));
+  sl.registerFactory<LiveEventsBloc>(() => LiveEventsBloc(sl()));
 }

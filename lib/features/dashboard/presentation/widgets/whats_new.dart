@@ -9,7 +9,7 @@ Padding buildWhatsNewList(BuildContext context) {
   return Padding(
     padding: defaultPadding,
     child: SizedBox(
-      height: 126,
+      height: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

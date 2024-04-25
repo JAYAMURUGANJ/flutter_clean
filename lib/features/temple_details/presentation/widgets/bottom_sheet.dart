@@ -9,8 +9,7 @@ import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 
 //Temple contact information
-buildBottomSheet(
-    context, ItmsResponseEntity temple, String sheetTitle, Widget body) {
+buildBottomSheet(context, dynamic temple, String sheetTitle, Widget body) {
   return showModalBottomSheet(
     isScrollControlled: true,
     isDismissible: false,

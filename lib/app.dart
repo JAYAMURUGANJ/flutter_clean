@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
+import 'features/dashboard/presentation/bloc/whats_new/whats_new_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
@@ -44,6 +46,8 @@ class _AppState extends State<App> {
           BlocProvider<TempleInfoBloc>(create: (context) => sl()),
           BlocProvider<TempleTimingBloc>(create: (context) => sl()),
           BlocProvider<TemplePoojaBloc>(create: (context) => sl()),
+          BlocProvider<WhatsNewBloc>(create: (context) => sl()),
+          BlocProvider<LiveEventsBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
