@@ -23,7 +23,7 @@ class AppRoutes {
         return _materialRoute(TempleDetailsView(
             temple: settings.arguments as ItmsResponseEntity));
       case '/TempleList':
-        return _materialRoute(const TempleList());
+        return _materialRoute(const TempleListPage());
       case '/PaidService':
         return _materialRoute(const PaidServicePage());
       case '/BookingService':
@@ -38,7 +38,7 @@ class AppRoutes {
             DioExceptionScreen(error: settings.arguments as DioException));
 
       default:
-        return _materialRoute(const TempleList());
+        return _materialRoute(const TempleListPage());
     }
   }
 

@@ -22,30 +22,20 @@ class TempleListTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: Container(
-        height: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
+      child: Card(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildImage(
-                context,
-                temple!.maintowerImage!.isNotEmpty
-                    ? ApiCredentials().documents +
-                        temple!.maintowerImage![0].fileLocation.toString()
-                    : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
-                width: 120),
+              context,
+              temple!.maintowerImage!.isNotEmpty
+                  ? ApiCredentials().documents +
+                      temple!.maintowerImage![0].fileLocation.toString()
+                  : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
+              width: 90,
+              height: 90,
+            ),
+            5.pw,
             _buildTitleAndDescription(context),
           ],
         ),
@@ -56,17 +46,21 @@ class TempleListTile extends StatelessWidget {
   Widget _buildTitleAndDescription(context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        padding: const EdgeInsets.all(8.0),
         child: Text(
-          Locales.currentLocale(context)!.languageCode == "en"
-              ? temple!.templeName ?? '-'
-              : temple!.ttempleName ?? "-",
-          maxLines: 3,
+          Locales.lang == "en" ? temple!.templeName! : temple!.ttempleName!,
+          maxLines: 5,
+          textAlign: TextAlign.left,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontWeight: FontWeight.bold),
+          style: Locales.lang == "en"
+              ? Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+              : Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
         ),
       ),
     );

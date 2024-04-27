@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
 import '../../../../core/models/booking_services.dart';
 
@@ -10,7 +11,7 @@ buildTempleServicesList(
     {required String listType, required List<TempleServices> services}) {
   return listType != 'GRID'
       ? SizedBox(
-          height: 120,
+          height: 100,
           child: ListView.builder(
             padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
@@ -114,15 +115,9 @@ buildDevoteeServiceList(context) {
   return Padding(
     padding: defaultPadding,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LocaleText(
-          "devotee_services",
-          style: Theme.of(context)
-              .textTheme
-              .labelSmall!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
+        buildHeading(context, "devotee_services"),
         buildTempleServicesList(listType: 'HL', services: bookingServicesList)
       ],
     ),

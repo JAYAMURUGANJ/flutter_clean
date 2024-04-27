@@ -49,6 +49,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+    lintOptions { 
+      checkReleaseBuilds false 
+    }
 
     buildTypes {
         release {

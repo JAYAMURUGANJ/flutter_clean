@@ -11,7 +11,7 @@ import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
 
 List<Widget> _pages = [
   const Dashboard(),
-  const TempleList(),
+  const TempleListPage(),
   const BookingServicePage(),
   const Settings(),
 ];

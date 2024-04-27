@@ -7,14 +7,14 @@ import '../widgets/temple_list.dart';
 
 TextEditingController searchFieldController = TextEditingController();
 
-class TempleList extends StatefulWidget {
-  const TempleList({Key? key}) : super(key: key);
+class TempleListPage extends StatefulWidget {
+  const TempleListPage({Key? key}) : super(key: key);
 
   @override
-  State<TempleList> createState() => _TempleListState();
+  State<TempleListPage> createState() => _TempleListPageState();
 }
 
-class _TempleListState extends State<TempleList> {
+class _TempleListPageState extends State<TempleListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

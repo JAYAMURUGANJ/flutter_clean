@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 
-LocaleText buildHeadingText(BuildContext context, String text) {
+LocaleText buildHeading(BuildContext context, String text) {
   return LocaleText(
     text,
     style: Theme.of(context)
         .textTheme
-        .titleMedium!
+        .labelSmall!
         .copyWith(fontWeight: FontWeight.bold),
   );
 }

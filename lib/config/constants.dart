@@ -250,8 +250,7 @@ List<Color> colors = [
   Colors.lightBlue.shade300,
 ];
 
-EdgeInsetsGeometry defaultPadding =
-    const EdgeInsets.symmetric(horizontal: 12, vertical: 5);
+EdgeInsetsGeometry defaultPadding = const EdgeInsets.symmetric(horizontal: 15);
 
 // common test themes
 appbarTextStyleLarge(theme) =>

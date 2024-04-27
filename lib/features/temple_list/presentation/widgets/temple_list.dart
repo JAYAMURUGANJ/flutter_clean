@@ -1,8 +1,9 @@
+// ignore_for_file: dead_code
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
@@ -36,48 +37,6 @@ alltempleListBlocBuilder() {
   );
 }
 
-mainTempleListBlocBuilder() {
-  return BlocConsumer<ITMSBloc, ITMSState>(
-    listener: (context, state) {
-      if (state is TempleListLodingError) {
-        Navigator.pushNamed(context, '/DioException', arguments: state.error!);
-      }
-      if (state is TempleListLoadingSomthingWentWrong) {
-        Navigator.pushNamed(context, '/SomthingWentWrong',
-            arguments: state.responseStatus!);
-      }
-    },
-    builder: (context, state) {
-      if (state is TempleListLoading) {
-        return const SizedBox(
-            height: 350, child: Center(child: CupertinoActivityIndicator()));
-      }
-
-      if (state is TempleListLoaded) {
-        dynamic templeList = state.templeList!;
-        return Padding(
-          padding: defaultPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              LocaleText(
-                "main_temples",
-                textAlign: TextAlign.left,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-              mainTempleListView(context, templeList, state),
-            ],
-          ),
-        );
-      }
-      return const SizedBox();
-    },
-  );
-}
-
 allTempleListPageView(
     BuildContext context, templeList, TempleListLoaded state) {
   return SingleChildScrollView(
@@ -85,43 +44,40 @@ allTempleListPageView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        buildHeadingText(context, "categories"),
+        5.ph,
+        buildHeading(context, "categories"),
         _godCategories(),
-        buildHeadingText(context, "temples"),
-        allTempleListView(templeList, state),
+        _buildHeadingTextwithValue(templeList, context),
+        _allTempleListView(templeList, state),
       ],
     ),
   );
 }
 
-mainTempleListView(BuildContext context, templeList, TempleListLoaded state) {
-  return SizedBox(
-    height: 350,
-    child: CardSwiper(
-      backCardOffset: const Offset(0, 24),
-      numberOfCardsDisplayed: 3,
-      cardsCount: templeList.length,
-      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
-          MainTempleListTile(
-        temple: templeList[index],
-        onTemplePressed: (article) => _onTemplePressed(context, article),
+_buildHeadingTextwithValue(templeList, BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Card(
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(templeList.length.toString()),
+        ),
       ),
-    ),
+      buildHeading(context, "temples"),
+    ],
   );
 }
 
-allTempleListView(templeList, TempleListLoaded state) {
+_allTempleListView(templeList, TempleListLoaded state) {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemExtent: 140,
+    itemExtent: 100,
     itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-        child: TempleListTile(
-          temple: templeList[index],
-          onTemplePressed: (article) => _onTemplePressed(context, article),
-        ),
+      return TempleListTile(
+        temple: templeList[index],
+        onTemplePressed: (article) => _onTemplePressed(context, article),
       );
     },
     itemCount: state.templeList!.length,
@@ -130,37 +86,31 @@ allTempleListView(templeList, TempleListLoaded state) {
 
 _godCategories() {
   return SizedBox(
-    height: 110,
+    height: 90,
     child: ListView.builder(
-      padding: const EdgeInsets.only(right: 3),
+      // padding: const EdgeInsets.only(right: 2),
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      itemExtent: 100,
+      itemExtent: 80,
       itemCount: godList.length,
       itemBuilder: (context, index) => GestureDetector(
         onTap: () {},
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(14),
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                color: godList[index].bgColor,
-                image: DecorationImage(
-                    image: AssetImage(godList[index].imageLink!)),
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    spreadRadius: 1,
-                    blurRadius: 4,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
+        child: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: godList[index].bgColor,
+            image:
+                DecorationImage(image: AssetImage(godList[index].imageLink!)),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 3), // changes position of shadow
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),
