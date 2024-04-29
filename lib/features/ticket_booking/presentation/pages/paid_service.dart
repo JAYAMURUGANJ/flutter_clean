@@ -57,7 +57,7 @@ class _PaidServicePageState extends State<PaidServicePage> {
       resizeToAvoidBottomInset: true,
       appBar: appHeader(
           context: context,
-          body: LocaleText("paid",
+          body: LocaleText("paid_services",
               textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
           trailing: IconButton(
               onPressed: () => buildNavigationDrawer(context),

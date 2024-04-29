@@ -11,7 +11,7 @@ buildTempleServicesList(
     {required String listType, required List<TempleServices> services}) {
   return listType != 'GRID'
       ? SizedBox(
-          height: 100,
+          height: Locales.lang == "en" ? 100 : 120,
           child: ListView.builder(
             padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
