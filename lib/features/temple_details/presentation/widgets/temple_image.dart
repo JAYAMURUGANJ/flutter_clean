@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/full_screen_image_viewer.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/bottom_sheet.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
 
+import '../../../../config/common/widgets/bottom_sheet.dart';
 import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
+import '/config/common/widgets/full_screen_image_viewer.dart';
+import 'contacts.dart';
+import '/features/temple_details/presentation/widgets/main_tower.dart';
 import '360_degree_view.dart';
 import 'google_map_location.dart';
 

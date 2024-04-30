@@ -4,7 +4,6 @@ import '../../../features/dashboard/presentation/widgets/service_list.dart';
 import '../../constants.dart';
 
 buildNavigationDrawer(context) {
-  dynamic theme = Theme.of(context);
   List<Widget> children = List.generate(drawerList.length,
       (e) => otherServiceCard(e, context, 80, 80, 14, drawerList));
   return showModalBottomSheet(

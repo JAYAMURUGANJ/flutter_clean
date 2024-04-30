@@ -4,6 +4,7 @@ import 'package:news_app_clean_architecture/features/home/presentation/pages/hom
 import 'package:news_app_clean_architecture/features/settings/presentation/pages/settings.dart';
 import 'package:news_app_clean_architecture/splash.dart';
 
+import '../../features/event_calendar/presentation/pages/event_calendar.dart';
 import '../../features/temple_details/presentation/pages/temple_details.dart';
 import '../../features/temple_list/domain/entities/itms_response.dart';
 import '../../features/temple_list/presentation/pages/temple_list.dart';
@@ -30,6 +31,8 @@ class AppRoutes {
         return _materialRoute(const BookingServicePage());
       case '/Settings':
         return _materialRoute(const Settings());
+      case '/Events':
+        return _materialRoute(const TempleEventCalendar());
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

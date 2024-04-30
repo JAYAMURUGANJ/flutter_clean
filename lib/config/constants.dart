@@ -179,7 +179,7 @@ List<TempleServices> otherServicesList = [
     name: "events",
     imageLink: "assets/images/icons/events.png",
     bgColor: Colors.lightBlue.shade300,
-    page: "",
+    page: "/Events",
   ),
   TempleServices(
     id: 3,
