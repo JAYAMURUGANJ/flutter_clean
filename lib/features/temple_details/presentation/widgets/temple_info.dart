@@ -13,17 +13,7 @@ class TempleInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TempleInfoBloc, TempleInfoState>(
-      listener: (context, state) {
-        if (state is TempleInfoLodingError) {
-          Navigator.pushNamed(context, '/DioException',
-              arguments: state.error!);
-        }
-        if (state is TempleInfoLoadingSomthingWentWrong) {
-          Navigator.pushNamed(context, '/SomthingWentWrong',
-              arguments: state.responseStatus!);
-        }
-      },
+    return BlocBuilder<TempleInfoBloc, TempleInfoState>(
       builder: (context, state) {
         if (state is TempleInfoLoading) {
           return const CupertinoActivityIndicator();
