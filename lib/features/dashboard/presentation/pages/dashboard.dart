@@ -5,8 +5,9 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/app_refer_card.dart';
+import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
-import '../../../temple_list/presentation/widgets/temple_list.dart';
+import '../widgets/main_temple_swiper.dart';
 import '../widgets/service_list.dart';
 import '../widgets/whats_new.dart';
 import '/config/common/extensions.dart';
@@ -24,7 +25,7 @@ class Dashboard extends StatelessWidget {
         body: LocaleText("thirukoil",
             textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () => buildNavigationDrawer(context),
           icon: const Icon(Icons.menu),
         ),
       ),
@@ -37,13 +38,14 @@ class Dashboard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          5.ph,
           buildWhatsNewList(context),
           buildDevoteeServiceList(context),
           mainTempleListBlocBuilder(),
           otherServiceList(context),
-          10.ph,
+          15.ph,
           const AppReferalCard(),
-          10.ph,
+          15.ph,
         ],
       ),
     );

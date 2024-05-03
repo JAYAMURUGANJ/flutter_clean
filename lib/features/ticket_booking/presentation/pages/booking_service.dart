@@ -4,6 +4,7 @@ import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/cloud_arc.dart';
+import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
 
 class BookingServicePage extends StatefulWidget {
@@ -21,9 +22,9 @@ class _BookingServicePageState extends State<BookingServicePage> {
       appBar: appHeader(
         context: context,
         body: LocaleText("booking",
-            textAlign: TextAlign.center, style: appbarTextStyleMedium(theme)),
+            textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () => buildNavigationDrawer(context),
           icon: const Icon(Icons.menu),
         ),
       ),

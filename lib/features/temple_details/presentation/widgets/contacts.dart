@@ -2,9 +2,9 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
 
+import '../../../../config/common/widgets/app_logo.dart';
 import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 

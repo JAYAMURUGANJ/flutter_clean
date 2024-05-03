@@ -18,8 +18,8 @@ class AppReferalCard extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
           child: Container(
-            width: 310.0,
-            height: 110.0,
+            width: double.infinity,
+            height: 130.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -86,7 +86,7 @@ class AppReferalCard extends StatelessWidget {
                       ),
                     ),
                     CircleAvatar(
-                      radius: 35,
+                      radius: 38,
                       child: Image(
                         image: ExactAssetImage(
                           LocalImages().appLogo,

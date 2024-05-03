@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app_clean_architecture/features/home/presentation/pages/home.dart';
+import 'package:news_app_clean_architecture/features/settings/presentation/pages/settings.dart';
 import 'package:news_app_clean_architecture/splash.dart';
 
+import '../../features/event_calendar/presentation/pages/event_calendar.dart';
 import '../../features/temple_details/presentation/pages/temple_details.dart';
 import '../../features/temple_list/domain/entities/itms_response.dart';
 import '../../features/temple_list/presentation/pages/temple_list.dart';
@@ -21,10 +23,16 @@ class AppRoutes {
       case '/TempleDetails':
         return _materialRoute(TempleDetailsView(
             temple: settings.arguments as ItmsResponseEntity));
+      case '/TempleList':
+        return _materialRoute(const TempleListPage());
       case '/PaidService':
         return _materialRoute(const PaidServicePage());
       case '/BookingService':
         return _materialRoute(const BookingServicePage());
+      case '/Settings':
+        return _materialRoute(const Settings());
+      case '/Events':
+        return _materialRoute(const TempleEventCalendar());
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));
@@ -33,7 +41,7 @@ class AppRoutes {
             DioExceptionScreen(error: settings.arguments as DioException));
 
       default:
-        return _materialRoute(const TempleList());
+        return _materialRoute(const TempleListPage());
     }
   }
 

@@ -11,7 +11,7 @@ import '../bloc/bottom_navigation/bottom_navigation_cubit.dart';
 
 List<Widget> _pages = [
   const Dashboard(),
-  const TempleList(),
+  const TempleListPage(),
   const BookingServicePage(),
   const Settings(),
 ];
@@ -33,11 +33,9 @@ class Home extends StatelessWidget {
           navigator.pop();
         }
       },
-      child: SafeArea(
-        child: Scaffold(
-          body: _buildBody(),
-          bottomNavigationBar: _buildBottomBar(),
-        ),
+      child: Scaffold(
+        body: _buildBody(),
+        bottomNavigationBar: _buildBottomBar(),
       ),
     );
   }

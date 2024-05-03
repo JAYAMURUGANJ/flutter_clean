@@ -24,11 +24,16 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     on<GetTempleAdmininfo>(onGetTempleAdmininfo);
     on<GetTemplePhotogallery>(onGetTemplePhotogallery);
     on<GetTempleVideogallery>(onGetTempleVideogallery);
-    on<GetTempleScrollevent>(onGetTempleScrollevent);
+    on<GetTempleScrollevent>(
+        onGetTempleScrollevent); //Utsavar darshan/function/golden chaeriot -- Live
     on<GetTempleWhatsnew>(onGetTempleWhatsnew);
     on<GetTempleFacility>(onGetTempleFacility);
     on<GetTempleList>(onGetTempleList);
     on<FilterTempleList>(onFilterTempleList);
+
+// Note :
+// The two type of data fetched one all temple event list (7025) and fetched
+// Single temple event list (7023)
   }
 
   void onGetTempleHistory(
