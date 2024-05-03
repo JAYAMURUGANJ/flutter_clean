@@ -10,8 +10,8 @@ import 'package:news_app_clean_architecture/features/dashboard/domain/entities/l
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/widgets/live_events.dart';
 
-import '../../../features/temple_details/presentation/widgets/bottom_sheet.dart';
 import '../../constants.dart';
+import 'bottom_sheet.dart';
 
 class WhatsNewIndicatior extends StatefulWidget {
   const WhatsNewIndicatior({Key? key}) : super(key: key);
