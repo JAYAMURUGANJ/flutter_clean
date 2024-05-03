@@ -72,5 +72,6 @@
     "app_close": "Are you sure you want to close this app?",
     "y": "Yes",
     "n": "No",
-    "live_events": "Live Events"
+    "live_events": "Live Events",
+    "designation": "Designation"
 }

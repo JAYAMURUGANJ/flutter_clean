@@ -2,17 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/full_screen_image_viewer.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/contact_details.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
 import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
-import '/config/common/widgets/full_screen_image_viewer.dart';
-import '/features/temple_details/presentation/widgets/main_tower.dart';
+import 'bottom_sheet.dart';
 import '360_degree_view.dart';
-import 'contacts.dart';
 import 'google_map_location.dart';
 
-Widget buildTempleImage(context, temple) {
+Widget buildTempleImage(context, ItmsResponseEntity temple) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(
     builder: (context, state) {
       TempleInfoEntity? templeInfo;
@@ -76,11 +78,9 @@ Widget buildTempleImage(context, temple) {
                       context,
                       temple,
                       '360',
-                      const SizedBox(
+                      SizedBox(
                         height: double.infinity,
-                        child: ShowTemple360View(
-                            url:
-                                'https://mylaikapaleeswarar.hrce.tn.gov.in/resources/docs/virtualtour/1/index.html'),
+                        child: ShowTemple360View(url: temple.degree360view!),
                       ),
                     ),
                     icon: Image.asset(
@@ -119,11 +119,9 @@ Widget buildTempleImage(context, temple) {
                 child: Center(
                   child: IconButton(
                     onPressed: () => buildBottomSheet(
-                      context,
-                      temple,
-                      'contact',
-                      buildContactBody(context, temple),
-                    ),
+                        context, temple, 'contact', BuildContactDetails(temple)
+                        //  buildContactBody(context, temple),
+                        ),
                     icon: Image.asset(
                       LocalImages().contact,
                       width: 35,

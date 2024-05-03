@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +42,10 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
         }
         if (state is LiveEventsLoaded) {
           // print(state.liveEvents!.length);
-          List<LiveEventsEntity>? liveEvents =
-              state.liveEvents!.cast<LiveEventsEntity>();
+          List<LiveEventsEntity>? liveEvents = state.liveEvents!
+              .cast<LiveEventsEntity>()
+              .where((element) => element.scrollData![0].liveurl == "Y")
+              .toList();
           return Column(
             children: [
               CarouselSlider(
@@ -89,7 +93,7 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
         margin: const EdgeInsets.symmetric(horizontal: 5.0),
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: colors[2],
+          color: colors[Random().nextInt(4)],
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Row(

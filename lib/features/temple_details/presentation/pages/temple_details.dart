@@ -51,7 +51,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      buildTempleImage(context, widget.temple),
+                      buildTempleImage(context, widget.temple!),
                       buildTempleServices(context),
                       buildTabBar(context, tabController),
                     ],

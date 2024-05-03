@@ -72,10 +72,10 @@ mainTempleListView(BuildContext context, templeList, TempleListLoaded state,
     CardSwiperController controller) {
   return SizedBox(
     width: double.infinity,
-    height: 350,
+    height: 440,
     child: CardSwiper(
       controller: controller,
-      backCardOffset: const Offset(0, 24),
+      backCardOffset: const Offset(0, 40),
       numberOfCardsDisplayed: 3,
       cardsCount: templeList.length,
       onSwipe: onSwipe,

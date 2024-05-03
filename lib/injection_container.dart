@@ -8,9 +8,13 @@ import 'package:news_app_clean_architecture/features/dashboard/domain/usecases/w
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/whats_new/whats_new_bloc.dart';
 import 'package:news_app_clean_architecture/features/settings/presentation/bloc/theme/theme_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/repository/contact_details_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/temple_info_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/repository/contact_details_repository.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/temple_info_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/contact_details_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/temple_info_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
@@ -46,6 +50,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TemplePoojaRepository>(TemplePoojaRepositoryImpl(sl()));
   sl.registerSingleton<WhatsNewRepository>(WhatsNewRepositoryImpl(sl()));
   sl.registerSingleton<LiveEventsRepository>(LiveEventsRepositoryImpl(sl()));
+  sl.registerSingleton<ContactDetailsRepository>(
+      ContactDetailsRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -54,6 +60,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TemplePoojaUseCase>(TemplePoojaUseCase(sl()));
   sl.registerSingleton<WhatsNewUseCase>(WhatsNewUseCase(sl()));
   sl.registerSingleton<LiveEventsUseCase>(LiveEventsUseCase(sl()));
+  sl.registerSingleton<ContactDetailsUseCase>(ContactDetailsUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -64,4 +71,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<TemplePoojaBloc>(() => TemplePoojaBloc(sl()));
   sl.registerFactory<WhatsNewBloc>(() => WhatsNewBloc(sl()));
   sl.registerFactory<LiveEventsBloc>(() => LiveEventsBloc(sl()));
+  sl.registerFactory<ContactDetailsBloc>(() => ContactDetailsBloc(sl()));
 }

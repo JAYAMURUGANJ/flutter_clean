@@ -1,12 +1,8 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
 
 import '../../../../config/common/widgets/app_logo.dart';
 import '../../../../config/constants.dart';
-import '../../../temple_list/domain/entities/itms_response.dart';
 
 //Temple contact information
 buildBottomSheet(context, dynamic temple, String sheetTitle, Widget body) {
@@ -51,66 +47,6 @@ buildBottomSheetAppBar(BuildContext context, String sheetTitle) {
   );
 }
 
-buildContactBody(BuildContext context, ItmsResponseEntity temple) {
-  return Container(
-    decoration: const BoxDecoration(
-      color: Colors.white,
-    ),
-    child: Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.white,
-                Theme.of(context).colorScheme.primary.blend(Colors.white),
-                Theme.of(context).colorScheme.primary,
-              ],
-            ),
-          ),
-          height: MediaQuery.sizeOf(context).height / 3,
-        ),
-        SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: Text(
-                  Locales.lang == "en"
-                      ? temple.templeName ?? '-'
-                      : temple.ttempleName ?? "-",
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                ),
-              ),
-              5.ph,
-              mainTower(temple, 80),
-              buildContactCard(context, "designation", "Incharge Name",
-                  Icons.contact_emergency, () {}),
-              buildContactCard(context, "address", "Temple Address",
-                  Icons.location_on_outlined, () {}),
-              buildContactCard(context, "email", "temple@example.com",
-                  Icons.mail_outline, () {}),
-              buildContactCard(
-                  context, "phone", "9876543210", Icons.phone_outlined, () {}),
-              buildContactCard(
-                  context, "website", "click to go", Icons.language, () {}),
-            ],
-          ),
-        )
-      ],
-    ),
-  );
-}
-
 buildContactCard(BuildContext context, String lable, String value,
     IconData icon, VoidCallback action,
     {bool localLable = true}) {
@@ -142,7 +78,7 @@ buildContactCard(BuildContext context, String lable, String value,
             ),
       subtitle: Text(
         value,
-        maxLines: 2,
+        maxLines: 4,
         style: Theme.of(context)
             .textTheme
             .bodyMedium!
