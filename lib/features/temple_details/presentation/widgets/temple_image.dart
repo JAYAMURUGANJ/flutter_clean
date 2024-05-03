@@ -7,9 +7,9 @@ import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
 import '/config/common/widgets/full_screen_image_viewer.dart';
-import 'contacts.dart';
 import '/features/temple_details/presentation/widgets/main_tower.dart';
 import '360_degree_view.dart';
+import 'contacts.dart';
 import 'google_map_location.dart';
 
 Widget buildTempleImage(context, temple) {
@@ -102,7 +102,7 @@ Widget buildTempleImage(context, temple) {
                       context,
                       temple,
                       'location',
-                      const TempleMapLocation(),
+                      const NearByTemples(),
                     ),
                     icon: Image.asset(
                       LocalImages().location,

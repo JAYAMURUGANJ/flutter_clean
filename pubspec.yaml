@@ -61,10 +61,7 @@ dependencies:
   webview_flutter: ^4.7.0
   google_maps_flutter: ^2.2.8
   table_calendar: ^3.0.9
-  
-
-
-  
+  custom_info_window: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -101,6 +98,7 @@ flutter:
     - assets/images/god/
     - assets/images/logo/
     - assets/images/icons/
+    - assets/images/markers/
     
   uses-material-design: true
 
