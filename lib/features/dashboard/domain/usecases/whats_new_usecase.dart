@@ -1,8 +1,7 @@
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/whats_new.dart';
-import 'package:news_app_clean_architecture/features/dashboard/domain/repository/whats_new_repository.dart';
-
-import '../../../../core/resources/data_state.dart';
-import '../../../../core/usecase/usecase.dart';
+import '/core/resources/data_state.dart';
+import '/core/usecase/usecase.dart';
+import '/features/dashboard/domain/entities/whats_new.dart';
+import '/features/dashboard/domain/repository/whats_new_repository.dart';
 
 class WhatsNewUseCase
     implements UseCase<DataState<List<WhatsNewEntity>>, void> {

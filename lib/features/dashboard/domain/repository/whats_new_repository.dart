@@ -1,7 +1,5 @@
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/whats_new.dart';
-
-import '../../../../core/resources/data_state.dart';
-
+import '/core/resources/data_state.dart';
+import '/features/dashboard/domain/entities/whats_new.dart';
 
 abstract class WhatsNewRepository {
   // API methods

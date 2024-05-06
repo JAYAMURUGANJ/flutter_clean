@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 
-import '../../../../injection_container.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
@@ -11,6 +8,9 @@ import '../widgets/app_bar.dart';
 import '../widgets/tab_widget.dart';
 import '../widgets/temple_image.dart';
 import '../widgets/temple_services.dart';
+import '/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
+import '/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
+import '/injection_container.dart';
 
 TabController? tabController;
 

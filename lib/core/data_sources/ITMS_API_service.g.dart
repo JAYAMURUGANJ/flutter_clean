@@ -9,10 +9,7 @@ part of 'ITMS_API_service.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _HRCEApiService implements HRCEApiService {
-  _HRCEApiService(
-    this._dio, {
-    this.baseUrl,
-  }) {
+  _HRCEApiService(this._dio) {
     baseUrl ??= 'https://hrce.tn.gov.in/webservice/webservices.php';
   }
 

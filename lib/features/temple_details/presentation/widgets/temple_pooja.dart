@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
 
-import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../domain/entities/temple_pooja.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
+import '/config/common/widgets/something_went_wrong.dart';
+import '/config/constants.dart';
 
 class TemplePooja extends StatelessWidget {
   const TemplePooja({Key? key}) : super(key: key);

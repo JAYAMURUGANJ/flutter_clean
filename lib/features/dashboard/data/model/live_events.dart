@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/live_events.dart';
+import '/features/dashboard/domain/entities/live_events.dart';
 
 class LiveEvents extends LiveEventsEntity {
   const LiveEvents({

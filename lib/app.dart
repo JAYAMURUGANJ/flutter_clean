@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
 
+import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import '/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
 
-import '../../../../config/common/widgets/something_went_wrong.dart';
-import '../../../../config/common/widgets/text_widgets.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
+import '/config/common/widgets/something_went_wrong.dart';
+import '/config/common/widgets/text_widgets.dart';
+import '/config/constants.dart';
 
 class TempleInfoWidget extends StatelessWidget {
   const TempleInfoWidget({Key? key}) : super(key: key);

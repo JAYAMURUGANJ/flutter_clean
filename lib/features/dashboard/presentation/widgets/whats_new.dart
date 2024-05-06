@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/common/extensions.dart';
-import '../../../../config/common/widgets/card_carousel.dart';
+import 'whats_new_indicatior.dart';
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
 

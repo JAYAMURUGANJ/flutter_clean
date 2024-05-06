@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/dashboard/domain/usecases/live_events_usecase.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/live_events.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
+import '/features/dashboard/domain/usecases/live_events_usecase.dart';
 
 part 'live_events_event.dart';
 part 'live_events_state.dart';

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/whats_new.dart';
+import '/features/dashboard/domain/entities/whats_new.dart';
 
 class WhatsNew extends WhatsNewEntity {
   const WhatsNew({

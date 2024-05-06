@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '../../class/exception.dart';
 import '../../widgets/network_image_cache.dart';
+import '/config/constants.dart';
 
 class DioExceptionScreen extends StatelessWidget {
   final DioException error;

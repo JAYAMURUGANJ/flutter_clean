@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:news_app_clean_architecture/core/models/booking_services.dart';
-import 'package:news_app_clean_architecture/core/models/god.dart';
+
+import '/core/models/booking_services.dart';
+import '/core/models/god.dart';
 
 class ApiCredentials {
   // api credentials

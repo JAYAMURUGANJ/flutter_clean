@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/live_events.dart';
+
+import '/features/dashboard/domain/entities/live_events.dart';
 
 class LiveEventsWidget extends StatefulWidget {
   final LiveEventsEntity liveEvents;

@@ -1,8 +1,7 @@
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/temple_timing.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/repository/temple_timing_repository.dart';
-
-import '../../../../core/resources/data_state.dart';
-import '../../../../core/usecase/usecase.dart';
+import '/core/resources/data_state.dart';
+import '/core/usecase/usecase.dart';
+import '/features/temple_details/domain/entities/temple_timing.dart';
+import '/features/temple_details/domain/repository/temple_timing_repository.dart';
 
 class TempleTimingUseCase
     implements UseCase<DataState<List<TempleTimingEntity>>, void> {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/contact_details.dart';
+import '/features/temple_details/domain/entities/contact_details.dart';
 
 class ContactDetails extends ContactDetailsEntity {
   const ContactDetails({

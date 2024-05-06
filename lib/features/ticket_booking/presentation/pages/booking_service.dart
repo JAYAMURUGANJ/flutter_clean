@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
 
-import '../../../../config/common/widgets/app_header.dart';
-import '../../../../config/common/widgets/cloud_arc.dart';
-import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
+import '/config/common/widgets/app_header.dart';
+import '/config/common/widgets/cloud_arc.dart';
+import '/config/common/widgets/navigation_drawer.dart';
+import '/config/constants.dart';
 
 class BookingServicePage extends StatefulWidget {
   const BookingServicePage({Key? key}) : super(key: key);

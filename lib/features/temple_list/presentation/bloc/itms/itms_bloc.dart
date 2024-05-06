@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/core/models/itms_request.dart';
 
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/itms_response.dart';
 import '../../../domain/usecases/itms_response.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
 import 'itms_event.dart';
 import 'itms_state.dart';
 

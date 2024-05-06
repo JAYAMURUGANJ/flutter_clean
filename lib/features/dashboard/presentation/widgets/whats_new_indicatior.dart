@@ -7,13 +7,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/features/dashboard/domain/entities/live_events.dart';
-import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
-import 'package:news_app_clean_architecture/features/dashboard/presentation/widgets/live_events.dart';
 
-import '../../constants.dart';
-import 'bottom_sheet.dart';
+import '/config/common/extensions.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/constants.dart';
+import '/features/dashboard/domain/entities/live_events.dart';
+import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import '/features/dashboard/presentation/widgets/live_events.dart';
 
 class WhatsNewIndicatior extends StatefulWidget {
   const WhatsNewIndicatior({Key? key}) : super(key: key);
@@ -44,7 +44,8 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
           // print(state.liveEvents!.length);
           List<LiveEventsEntity>? liveEvents = state.liveEvents!
               .cast<LiveEventsEntity>()
-              .where((element) => element.scrollData![0].liveurl == "Y")
+              .where((element) =>
+                  element.scrollData!.any((data) => data.liveurl == "Y"))
               .toList();
           return Column(
             children: [
@@ -130,7 +131,7 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
                     liveEvents.scrollData![0].eventDesc ?? "",
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),

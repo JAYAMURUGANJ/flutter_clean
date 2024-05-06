@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/temple_timing.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/usecases/temple_timinig_usecase.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
+import '/features/temple_details/domain/entities/temple_timing.dart';
 
 part 'temple_timing_event.dart';
 part 'temple_timing_state.dart';

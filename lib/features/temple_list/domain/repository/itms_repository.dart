@@ -1,5 +1,5 @@
-import 'package:news_app_clean_architecture/core/resources/data_state.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
+import '/core/resources/data_state.dart';
+import '/features/temple_list/domain/entities/itms_response.dart';
 
 abstract class ItmsRepository {
   // API methods

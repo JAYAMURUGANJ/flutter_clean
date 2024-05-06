@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
 
+import '/config/constants.dart';
 import 'temple_info.dart';
 import 'temple_pooja.dart';
 import 'temple_timing.dart';

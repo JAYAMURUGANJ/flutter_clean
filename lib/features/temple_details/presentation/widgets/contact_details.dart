@@ -1,13 +1,12 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/contact_details.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/bottom_sheet.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
 import '../bloc/contact_details/contact_details_bloc.dart';
-
+import '/config/common/extensions.dart';
+import '/features/temple_details/domain/entities/contact_details.dart';
+import '/features/temple_details/presentation/widgets/bottom_sheet.dart';
+import '/features/temple_list/domain/entities/itms_response.dart';
 import 'main_tower.dart';
 
 class BuildContactDetails extends StatefulWidget {

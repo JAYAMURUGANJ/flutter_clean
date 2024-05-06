@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/parallax_image.dart';
 
 import '../../../../config/common/widgets/network_image_cache.dart';
 import '../../../../config/constants.dart';
 import '../../domain/entities/itms_response.dart';
+import '/config/common/extensions.dart';
 
 class TempleListTile extends StatelessWidget {
   final ItmsResponseEntity? temple;
@@ -162,42 +161,6 @@ class MainTempleListTile extends StatelessWidget {
           //   ],
           // ),
           ),
-    );
-  }
-
-  Widget _buildTitleAndDescription(context) {
-    final borderColor = Theme.of(context).colorScheme.primary;
-    return Container(
-      height: 90,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: borderColor,
-        border: Border.all(
-          color: borderColor,
-          width: 12.0,
-        ),
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(50)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 252, 251, 251).withOpacity(0.4),
-            spreadRadius: 3,
-            blurRadius: 4,
-            offset: const Offset(3, 0), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Text(
-        Locales.lang == "en"
-            ? temple!.templeName ?? '-'
-            : temple!.ttempleName ?? "-",
-        maxLines: 3,
-        overflow: TextOverflow.fade,
-        textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall!
-            .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
-      ),
     );
   }
 

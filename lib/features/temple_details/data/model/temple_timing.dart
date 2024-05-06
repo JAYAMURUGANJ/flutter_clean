@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/temple_timing.dart';
+import '/features/temple_details/domain/entities/temple_timing.dart';
 
 class TempleTiming extends TempleTimingEntity {
   const TempleTiming({

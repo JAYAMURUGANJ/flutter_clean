@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
-import '../../../../config/common/widgets/text_widgets.dart';
-import '../../../../config/constants.dart';
 import '../../domain/entities/itms_response.dart';
 import '../bloc/itms/itms_bloc.dart';
 import '../bloc/itms/itms_state.dart';
+import '/config/common/extensions.dart';
+import '/config/common/widgets/text_widgets.dart';
+import '/config/constants.dart';
 import 'temple_tile.dart';
 
 alltempleListBlocBuilder() {

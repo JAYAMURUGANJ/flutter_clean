@@ -1,12 +1,11 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/contact_details_usecase.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/models/itms_request.dart';
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/contact_details.dart';
+import '/features/temple_details/domain/usecases/contact_details_usecase.dart';
 
 part 'contact_details_event.dart';
 part 'contact_details_state.dart';

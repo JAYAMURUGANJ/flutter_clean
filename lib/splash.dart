@@ -4,8 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/app_logo.dart';
 
+import '/config/common/widgets/app_logo.dart';
 import 'config/common/widgets/app_header.dart';
 import 'config/constants.dart';
 

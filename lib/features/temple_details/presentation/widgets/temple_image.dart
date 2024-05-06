@@ -2,16 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/full_screen_image_viewer.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/contact_details.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/main_tower.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
 import '../../../../config/constants.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
-import 'bottom_sheet.dart';
+import '/config/common/widgets/full_screen_image_viewer.dart';
+import '/features/temple_details/presentation/widgets/contact_details.dart';
+import '/features/temple_details/presentation/widgets/main_tower.dart';
+import '/features/temple_list/domain/entities/itms_response.dart';
 import '360_degree_view.dart';
+import 'bottom_sheet.dart';
 import 'google_map_location.dart';
 
 Widget buildTempleImage(context, ItmsResponseEntity temple) {
@@ -40,9 +40,9 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                           ? ApiCredentials().documents +
                               templeInfo!.templeImages![0].fileLocation
                                   .toString()
-                          : temple!.maintowerImage!.isNotEmpty
+                          : temple.maintowerImage!.isNotEmpty
                               ? ApiCredentials().documents +
-                                  temple!.maintowerImage![0].fileLocation
+                                  temple.maintowerImage![0].fileLocation
                                       .toString()
                               : 'https://cdn-icons-png.freepik.com/512/89/89020.png');
                 },
@@ -52,9 +52,9 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                   imageUrl: state is TempleInfoLoaded
                       ? ApiCredentials().documents +
                           templeInfo!.templeImages![0].fileLocation.toString()
-                      : temple!.maintowerImage!.isNotEmpty
+                      : temple.maintowerImage!.isNotEmpty
                           ? ApiCredentials().documents +
-                              temple!.maintowerImage![0].fileLocation.toString()
+                              temple.maintowerImage![0].fileLocation.toString()
                           : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
                   imageBuilder: (context, imageProvider) => ClipRRect(
                     // borderRadius: BorderRadius.circular(20.0),
