@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../temple_list/domain/entities/itms_response.dart';
+import '/config/constants.dart';
 
 mainTower(ItmsResponseEntity temple, double radius) {
   return Container(
@@ -25,7 +26,7 @@ mainTower(ItmsResponseEntity temple, double radius) {
         // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
         imageUrl: temple.maintowerImage!.isNotEmpty
             ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple.maintowerImage![0].fileLocation}'
-            : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
+            : NetworkImages.templePlaceHolder,
 
         imageBuilder: (context, imageProvider) => CircleAvatar(
           radius: radius,

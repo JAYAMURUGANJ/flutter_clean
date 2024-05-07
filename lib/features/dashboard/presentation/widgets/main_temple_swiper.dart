@@ -8,7 +8,7 @@ import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_state.dart';
-import '../../../temple_list/presentation/widgets/temple_tile.dart';
+import 'main_temple_list_tile.dart';
 
 mainTempleListBlocBuilder() {
   final CardSwiperController controller = CardSwiperController();

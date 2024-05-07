@@ -33,6 +33,9 @@ class NetworkImages {
 
   static const String somthingWentWrong =
       "https://static.vecteezy.com/system/resources/previews/012/003/110/large_2x/information-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
+
+  static const String templePlaceHolder =
+      "https://www.seekpng.com/png/detail/252-2523694_hindu-temple-photo-hindu-temple-illustration.png";
 }
 
 class LocalImages {

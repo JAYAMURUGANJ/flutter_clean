@@ -35,16 +35,16 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
               child: GestureDetector(
                 onTap: () {
                   fullScreenImageViewer(
-                      context,
-                      state is TempleInfoLoaded
-                          ? ApiCredentials().documents +
-                              templeInfo!.templeImages![0].fileLocation
-                                  .toString()
-                          : temple.maintowerImage!.isNotEmpty
-                              ? ApiCredentials().documents +
-                                  temple.maintowerImage![0].fileLocation
-                                      .toString()
-                              : 'https://cdn-icons-png.freepik.com/512/89/89020.png');
+                    context,
+                    state is TempleInfoLoaded
+                        ? ApiCredentials().documents +
+                            templeInfo!.templeImages![0].fileLocation.toString()
+                        : temple.maintowerImage!.isNotEmpty
+                            ? ApiCredentials().documents +
+                                temple.maintowerImage![0].fileLocation
+                                    .toString()
+                            : NetworkImages.templePlaceHolder,
+                  );
                 },
                 child: CachedNetworkImage(
                   placeholder: (context, url) =>
@@ -55,9 +55,8 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                       : temple.maintowerImage!.isNotEmpty
                           ? ApiCredentials().documents +
                               temple.maintowerImage![0].fileLocation.toString()
-                          : 'https://cdn-icons-png.freepik.com/512/89/89020.png',
+                          : NetworkImages.templePlaceHolder,
                   imageBuilder: (context, imageProvider) => ClipRRect(
-                    // borderRadius: BorderRadius.circular(20.0),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.08),
@@ -118,10 +117,8 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
               child: Card(
                 child: Center(
                   child: IconButton(
-                    onPressed: () => buildBottomSheet(
-                        context, temple, 'contact', BuildContactDetails(temple)
-                        //  buildContactBody(context, temple),
-                        ),
+                    onPressed: () => buildBottomSheet(context, temple,
+                        'contact', BuildContactDetails(temple)),
                     icon: Image.asset(
                       LocalImages().contact,
                       width: 35,
