@@ -9,7 +9,7 @@ import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
 import '../widgets/main_temple_swiper.dart';
 import '../widgets/service_list.dart';
-import '../widgets/whats_new.dart';
+import '../widgets/whats_new_indicatior.dart';
 import '/config/common/extensions.dart';
 
 class Dashboard extends StatelessWidget {
@@ -39,7 +39,7 @@ class Dashboard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           5.ph,
-          buildWhatsNewList(context),
+          const WhatsNewIndicatior(),
           buildDevoteeServiceList(context),
           mainTempleListBlocBuilder(),
           otherServiceList(context),

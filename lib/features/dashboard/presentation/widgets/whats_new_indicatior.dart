@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/widgets/text_widgets.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/bottom_sheet.dart';
 import '/config/constants.dart';
@@ -44,33 +45,52 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
           // print(state.liveEvents!.length);
           List<LiveEventsEntity>? liveEvents = state.liveEvents!
               .cast<LiveEventsEntity>()
-              .where((element) =>
-                  element.scrollData!.any((data) => data.liveurl == "Y"))
+              .where(
+                (element) => element.scrollData!.any(
+                  (data) =>
+                      data.liveurl == "Y" &&
+                      data.publishedUpto!.isBefore(DateTime.now()) &&
+                      data.publishedUpto!.isAtSameMomentAs(DateTime.now()),
+                ),
+              )
               .toList();
-          return Column(
-            children: [
-              CarouselSlider(
-                items: [for (var item in liveEvents) _buildCard(item)],
-                options: CarouselOptions(
-                  height: 110.0,
-                  viewportFraction: 0.8,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
+          return Visibility(
+            visible: liveEvents.isNotEmpty,
+            child: Padding(
+              padding: defaultPadding,
+              child: SizedBox(
+                height: 160,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildHeading(context, "whats_new"),
+                    5.ph,
+                    CarouselSlider(
+                      items: [for (var item in liveEvents) _buildCard(item)],
+                      options: CarouselOptions(
+                        height: 110.0,
+                        viewportFraction: 0.8,
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        liveEvents.length, // Number of cards
+                        (index) => _buildIndicator(index, Colors.green),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  liveEvents.length, // Number of cards
-                  (index) => _buildIndicator(index, Colors.green),
-                ),
-              ),
-            ],
+            ),
           );
         }
         return const SizedBox.shrink();
