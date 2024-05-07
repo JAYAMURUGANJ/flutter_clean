@@ -13,10 +13,9 @@ buildTempleServicesList(
       ? SizedBox(
           height: Locales.lang == "en" ? 100 : 120,
           child: ListView.builder(
-            padding: const EdgeInsets.only(right: 3),
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemExtent: 110,
+            itemExtent: 90,
             itemCount: services.length,
             itemBuilder: (context, index) =>
                 _serviceCard(index, services, context, 100, 60, 12, "CIRCLE"),

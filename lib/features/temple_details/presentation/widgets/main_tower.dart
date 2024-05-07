@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../temple_list/domain/entities/itms_response.dart';
 import '/config/constants.dart';
 
-mainTower(ItmsResponseEntity temple, double radius) {
+mainTower(dynamic temple, double radius) {
   return Container(
     decoration: BoxDecoration(
       gradient: const LinearGradient(

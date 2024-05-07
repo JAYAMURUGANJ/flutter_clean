@@ -44,16 +44,14 @@ buildNavigationDrawer(context) {
           },
           body: Card(
             color: const Color.fromARGB(255, 248, 253, 219),
-            child: Center(
-              child: SizedBox(
-                height: MediaQuery.sizeOf(context).height / 2,
-                child: Padding(
-                  padding: defaultPadding,
-                  child: Wrap(
-                    spacing: 50.0,
-                    runSpacing: 50.0,
-                    children: children,
-                  ),
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height / 2,
+              child: Padding(
+                padding: defaultPadding,
+                child: Wrap(
+                  spacing: 50.0,
+                  runSpacing: 50.0,
+                  children: children,
                 ),
               ),
             ),

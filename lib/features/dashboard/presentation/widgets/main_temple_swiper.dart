@@ -39,7 +39,9 @@ mainTempleListBlocBuilder() {
               Row(
                 children: [
                   Expanded(
-                    child: buildHeading(context, "main_temples"),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: buildHeading(context, "main_temples")),
                   ),
                   IconButton(
                     onPressed: () => controller.undo(),
