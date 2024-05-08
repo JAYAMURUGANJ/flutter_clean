@@ -20,7 +20,6 @@ class WhatsNewIndicatior extends StatefulWidget {
 }
 
 class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
-  final int _currentIndex = 0;
   @override
   void initState() {
     BlocProvider.of<LiveEventsBloc>(context).add(GetLiveEvents());
@@ -38,7 +37,6 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
           return Text(state.responseStatus ?? "no data");
         }
         if (state is LiveEventsLoaded) {
-          // print(state.liveEvents!.length);
           List<LiveEventsEntity>? liveEvents = state.liveEvents!
               .cast<LiveEventsEntity>()
               .where(
@@ -54,7 +52,7 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
             child: Padding(
                 padding: defaultPadding,
                 child: SizedBox(
-                  height: 100,
+                  height: 130,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +65,12 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
                           itemCount: liveEvents.length,
                           itemExtent: 90,
                           itemBuilder: (context, i) {
-                            return _buildCard(liveEvents[i]);
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 7.0),
+                              child: _buildCard(
+                                liveEvents[i],
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -82,17 +85,15 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
     );
   }
 
-  Widget _buildCard(LiveEventsEntity liveEvents) {
-    return GestureDetector(
-        onTap: () => buildBottomSheet(
-              context,
-              liveEvents,
-              'live_events',
-              SizedBox(
-                height: double.infinity,
-                child: LiveEventsWidget(liveEvents),
-              ),
+  _buildCard(LiveEventsEntity liveEvents) => GestureDetector(
+      onTap: () => buildBottomSheet(
+            context,
+            liveEvents,
+            'live_events',
+            SizedBox(
+              height: double.infinity,
+              child: LiveEventsWidget(liveEvents),
             ),
-        child: mainTower(liveEvents, 15));
-  }
+          ),
+      child: mainTower(liveEvents, 10));
 }
