@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/data/model/calendar_event_details.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/domain/repository/calendar_event_repository.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/domain/usecases/calendar_event_usecase.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -20,6 +24,11 @@ import '/features/temple_details/presentation/bloc/temple_timing/temple_timing_b
 import 'core/data_sources/ITMS_API_service.dart';
 import 'features/dashboard/data/repository/whats_new_repository_impl.dart';
 import 'features/dashboard/domain/repository/whats_new_repository.dart';
+import 'features/event_calendar/data/repository/calendar_event_repository_impl.dart';
+import 'features/event_calendar/data/repository/calendar_events_details_repository_impl.dart';
+import 'features/event_calendar/domain/repository/calendar_event_details_repository.dart';
+import 'features/event_calendar/domain/usecases/calendar_event_details_usecase.dart';
+import 'features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_timing_repository_impl.dart';
@@ -41,7 +50,6 @@ Future<void> initializeDependencies() async {
 
   // Dependencies
   sl.registerSingleton<HRCEApiService>(HRCEApiService(sl()));
-
   sl.registerSingleton<ItmsRepository>(ItmsRepositoryImpl(sl()));
   sl.registerSingleton<TempleInfoRepository>(TempleInfoRepositoryImpl(sl()));
   sl.registerSingleton<TempleTimingRepository>(
@@ -51,6 +59,10 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<LiveEventsRepository>(LiveEventsRepositoryImpl(sl()));
   sl.registerSingleton<ContactDetailsRepository>(
       ContactDetailsRepositoryImpl(sl()));
+  sl.registerSingleton<CalendarEventRepository>(
+      CalendarEventRepositoryImpl(sl()));
+  sl.registerSingleton<CalendarEventDetailsRepository>(
+      CalendarEventDetailsRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -60,6 +72,9 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<WhatsNewUseCase>(WhatsNewUseCase(sl()));
   sl.registerSingleton<LiveEventsUseCase>(LiveEventsUseCase(sl()));
   sl.registerSingleton<ContactDetailsUseCase>(ContactDetailsUseCase(sl()));
+  sl.registerSingleton<CalendarEventUseCase>(CalendarEventUseCase(sl()));
+  sl.registerSingleton<CalendarEventDetailsUseCase>(
+      CalendarEventDetailsUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -71,4 +86,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<WhatsNewBloc>(() => WhatsNewBloc(sl()));
   sl.registerFactory<LiveEventsBloc>(() => LiveEventsBloc(sl()));
   sl.registerFactory<ContactDetailsBloc>(() => ContactDetailsBloc(sl()));
+  sl.registerFactory<CalendarEventBloc>(() => CalendarEventBloc(sl()));
+  sl.registerFactory<CalendarEventDetailsBloc>(
+      () => CalendarEventDetailsBloc(sl()));
 }

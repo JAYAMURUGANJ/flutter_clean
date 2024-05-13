@@ -2,13 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/bottom_sheet.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/presentation/pages/event_calendar.dart';
 
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../../config/constants.dart';
 import '../../../../core/models/booking_services.dart';
+import '../../../temple_list/domain/entities/itms_response.dart';
 
 buildTempleServicesList(
-    {required String listType, required List<TempleServices> services}) {
+    {required String listType,
+    required List<TempleServices> services,
+    ItmsResponseEntity? templeData}) {
   return listType != 'GRID'
       ? SizedBox(
           height: Locales.lang == "en" ? 100 : 120,
@@ -17,8 +22,8 @@ buildTempleServicesList(
             shrinkWrap: true,
             itemExtent: 90,
             itemCount: services.length,
-            itemBuilder: (context, index) =>
-                _serviceCard(index, services, context, 100, 60, 12, "CIRCLE"),
+            itemBuilder: (context, index) => _serviceCard(
+                index, services, context, 100, 60, 12, "CIRCLE", templeData),
           ),
         )
       : GridView.builder(
@@ -30,19 +35,30 @@ buildTempleServicesList(
           padding: const EdgeInsets.all(8.0), // padding around the grid
           itemCount: services.length, // total number of items
           itemBuilder: (context, index) {
-            return _serviceCard(index, services, context, 100, 100, 16, "RECT");
+            return _serviceCard(
+                index, services, context, 100, 100, 16, "RECT", templeData);
           },
         );
 }
 
-_serviceCard(int index, List<TempleServices> services, BuildContext context,
-    double width, double height, double fontSize, String cardType) {
+_serviceCard(
+    int index,
+    List<TempleServices> services,
+    BuildContext context,
+    double width,
+    double height,
+    double fontSize,
+    String cardType,
+    ItmsResponseEntity? templeData) {
   return GestureDetector(
-    onTap: services[index].page.toString().isNotEmpty
-        ? () => pageNavigation(services[index].page.toString(), context)
-        : () {
-            debugPrint(services[index].page.toString());
-          },
+    onTap: services[index].isBottomSheet!
+        ? () => buildBottomSheet(context, templeData, services[index].name!,
+            TempleEventCalendar(templeData: templeData))
+        : services[index].page.toString().isNotEmpty
+            ? () => pageNavigation(services[index].page.toString(), context)
+            : () {
+                debugPrint(services[index].page.toString());
+              },
     child: Column(
       children: [
         cardType == "RECT"

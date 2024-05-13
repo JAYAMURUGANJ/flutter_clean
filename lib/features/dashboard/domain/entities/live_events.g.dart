@@ -9,7 +9,7 @@ part of 'live_events.dart';
 LiveEventsEntity _$LiveEventsEntityFromJson(Map<String, dynamic> json) =>
     LiveEventsEntity(
       templeid: json['templeid'] as String?,
-      templeId: json['temple_id'] as int?,
+      templeId: (json['temple_id'] as num?)?.toInt(),
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
       maintowerImage: (json['maintower_image'] as List<dynamic>?)
@@ -18,6 +18,8 @@ LiveEventsEntity _$LiveEventsEntityFromJson(Map<String, dynamic> json) =>
       scrollData: (json['scroll_data'] as List<dynamic>?)
           ?.map((e) => ScrollDatum.fromJson(e as Map<String, dynamic>))
           .toList(),
+      errorCode: json['error_code'] as String?,
+      responseDesc: json['response_desc'] as String?,
     );
 
 Map<String, dynamic> _$LiveEventsEntityToJson(LiveEventsEntity instance) =>
@@ -28,6 +30,8 @@ Map<String, dynamic> _$LiveEventsEntityToJson(LiveEventsEntity instance) =>
       'ttemple_name': instance.ttempleName,
       'maintower_image': instance.maintowerImage,
       'scroll_data': instance.scrollData,
+      'error_code': instance.errorCode,
+      'response_desc': instance.responseDesc,
     };
 
 MaintowerImage _$MaintowerImageFromJson(Map<String, dynamic> json) =>

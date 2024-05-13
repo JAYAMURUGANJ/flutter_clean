@@ -1,66 +1,74 @@
-// import 'package:equatable/equatable.dart';
-// import 'package:json_annotation/json_annotation.dart';
+// To parse this JSON data, do
+//
+//     final calendarEventEntity = calendarEventEntityFromMap(jsonString);
 
-// part 'temple_info.g.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// @JsonSerializable()
-// class CalendarEventsEntity extends Equatable {
-//   @JsonKey(name: "description")
-//   final String? description;
-//   @JsonKey(name: "moolavar_swami_name")
-//   final String? moolavarSwamiName;
-//   @JsonKey(name: "moolavar_ambal_name")
-//   final String? moolavarAmbalName;
-//   @JsonKey(name: "aagamam_desc")
-//   final dynamic aagamamDesc;
-//   @JsonKey(name: "poet_name")
-//   final String? poetName;
-//   @JsonKey(name: "historical_name")
-//   final dynamic historicalName;
-//   @JsonKey(name: "sthala_virutcham")
-//   final String? sthalaVirutcham;
-//   @JsonKey(name: "temple_theertham")
-//   final String? templeTheertham;
-//   @JsonKey(name: "temple_images")
-//   final List<TempleImage>? templeImages;
-//   @JsonKey(name: 'error_code')
-//   final String? errorCode;
-//   @JsonKey(name: 'response_desc')
-//   final String? responseDesc;
+part 'calendar_event.g.dart';
 
-//   const CalendarEventsEntity({
-//     this.description,
-//     this.moolavarSwamiName,
-//     this.moolavarAmbalName,
-//     this.aagamamDesc,
-//     this.poetName,
-//     this.historicalName,
-//     this.sthalaVirutcham,
-//     this.templeTheertham,
-//     this.templeImages,
-//     this.errorCode,
-//     this.responseDesc,
-//   });
+@JsonSerializable()
+class CalendarEventEntity extends Equatable {
+  @JsonKey(name: "calendar_days")
+  final DateTime? calendarDays;
+  @JsonKey(name: "festival_data")
+  final List<FestivalDatum>? festivalData;
+  @JsonKey(name: 'error_code')
+  final String? errorCode;
+  @JsonKey(name: 'response_desc')
+  final String? responseDesc;
 
-//   factory CalendarEventsEntity.fromJson(Map<String, dynamic> json) =>
-//       _$CalendarEventsEntityFromJson(json);
+  const CalendarEventEntity({
+    this.calendarDays,
+    this.festivalData,
+    this.errorCode,
+    this.responseDesc,
+  });
 
-//   Map<String, dynamic> toJson() => _$CalendarEventsEntityToJson(this);
+  factory CalendarEventEntity.fromJson(Map<String, dynamic> json) =>
+      _$CalendarEventEntityFromJson(json);
 
-//   @override
-//   List<Object?> get props {
-//     return [
-//       description,
-//       moolavarSwamiName,
-//       moolavarAmbalName,
-//       aagamamDesc,
-//       poetName,
-//       historicalName,
-//       sthalaVirutcham,
-//       templeTheertham,
-//       templeImages,
-//       errorCode,
-//       responseDesc,
-//     ];
-//   }
-// }
+  Map<String, dynamic> toJson() => _$CalendarEventEntityToJson(this);
+
+  @override
+  List<Object?> get props {
+    return [
+      calendarDays,
+      festivalData,
+    ];
+  }
+}
+
+@JsonSerializable()
+class FestivalDatum extends Equatable {
+  @JsonKey(name: "noof_temples")
+  final String? noofTemples;
+  @JsonKey(name: "festival_code")
+  final String? festivalCode;
+  @JsonKey(name: "festival_name")
+  final String? festivalName;
+  @JsonKey(name: "festival_date")
+  final String? festivalDate;
+
+  const FestivalDatum({
+    this.noofTemples,
+    this.festivalCode,
+    this.festivalName,
+    this.festivalDate,
+  });
+
+  factory FestivalDatum.fromJson(Map<String, dynamic> json) =>
+      _$FestivalDatumFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FestivalDatumToJson(this);
+
+  @override
+  List<Object?> get props {
+    return [
+      noofTemples,
+      festivalCode,
+      festivalName,
+      festivalDate,
+    ];
+  }
+}

@@ -30,7 +30,7 @@ Map<String, dynamic> _$TempleTimingEntityToJson(TempleTimingEntity instance) =>
 
 ClosingTime _$ClosingTimeFromJson(Map<String, dynamic> json) => ClosingTime(
       toTime: json['to_time'] as String?,
-      orderNo: json['order_no'] as int?,
+      orderNo: (json['order_no'] as num?)?.toInt(),
       fromTime: json['from_time'] as String?,
     );
 

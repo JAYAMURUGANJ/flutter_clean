@@ -8,6 +8,7 @@ class TempleServices {
   Color? bgColor;
   bool value;
   String? page;
+  bool? isBottomSheet;
 
   TempleServices(
       {required this.id,
@@ -15,16 +16,19 @@ class TempleServices {
       required this.imageLink,
       required this.bgColor,
       this.value = false,
-      this.page});
+      this.page,
+      this.isBottomSheet = false});
 
   factory TempleServices.fromJson(Map<String, dynamic> jsonData) {
     return TempleServices(
-        id: jsonData['id'],
-        name: jsonData['name'],
-        imageLink: jsonData['imageLink'],
-        bgColor: jsonData['bg_color'],
-        value: jsonData['value'],
-        page: jsonData['page']);
+      id: jsonData['id'],
+      name: jsonData['name'],
+      imageLink: jsonData['imageLink'],
+      bgColor: jsonData['bg_color'],
+      value: jsonData['value'],
+      page: jsonData['page'],
+      isBottomSheet: jsonData['is_bottom_sheet'] == false,
+    );
   }
 
   static Map<String, dynamic> toMap(TempleServices bookingServices) => {
@@ -34,5 +38,6 @@ class TempleServices {
         'bg_color': bookingServices.bgColor,
         'value': bookingServices.value,
         'page': bookingServices.page,
+        'is_bottom_sheet': bookingServices.isBottomSheet,
       };
 }

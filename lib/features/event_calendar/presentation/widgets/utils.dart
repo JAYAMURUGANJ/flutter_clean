@@ -18,10 +18,10 @@ class Event {
 /// Example events.
 ///
 /// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
+// final kEvents = LinkedHashMap<DateTime, List<Event>>(
+//   equals: isSameDay,
+//   hashCode: getHashCode,
+// )..addAll(_kEventSource);
 
 final _kEventSource = {
   for (var item in List.generate(50, (index) => index))

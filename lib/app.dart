@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
+import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
@@ -50,6 +52,8 @@ class _AppState extends State<App> {
           BlocProvider<WhatsNewBloc>(create: (context) => sl()),
           BlocProvider<LiveEventsBloc>(create: (context) => sl()),
           BlocProvider<ContactDetailsBloc>(create: (context) => sl()),
+          BlocProvider<CalendarEventBloc>(create: (context) => sl()),
+          BlocProvider<CalendarEventDetailsBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

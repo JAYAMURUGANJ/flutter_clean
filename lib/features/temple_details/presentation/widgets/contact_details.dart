@@ -59,22 +59,27 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
                       buildTempleName(contactDetails, context),
                       5.ph,
                       mainTower(widget.temple, 80),
+                      30.ph,
                       buildContactCard(
                           context,
-                          "designation",
+                          contactDetails.username ?? "",
                           contactDetails.designationDesc ?? "-",
                           Icons.contact_emergency,
-                          () {}),
+                          () {},
+                          localLable: false),
                       buildContactCard(
                           context,
                           "address",
-                          "${contactDetails.templeDoorno!}, ${contactDetails.templeStreet!}, ${contactDetails.templeLocation}, ${contactDetails.districtName} - ${contactDetails.pincode}",
+                          "${contactDetails.templeDoorno} ${contactDetails.templeStreet!}, ${contactDetails.templeLocation}, ${contactDetails.districtName} - ${contactDetails.pincode}",
                           Icons.location_on_outlined,
                           () {}),
                       buildContactCard(
                           context,
                           "email",
-                          contactDetails.email ?? "",
+                          contactDetails.email
+                                  ?.replaceAll("[at]", "@")
+                                  .replaceAll("[dot]", ".") ??
+                              "",
                           Icons.mail_outline,
                           () {}),
                       buildContactCard(
@@ -84,7 +89,11 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
                           Icons.phone_outlined,
                           () {}),
                       buildContactCard(
-                          context, "website", "-", Icons.language, () {}),
+                          context,
+                          "website",
+                          widget.temple.urlTemplewebsite ?? "-",
+                          Icons.language,
+                          () {}),
                     ],
                   ),
                 );
@@ -135,7 +144,7 @@ buildContactCard(BuildContext context, String lable, String value,
                   color: Theme.of(context).colorScheme.primary),
             )
           : Text(
-              "Designation for Temple Inchager",
+              lable,
               softWrap: true,
               maxLines: 2,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(

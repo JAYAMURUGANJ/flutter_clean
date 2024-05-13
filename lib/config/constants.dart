@@ -164,12 +164,12 @@ List<TempleServices> templeServicesList = [
     page: "",
   ),
   TempleServices(
-    id: 6,
-    name: "events",
-    imageLink: "assets/images/icons/events.png",
-    bgColor: Colors.lightBlue.shade300,
-    page: "",
-  ),
+      id: 6,
+      name: "events",
+      imageLink: "assets/images/icons/events.png",
+      bgColor: Colors.lightBlue.shade300,
+      page: "",
+      isBottomSheet: true),
 ];
 // other Services list
 List<TempleServices> otherServicesList = [

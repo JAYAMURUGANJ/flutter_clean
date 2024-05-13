@@ -69,6 +69,9 @@ FilterData _$FilterDataFromJson(Map<String, dynamic> json) => FilterData(
       templeId: json['temple_id'] as String?,
       sectionCode: json['section_code'] as String?,
       seniorgradeTemples: json['seniorgrade_temples'] as String?,
+      festivalMonth: json['festival_month'] as String?,
+      festivalCode: json['festival_code'] as String?,
+      festivalDate: json['festival_date'] as String?,
     );
 
 Map<String, dynamic> _$FilterDataToJson(FilterData instance) =>
@@ -78,4 +81,7 @@ Map<String, dynamic> _$FilterDataToJson(FilterData instance) =>
       'temple_id': instance.templeId,
       'section_code': instance.sectionCode,
       'seniorgrade_temples': instance.seniorgradeTemples,
+      'festival_month': instance.festivalMonth,
+      'festival_code': instance.festivalCode,
+      'festival_date': instance.festivalDate,
     };

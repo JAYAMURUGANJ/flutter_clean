@@ -98,12 +98,21 @@ class FilterData {
   String? sectionCode;
   @JsonKey(name: 'seniorgrade_temples')
   String? seniorgradeTemples;
+  @JsonKey(name: 'festival_month')
+  String? festivalMonth;
+  @JsonKey(name: 'festival_code')
+  String? festivalCode;
+  @JsonKey(name: 'festival_date')
+  String? festivalDate;
   FilterData({
     this.districtCode,
     this.degree360Avail,
     this.templeId,
     this.sectionCode,
     this.seniorgradeTemples,
+    this.festivalMonth,
+    this.festivalCode,
+    this.festivalDate,
   });
 
   factory FilterData.fromJson(Map<String, dynamic> json) =>
