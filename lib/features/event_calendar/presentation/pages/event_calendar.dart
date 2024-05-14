@@ -28,7 +28,7 @@ class TempleEventCalendar extends StatefulWidget {
 }
 
 class _TempleEventCalendarState extends State<TempleEventCalendar> {
-  late final ValueNotifier<List<CalendarEvent>> _selectedEvents;
+  final ValueNotifier<List<CalendarEvent>> _selectedEvents = ValueNotifier([]);
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
@@ -38,15 +38,17 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
   bool _isExpansionOpen = false;
   LinkedHashMap<DateTime, List<CalendarEvent>> kEvents =
       LinkedHashMap<DateTime, List<CalendarEvent>>();
+  List<FestivalDatum> festivalData = [];
   List<CalendarEvent> dataMapList = [];
+
+  List<CalendarEvent> allValue = [];
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents.value = _getEventsForDay(_selectedDay!);
     _isExpansionOpen = false;
-    _selectedEvents.value = _getEventsForDay(DateTime.now());
     //
     String formatedMonth = DateFormat("yyyyMM").format(_selectedDay!);
     BlocProvider.of<CalendarEventBloc>(context).add(GetCalendarEvent(
@@ -65,6 +67,11 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
       equals: isSameDay,
       hashCode: getHashCode,
     )..addAll(getEvent());
+    for (var value in kEvents.values) {
+      value.map((data) => {allValue.add(data)}).toList();
+    }
+    print("out values $allValue");
+    _selectedEvents.value = allValue;
     return kEvents[day] ?? [];
   }
 
@@ -174,10 +181,12 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
                 child: ValueListenableBuilder<List<CalendarEvent>>(
                   valueListenable: _selectedEvents,
                   builder: (context, value, _) {
-                    print("values $value");
-                    List<FestivalDatum> festivalData = [];
+                    print("all value $allValue");
+
                     if (value.isNotEmpty) {
                       festivalData = value[0].festivalData!;
+                    } else {
+                      //festivalData = allValue;
                     }
                     return BlocBuilder<CalendarEventDetailsBloc,
                         CalendarEventDetailsState>(
