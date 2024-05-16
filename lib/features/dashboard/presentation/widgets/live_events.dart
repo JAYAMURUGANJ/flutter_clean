@@ -1,13 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/no_data_available.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '/config/common/extensions.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
 
 class LiveEventsWidget extends StatefulWidget {
@@ -19,9 +16,6 @@ class LiveEventsWidget extends StatefulWidget {
 }
 
 class _LiveEventsWidgetState extends State<LiveEventsWidget> {
-  //https://i.ytimg.com/vi/NBbQ0A03l4w/mqdefault_live.jpg
-  //https://www.youtube.com/watch?v=NBbQ0A03l4w
-
   String? videoId;
   @override
   void initState() {
@@ -38,12 +32,7 @@ class _LiveEventsWidgetState extends State<LiveEventsWidget> {
   @override
   Widget build(BuildContext context) {
     LiveEventsEntity templeLiveEvents = widget.liveEvents;
-    List<ScrollDatum> scrollData = templeLiveEvents.scrollData!
-        .cast<ScrollDatum>()
-        .where((data) =>
-            data.liveurl == "Y" && data.publishedUpto!.isAfter(DateTime.now()))
-        .toList();
-
+    List<ScrollDatum> scrollData = templeLiveEvents.scrollData!;
     return Stack(
       children: [
         Container(
@@ -63,69 +52,54 @@ class _LiveEventsWidgetState extends State<LiveEventsWidget> {
         Column(
           children: [
             buildTempleName(templeLiveEvents, context),
-            scrollData.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: scrollData.length,
-                      itemBuilder: (context, i) {
-                        return FutureBuilder(
-                            future: compute(
-                                getLiveVideoId, scrollData[i].eventUrl!),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<String> videoId) {
-                              debugPrint(videoId.data);
-                              final controller = YoutubePlayerController(
-                                initialVideoId: videoId.data ?? "",
-                                flags:
-                                    const YoutubePlayerFlags(autoPlay: false),
-                              );
-                              if (videoId.hasData) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 7.0),
-                                  child: Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Column(
-                                        children: [
-                                          YoutubePlayer(
-                                            controller: controller,
-                                          ),
-                                          5.ph,
-                                          Text(
-                                            scrollData[i].eventDesc.toString(),
-                                            maxLines: 2,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else if (videoId.hasError) {
-                                return noDataAvailable(
-                                    context, "No Live Video found.");
-                              } else {
-                                return const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Card(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      height: 220,
-                                      child: Center(
-                                        child: Text(
-                                          "Loading...",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            });
-                      },
-                    ),
-                  )
-                : noDataAvailable(context, "Data is not available"),
+            Visibility(
+              visible: scrollData.isNotEmpty,
+              child: Expanded(
+                child: ListView.builder(
+                  itemCount: scrollData.length,
+                  itemBuilder: (context, i) {
+                    String videoId =
+                        youtubeLiveUrl(scrollData[i].eventUrl.toString()) ?? "";
+                    debugPrint(videoId);
+                    final controller = YoutubePlayerController(
+                      initialVideoId: videoId,
+                      flags: const YoutubePlayerFlags(autoPlay: false),
+                    );
+
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 7.0),
+                      child: Card(
+                        color: Colors.black,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Visibility(
+                                visible: scrollData[i].eventUrl!.isNotEmpty,
+                                child: YoutubePlayer(
+                                  controller: controller,
+                                ),
+                              ),
+                              5.ph,
+                              Text(
+                                scrollData[i].eventDesc.toString(),
+                                maxLines: 2,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                scrollData[i].liveurlType!.toString(),
+                                maxLines: 2,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            )
           ],
         )
       ],
@@ -158,30 +132,39 @@ class _LiveEventsWidgetState extends State<LiveEventsWidget> {
   }
 }
 
-Future<String> getLiveVideoId(String eventUrl) async {
-  var dio = Dio();
-  debugPrint(eventUrl);
-  String urls = 'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q/live';
-  RegExp regExp = RegExp(r"(?<=channel\/)(.*?)(?=\/live)");
-  String channelId = regExp.firstMatch(urls)?.group(0) ?? '';
-  var url = 'https://www.googleapis.com/youtube/v3/search'
-      '?part=snippet'
-      '&channelId=$channelId'
-      '&eventType=live'
-      '&type=video'
-      '&key=AIzaSyAe-8b7JH3eiu2UrfxwKFGjofRqeGfnR3g';
+String? _getYoutubeVideoIdByURL(String url) {
+  final regex = RegExp(
+      r'((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?',
+      caseSensitive: false);
 
   try {
-    var response = await dio.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = response.data;
-      var items = jsonResponse['items'];
-      if (items.length > 0) {
-        return items[0]['id']['videoId'];
-      }
+    if (regex.hasMatch(url)) {
+      return regex.firstMatch(url)!.group(1);
     }
   } catch (e) {
-    print('Error: $e');
+    return '';
   }
-  return "null";
+  return null;
+}
+
+String? youtubeLiveUrl(String url) {
+  if (_getYoutubeVideoIdByURL(url) == null) {
+    return null;
+  } else {
+    var parts = url.split('/');
+    var prefix = parts[3];
+    if (prefix == 'live') {
+      return parts[4];
+    } else {
+      return '';
+    }
+  }
+}
+
+String? youtubeImageUrl(String url) {
+  if (_getYoutubeVideoIdByURL(url) == null) {
+    return null;
+  } else {
+    return YoutubePlayer.convertUrlToId(url)!;
+  }
 }

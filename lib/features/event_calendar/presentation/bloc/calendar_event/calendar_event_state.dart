@@ -15,8 +15,8 @@ class CalendarEventsLoading extends CalendarEventState {
 }
 
 class CalendarEventLoaded extends CalendarEventState {
-  const CalendarEventLoaded(List<CalendarEventEntity> CalendarEvent)
-      : super(calendarEvent: CalendarEvent);
+  const CalendarEventLoaded(List<CalendarEventEntity>? calendarEvent)
+      : super(calendarEvent: calendarEvent);
 }
 
 class CalendarEventLoadingSomthingWentWrong extends CalendarEventState {
@@ -27,3 +27,4 @@ class CalendarEventLoadingSomthingWentWrong extends CalendarEventState {
 class CalendarEventLodingError extends CalendarEventState {
   const CalendarEventLodingError(DioException error) : super(error: error);
 }
+

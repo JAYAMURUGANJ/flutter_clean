@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
-import '../../../../config/common/widgets/text_widgets.dart';
-import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_state.dart';
+import '/config/common/widgets/text_widgets.dart';
+import '/config/constants.dart';
 import 'main_temple_list_tile.dart';
 
 mainTempleListBlocBuilder() {

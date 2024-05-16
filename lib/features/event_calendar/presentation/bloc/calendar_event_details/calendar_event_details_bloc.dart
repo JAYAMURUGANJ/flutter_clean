@@ -5,7 +5,6 @@ import 'package:news_app_clean_architecture/features/event_calendar/domain/useca
 import '../../../../../core/models/itms_request.dart';
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/resources/itms_request_handler.dart';
-import '../../../data/model/calendar_event_details.dart';
 import '../../../domain/entities/calendar_event_details.dart';
 
 part 'calendar_event_details_event.dart';

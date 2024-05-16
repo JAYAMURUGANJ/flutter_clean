@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app_clean_architecture/core/models/live_stream.dart';
 
 import '/core/models/booking_services.dart';
 import '/core/models/god.dart';
@@ -32,10 +33,13 @@ class NetworkImages {
       "https://static.vecteezy.com/system/resources/previews/026/766/398/non_2x/error-server-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
 
   static const String somthingWentWrong =
-      "https://static.vecteezy.com/system/resources/previews/012/003/110/large_2x/information-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
+      "https://static.vecteezy.com/system/resources/previews/012/003/110/non_2x/information-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
   static const String noDataAvailable =
       "https://static.vecteezy.com/system/resources/previews/044/159/035/non_2x/storage-data-icon-symbol-image-for-database-illustration-free-vector.jpg";
-
+  static const String noEventAvailable =
+      "https://static.vecteezy.com/system/resources/previews/043/063/306/non_2x/calendar-icon-symbol-image-for-schedule-or-appointment-vector.jpg";
+  static const String noLiveAvailable =
+      "https://static.vecteezy.com/system/resources/previews/032/349/386/non_2x/camera-photography-icon-symbol-image-illustration-of-multimedia-photographic-lens-graphic-design-image-vector.jpg";
   static const String templePlaceHolder =
       "https://www.seekpng.com/png/detail/252-2523694_hindu-temple-photo-hindu-temple-illustration.png";
 }
@@ -213,7 +217,7 @@ List<TempleServices> otherServicesList = [
     name: "live",
     imageLink: "assets/images/icons/live.png",
     bgColor: Colors.black.withAlpha(255),
-    page: "",
+    page: "/Livestream",
   ),
 ];
 
@@ -247,6 +251,33 @@ List<TempleServices> drawerList = [
     bgColor: Colors.lightGreen.shade300,
     page: "/Settings",
   ),
+];
+
+List<LiveSteamType> liveStreamType = [
+  LiveSteamType(
+      contentType: "U",
+      liveurlType: "Y",
+      steamType: "Utchavar\nDarshan",
+      tsteamType: "உச்சவர்\nதரிசனம்",
+      imageLink: "assets/images/icons/urchavar_dharsan.png"),
+  LiveSteamType(
+      contentType: "F",
+      liveurlType: "Y",
+      steamType: "Temple\nFestivel",
+      tsteamType: "கோவில்\nதிருவிழா",
+      imageLink: "assets/images/icons/festivel.png"),
+  LiveSteamType(
+      contentType: "C",
+      liveurlType: "Y",
+      steamType: "Golden\nChariot",
+      tsteamType: "தங்க ரத\nதேர்",
+      imageLink: "assets/images/icons/goldan_chariet.png"),
+  LiveSteamType(
+      contentType: "H",
+      liveurlType: "Y",
+      steamType: "Hundial\nCounting",
+      tsteamType: "உண்டியல்\nஎண்ணுதல்",
+      imageLink: "assets/images/icons/hundial_counting.png"),
 ];
 
 List<Color> colors = [

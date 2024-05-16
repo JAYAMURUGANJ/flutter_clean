@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/bottom_sheet.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/presentation/pages/event_calendar.dart';
 
-import '../../../../config/common/widgets/text_widgets.dart';
-import '../../../../config/constants.dart';
-import '../../../../core/models/booking_services.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/common/widgets/text_widgets.dart';
+import '/config/constants.dart';
+import '/core/models/booking_services.dart';
+import '/features/event_calendar/presentation/pages/event_calendar.dart';
 
 buildTempleServicesList(
     {required String listType,

@@ -1,25 +1,38 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: must_be_immutable
 
-import '../../constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+
 import '/config/common/widgets/network_image_cache.dart';
 
-noDataAvailable(BuildContext context, String error) {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsetsDirectional.only(
-              start: 14, end: 14, bottom: 7, top: 7),
-          height: MediaQuery.of(context).size.width / 2.2,
-          child: buildImage(context, NetworkImages.noDataAvailable),
-        ),
-        Text(
-          error,
-          textAlign: TextAlign.center,
-        )
-      ],
-    ),
-  );
+class DataNotAvailable extends StatefulWidget {
+  String error;
+  String img;
+  DataNotAvailable({
+    Key? key,
+    required this.error,
+    required this.img,
+  }) : super(key: key);
+
+  @override
+  State<DataNotAvailable> createState() => _DataNotAvailableState();
+}
+
+class _DataNotAvailableState extends State<DataNotAvailable> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          buildImage(context, widget.img, width: 130, height: 120),
+          LocaleText(
+            widget.error,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
+  }
 }

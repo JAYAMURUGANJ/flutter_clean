@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/live_telecast/presentation/pages/live_stream.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
 import '/features/event_calendar/presentation/pages/event_calendar.dart';
@@ -33,6 +34,8 @@ class AppRoutes {
         return _materialRoute(const Settings());
       case '/Events':
         return _materialRoute(const TempleEventCalendar());
+      case '/Livestream':
+        return _materialRoute(const TempleLiveStreams());
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

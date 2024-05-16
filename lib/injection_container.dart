@@ -1,9 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/data/model/calendar_event_details.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/domain/repository/calendar_event_repository.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/domain/usecases/calendar_event_usecase.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -11,6 +7,9 @@ import '/features/dashboard/domain/usecases/live_events_usecase.dart';
 import '/features/dashboard/domain/usecases/whats_new_usecase.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/dashboard/presentation/bloc/whats_new/whats_new_bloc.dart';
+import '/features/event_calendar/domain/repository/calendar_event_repository.dart';
+import '/features/event_calendar/domain/usecases/calendar_event_usecase.dart';
+import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 import '/features/settings/presentation/bloc/theme/theme_bloc.dart';
 import '/features/temple_details/data/repository/contact_details_repository_impl.dart';
 import '/features/temple_details/data/repository/temple_info_repository_impl.dart';

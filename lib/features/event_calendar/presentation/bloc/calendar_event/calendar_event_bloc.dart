@@ -19,6 +19,7 @@ class CalendarEventBloc extends Bloc<CalendarEventEvent, CalendarEventState> {
 
   void onGetCalenderevent(
       GetCalendarEvent event, Emitter<CalendarEventState> emit) async {
+    emit(const CalendarEventsLoading());
     String serviceId = (event.templeId != null &&
             event.templeId!.isNotEmpty &&
             event.templeId != "null")
@@ -32,15 +33,18 @@ class CalendarEventBloc extends Bloc<CalendarEventEvent, CalendarEventState> {
               templeId: event.templeId, festivalMonth: event.filterMonth)
           : FilterData(festivalMonth: event.filterMonth)
     ]).getFormData();
-    final dataState = await _getCalendarEventUseCase(formData, serviceId);
+    DataState<List<CalendarEventEntity>> dataState =
+        await _getCalendarEventUseCase(formData, serviceId);
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(CalendarEventLoaded(dataState.resultSet!));
+        emit(CalendarEventLoaded(dataState.resultSet));
       } else {
         emit(CalendarEventLoadingSomthingWentWrong(
             dataState.resultSet![0].responseDesc.toString()));
       }
     }
+
+    emit(CalendarEventLodingError(dataState.error!));
   }
 }
