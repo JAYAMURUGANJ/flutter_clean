@@ -18,8 +18,8 @@ class LiveEventsLoaded extends LiveEventsState {
       : super(liveEvents: liveEvents);
 }
 
-class LiveEventsLoadingSomthingWentWrong extends LiveEventsState {
-  const LiveEventsLoadingSomthingWentWrong(String responseStatus)
+class LiveEventsSomthingWentWrong extends LiveEventsState {
+  const LiveEventsSomthingWentWrong(String responseStatus)
       : super(responseStatus: responseStatus);
 }
 

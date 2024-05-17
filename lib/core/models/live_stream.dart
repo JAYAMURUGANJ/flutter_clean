@@ -2,22 +2,26 @@ class LiveSteamType {
   String steamType;
   String tsteamType;
   String imageLink;
-  String contentType;
+  // String contentType;
   String liveurlType;
-  LiveSteamType(
-      {required this.contentType,
-      required this.liveurlType,
-      required this.steamType,
-      required this.imageLink,
-      required this.tsteamType});
+  String liveUrl;
+  LiveSteamType({
+    required this.steamType,
+    required this.tsteamType,
+    required this.imageLink,
+    // required this.contentType,
+    required this.liveurlType,
+    required this.liveUrl,
+  });
 
   factory LiveSteamType.fromJson(Map<String, dynamic> jsonData) {
     return LiveSteamType(
       steamType: jsonData['steamType'],
       tsteamType: jsonData['tsteamType'],
       imageLink: jsonData['imageLink'],
-      contentType: jsonData['contentType'],
+      //  contentType: jsonData['contentType'],
       liveurlType: jsonData['liveurlType'],
+      liveUrl: jsonData['liveUrl'],
     );
   }
 
@@ -25,7 +29,8 @@ class LiveSteamType {
         'steamType': bookingServices.steamType,
         'tsteamType': bookingServices.tsteamType,
         'imageLink': bookingServices.imageLink,
-        'contentType': bookingServices.contentType,
+        // 'contentType': bookingServices.contentType,
         'liveurlType': bookingServices.liveurlType,
+        'liveUrl': bookingServices.liveUrl,
       };
 }

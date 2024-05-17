@@ -39,7 +39,10 @@ class Dashboard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           5.ph,
-          const WhatsNewIndicatior(),
+          WhatsNewIndicatior(
+            liveurl: "Y",
+            liveurlType: "C",
+          ),
           buildDevoteeServiceList(context),
           mainTempleListBlocBuilder(),
           otherServiceList(context),

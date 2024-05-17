@@ -29,7 +29,7 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
           dataState.resultSet!.isNotEmpty) {
         emit(LiveEventsLoaded(dataState.resultSet!));
       } else {
-        emit(LiveEventsLoadingSomthingWentWrong(
+        emit(LiveEventsSomthingWentWrong(
             dataState.resultSet![0].responseDesc.toString()));
       }
     }

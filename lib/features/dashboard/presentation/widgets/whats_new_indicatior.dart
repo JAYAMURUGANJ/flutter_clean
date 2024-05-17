@@ -1,7 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/common/widgets/bottom_sheet.dart';
@@ -11,10 +10,16 @@ import '/config/common/extensions.dart';
 import '/config/constants.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
-import '/features/dashboard/presentation/widgets/live_events.dart';
+import 'live_stream.dart';
 
 class WhatsNewIndicatior extends StatefulWidget {
-  const WhatsNewIndicatior({Key? key}) : super(key: key);
+  String? liveurl;
+  String? liveurlType;
+  WhatsNewIndicatior({
+    Key? key,
+    this.liveurl,
+    this.liveurlType,
+  }) : super(key: key);
 
   @override
   _WhatsNewIndicatiorState createState() => _WhatsNewIndicatiorState();
@@ -32,26 +37,22 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
     return BlocBuilder<LiveEventsBloc, LiveEventsState>(
       builder: (context, state) {
         if (state is LiveEventsLoading) {
-          return const CupertinoActivityIndicator();
+          return const Center(child: CupertinoActivityIndicator());
         }
-        if (state is LiveEventsLoadingSomthingWentWrong) {
-          return Text(state.responseStatus ?? "no data");
-        }
+
         if (state is LiveEventsLoaded) {
           List<LiveEventsEntity>? liveEvents = state.liveEvents!
               .cast<LiveEventsEntity>()
               .where(
                 (element) => element.scrollData!.any(
                   (data) =>
-                      data.eventUrl != "" &&
-                      data.liveurl == "Y" &&
-                      //data.liveurlType == "C" &&
-                      //data.contentType == "U" &&
+                      data.eventUrl!.youtubeLiveUrl != "" &&
+                      data.liveurl == widget.liveurl &&
+                      data.liveurlType == widget.liveurlType &&
                       data.publishedUpto!.isBefore(DateTime.now()),
                 ),
               )
               .toList();
-
           return Visibility(
             visible: liveEvents.isNotEmpty,
             child: Padding(
@@ -94,33 +95,36 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
   }
 
   _buildShowVideoBottomSheet(LiveEventsEntity liveEvents) => GestureDetector(
-        onTap: () {
-          debugPrint(liveEvents.scrollData!.length.toString());
-          buildBottomSheet(
-            context,
-            liveEvents,
-            'live_events',
-            SizedBox(
-              height: double.infinity,
-              child: LiveEventsWidget(liveEvents),
-            ),
-          );
-        },
-        child: SizedBox(
-          height: 100,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              mainTower(liveEvents, 10),
-              const SizedBox(
-                child: Icon(
-                  Icons.play_arrow,
-                  color: Colors.redAccent,
-                  size: 25,
-                ),
-              ),
-            ],
-          ),
+        onTap: () => buildBottomSheet(
+          context,
+          liveEvents,
+          'live_events',
+          TempleLiveStreams([liveEvents]),
+        ),
+        child: LiveEventShowCard(
+          event: liveEvents,
         ),
       );
+}
+
+class LiveEventShowCard extends StatelessWidget {
+  LiveEventsEntity event;
+
+  LiveEventShowCard({
+    Key? key,
+    required this.event,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        mainTower(event, 10),
+        Image.asset(
+          LocalImages().play,
+        ),
+      ],
+    );
+  }
 }

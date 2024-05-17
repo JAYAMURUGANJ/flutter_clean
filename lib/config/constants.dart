@@ -53,6 +53,7 @@ class LocalImages {
   String contact = "assets/images/icons/contact.png";
   String mapMarker = "assets/images/icons/marker.png";
   String drawerBg = "assets/images/icons/drawer_bg.png";
+  String play = "assets/images/icons/media-play.png";
 }
 
 // God list
@@ -161,13 +162,6 @@ List<TempleServices> templeServicesList = [
     page: "",
   ),
   TempleServices(
-    id: 5,
-    name: "live",
-    imageLink: "assets/images/icons/live.png",
-    bgColor: Colors.black.withAlpha(255),
-    page: "",
-  ),
-  TempleServices(
       id: 6,
       name: "events",
       imageLink: "assets/images/icons/events.png",
@@ -255,29 +249,33 @@ List<TempleServices> drawerList = [
 
 List<LiveSteamType> liveStreamType = [
   LiveSteamType(
-      contentType: "U",
-      liveurlType: "Y",
-      steamType: "Utchavar\nDarshan",
-      tsteamType: "உச்சவர்\nதரிசனம்",
-      imageLink: "assets/images/icons/urchavar_dharsan.png"),
+    liveurlType: "U",
+    steamType: "Utchavar\nDarshan",
+    tsteamType: "உச்சவர்\nதரிசனம்",
+    liveUrl: "Y",
+    imageLink: "assets/images/icons/urchavar_dharsan.png",
+  ),
   LiveSteamType(
-      contentType: "F",
-      liveurlType: "Y",
-      steamType: "Temple\nFestivel",
-      tsteamType: "கோவில்\nதிருவிழா",
-      imageLink: "assets/images/icons/festivel.png"),
+    liveurlType: "F",
+    steamType: "Temple\nFestival",
+    tsteamType: "கோவில்\nதிருவிழா",
+    liveUrl: "Y",
+    imageLink: "assets/images/icons/festival.png",
+  ),
   LiveSteamType(
-      contentType: "C",
-      liveurlType: "Y",
-      steamType: "Golden\nChariot",
-      tsteamType: "தங்க ரத\nதேர்",
-      imageLink: "assets/images/icons/goldan_chariet.png"),
+    liveurlType: "C",
+    steamType: "Golden\nChariot",
+    tsteamType: "தங்க ரத\nதேர்",
+    liveUrl: "Y",
+    imageLink: "assets/images/icons/goldan_chariet.png",
+  ),
   LiveSteamType(
-      contentType: "H",
-      liveurlType: "Y",
-      steamType: "Hundial\nCounting",
-      tsteamType: "உண்டியல்\nஎண்ணுதல்",
-      imageLink: "assets/images/icons/hundial_counting.png"),
+    liveurlType: "H",
+    steamType: "Hundial\nCounting",
+    tsteamType: "உண்டியல்\nஎண்ணுதல்",
+    liveUrl: "Y",
+    imageLink: "assets/images/icons/hundial_counting.png",
+  ),
 ];
 
 List<Color> colors = [
@@ -287,7 +285,7 @@ List<Color> colors = [
   Colors.lightBlue.shade300,
 ];
 
-EdgeInsetsGeometry defaultPadding = const EdgeInsets.symmetric(horizontal: 15);
+EdgeInsetsGeometry defaultPadding = const EdgeInsets.symmetric(horizontal: 12);
 
 // common test themes
 appbarTextStyleLarge(theme) =>
