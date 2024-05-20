@@ -29,12 +29,17 @@ import 'features/event_calendar/domain/repository/calendar_event_details_reposit
 import 'features/event_calendar/domain/usecases/calendar_event_details_usecase.dart';
 import 'features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
+import 'features/temple_details/data/repository/near_by_temples_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_timing_repository_impl.dart';
+import 'features/temple_details/domain/repository/near_by_temples_repository.dart';
 import 'features/temple_details/domain/repository/temple_pooja_repository.dart';
 import 'features/temple_details/domain/repository/temple_timing_repository.dart';
+import 'features/temple_details/domain/usecases/near_by_temple_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_pooja_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_timinig_usecase.dart';
+import 'features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
+import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
 import 'features/temple_list/data/repository/itms_repository_impl.dart';
 import 'features/temple_list/domain/repository/itms_repository.dart';
@@ -62,6 +67,8 @@ Future<void> initializeDependencies() async {
       CalendarEventRepositoryImpl(sl()));
   sl.registerSingleton<CalendarEventDetailsRepository>(
       CalendarEventDetailsRepositoryImpl(sl()));
+  sl.registerSingleton<NearByTemplesRepository>(
+      NearByTemplesRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -74,6 +81,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<CalendarEventUseCase>(CalendarEventUseCase(sl()));
   sl.registerSingleton<CalendarEventDetailsUseCase>(
       CalendarEventDetailsUseCase(sl()));
+  sl.registerSingleton<NearByTemplesUseCase>(NearByTemplesUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -88,4 +96,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CalendarEventBloc>(() => CalendarEventBloc(sl()));
   sl.registerFactory<CalendarEventDetailsBloc>(
       () => CalendarEventDetailsBloc(sl()));
+  sl.registerFactory<NearbyTemplesBloc>(() => NearbyTemplesBloc(sl()));
+  sl.registerFactory<ShowNearbyTemplesBloc>(() => ShowNearbyTemplesBloc());
 }

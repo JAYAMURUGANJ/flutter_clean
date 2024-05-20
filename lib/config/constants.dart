@@ -190,7 +190,7 @@ List<TempleServices> otherServicesList = [
     name: "near_by_temples",
     imageLink: "assets/images/icons/near_temple.png",
     bgColor: Colors.deepOrange.shade300,
-    page: "",
+    page: "/NearByTemples",
   ),
   TempleServices(
     id: 5,
