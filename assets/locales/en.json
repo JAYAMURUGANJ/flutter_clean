@@ -74,5 +74,6 @@
     "n": "No",
     "live_events": "Live Events",
     "designation": "Designation",
-    "no_calendar_events":"No Events for\nthe Selected Date."
+    "no_calendar_events": "No Events for\nthe Selected Date.",
+    "select_distance": "Select distance"
 }

@@ -6,17 +6,31 @@ abstract class ShowNearbyTemplesState {
 
 class ShowNearbyTemplesInitial extends ShowNearbyTemplesState {}
 
+class ViewNearbyTemplesLoading extends ShowNearbyTemplesState {}
+
+class ViewSingleTempleState extends ShowNearbyTemplesState {
+  final Set<Marker> markers;
+  // final ItmsResponseEntity temple;
+  final List<ItmsResponseEntity>? filteredTemples;
+  final CameraPosition? cameraPosition;
+  ViewSingleTempleState(this.markers,
+      {this.filteredTemples, this.cameraPosition});
+}
+
 class ViewMarkersState extends ShowNearbyTemplesState {
   final Set<Marker> markers;
   // final ItmsResponseEntity temple;
   final List<ItmsResponseEntity>? filteredTemples;
-  ViewMarkersState(this.markers, {this.filteredTemples});
+  final CameraPosition? cameraPosition;
+  ViewMarkersState(this.markers, {this.filteredTemples, this.cameraPosition});
 }
 
 class ViewNearbyTemplesState extends ShowNearbyTemplesState {
   final Set<Marker> markers;
   final List<ItmsResponseEntity> filteredTemples;
-  ViewNearbyTemplesState(this.markers, this.filteredTemples);
+  final CameraPosition? cameraPosition;
+  ViewNearbyTemplesState(this.markers, this.filteredTemples,
+      {this.cameraPosition});
 }
 
 class ShowMarkerSWWState extends ShowNearbyTemplesState {

@@ -52,7 +52,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                   child: Column(
                     children: [
                       buildTempleImage(context, widget.temple!),
-                      buildTempleServices(context,widget.temple),
+                      buildTempleServices(context, widget.temple),
                       buildTabBar(context, tabController),
                     ],
                   ),

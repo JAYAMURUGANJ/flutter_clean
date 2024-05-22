@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 import '../../features/dashboard/presentation/pages/live_telecast.dart';
 import '/features/temple_details/presentation/widgets/google_map_location.dart';
@@ -38,7 +39,8 @@ class AppRoutes {
       case '/Livestream':
         return _materialRoute(const TempleLiveTeleCasts());
       case '/NearByTemples':
-        return _materialRoute(const NearByTemplesWidget());
+        return _materialRoute(NearByTemplesWidget(
+            currentLocationData: settings.arguments as Map<String, dynamic>));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

@@ -12,12 +12,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
 import '/config/constants.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
-import '../../../temple_list/presentation/bloc/itms/itms_state.dart';
 import '../bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -32,7 +32,12 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 
 class NearByTemplesWidget extends StatefulWidget {
   final ItmsResponseEntity? temple;
-  const NearByTemplesWidget({Key? key, this.temple}) : super(key: key);
+  final Map<String, dynamic>? currentLocationData;
+  const NearByTemplesWidget({
+    Key? key,
+    this.temple,
+    this.currentLocationData,
+  }) : super(key: key);
 
   @override
   _NearByTemplesWidgetState createState() => _NearByTemplesWidgetState();
@@ -44,19 +49,47 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   List<ItmsResponseEntity> listOfTemples = [];
-  List<double> distanceList = [5, 10, 15, 20, 25, 30];
+
+  int selectedIndex = 0;
 
   @override
   void initState() {
-    double templeLat = double.parse(widget.temple!.templeLatitude!);
-    double templeLang = double.parse(widget.temple!.templeLangitude!);
-
-    _kGooglePlex = CameraPosition(
-      target: LatLng(templeLat, templeLang),
+    listOfTemples = BlocProvider.of<ITMSBloc>(context).state.templeList
+        as List<ItmsResponseEntity>;
+    _kGooglePlex = const CameraPosition(
+      target: LatLng(37.4220936, -122.083922),
       zoom: 13.4746,
     );
-    BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
-        ViewSingleTempleEvent(widget.temple!, _customInfoWindowController));
+
+    if (widget.temple != null) {
+      double templeLat = double.parse(widget.temple!.templeLatitude!);
+      double templeLang = double.parse(widget.temple!.templeLangitude!);
+
+      _kGooglePlex = CameraPosition(
+        target: LatLng(templeLat, templeLang),
+        zoom: 13.4746,
+      );
+      BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+          ViewSingleTempleEvent(widget.temple!, _customInfoWindowController));
+    } else if (widget.currentLocationData!['current_location'] != null) {
+      _kGooglePlex = CameraPosition(
+        target: LatLng(
+            widget.currentLocationData!['current_location'].latitude!,
+            widget.currentLocationData!['current_location'].longitude!),
+        // target: LatLng(13.00221616590524, 80.26871147262695),
+        zoom: 13.4746,
+      );
+
+      BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+          ViewCurrentLocationEvent(
+              fromCurrentLocation: true,
+              currentLocationLatLng: LatLng(
+                  widget.currentLocationData!['current_location'].latitude!,
+                  widget.currentLocationData!['current_location'].longitude!),
+              listOfTemples: listOfTemples,
+              customInfoWindowController: _customInfoWindowController,
+              distance: widget.currentLocationData!['distance']));
+    }
     super.initState();
   }
 
@@ -66,172 +99,135 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
     super.dispose();
   }
 
-  // getCurrentLocation() async {
-  //   LocationPermission permission;
-  //   permission = await Geolocator.requestPermission();
-
-  //   Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   double lat = position.latitude;
-  //   double long = position.longitude;
-
-  //   LatLng location = LatLng(lat, long);
-  //   return location;
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ITMSBloc, ITMSState>(
-      builder: (context, itmsState) {
-        if (itmsState is TempleListLoaded) {
-          listOfTemples = itmsState.templeList as List<ItmsResponseEntity>;
-        }
-        return Scaffold(
-            floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-            floatingActionButton: DropdownMenu(
-              width: 90,
-              inputDecorationTheme: const InputDecorationTheme(
-                  fillColor: Colors.white, filled: true),
-              dropdownMenuEntries: List.generate(
-                  distanceList.length,
-                  (index) => DropdownMenuEntry(
-                      value: distanceList[index],
-                      label: distanceList[index].round().toString())),
-              onSelected: (double? selectedValue) {
-                double zoomLevel = selectedValue ?? 5.0;
-                double reduceValue = (zoomLevel / 5) - 1;
-                zoomLevel = 13.0 - (reduceValue > 3 ? (3 + .3) : reduceValue);
-                // animate zoom
-                _controller.animateCamera(CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                        target: _kGooglePlex!.target, zoom: zoomLevel)));
-                BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
-                    ViewNearByTemplesEvent(
-                        currentTemple: widget.temple!,
-                        listOfTemples: listOfTemples,
-                        customInfoWindowController: _customInfoWindowController,
-                        distance: selectedValue ?? 5.0));
-              },
-            ),
+    return Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButton: DropdownMenu(
+          width: 90,
+          inputDecorationTheme:
+              const InputDecorationTheme(fillColor: Colors.white, filled: true),
+          dropdownMenuEntries: List.generate(
+              distanceList.length,
+              (index) => DropdownMenuEntry(
+                  value: distanceList[index],
+                  label: distanceList[index].round().toString())),
+          onSelected: (double? selectedValue) {
+            // zoom level
+            double zoomLevel = selectedValue ?? 5.0;
+            double reduceValue = (zoomLevel / 5) - 1;
+            zoomLevel = 13.0 - (reduceValue > 3 ? (3 + .3) : reduceValue);
+            // animate zoom
+            _controller.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(target: _kGooglePlex!.target, zoom: zoomLevel)));
+            if (widget.currentLocationData!['current_location'] != null) {
+              BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                  ViewCurrentLocationEvent(
+                      fromCurrentLocation: true,
+                      currentLocationLatLng: LatLng(
+                          widget.currentLocationData!['current_location']
+                              .latitude!,
+                          widget.currentLocationData!['current_location']
+                              .longitude!),
+                      listOfTemples: listOfTemples,
+                      customInfoWindowController: _customInfoWindowController,
+                      distance: selectedValue ?? 5.0));
+            } else {
+              BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                  ViewNearByTemplesEvent(
+                      fromCurrentLocation: false,
+                      currentTemple: widget.temple,
+                      listOfTemples: listOfTemples,
+                      customInfoWindowController: _customInfoWindowController,
+                      distance: selectedValue ?? 5.0));
+            }
+          },
+        ),
+        body: BlocConsumer<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
+          listener: (context, markerState) {
+            // if (markerState is ViewSingleTempleState) {
+            //   _controller.animateCamera(CameraUpdate.newCameraPosition(
+            //     markerState.cameraPosition!,
+            //   ));
+            // }
+          },
+          builder: (context, markerState) {
+            // if (markerState is ViewNearbyTemplesLoading) {
+            //   return const Center(
+            //     child: CupertinoActivityIndicator(),
+            //   );
+            // }
+            // if (markerState is ShowMarkerSWWState) {
+            //   return const SomethingWentWrong(error: "error");
+            // }
+            // if (markerState is ViewSingleTempleState) {
+            // _controller.animateCamera(CameraUpdate.newCameraPosition(
+            //   markerState.cameraPosition!,
+            // ));
+            // }
 
-            //  PopupMenuButton(
-            //     itemBuilder: ((context) {
-            //       return List.generate(
-            //           distanceList.length,
-            //           (index) => PopupMenuItem(
-            //               onTap: () {
-            //                 double zoomLevel = distanceList[index];
-            //                 zoomLevel = 13.0 - (index > 3 ? (3 + .3) : index);
-            //                 // animate zoom
-            //                 _controller.animateCamera(
-            //                     CameraUpdate.newCameraPosition(CameraPosition(
-            //                         target: _kGooglePlex!.target,
-            //                         zoom: zoomLevel)));
-            //                 BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
-            //                     ViewNearByTemplesEvent(
-            //                         currentTemple: widget.temple,
-            //                         listOfTemples: listOfTemples,
-            //                         customInfoWindowController:
-            //                             _customInfoWindowController,
-            //                         distance: distanceList[index]));
-            //               },
-            //               child: Text(distanceList[index].toString())));
-            //     }),
-            //     child: const FloatingActionButton(
-            //       onPressed: null,
-            //       child: Icon(Icons.location_city),
-            //     )),
-
-            // FloatingActionButton(
-            //   child: const Icon(Icons.add_location_alt_sharp),
-            //   onPressed: () {
-            //     showDialog(
-            //         context: context,
-            //         builder: ((context) => AlertDialog.adaptive(
-            //               title: Text("Choose distance"),
-            //               content: Wrap(
-            //                 alignment: WrapAlignment.spaceBetween,
-            //                 children: List.generate(
-            //                     distanceList.length,
-            //                     (index) => ChoiceChip(
-            //                         showCheckmark: false,
-            //                         label: Text(distanceList[index].toString()),
-            //                         selected: distanceList[index] == 20)),
-            //               ),
-            //             )));
-
-            //     // BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
-            //     //     ViewNearByTemplesEvent(
-            //     //         currentTemple: widget.temple,
-            //     //         listOfTemples: listOfTemples,
-            //     //         customInfoWindowController:
-            //     //             _customInfoWindowController));
-            //   },
-            // ),
-            body: BlocConsumer<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
-              listener: (context, markerState) {
-                // TODO: implement listener
-              },
-              builder: (context, markerState) {
-                return Stack(
-                  children: [
-                    GoogleMap(
-                      initialCameraPosition: _kGooglePlex!,
-                      myLocationButtonEnabled: false,
-                      mapType: MapType.normal,
-                      zoomControlsEnabled: true,
-                      markers: (markerState is ViewMarkersState)
-                          ? markerState.markers
-                          : {},
-                      onCameraMove: (position) {
-                        _customInfoWindowController.onCameraMove!();
-                      },
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller = controller;
-                        _customInfoWindowController.googleMapController =
-                            controller;
-                        controller.setMapStyle(mapThemes.first);
-                      },
-                    ),
-                    CustomInfoWindow(
-                      controller: _customInfoWindowController,
-                      height: 240,
-                      width: 280,
-                      offset: 60.0,
-                    ),
-                    //for list of near by temples
-                    Positioned(
-                      bottom: 35,
-                      left: 5,
-                      right: 55,
-                      child: BlocBuilder<ShowNearbyTemplesBloc,
-                          ShowNearbyTemplesState>(
-                        builder: (context, nearbyState) {
-                          if (nearbyState is ViewMarkersState &&
-                              nearbyState.filteredTemples != null &&
-                              nearbyState.markers.length > 1) {
-                            return Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: nearbyState.markers.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        _controller.moveCamera(
-                                            CameraUpdate.newLatLng(LatLng(
-                                                double.parse(nearbyState
-                                                    .filteredTemples![index]
-                                                    .templeLatitude!),
-                                                double.parse(nearbyState
-                                                    .filteredTemples![index]
-                                                    .templeLangitude!))));
-                                        _controller.animateCamera(CameraUpdate
-                                            .newCameraPosition(CameraPosition(
+            // if (markerState is ViewSingleTempleState) {
+            return Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: _kGooglePlex!,
+                  //  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
+                  mapType: MapType.normal,
+                  zoomControlsEnabled: true,
+                  markers: markerState is ViewMarkersState
+                      ? markerState.markers
+                      : {},
+                  onCameraMove: (position) {
+                    _customInfoWindowController.onCameraMove!();
+                  },
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = controller;
+                    _customInfoWindowController.googleMapController =
+                        controller;
+                    _controller.setMapStyle(mapThemes.first['style']);
+                  },
+                ),
+                CustomInfoWindow(
+                  controller: _customInfoWindowController,
+                  height: 240,
+                  width: 280,
+                  offset: 60.0,
+                ),
+                //for list of near by temples
+                Positioned(
+                  bottom: 35,
+                  left: 5,
+                  right: 55,
+                  child: BlocBuilder<ShowNearbyTemplesBloc,
+                      ShowNearbyTemplesState>(
+                    builder: (context, nearbyState) {
+                      if (nearbyState is ViewMarkersState &&
+                          nearbyState.filteredTemples != null &&
+                          nearbyState.markers.length > 1) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: nearbyState.markers.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    _controller.moveCamera(
+                                        CameraUpdate.newLatLng(LatLng(
+                                            double.parse(nearbyState
+                                                .filteredTemples![index]
+                                                .templeLatitude!),
+                                            double.parse(nearbyState
+                                                .filteredTemples![index]
+                                                .templeLangitude!))));
+                                    _controller.animateCamera(
+                                        CameraUpdate.newCameraPosition(
+                                            CameraPosition(
                                                 target: LatLng(
                                                     double.parse(nearbyState
                                                         .filteredTemples![index]
@@ -240,167 +236,169 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
                                                         .filteredTemples![index]
                                                         .templeLangitude!)),
                                                 zoom: 13)));
-                                      },
-                                      child: Container(
-                                        width: 100,
-                                        height: 100,
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 24),
-                                          child: Stack(
-                                            alignment: Alignment.topCenter,
-                                            children: [
-                                              Positioned(
-                                                  child: Image.asset(
-                                                      "assets/images/markers/marker-1.png")),
-                                              Positioned(
-                                                top: 6,
-                                                child: SizedBox(
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: ClipOval(
-                                                      clipBehavior:
-                                                          ui.Clip.antiAlias,
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: nearbyState
-                                                                .filteredTemples![
-                                                                    index]
-                                                                .maintowerImage!
-                                                                .isNotEmpty
-                                                            ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${nearbyState.filteredTemples![index].maintowerImage![0].fileLocation}'
-                                                            : NetworkImages
-                                                                .templePlaceHolder,
-                                                        imageBuilder: (context,
-                                                                imageProvider) =>
-                                                            ClipRRect(
-                                                          child: DecoratedBox(
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.08),
-                                                                image: DecorationImage(
-                                                                    image:
-                                                                        imageProvider,
-                                                                    fit: BoxFit
-                                                                        .cover)),
-                                                          ),
-                                                        ),
-                                                      )),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
                                   },
-                                ));
-                          }
-                          ;
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                    //for map theme changing
-                    Positioned(
-                      bottom: 100,
-                      right: 15,
-                      child: Container(
-                          width: 35,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              MaterialButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => Container(
-                                        padding: const EdgeInsets.all(20),
-                                        color: Colors.white,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.3,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Select Theme",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            SizedBox(
-                                              width: double.infinity,
-                                              height: 100,
-                                              child: ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: mapThemes.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        _controller.setMapStyle(
-                                                            mapThemes[index]
-                                                                ['style']);
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Container(
-                                                        width: 100,
-                                                        margin: const EdgeInsets
-                                                            .only(right: 10),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    margin: const EdgeInsets.only(right: 10),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 24),
+                                      child: Stack(
+                                        alignment: Alignment.topCenter,
+                                        children: [
+                                          Positioned(
+                                              child: Image.asset(
+                                                  "assets/images/markers/marker-1.png")),
+                                          Positioned(
+                                            top: 6,
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: ClipOval(
+                                                  clipBehavior:
+                                                      ui.Clip.antiAlias,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: nearbyState
+                                                            .filteredTemples![
+                                                                index]
+                                                            .maintowerImage!
+                                                            .isNotEmpty
+                                                        ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${nearbyState.filteredTemples![index].maintowerImage![0].fileLocation}'
+                                                        : NetworkImages
+                                                            .templePlaceHolder,
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        ClipRRect(
+                                                      child: DecoratedBox(
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.08),
+                                                            image: DecorationImage(
                                                                 image:
-                                                                    DecorationImage(
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  image: NetworkImage(
-                                                                      mapThemes[
-                                                                              index]
-                                                                          [
-                                                                          'image']),
-                                                                )),
+                                                                    imageProvider,
+                                                                fit: BoxFit
+                                                                    .cover)),
                                                       ),
-                                                    );
-                                                  }),
+                                                    ),
+                                                  )),
                                             ),
-                                          ],
-                                        )),
-                                  );
-                                },
-                                padding: const EdgeInsets.all(0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child:
-                                    const Icon(Icons.layers_rounded, size: 25),
-                              ),
-                            ],
-                          )),
-                    )
-                  ],
-                );
-              },
-            ));
-      },
-    );
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ));
+                      }
+                      ;
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
+                //for map theme changing
+                Positioned(
+                  bottom: 100,
+                  right: 15,
+                  child: Container(
+                      width: 35,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MaterialButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => Container(
+                                    padding: const EdgeInsets.all(20),
+                                    color: Colors.white,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Select Theme",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 100,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: mapThemes.length,
+                                              itemBuilder: (context, index) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    selectedIndex = index;
+                                                    _controller.setMapStyle(
+                                                        mapThemes[index]
+                                                            ['style']);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    width: 100,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 10),
+                                                    decoration: BoxDecoration(
+                                                        border: selectedIndex ==
+                                                                index
+                                                            ? Border.all(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                width: 4.0,
+                                                                strokeAlign:
+                                                                    BorderSide
+                                                                        .strokeAlignInside)
+                                                            : Border.all(
+                                                                width: 0.0),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                              mapThemes[index]
+                                                                  ['image']),
+                                                        )),
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    )),
+                              );
+                            },
+                            padding: const EdgeInsets.all(0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.layers_rounded, size: 25),
+                          ),
+                        ],
+                      )),
+                )
+              ],
+            );
+            // }
+          },
+        ));
   }
 //
 

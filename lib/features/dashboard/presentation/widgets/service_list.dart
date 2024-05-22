@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:intl/intl.dart';
+import 'package:news_app_clean_architecture/config/common/class/app_info.dart';
 
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '/config/common/widgets/bottom_sheet.dart';
@@ -116,13 +118,16 @@ _serviceCard(
   );
 }
 
-pageNavigation(String routeName, BuildContext context) {
-  return routeName != "" ? Navigator.pushNamed(context, routeName) : () {};
+pageNavigation(String routeName, BuildContext context, {Object? arguments}) {
+  return routeName != ""
+      ? Navigator.pushNamed(context, routeName, arguments: arguments)
+      : () {};
 }
 
-popAndPushNamedNavigation(String routeName, BuildContext context) {
+popAndPushNamedNavigation(String routeName, BuildContext context,
+    {Object? arguments}) {
   return routeName != ""
-      ? Navigator.pushReplacementNamed(context, routeName)
+      ? Navigator.pushReplacementNamed(context, routeName, arguments: arguments)
       : () {};
 }
 
@@ -151,8 +156,9 @@ otherServiceList(BuildContext context) {
   );
 }
 
+int selectedDistanceIndex = 0;
 otherServiceCard(int index, BuildContext context, double width, double height,
-    double fontSize, List listName) {
+    double fontSize, List<TempleServices> listName) {
   return GestureDetector(
     onTap: listName[index].page.toString().isNotEmpty
         ? () {
@@ -160,7 +166,56 @@ otherServiceCard(int index, BuildContext context, double width, double height,
               popAndPushNamedNavigation(
                   listName[index].page.toString(), context);
             } else {
-              pageNavigation(listName[index].page.toString(), context);
+              if (listName[index].name == "near_by_temples") {
+                AppInfo()
+                    .getCurrentLocation()
+                    .then((locationData) => showDialog(
+                        context: context,
+                        builder: ((context) {
+                          return AlertDialog.adaptive(
+                            title: const LocaleText('select_distance'),
+                            content: Wrap(
+                              alignment: WrapAlignment.spaceAround,
+                              runAlignment: WrapAlignment.spaceBetween,
+                              children: List.generate(
+                                distanceList.length,
+                                (index) => ChoiceChip(
+                                  showCheckmark: false,
+                                  label: Text(
+                                      distanceList[index].round().toString()),
+                                  selected: selectedDistanceIndex == index,
+                                  onSelected: (value) {
+                                    selectedDistanceIndex = index;
+                                    print(distanceList[index]);
+                                  },
+                                ),
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('cancel')),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    pageNavigation(
+                                        listName[index].page.toString(),
+                                        context,
+                                        arguments: {
+                                          "current_location": locationData,
+                                          "distance": distanceList[
+                                              selectedDistanceIndex]
+                                        });
+                                  },
+                                  child: const Text('confirm')),
+                            ],
+                          );
+                        })));
+              } else {
+                pageNavigation(listName[index].page.toString(), context);
+              }
             }
           }
         : () {

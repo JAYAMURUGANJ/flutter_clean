@@ -101,7 +101,9 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                       context,
                       temple,
                       'location',
-                      NearByTemplesWidget(temple: temple),
+                      NearByTemplesWidget(
+                        temple: temple,
+                      ),
                     ),
                     icon: Image.asset(
                       LocalImages().location,

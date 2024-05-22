@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/google_map_location.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 import 'dart:math' as Math;
@@ -13,51 +16,60 @@ class ShowNearbyTemplesBloc
     extends Bloc<ShowNearbyTemplesEvent, ShowNearbyTemplesState> {
   ShowNearbyTemplesBloc() : super(ShowNearbyTemplesInitial()) {
     on<ShowNearbyTemplesEvent>((event, emit) {});
+    on<ViewCurrentLocationEvent>(viewCurrentLocation);
     on<ViewSingleTempleEvent>(viewSingleTemple);
     on<ViewNearByTemplesEvent>(viewNearbyTemples);
   }
 
   viewSingleTemple(
       ViewSingleTempleEvent event, Emitter<ShowNearbyTemplesState> emit) async {
-    if (event.temple != null) {
-      Set<Marker> markers;
-      markers = {
-        Marker(
-          markerId: MarkerId(event.temple.templeId.toString()),
-          position: LatLng(double.parse(event.temple.templeLatitude.toString()),
+    emit(ViewNearbyTemplesLoading());
+    Set<Marker> markers;
+    markers = {
+      Marker(
+        markerId: MarkerId(event.temple.templeId.toString()),
+        position: LatLng(double.parse(event.temple.templeLatitude.toString()),
+            double.parse(event.temple.templeLangitude.toString())),
+        onTap: () {
+          event.customInfoWindowController.addInfoWindow!(
+            BuildMarkerInfoWidget(
+                temple: event.temple,
+                customInfoWindowController: event.customInfoWindowController),
+            LatLng(double.parse(event.temple.templeLatitude.toString()),
+                double.parse(event.temple.templeLangitude.toString())),
+          );
+        },
+      )
+    };
+    CameraPosition cameraPosition = CameraPosition(
+      target: LatLng(double.parse(event.temple.templeLatitude.toString()),
+          double.parse(event.temple.templeLangitude.toString())),
+      zoom: 13.4746,
+    );
+    // final BitmapDescriptor customIcon = await getMarkerIcon(
+    //     event.temple.maintowerImage!.isNotEmpty
+    //         ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${event.temple.maintowerImage![0].fileLocation}'
+    //         : NetworkImages.templePlaceHolder,
+    //     const Size(200, 200));
+    emit(ViewMarkersState(markers,
+        cameraPosition: CameraPosition(
+          target: LatLng(double.parse(event.temple.templeLatitude.toString()),
               double.parse(event.temple.templeLangitude.toString())),
-          onTap: () {
-            event.customInfoWindowController.addInfoWindow!(
-              BuildMarkerInfoWidget(
-                  temple: event.temple,
-                  customInfoWindowController: event.customInfoWindowController),
-              LatLng(double.parse(event.temple.templeLatitude.toString()),
-                  double.parse(event.temple.templeLangitude.toString())),
-            );
-          },
-        )
-      };
-      // final BitmapDescriptor customIcon = await getMarkerIcon(
-      //     event.temple.maintowerImage!.isNotEmpty
-      //         ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${event.temple.maintowerImage![0].fileLocation}'
-      //         : NetworkImages.templePlaceHolder,
-      //     const Size(200, 200));
-      emit(ViewMarkersState(markers));
-    } else {
-      //  emit();
-    }
+          zoom: 13.4746,
+        )));
   }
 
   viewNearbyTemples(
       ViewNearByTemplesEvent event, Emitter<ShowNearbyTemplesState> emit) {
+    emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
       // filter radius data
       var filteredTemples = event.listOfTemples
           .where((marker) =>
               calculateDistance(
                   LatLng(
-                    double.tryParse(event.currentTemple.templeLatitude!)!,
-                    double.tryParse(event.currentTemple.templeLangitude!)!,
+                    double.tryParse(event.currentTemple!.templeLatitude!)!,
+                    double.tryParse(event.currentTemple!.templeLangitude!)!,
                   ),
                   LatLng(
                     double.tryParse(marker.templeLatitude!)!,
@@ -89,7 +101,15 @@ class ShowNearbyTemplesBloc
         );
       });
       setOfMarkers = Set.from(markerItems);
-      emit(ViewMarkersState(setOfMarkers, filteredTemples: filteredTemples));
+      CameraPosition cameraPosition = CameraPosition(
+        target: LatLng(
+          double.tryParse(event.currentTemple!.templeLatitude!)!,
+          double.tryParse(event.currentTemple!.templeLangitude!)!,
+        ),
+        zoom: 13.4746,
+      );
+      emit(ViewMarkersState(setOfMarkers,
+          filteredTemples: filteredTemples, cameraPosition: cameraPosition));
     } else {
       emit(ShowMarkerSWWState());
     }
@@ -123,17 +143,68 @@ class ShowNearbyTemplesBloc
 
   double deg2rad(double deg) => deg * (Math.pi / 180);
 
-// get current location
-  // Future<LatLng> getCurrentLocation() async {
-  //   LocationPermission permission;
-  //   permission = await Geolocator.requestPermission();
+// current location function
 
-  //   Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   double lat = position.latitude;
-  //   double long = position.longitude;
+  viewCurrentLocation(ViewCurrentLocationEvent event,
+      Emitter<ShowNearbyTemplesState> emit) async {
+    emit(ViewNearbyTemplesLoading());
+    if (event.listOfTemples.isNotEmpty) {
+      // filter radius data
+      var filteredTemples = event.listOfTemples
+          .where((marker) =>
+              calculateDistance(
+                  event.currentLocationLatLng!,
+                  LatLng(
+                    double.tryParse(marker.templeLatitude!)!,
+                    double.tryParse(marker.templeLangitude!)!,
+                  )) <=
+              event.distance)
+          .toList();
+      //
+      Set<Marker> setOfMarkers = {};
+      Iterable<Marker> markerItems =
+          Iterable.generate(filteredTemples.length, (index) {
+        return Marker(
+          markerId: MarkerId(filteredTemples[index].templeId.toString()),
+          position: LatLng(
+              double.parse(filteredTemples[index].templeLatitude.toString()),
+              double.parse(filteredTemples[index].templeLangitude.toString())),
+          onTap: () {
+            event.customInfoWindowController.addInfoWindow!(
+              BuildMarkerInfoWidget(
+                  temple: filteredTemples[index],
+                  customInfoWindowController: event.customInfoWindowController),
+              LatLng(
+                  double.parse(
+                      filteredTemples[index].templeLatitude.toString()),
+                  double.parse(
+                      filteredTemples[index].templeLangitude.toString())),
+            );
+          },
+        );
+      });
+      setOfMarkers = Set.from(markerItems);
+      // setOfMarkers.add(Marker(
+      //   markerId: const MarkerId("current_temple"),
+      //   position: event.currentLocationLatLng!,
+      // ));
 
-  //   LatLng location = LatLng(lat, long);
-  //   return location;
-  // }
+      emit(ViewMarkersState(
+        setOfMarkers,
+        filteredTemples: filteredTemples,
+      ));
+    } else {
+      emit(ShowMarkerSWWState());
+    }
+  }
+
+  // get current location
+  Future<LocationData> getCurrentLocation() async {
+    Location location = Location();
+    try {
+      return await location.getLocation();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

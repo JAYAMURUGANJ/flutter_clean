@@ -56,6 +56,10 @@ class LocalImages {
   String play = "assets/images/icons/media-play.png";
 }
 
+
+// map radius list
+List<double> distanceList = [5, 10, 15, 20, 25, 30];
+
 // God list
 List<God> godList = [
   God(
