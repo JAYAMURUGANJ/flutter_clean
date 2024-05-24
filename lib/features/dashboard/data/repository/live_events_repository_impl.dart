@@ -29,7 +29,8 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE");
+        log(decryptedResponse, name: "API RESPONSE LIVE EVENT");
+        debugPrint("API RESPONSE LIVE EVENT: $decryptedResponse");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;

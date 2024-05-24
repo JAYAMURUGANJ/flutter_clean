@@ -40,7 +40,8 @@ class LiveEventsEntity extends Equatable {
   factory LiveEventsEntity.fromJson(Map<String, dynamic> json) =>
       _$LiveEventsEntityFromJson(json);
 
-  Map<String, dynamic> toJson(List? liveEvents) => _$LiveEventsEntityToJson(this);
+  Map<String, dynamic> toJson(List? liveEvents) =>
+      _$LiveEventsEntityToJson(this);
   @override
   List<Object?> get props {
     return [

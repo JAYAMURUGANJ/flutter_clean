@@ -162,6 +162,13 @@ List<TempleServices> templeServicesList = [
     page: "",
   ),
   TempleServices(
+      id: 5,
+      name: "live",
+      imageLink: "assets/images/icons/live.png",
+      bgColor: Colors.black.withAlpha(255),
+      page: "",
+      isBottomSheet: true),
+  TempleServices(
       id: 6,
       name: "events",
       imageLink: "assets/images/icons/events.png",

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unrelated_type_equality_checks
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +34,18 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
   Widget build(BuildContext context) {
     dynamic theme = Theme.of(context);
     return Scaffold(
-      appBar: appHeader(
-        context: context,
-        body: LocaleText("live_events",
-            textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
-        trailing: IconButton(
-          onPressed: () => buildNavigationDrawer(context),
-          icon: const Icon(Icons.menu),
-        ),
-      ),
+      appBar: (widget.templeData?.templeId != null)
+          ? null
+          : appHeader(
+              context: context,
+              body: LocaleText("live_events",
+                  textAlign: TextAlign.center,
+                  style: appbarTextStyleLarge(theme)),
+              trailing: IconButton(
+                onPressed: () => buildNavigationDrawer(context),
+                icon: const Icon(Icons.menu),
+              ),
+            ),
       body: BlocBuilder<LiveEventsBloc, LiveEventsState>(
         builder: (context, state) {
           if (state is LiveEventsLoading) {
@@ -81,54 +84,76 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          List<LiveEventsEntity>? liveEvents = state.liveEvents!
-                              .cast<LiveEventsEntity>()
-                              .where(
-                                (element) => element.scrollData!.any(
-                                  (data) => liveStreamType[index].liveurlType ==
-                                          "C"
-                                      ? (data.eventUrl!.youtubeLiveUrl != "" &&
-                                          data.liveurl ==
-                                              liveStreamType[index].liveUrl &&
-                                          data.liveurlType ==
-                                              liveStreamType[index]
-                                                  .liveurlType &&
-                                          data.publishedUpto!
-                                              .isBefore(DateTime.now()))
-                                      : liveStreamType[index].liveurlType == "F"
-                                          ? (data.eventUrl!.youtubeLiveUrl !=
-                                                  "" &&
-                                              data.liveurl ==
-                                                  liveStreamType[index]
-                                                      .liveUrl &&
-                                              data.liveurlType ==
-                                                  liveStreamType[index]
-                                                      .liveurlType &&
-                                              data.publishedUpto!
-                                                  .isAfter(DateTime.now()))
-                                          : (data.eventUrl!.youtubeLiveUrl !=
-                                                  "" &&
-                                              data.liveurl ==
-                                                  liveStreamType[index]
-                                                      .liveUrl &&
-                                              data.liveurlType ==
-                                                  liveStreamType[index]
-                                                      .liveurlType),
-                                ),
-                              )
-                              .toList();
+                          RegExp regExp = RegExp(
+                            r"(?<=channel\/)(.*?)(?=\/live)",
+                            caseSensitive: false,
+                          );
+                          final now = DateTime.now();
+                          final today = DateTime(now.year, now.month, now.day);
+                          List<LiveEventsEntity>? liveEvents = [];
+
+                          for (var element
+                              in state.liveEvents!.cast<LiveEventsEntity>()) {
+                            // Check if the temple IDs match or if the temple ID is null
+                            if (widget.templeData?.templeId == null ||
+                                element.templeId ==
+                                    widget.templeData!.templeId) {
+                              var filteredScrollData =
+                                  element.scrollData!.where((data) {
+                                final publishedFrom = DateTime(
+                                    data.publishedFrom!.year,
+                                    data.publishedFrom!.month,
+                                    data.publishedFrom!.day);
+                                final publishedTo = DateTime(
+                                    data.publishedUpto!.year,
+                                    data.publishedUpto!.month,
+                                    data.publishedUpto!.day);
+                                return liveStreamType[index].liveurlType == "U"
+                                    ? regExp.hasMatch(data.eventUrl!)
+                                    : data.eventUrl!.youtubeLiveUrl != "" &&
+                                        data.liveurl ==
+                                            liveStreamType[index].liveUrl &&
+                                        data.liveurlType ==
+                                            liveStreamType[index].liveurlType &&
+                                        ((liveStreamType[index].liveurlType ==
+                                                    "C" ||
+                                                liveStreamType[index]
+                                                        .liveurlType ==
+                                                    "U")
+                                            ? data.publishedUpto!
+                                                .isBefore(DateTime.now())
+                                            : (publishedFrom == today ||
+                                                publishedTo == today ||
+                                                data.publishedUpto!
+                                                    .isAfter(DateTime.now())));
+                              }).toList();
+
+                              if (filteredScrollData.isNotEmpty) {
+                                liveEvents.add(LiveEventsEntity(
+                                  templeId: element.templeId,
+                                  ttempleName: element.ttempleName,
+                                  templeName: element.templeName,
+                                  maintowerImage: element.maintowerImage,
+                                  scrollData: filteredScrollData,
+                                ));
+                              }
+                            }
+                          }
 
                           debugPrint(
-                              //"url  : ${liveEvents[0].scrollData![1].eventDesc}\n"
-                              "liveurlType : ${liveStreamType[index].liveUrl}\n"
-                              "liveurlType : ${liveStreamType[index].steamType.split("\n")}\n"
-                              "Data Count : ${liveEvents.length}\n"
-                              "liveurlType : ${liveStreamType[index].liveurlType}\n");
+                              "stream type : ${liveStreamType[index].steamType.split("\n")}\n"
+                              "liveUrl : ${liveStreamType[index].liveUrl}\n"
+                              "liveurlType : ${liveStreamType[index].liveurlType}\n"
+                              "Data Count : ${liveEvents.length}\n");
                           buildBottomSheet(
                             context,
                             liveEvents,
                             'live_events',
-                            TempleLiveStreams(liveEvents),
+                            TempleLiveStreams(
+                              liveEvents: liveEvents,
+                              liveurlType: liveStreamType[index].liveurlType,
+                              liveurl: liveStreamType[index].liveUrl,
+                            ),
                           );
                         },
                         child: LiveStreamDataVideoCard(

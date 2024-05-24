@@ -1,25 +1,23 @@
-// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
+// ignore_for_file: non_constant_identifier_names
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../../config/common/widgets/no_data_available.dart';
+import '../../../../config/constants.dart';
 import '../../../temple_details/presentation/widgets/main_tower.dart';
-import '/config/common/extensions.dart';
-import '/config/common/widgets/no_data_available.dart';
-import '/config/constants.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
 
 class TempleLiveStreams extends StatefulWidget {
   final List<LiveEventsEntity> liveEvents;
-  final String liveurlType;
-  final String liveurl;
+  final bool isUtchavarDarshan;
   const TempleLiveStreams({
     Key? key,
     required this.liveEvents,
-    required this.liveurlType,
-    required this.liveurl,
+    required this.isUtchavarDarshan,
   }) : super(key: key);
 
   @override
@@ -28,7 +26,18 @@ class TempleLiveStreams extends StatefulWidget {
 
 class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   String? videoId;
-  dynamic controller;
+  dynamic controller = YoutubePlayerController(
+    initialVideoId: "",
+    flags: const YoutubePlayerFlags(
+      mute: false,
+      autoPlay: false,
+      disableDragSeek: false,
+      loop: false,
+      isLive: true,
+      forceHD: true,
+      enableCaption: true,
+    ),
+  );
   @override
   void initState() {
     super.initState();
@@ -54,7 +63,6 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
     return ExpansionPanelList.radio(
       elevation: 3,
       dividerColor: Colors.grey,
-      expandIconColor: Theme.of(context).colorScheme.primary,
       children: widget.liveEvents
           .map<ExpansionPanelRadio>((LiveEventsEntity liveEvent) {
         return ExpansionPanelRadio(
@@ -72,14 +80,14 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   }
 
   SingleChildScrollView _ExpansionBody(LiveEventsEntity liveEvent) {
+    var videoId = "";
     return SingleChildScrollView(
       child: ExpansionPanelList.radio(
-        elevation: 3,
-        dividerColor: Colors.grey,
-        children: liveEvent.scrollData!
-            .map<ExpansionPanelRadio>((ScrollDatum scrollData) {
+        expansionCallback: (panelIndex, isExpanded) async {
+          videoId =
+              await getLiveVideoId(liveEvent.scrollData![panelIndex].eventUrl!);
           controller = YoutubePlayerController(
-            initialVideoId: scrollData.eventUrl!.youtubeLiveUrl ?? "",
+            initialVideoId: videoId,
             flags: const YoutubePlayerFlags(
               mute: false,
               autoPlay: false,
@@ -90,6 +98,15 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
               enableCaption: true,
             ),
           );
+        },
+        elevation: 3,
+        dividerColor: Colors.grey,
+        children: liveEvent.scrollData!
+            .cast<ScrollDatum>()
+            .where((element) =>
+                element.liveurlType == "U" && element.liveurl == "Y")
+            .toList()
+            .map<ExpansionPanelRadio>((ScrollDatum scrollData) {
           return ExpansionPanelRadio(
             canTapOnHeader: true,
             headerBuilder: (BuildContext context, bool isExpanded) {
@@ -97,11 +114,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 leading: Image.asset(
                   LocalImages().play,
                 ),
-                title: Text(
-                  scrollData.eventDesc.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 15),
-                ),
+                title: Text(scrollData.eventDesc.toString()),
               );
             },
             body: Card(
@@ -113,7 +126,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 ),
               ),
             ),
-            value: "${scrollData.eventUrl}",
+            value: "${scrollData.eventUrl}${scrollData.eventDesc}",
           );
         }).toList(),
       ),
@@ -129,7 +142,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
             : liveEvent.ttempleName.toString(),
         softWrap: true,
         textAlign: TextAlign.left,
-        maxLines: 5,
+        maxLines: 3,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
@@ -139,20 +152,31 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   }
 }
 
-String extractLiveChannelId(String url) {
-  // This pattern is designed to match YouTube channel live URLs
-  RegExp regExp = RegExp(
-    r'youtube\.com\/channel\/([a-zA-Z0-9_-]+)\/live',
-    caseSensitive: false,
-  );
+Future<String> getLiveVideoId(String eventUrl) async {
+  var dio = Dio();
+  debugPrint(eventUrl);
+  String urls = 'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q/live';
+  RegExp regExp = RegExp(r"(?<=channel\/)(.*?)(?=\/live)");
+  String channelId = regExp.firstMatch(urls)?.group(0) ?? '';
+  var url = 'https://www.googleapis.com/youtube/v3/search'
+      '?part=snippet'
+      '&channelId=$channelId'
+      '&eventType=live'
+      '&type=video'
+      '&key=AIzaSyAe-8b7JH3eiu2UrfxwKFGjofRqeGfnR3g';
+  debugPrint(url.toString());
 
-  // Find the matches for the given URL
-  var matches = regExp.allMatches(url);
-
-  // If there's a match, return the first group (Channel ID)
-  if (matches.isNotEmpty) {
-    return matches.first.group(1) ?? 'No Channel ID found';
-  } else {
-    return 'No Channel ID found';
+  try {
+    var response = await dio.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = response.data;
+      var items = jsonResponse['items'];
+      if (items.length > 0) {
+        return items[0]['id']['videoId'];
+      }
+    }
+  } catch (e) {
+    print('Error: $e');
   }
+  return "null";
 }

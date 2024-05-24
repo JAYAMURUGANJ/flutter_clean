@@ -6,7 +6,6 @@ import '/features/dashboard/domain/repository/live_events_repository.dart';
 import '/features/dashboard/domain/usecases/live_events_usecase.dart';
 import '/features/dashboard/domain/usecases/whats_new_usecase.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
-import '/features/dashboard/presentation/bloc/whats_new/whats_new_bloc.dart';
 import '/features/event_calendar/domain/repository/calendar_event_repository.dart';
 import '/features/event_calendar/domain/usecases/calendar_event_usecase.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
@@ -82,7 +81,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<TempleInfoBloc>(() => TempleInfoBloc(sl()));
   sl.registerFactory<TempleTimingBloc>(() => TempleTimingBloc(sl()));
   sl.registerFactory<TemplePoojaBloc>(() => TemplePoojaBloc(sl()));
-  sl.registerFactory<WhatsNewBloc>(() => WhatsNewBloc(sl()));
   sl.registerFactory<LiveEventsBloc>(() => LiveEventsBloc(sl()));
   sl.registerFactory<ContactDetailsBloc>(() => ContactDetailsBloc(sl()));
   sl.registerFactory<CalendarEventBloc>(() => CalendarEventBloc(sl()));

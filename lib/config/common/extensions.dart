@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -40,14 +41,14 @@ extension StringExtension on String {
   }
 
   String? get youtubeVideoId {
-    final regex = RegExp(
+    final regex1 = RegExp(
         r'((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?',
         caseSensitive: false);
 
     try {
-      if (regex.hasMatch(this)) {
-        return regex.firstMatch(this)!.group(1);
-      }
+      if (regex1.hasMatch(this)) {
+        return regex1.firstMatch(this)!.group(1);
+      } else {}
     } catch (e) {
       return '';
     }
@@ -60,5 +61,34 @@ extension StringExtension on String {
     } else {
       return YoutubePlayer.convertUrlToId(this)!;
     }
+  }
+
+  Future<String> getLiveVideoId() async {
+    var dio = Dio();
+    debugPrint(this);
+    String urls =
+        'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q/live';
+    RegExp regExp = RegExp(r"(?<=channel\/)(.*?)(?=\/live)");
+    String channelId = regExp.firstMatch(urls)?.group(0) ?? '';
+    var url = 'https://www.googleapis.com/youtube/v3/search'
+        '?part=snippet'
+        '&channelId=$channelId'
+        '&eventType=live'
+        '&type=video'
+        '&key=AIzaSyAe-8b7JH3eiu2UrfxwKFGjofRqeGfnR3g';
+
+    try {
+      var response = await dio.get(url);
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data;
+        var items = jsonResponse['items'];
+        if (items.length > 0) {
+          return items[0]['id']['videoId'];
+        }
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+    return "";
   }
 }

@@ -30,6 +30,7 @@ class _DataNotAvailableState extends State<DataNotAvailable> {
           LocaleText(
             widget.error,
             textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           )
         ],
       ),

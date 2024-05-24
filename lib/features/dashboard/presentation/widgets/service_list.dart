@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/widgets/bottom_sheet.dart';
+import '../../../../config/common/widgets/no_data_available.dart';
+import '../../../event_calendar/presentation/pages/event_calendar.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
-import '/config/common/widgets/bottom_sheet.dart';
+import '../pages/live_telecast.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/core/models/booking_services.dart';
-import '/features/event_calendar/presentation/pages/event_calendar.dart';
 
 buildTempleServicesList(
     {required String listType,
@@ -52,8 +54,31 @@ _serviceCard(
     ItmsResponseEntity? templeData) {
   return GestureDetector(
     onTap: services[index].isBottomSheet!
-        ? () => buildBottomSheet(context, templeData, services[index].name!,
-            TempleEventCalendar(templeData: templeData))
+        ? () {
+            switch (services[index].name!) {
+              case "events":
+                {
+                  buildBottomSheet(context, templeData, services[index].name!,
+                      TempleEventCalendar(templeData: templeData));
+                }
+                break;
+
+              case "live":
+                {
+                  buildBottomSheet(context, templeData, "live_events",
+                      TempleLiveTeleCasts(templeData: templeData));
+                }
+                break;
+
+              default:
+                {
+                  DataNotAvailable(
+                      error: "live_telecasting_not_available",
+                      img: NetworkImages.noLiveAvailable);
+                }
+                break;
+            }
+          }
         : services[index].page.toString().isNotEmpty
             ? () => pageNavigation(services[index].page.toString(), context)
             : () {

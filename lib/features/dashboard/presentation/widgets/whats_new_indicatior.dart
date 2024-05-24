@@ -46,7 +46,7 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
               .where(
                 (element) => element.scrollData!.any(
                   (data) =>
-                      data.eventUrl!.youtubeLiveUrl != "" &&
+                      data.eventUrl != "" &&
                       data.liveurl == widget.liveurl &&
                       data.liveurlType == widget.liveurlType &&
                       data.publishedUpto!.isBefore(DateTime.now()),
@@ -99,7 +99,11 @@ class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
           context,
           liveEvents,
           'live_events',
-          TempleLiveStreams([liveEvents]),
+          TempleLiveStreams(
+            liveEvents: [liveEvents],
+            liveurlType: "C",
+            liveurl: "Y",
+          ),
         ),
         child: LiveEventShowCard(
           event: liveEvents,
