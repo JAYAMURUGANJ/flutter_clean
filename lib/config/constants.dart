@@ -56,6 +56,10 @@ class LocalImages {
   String play = "assets/images/icons/media-play.png";
 }
 
+
+// map radius list
+List<double> distanceList = [5, 10, 15, 20, 25, 30];
+
 // God list
 List<God> godList = [
   God(
@@ -197,7 +201,7 @@ List<TempleServices> otherServicesList = [
     name: "near_by_temples",
     imageLink: "assets/images/icons/near_temple.png",
     bgColor: Colors.deepOrange.shade300,
-    page: "",
+    page: "/NearByTemples",
   ),
   TempleServices(
     id: 5,

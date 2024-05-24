@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 import '../../features/dashboard/presentation/pages/live_telecast.dart';
+import '/features/temple_details/presentation/widgets/google_map_location.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
 import '/features/event_calendar/presentation/pages/event_calendar.dart';
@@ -36,6 +38,9 @@ class AppRoutes {
         return _materialRoute(const TempleEventCalendar());
       case '/Livestream':
         return _materialRoute(const TempleLiveTeleCasts());
+      case '/NearByTemples':
+        return _materialRoute(NearByTemplesWidget(
+            currentLocationData: settings.arguments as Map<String, dynamic>));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

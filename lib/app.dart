@@ -5,6 +5,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
@@ -13,6 +14,7 @@ import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
+import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
@@ -53,6 +55,8 @@ class _AppState extends State<App> {
           BlocProvider<ContactDetailsBloc>(create: (context) => sl()),
           BlocProvider<CalendarEventBloc>(create: (context) => sl()),
           BlocProvider<CalendarEventDetailsBloc>(create: (context) => sl()),
+          BlocProvider<NearbyTemplesBloc>(create: (context) => sl()),
+          BlocProvider<ShowNearbyTemplesBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

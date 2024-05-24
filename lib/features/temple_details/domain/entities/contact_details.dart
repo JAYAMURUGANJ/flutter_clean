@@ -66,6 +66,8 @@ class ContactDetailsEntity extends Equatable {
       username,
       designationDesc,
       prefixDesc,
+      errorCode,
+      responseDesc,
     ];
   }
 }
