@@ -1,13 +1,15 @@
+// ignore_for_file: library_prefixes
+
 import 'dart:async';
+import 'dart:math' as Math;
 
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/google_map_location.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
-import 'dart:math' as Math;
+
+import '/features/temple_details/presentation/widgets/google_map_location.dart';
+import '/features/temple_list/domain/entities/itms_response.dart';
 
 part 'show_nearby_temples_event.dart';
 part 'show_nearby_temples_state.dart';
@@ -41,16 +43,7 @@ class ShowNearbyTemplesBloc
         },
       )
     };
-    CameraPosition cameraPosition = CameraPosition(
-      target: LatLng(double.parse(event.temple.templeLatitude.toString()),
-          double.parse(event.temple.templeLangitude.toString())),
-      zoom: 13.4746,
-    );
-    // final BitmapDescriptor customIcon = await getMarkerIcon(
-    //     event.temple.maintowerImage!.isNotEmpty
-    //         ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${event.temple.maintowerImage![0].fileLocation}'
-    //         : NetworkImages.templePlaceHolder,
-    //     const Size(200, 200));
+
     emit(ViewMarkersState(markers,
         cameraPosition: CameraPosition(
           target: LatLng(double.parse(event.temple.templeLatitude.toString()),

@@ -2,14 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:intl/intl.dart';
-import 'package:news_app_clean_architecture/config/common/class/app_info.dart';
 
 import '../../../../config/common/widgets/bottom_sheet.dart';
 import '../../../../config/common/widgets/no_data_available.dart';
 import '../../../event_calendar/presentation/pages/event_calendar.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../pages/live_telecast.dart';
+import '/config/common/class/app_info.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/core/models/booking_services.dart';
@@ -211,7 +210,7 @@ otherServiceCard(int index, BuildContext context, double width, double height,
                                   selected: selectedDistanceIndex == index,
                                   onSelected: (value) {
                                     selectedDistanceIndex = index;
-                                    print(distanceList[index]);
+                                    debugPrint(distanceList[index].toString());
                                   },
                                 ),
                               ),

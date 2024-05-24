@@ -65,6 +65,9 @@ class _PaidServicePageState extends State<PaidServicePage> {
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: _currentStep,
+        stepIconBuilder: (stepIndex, stepState) {
+          return null;
+        },
         onStepContinue: () {
           if (_formKey.currentState!.validate()) {
             setState(() {
@@ -398,6 +401,7 @@ class _PaidServicePageState extends State<PaidServicePage> {
                       });
                     },
                   ),
+                  const SizedBox(height: 10.0),
                 ],
               ),
             ),
@@ -516,58 +520,45 @@ class _PaidServicePageState extends State<PaidServicePage> {
           ),
         ],
         controlsBuilder: (BuildContext context, ControlsDetails details) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Visibility(
-              //   visible: _selectedTemple != '' ||
-              //       _selectedTicket != '' ||
-              //       _selectedTimeSlot != '' ||
-              //       _ticketCount < 0 ||
-              //       _phoneNumber != '' ||
-              //       _termsChecked != false,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       setState(() {
-              //         _formKey.currentState!.reset();
-              //       });
-              //     },
-              //     child: const Text('Reset'),
-              //   ),
-              // ),
-              if (_currentStep != 0)
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _currentStep -= 1;
-                    });
-                  },
-                  child: const Text('Back'),
-                ),
-
-              Visibility(
-                visible: _currentStep == 0 &&
-                    _selectedTemple != '' &&
-                    _selectedTicket != '' &&
-                    _selectedTimeSlot != '',
-                child: ElevatedButton(
-                  onPressed: details.onStepContinue,
-                  child: const Text('Continue'),
-                ),
-              ),
-              Visibility(
-                visible: _currentStep == 1 &&
-                    _userName != "" &&
-                    _selectedgender != "" &&
-                    _emailId != "" &&
-                    _address != "",
-                child: ElevatedButton(
-                  onPressed: details.onStepContinue,
-                  child: const Text('Continue'),
-                ),
-              ),
-            ],
-          );
+          return _currentStep != 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    if (_currentStep != 0)
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _currentStep -= 1;
+                          });
+                        },
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                    Visibility(
+                      visible: _currentStep == 1 &&
+                          _userName != "" &&
+                          _selectedgender != "" &&
+                          _emailId != "" &&
+                          _address != "",
+                      child: ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                    ),
+                  ],
+                )
+              : Visibility(
+                  visible: _currentStep == 0 &&
+                      _selectedTemple != '' &&
+                      _selectedTicket != '' &&
+                      _selectedTimeSlot != '',
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      child: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                );
         },
       ),
       bottomNavigationBar: BottomAppBar(

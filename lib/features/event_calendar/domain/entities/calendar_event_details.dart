@@ -91,7 +91,6 @@ class FestivalInfo {
 
   Map<String, dynamic> toJson() => _$FestivalInfoToJson(this);
 
-  @override
   List<Object?> get props {
     return [
       festivalDate,

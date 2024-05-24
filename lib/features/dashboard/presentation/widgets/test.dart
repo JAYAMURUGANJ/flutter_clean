@@ -176,7 +176,7 @@ Future<String> getLiveVideoId(String eventUrl) async {
       }
     }
   } catch (e) {
-    print('Error: $e');
+    debugPrint('Error: $e');
   }
   return "null";
 }

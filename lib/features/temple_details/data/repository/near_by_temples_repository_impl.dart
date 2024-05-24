@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../config/common/class/cryption.dart';
-import '../../../../config/constants.dart';
-import '../../../../core/data_sources/ITMS_API_service.dart';
-import '../../../../core/models/encrypted_response.dart';
-import '../../../../core/resources/data_state.dart';
 import '../../domain/repository/near_by_temples_repository.dart';
 import '../model/near_by_temples.dart';
+import '/config/common/class/cryption.dart';
+import '/config/constants.dart';
+import '/core/data_sources/ITMS_API_service.dart';
+import '/core/models/encrypted_response.dart';
+import '/core/resources/data_state.dart';
 
 class NearByTemplesRepositoryImpl implements NearByTemplesRepository {
   final HRCEApiService _apiService;
@@ -31,7 +31,7 @@ class NearByTemplesRepositoryImpl implements NearByTemplesRepository {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log(decryptedResponse, name: "API RESPONSE");
-        print("nearby temples $decryptedResponse");
+        debugPrint("nearby temples $decryptedResponse");
         debugPrint(decryptedResponse);
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =

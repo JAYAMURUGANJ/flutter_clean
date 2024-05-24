@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../config/common/class/cryption.dart';
-import '../../../../config/constants.dart';
-import '../../../../core/data_sources/ITMS_API_service.dart';
-import '../../../../core/models/encrypted_response.dart';
-import '../../../../core/resources/data_state.dart';
 import '../../domain/repository/calendar_event_details_repository.dart';
 import '../model/calendar_event_details.dart';
+import '/config/common/class/cryption.dart';
+import '/config/constants.dart';
+import '/core/data_sources/ITMS_API_service.dart';
+import '/core/models/encrypted_response.dart';
+import '/core/resources/data_state.dart';
 
 class CalendarEventDetailsRepositoryImpl
     implements CalendarEventDetailsRepository {
@@ -33,7 +33,7 @@ class CalendarEventDetailsRepositoryImpl
             Authentication().decrypt(httpResponse.data.formData);
         log(decryptedResponse, name: "API RESPONSE");
 
-        print("cal details==> $decryptedResponse");
+        debugPrint("cal details==> $decryptedResponse");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;

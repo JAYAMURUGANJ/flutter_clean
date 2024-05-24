@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/near_by_temples.dart';
 import '../../../domain/usecases/near_by_temple_usecase.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
 
 part 'near_by_temples_event.dart';
 part 'near_by_temples_state.dart';
@@ -20,11 +21,11 @@ class NearbyTemplesBloc extends Bloc<NearbyTemplesEvent, NearByTemplesState> {
   void onGetNearByTemplesLocation(
       GetNearByTemplesEvent event, Emitter<NearByTemplesState> emit) async {
     String serviceId = "7011";
-    print(event.templeId);
+    debugPrint(event.templeId.toString());
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])
             .getFormData();
-    print(formData);
+    debugPrint(formData);
     final dataState = await _getNearByTemplesUseCase(formData, serviceId);
 
     if (dataState is DataSuccess) {

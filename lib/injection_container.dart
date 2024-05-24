@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
 import '/features/dashboard/domain/usecases/live_events_usecase.dart';
-import '/features/dashboard/domain/usecases/whats_new_usecase.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/event_calendar/domain/repository/calendar_event_repository.dart';
 import '/features/event_calendar/domain/usecases/calendar_event_usecase.dart';
@@ -20,8 +19,6 @@ import '/features/temple_details/presentation/bloc/contact_details/contact_detai
 import '/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import '/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
 import 'core/data_sources/ITMS_API_service.dart';
-import 'features/dashboard/data/repository/whats_new_repository_impl.dart';
-import 'features/dashboard/domain/repository/whats_new_repository.dart';
 import 'features/event_calendar/data/repository/calendar_event_repository_impl.dart';
 import 'features/event_calendar/data/repository/calendar_events_details_repository_impl.dart';
 import 'features/event_calendar/domain/repository/calendar_event_details_repository.dart';
@@ -58,7 +55,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TempleTimingRepository>(
       TempleTimingRepositoryImpl(sl()));
   sl.registerSingleton<TemplePoojaRepository>(TemplePoojaRepositoryImpl(sl()));
-  sl.registerSingleton<WhatsNewRepository>(WhatsNewRepositoryImpl(sl()));
   sl.registerSingleton<LiveEventsRepository>(LiveEventsRepositoryImpl(sl()));
   sl.registerSingleton<ContactDetailsRepository>(
       ContactDetailsRepositoryImpl(sl()));
@@ -74,7 +70,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TempleInfoUseCase>(TempleInfoUseCase(sl()));
   sl.registerSingleton<TempleTimingUseCase>(TempleTimingUseCase(sl()));
   sl.registerSingleton<TemplePoojaUseCase>(TemplePoojaUseCase(sl()));
-  sl.registerSingleton<WhatsNewUseCase>(WhatsNewUseCase(sl()));
   sl.registerSingleton<LiveEventsUseCase>(LiveEventsUseCase(sl()));
   sl.registerSingleton<ContactDetailsUseCase>(ContactDetailsUseCase(sl()));
   sl.registerSingleton<CalendarEventUseCase>(CalendarEventUseCase(sl()));

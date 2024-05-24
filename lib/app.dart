@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
-import 'package:news_app_clean_architecture/features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
+import '/features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import '/features/temple_details/presentation/bloc/contact_details/contact_details_bloc.dart';
+import '/features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
@@ -50,7 +50,6 @@ class _AppState extends State<App> {
           BlocProvider<TempleInfoBloc>(create: (context) => sl()),
           BlocProvider<TempleTimingBloc>(create: (context) => sl()),
           BlocProvider<TemplePoojaBloc>(create: (context) => sl()),
-         
           BlocProvider<LiveEventsBloc>(create: (context) => sl()),
           BlocProvider<ContactDetailsBloc>(create: (context) => sl()),
           BlocProvider<CalendarEventBloc>(create: (context) => sl()),

@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_function_literals_in_foreach_calls
+// ignore_for_file: library_private_types_in_public_api, avoid_function_literals_in_foreach_calls, library_prefixes
 
 import 'dart:async';
 import 'dart:ui' as ui;
@@ -10,15 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart' as mapLauncher;
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
-import '/config/constants.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
 import '../bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
+import '/config/constants.dart';
+import '/features/temple_list/domain/entities/itms_response.dart';
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
   ByteData data = await rootBundle.load(path);
@@ -144,29 +142,8 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
           },
         ),
         body: BlocConsumer<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
-          listener: (context, markerState) {
-            // if (markerState is ViewSingleTempleState) {
-            //   _controller.animateCamera(CameraUpdate.newCameraPosition(
-            //     markerState.cameraPosition!,
-            //   ));
-            // }
-          },
+          listener: (context, markerState) {},
           builder: (context, markerState) {
-            // if (markerState is ViewNearbyTemplesLoading) {
-            //   return const Center(
-            //     child: CupertinoActivityIndicator(),
-            //   );
-            // }
-            // if (markerState is ShowMarkerSWWState) {
-            //   return const SomethingWentWrong(error: "error");
-            // }
-            // if (markerState is ViewSingleTempleState) {
-            // _controller.animateCamera(CameraUpdate.newCameraPosition(
-            //   markerState.cameraPosition!,
-            // ));
-            // }
-
-            // if (markerState is ViewSingleTempleState) {
             return Stack(
               children: [
                 GoogleMap(
@@ -293,7 +270,6 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
                               },
                             ));
                       }
-                      ;
                       return const SizedBox.shrink();
                     },
                   ),
@@ -400,202 +376,6 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
           },
         ));
   }
-//
-
-  //
-
-  // createMarkers(BuildContext context) {
-  //   Marker marker;
-
-  //   markerItem = Iterable.generate(listOfTemples.length, (index) {
-  //     return marker = Marker(
-  //       markerId: MarkerId(listOfTemples[index].templeId.toString()),
-  //       position: LatLng(
-  //           double.parse(listOfTemples[index].templeLatitude.toString()),
-  //           double.parse(listOfTemples[index].templeLangitude.toString())),
-  //     );
-  //   });
-
-  //   setState(() {
-  //     _markers = Set.from(markerItem);
-  //   });
-
-  //   /// ====  single
-  //   _contacts.forEach((contact) async {
-  //     marker = await createMarkerWithCustomIcon(
-  //         widget.temple.maintowerImage!.isNotEmpty
-  //             ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${widget.temple.maintowerImage![0].fileLocation}'
-  //             : NetworkImages.templePlaceHolder,
-  //         _kGooglePlex!.target,
-  //         "temple", () {
-  //       _customInfoWindowController.addInfoWindow!(
-  //         BuildMarkerInfoWidget(
-  //           temple: widget.temple,
-  //           customInfoWindowController: _customInfoWindowController,
-  //         ),
-  //         _kGooglePlex!.target,
-  //       );
-  //     });
-
-  //     Marker(
-  //         markerId: const MarkerId("temple"),
-  //         position: _kGooglePlex!.target,
-  //         icon: await _getAssetIcon(
-  //                 context,
-  //                 widget.temple.maintowerImage!.isNotEmpty
-  //                     ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${widget.temple.maintowerImage![0].fileLocation}'
-  //                     : NetworkImages.templePlaceHolder)
-  //             .then((value) => value),
-  //         // infoWindow: InfoWindow(
-  //         //   title: contact['name'],
-  //         //   snippet: 'Street 6 . 2min ago',
-  //         // ),
-  //         onTap: () {});
-
-  //     setState(() {
-  //       _markers.add(marker);
-  //     });
-  //   });
-  // }
-
-  // Stack _builMarkerInfoWidget(BuildContext context, ItmsResponseEntity temple) {
-  //   return Stack(
-  //     children: [
-  //       Container(
-  //         padding: const EdgeInsets.all(14.0),
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(12.0),
-  //           color: Colors.white,
-  //         ),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             SizedBox(
-  //               width: double.infinity,
-  //               height: 100,
-  //               child: ClipRRect(
-  //                   borderRadius: BorderRadius.circular(10.0),
-  //                   child: CachedNetworkImage(
-  //                     imageUrl: temple.maintowerImage!.isNotEmpty
-  //                         ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple.maintowerImage![0].fileLocation}'
-  //                         : NetworkImages.templePlaceHolder,
-  //                     imageBuilder: (context, imageProvider) => ClipRRect(
-  //                       child: DecoratedBox(
-  //                         decoration: BoxDecoration(
-  //                             color: Colors.black.withOpacity(0.08),
-  //                             image: DecorationImage(
-  //                                 image: imageProvider, fit: BoxFit.cover)),
-  //                       ),
-  //                     ),
-  //                   )),
-  //             ),
-  //             const SizedBox(
-  //               height: 15,
-  //             ),
-  //             Flexible(
-  //               child: Text(
-  //                 Locales.lang == "en"
-  //                     ? temple.templeName ?? ''
-  //                     : temple.ttempleName ?? "",
-  //                 style: const TextStyle(
-  //                     color: Colors.black,
-  //                     fontWeight: FontWeight.bold,
-  //                     fontSize: 12),
-  //                 textAlign: TextAlign.center,
-  //                 overflow: TextOverflow.ellipsis,
-  //                 maxLines: 3,
-  //               ),
-  //             ),
-  //             const SizedBox(
-  //               height: 5,
-  //             ),
-  //             Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //               children: [
-  //                 MaterialButton(
-  //                   onPressed: () {
-  //                     Navigator.pushNamed(context, '/TempleDetails',
-  //                         arguments: temple);
-  //                     _customInfoWindowController.hideInfoWindow!();
-  //                   },
-  //                   elevation: 0,
-  //                   height: 20,
-  //                   color: Theme.of(context).colorScheme.primary,
-  //                   shape: RoundedRectangleBorder(
-  //                     borderRadius: BorderRadius.circular(10.0),
-  //                   ),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(8.0),
-  //                     child: Text(
-  //                       "Temple Info",
-  //                       style: TextStyle(
-  //                           fontWeight: FontWeight.bold, color: Colors.white),
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 MaterialButton(
-  //                   onPressed: () async {
-  //                     _customInfoWindowController.hideInfoWindow!();
-  //                     // openMapsApp(context, temple);
-  //                   },
-  //                   elevation: 0,
-  //                   height: 20,
-  //                   color: Theme.of(context).colorScheme.primary,
-  //                   shape: RoundedRectangleBorder(
-  //                     borderRadius: BorderRadius.circular(10.0),
-  //                   ),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(8.0),
-  //                     child: Text(
-  //                       "Direction",
-  //                       style: TextStyle(
-  //                           fontWeight: FontWeight.bold, color: Colors.white),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //       Positioned(
-  //         top: 5.0,
-  //         left: 5.0,
-  //         child: IconButton(
-  //           icon: const Icon(
-  //             Icons.close,
-  //             color: Colors.white,
-  //           ),
-  //           onPressed: () {
-  //             _customInfoWindowController.hideInfoWindow!();
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Future<BitmapDescriptor> _getAssetIcon(
-      BuildContext context, String icon) async {
-    final Completer<BitmapDescriptor> bitmapIcon =
-        Completer<BitmapDescriptor>();
-    final ImageConfiguration config =
-        createLocalImageConfiguration(context, size: const Size(5, 5));
-
-    NetworkImage(icon)
-        .resolve(config)
-        .addListener(ImageStreamListener((ImageInfo image, bool sync) async {
-      final ByteData? bytes =
-          await image.image.toByteData(format: ImageByteFormat.png);
-      final BitmapDescriptor bitmap =
-          BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
-      bitmapIcon.complete(bitmap);
-    }));
-
-    return await bitmapIcon.future;
-  }
-
-  // custom marker
 }
 
 class BuildMarkerInfoWidget extends StatelessWidget {
@@ -736,7 +516,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
       final availableMaps = await mapLauncher.MapLauncher.installedMaps;
       availableMaps.first.showMarker(coords: coords, title: title);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 }

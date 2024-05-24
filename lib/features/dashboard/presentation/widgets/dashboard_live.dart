@@ -3,29 +3,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/common/widgets/bottom_sheet.dart';
-import '../../../../config/common/widgets/text_widgets.dart';
 import '../../../temple_details/presentation/widgets/main_tower.dart';
 import '/config/common/extensions.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import 'live_stream.dart';
 
-class WhatsNewIndicatior extends StatefulWidget {
+class DashboardLive extends StatefulWidget {
   String? liveurl;
   String? liveurlType;
-  WhatsNewIndicatior({
+  DashboardLive({
     Key? key,
     this.liveurl,
     this.liveurlType,
   }) : super(key: key);
 
   @override
-  _WhatsNewIndicatiorState createState() => _WhatsNewIndicatiorState();
+  _DashboardLiveState createState() => _DashboardLiveState();
 }
 
-class _WhatsNewIndicatiorState extends State<WhatsNewIndicatior> {
+class _DashboardLiveState extends State<DashboardLive> {
   @override
   void initState() {
     BlocProvider.of<LiveEventsBloc>(context).add(GetLiveEvents());
