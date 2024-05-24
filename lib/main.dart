@@ -19,14 +19,16 @@ import 'injection_container.dart';
 void main() {
   runZonedGuarded(
     () async {
+      // WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+
+      //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
       Bloc.observer = MyBlocObserver();
-      Future.wait([
-        dotenv.load(fileName: ".env_dev"),
-        initializeDependencies(),
-        Prefs.init(),
-        Locales.init(['ta', 'en'])
-      ]);
+      await dotenv.load(fileName: ".env_dev");
+      WidgetsFlutterBinding.ensureInitialized();
+      await initializeDependencies();
+      await Prefs.init();
+      await Locales.init(['ta', 'en']);
 
       AppInfo().getIPAddress().then((ip) async {
         debugPrint("Network Ip: $ip");

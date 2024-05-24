@@ -88,8 +88,7 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
                             r"(?<=channel\/)(.*?)(?=\/live)",
                             caseSensitive: false,
                           );
-                          final now = DateTime.now();
-                          final today = DateTime(now.year, now.month, now.day);
+                          final today = DateTime.now().today;
                           List<LiveEventsEntity>? liveEvents = [];
 
                           for (var element

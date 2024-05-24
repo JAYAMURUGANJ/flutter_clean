@@ -7,6 +7,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
+import '../../../dashboard/presentation/widgets/service_list.dart';
 import '/config/common/extensions.dart';
 
 class PaidServicePage extends StatefulWidget {
@@ -565,10 +566,12 @@ class _PaidServicePageState extends State<PaidServicePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: ElevatedButton(
-            onPressed: _termsChecked
+            // onPressed: _termsChecked
+            onPressed: !_termsChecked
                 ? () {
                     // Handle pay button action
                     debugPrint('Payment successful');
+                    pageNavigation("/PayStatus", context);
                   }
                 : null,
             child: const Text('Pay'),

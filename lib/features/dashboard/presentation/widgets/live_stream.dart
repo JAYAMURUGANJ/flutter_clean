@@ -55,23 +55,24 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
       elevation: 3,
       dividerColor: Colors.grey,
       expandIconColor: Theme.of(context).colorScheme.primary,
-      children: widget.liveEvents
-          .map<ExpansionPanelRadio>((LiveEventsEntity liveEvent) {
-        return ExpansionPanelRadio(
-          canTapOnHeader: true,
-          headerBuilder: (BuildContext context, bool isExpanded) =>
-              _ExpansionHeader(liveEvent, context),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _ExpansionBody(liveEvent),
-          ),
-          value: liveEvent.templeId.toString(),
-        );
-      }).toList(),
+      children: widget.liveEvents.map<ExpansionPanelRadio>(
+        (LiveEventsEntity liveEvent) {
+          return ExpansionPanelRadio(
+            canTapOnHeader: true,
+            headerBuilder: (BuildContext context, bool isExpanded) =>
+                _ExpansionHeader(liveEvent, context),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _ExpansionBody(liveEvent),
+            ),
+            value: liveEvent.templeId.toString(),
+          );
+        },
+      ).toList(),
     );
   }
 
-  SingleChildScrollView _ExpansionBody(LiveEventsEntity liveEvent) {
+  Widget _ExpansionBody(LiveEventsEntity liveEvent) {
     return SingleChildScrollView(
       child: ExpansionPanelList.radio(
         elevation: 3,
@@ -120,7 +121,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
     );
   }
 
-  ListTile _ExpansionHeader(LiveEventsEntity liveEvent, BuildContext context) {
+  Widget _ExpansionHeader(LiveEventsEntity liveEvent, BuildContext context) {
     return ListTile(
       leading: mainTower(liveEvent, 30),
       title: Text(
@@ -136,23 +137,5 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
             ),
       ),
     );
-  }
-}
-
-String extractLiveChannelId(String url) {
-  // This pattern is designed to match YouTube channel live URLs
-  RegExp regExp = RegExp(
-    r'youtube\.com\/channel\/([a-zA-Z0-9_-]+)\/live',
-    caseSensitive: false,
-  );
-
-  // Find the matches for the given URL
-  var matches = regExp.allMatches(url);
-
-  // If there's a match, return the first group (Channel ID)
-  if (matches.isNotEmpty) {
-    return matches.first.group(1) ?? 'No Channel ID found';
-  } else {
-    return 'No Channel ID found';
   }
 }

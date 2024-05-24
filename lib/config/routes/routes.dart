@@ -13,6 +13,7 @@ import '/features/temple_list/domain/entities/itms_response.dart';
 import '/features/temple_list/presentation/pages/temple_list.dart';
 import '/features/ticket_booking/presentation/pages/booking_service.dart';
 import '/features/ticket_booking/presentation/pages/paid_service.dart';
+import '/features/ticket_booking/presentation/pages/ticket_status.dart';
 import '/splash.dart';
 
 class AppRoutes {
@@ -37,6 +38,8 @@ class AppRoutes {
         return _materialRoute(const TempleEventCalendar());
       case '/Livestream':
         return _materialRoute(const TempleLiveTeleCasts());
+      case '/PayStatus':
+        return _materialRoute(const PaymentStatus());
       case '/NearByTemples':
         return _materialRoute(NearByTemplesWidget(
             currentLocationData: settings.arguments as Map<String, dynamic>));

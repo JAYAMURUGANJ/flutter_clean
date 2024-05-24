@@ -54,8 +54,8 @@ class LocalImages {
   String mapMarker = "assets/images/icons/marker.png";
   String drawerBg = "assets/images/icons/drawer_bg.png";
   String play = "assets/images/icons/media-play.png";
+  String wm = "assets/images/bg/water_mark.png";
 }
-
 
 // map radius list
 List<double> distanceList = [5, 10, 15, 20, 25, 30];
