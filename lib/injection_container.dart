@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -91,4 +92,5 @@ Future<void> initializeDependencies() async {
       () => CalendarEventDetailsBloc(sl()));
   sl.registerFactory<NearbyTemplesBloc>(() => NearbyTemplesBloc(sl()));
   sl.registerFactory<ShowNearbyTemplesBloc>(() => ShowNearbyTemplesBloc());
+  sl.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
 }

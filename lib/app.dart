@@ -12,6 +12,7 @@ import '/features/temple_details/presentation/bloc/near_by_temples/near_by_templ
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
+import 'features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
 import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
@@ -56,6 +57,7 @@ class _AppState extends State<App> {
           BlocProvider<CalendarEventDetailsBloc>(create: (context) => sl()),
           BlocProvider<NearbyTemplesBloc>(create: (context) => sl()),
           BlocProvider<ShowNearbyTemplesBloc>(create: (context) => sl()),
+          BlocProvider<CurrentLocationBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

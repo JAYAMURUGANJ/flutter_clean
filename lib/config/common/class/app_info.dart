@@ -49,17 +49,4 @@ class AppInfo {
     }
     return ipAddress;
   }
-
-  Future<LocationData> getCurrentLocation() async {
-    Location location = Location();
-    try {
-      PermissionStatus permissionGranted = await location.hasPermission();
-      if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-      }
-      return await location.getLocation();
-    } catch (e) {
-      rethrow;
-    }
-  }
 }

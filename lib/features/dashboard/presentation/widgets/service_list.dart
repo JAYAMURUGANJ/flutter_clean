@@ -1,14 +1,15 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import '/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 
-import '../../../../config/common/widgets/bottom_sheet.dart';
-import '../../../../config/common/widgets/no_data_available.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/common/widgets/no_data_available.dart';
 import '../../../event_calendar/presentation/pages/event_calendar.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../pages/live_telecast.dart';
-import '/config/common/class/app_info.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/core/models/booking_services.dart';
@@ -180,7 +181,6 @@ otherServiceList(BuildContext context) {
   );
 }
 
-int selectedDistanceIndex = 0;
 otherServiceCard(int index, BuildContext context, double width, double height,
     double fontSize, List<TempleServices> listName) {
   return GestureDetector(
@@ -191,52 +191,8 @@ otherServiceCard(int index, BuildContext context, double width, double height,
                   listName[index].page.toString(), context);
             } else {
               if (listName[index].name == "near_by_temples") {
-                AppInfo()
-                    .getCurrentLocation()
-                    .then((locationData) => showDialog(
-                        context: context,
-                        builder: ((context) {
-                          return AlertDialog.adaptive(
-                            title: const LocaleText('select_distance'),
-                            content: Wrap(
-                              alignment: WrapAlignment.spaceAround,
-                              runAlignment: WrapAlignment.spaceBetween,
-                              children: List.generate(
-                                distanceList.length,
-                                (index) => ChoiceChip(
-                                  showCheckmark: false,
-                                  label: Text(
-                                      distanceList[index].round().toString()),
-                                  selected: selectedDistanceIndex == index,
-                                  onSelected: (value) {
-                                    selectedDistanceIndex = index;
-                                    debugPrint(distanceList[index].toString());
-                                  },
-                                ),
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('cancel')),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    pageNavigation(
-                                        listName[index].page.toString(),
-                                        context,
-                                        arguments: {
-                                          "current_location": locationData,
-                                          "distance": distanceList[
-                                              selectedDistanceIndex]
-                                        });
-                                  },
-                                  child: const Text('confirm')),
-                            ],
-                          );
-                        })));
+                BlocProvider.of<CurrentLocationBloc>(context)
+                    .add(GetCurrentLocation(listName[index].page!));
               } else {
                 pageNavigation(listName[index].page.toString(), context);
               }
