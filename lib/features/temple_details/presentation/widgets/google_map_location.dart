@@ -44,21 +44,22 @@ class NearByTemplesWidget extends StatefulWidget {
   _NearByTemplesWidgetState createState() => _NearByTemplesWidgetState();
 }
 
-class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
+class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
+    with TickerProviderStateMixin {
   CameraPosition? _kGooglePlex;
   late GoogleMapController _controller;
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   List<ItmsResponseEntity> listOfTemples = [];
-
   int selectedIndex = 0;
-
-  final ValueNotifier<int> _selectedDistanceIndex = ValueNotifier(0);
+  final ValueNotifier<int> _selectedDistanceIndex = ValueNotifier(-1);
+  late AnimationController _bottomSheetController;
 
   @override
   void initState() {
     listOfTemples = BlocProvider.of<ITMSBloc>(context).state.templeList
         as List<ItmsResponseEntity>;
+    _bottomSheetController = BottomSheet.createAnimationController(this);
     _kGooglePlex = const CameraPosition(
       target: LatLng(37.4220936, -122.083922),
       zoom: 13.4746,
@@ -125,140 +126,13 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
         bottomSheet: BottomSheet(
             onClosing: () {},
             showDragHandle: true,
-            // animationController: ,
             enableDrag: true,
+            animationController: _bottomSheetController,
+            constraints: BoxConstraints(
+                minHeight: 80,
+                maxHeight: MediaQuery.of(context).size.height * .36),
             builder: ((context) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height * .35,
-                child: Column(
-                  children: [
-                    const Text(
-                      "Select distance to find nearby temples",
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                        height: 60,
-                        width: double.infinity,
-                        child: ValueListenableBuilder(
-                            valueListenable: _selectedDistanceIndex,
-                            builder: (context, value, child) {
-                              return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemExtent: 90,
-                                itemCount: distanceList.length,
-                                itemBuilder: (context, index) => ChoiceChip(
-                                  showCheckmark: false,
-                                  label: Text(
-                                    "${distanceList[index].round().toString()} km",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  selected:
-                                      _selectedDistanceIndex.value == index,
-                                  onSelected: (value) {
-                                    _selectedDistanceIndex.value = index;
-                                    print(distanceList[index]);
-                                    // zoom level
-                                    double zoomLevel =
-                                        distanceList[index] ?? 5.0;
-                                    double reduceValue = (zoomLevel / 5) - 1;
-                                    zoomLevel = 13.0 -
-                                        (reduceValue > 3
-                                            ? (3 + .3)
-                                            : reduceValue);
-                                    // animate zoom
-                                    _controller.animateCamera(
-                                        CameraUpdate.newCameraPosition(
-                                            CameraPosition(
-                                                target: _kGooglePlex!.target,
-                                                zoom: zoomLevel)));
-                                    if (widget.currentLocationData?[
-                                            'current_location'] !=
-                                        null) {
-                                      BlocProvider.of<ShowNearbyTemplesBloc>(
-                                              context)
-                                          .add(ViewCurrentLocationEvent(
-                                              fromCurrentLocation: true,
-                                              currentLocationLatLng: LatLng(
-                                                  widget
-                                                      .currentLocationData?[
-                                                          'current_location']
-                                                      .latitude!,
-                                                  widget
-                                                      .currentLocationData?[
-                                                          'current_location']
-                                                      .longitude!),
-                                              listOfTemples: listOfTemples,
-                                              customInfoWindowController:
-                                                  _customInfoWindowController,
-                                              distance:
-                                                  distanceList[index] ?? 5.0));
-                                    } else {
-                                      BlocProvider.of<ShowNearbyTemplesBloc>(
-                                              context)
-                                          .add(ViewNearByTemplesEvent(
-                                              fromCurrentLocation: false,
-                                              currentTemple: widget.temple,
-                                              listOfTemples: listOfTemples,
-                                              customInfoWindowController:
-                                                  _customInfoWindowController,
-                                              distance:
-                                                  distanceList[index] ?? 5.0));
-                                    }
-                                  },
-                                ),
-                              );
-                            })),
-                    const Text("Nearby Temples"),
-                    Flexible(child: BlocBuilder<ShowNearbyTemplesBloc,
-                        ShowNearbyTemplesState>(
-                      builder: (context, nearbyState) {
-                        if (nearbyState is ViewMarkersState &&
-                            nearbyState.filteredTemples != null &&
-                            nearbyState.markers.length > 1) {
-                          return ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: nearbyState.markers.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 4, horizontal: 8),
-                                  child: TempleListTile(
-                                    temple: nearbyState.filteredTemples![index],
-                                    onTemplePressed: (value) {
-                                      ///
-                                      _controller.moveCamera(
-                                          CameraUpdate.newLatLng(LatLng(
-                                              double.parse(nearbyState
-                                                  .filteredTemples![index]
-                                                  .templeLatitude!),
-                                              double.parse(nearbyState
-                                                  .filteredTemples![index]
-                                                  .templeLangitude!))));
-                                      _controller.animateCamera(CameraUpdate
-                                          .newCameraPosition(CameraPosition(
-                                              target: LatLng(
-                                                  double.parse(nearbyState
-                                                      .filteredTemples![index]
-                                                      .templeLatitude!),
-                                                  double.parse(nearbyState
-                                                      .filteredTemples![index]
-                                                      .templeLangitude!)),
-                                              zoom: 13)));
-                                    },
-                                  ),
-                                );
-                              });
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ))
-                  ],
-                ),
-              );
+              return _buildNearbyTemplesWidget();
             })),
         body: BlocConsumer<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
           listener: (context, markerState) {},
@@ -295,113 +169,10 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
                     width: 280,
                     offset: 60.0,
                   ),
-                  //for list of near by temples
-                  // Positioned(
-                  //   bottom: 35,
-                  //   left: 5,
-                  //   right: 55,
-                  //   child: BlocBuilder<ShowNearbyTemplesBloc,
-                  //       ShowNearbyTemplesState>(
-                  //     builder: (context, nearbyState) {
-                  //       if (nearbyState is ViewMarkersState &&
-                  //           nearbyState.filteredTemples != null &&
-                  //           nearbyState.markers.length > 1) {
-                  //         return Container(
-                  //             width: MediaQuery.of(context).size.width,
-                  //             height: 120,
-                  //             decoration: BoxDecoration(
-                  //                 color: Colors.white,
-                  //                 borderRadius: BorderRadius.circular(20)),
-                  //             child: ListView.builder(
-                  //               scrollDirection: Axis.horizontal,
-                  //               itemCount: nearbyState.markers.length,
-                  //               itemBuilder: (context, index) {
-                  //                 return GestureDetector(
-                  //                   onTap: () {
-                  //                     _controller.moveCamera(
-                  //                         CameraUpdate.newLatLng(LatLng(
-                  //                             double.parse(nearbyState
-                  //                                 .filteredTemples![index]
-                  //                                 .templeLatitude!),
-                  //                             double.parse(nearbyState
-                  //                                 .filteredTemples![index]
-                  //                                 .templeLangitude!))));
-                  //                     _controller.animateCamera(CameraUpdate
-                  //                         .newCameraPosition(CameraPosition(
-                  //                             target: LatLng(
-                  //                                 double.parse(nearbyState
-                  //                                     .filteredTemples![index]
-                  //                                     .templeLatitude!),
-                  //                                 double.parse(nearbyState
-                  //                                     .filteredTemples![index]
-                  //                                     .templeLangitude!)),
-                  //                             zoom: 13)));
-                  //                   },
-                  //                   child: Container(
-                  //                     width: 100,
-                  //                     height: 100,
-                  //                     margin: const EdgeInsets.only(right: 10),
-                  //                     child: Padding(
-                  //                       padding: const EdgeInsets.symmetric(
-                  //                           vertical: 24),
-                  //                       child: Stack(
-                  //                         alignment: Alignment.topCenter,
-                  //                         children: [
-                  //                           Positioned(
-                  //                               child: Image.asset(
-                  //                                   "assets/images/markers/marker-1.png")),
-                  //                           Positioned(
-                  //                             top: 6,
-                  //                             child: SizedBox(
-                  //                               width: 50,
-                  //                               height: 50,
-                  //                               child: ClipOval(
-                  //                                   clipBehavior:
-                  //                                       ui.Clip.antiAlias,
-                  //                                   child: CachedNetworkImage(
-                  //                                     imageUrl: nearbyState
-                  //                                             .filteredTemples![
-                  //                                                 index]
-                  //                                             .maintowerImage!
-                  //                                             .isNotEmpty
-                  //                                         ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${nearbyState.filteredTemples![index].maintowerImage![0].fileLocation}'
-                  //                                         : NetworkImages
-                  //                                             .templePlaceHolder,
-                  //                                     imageBuilder: (context,
-                  //                                             imageProvider) =>
-                  //                                         ClipRRect(
-                  //                                       child: DecoratedBox(
-                  //                                         decoration: BoxDecoration(
-                  //                                             color: Colors
-                  //                                                 .black
-                  //                                                 .withOpacity(
-                  //                                                     0.08),
-                  //                                             image: DecorationImage(
-                  //                                                 image:
-                  //                                                     imageProvider,
-                  //                                                 fit: BoxFit
-                  //                                                     .cover)),
-                  //                                       ),
-                  //                                     ),
-                  //                                   )),
-                  //                             ),
-                  //                           ),
-                  //                         ],
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 );
-                  //               },
-                  //             ));
-                  //       }
-                  //       ;
-                  //       return const SizedBox.shrink();
-                  //     },
-                  //   ),
-                  // ),
+
                   //for map theme changing
                   Positioned(
-                    bottom: 100,
+                    top: 25,
                     right: 15,
                     child: Container(
                         width: 35,
@@ -498,6 +269,16 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
                           ],
                         )),
                   ),
+                  // bottom sheet
+                  // DraggableScrollableSheet(
+                  //     initialChildSize: 0.30,
+                  //     minChildSize: 0.15,
+                  //     builder: ((context, scrollController) {
+                  //       return SingleChildScrollView(
+                  //         controller: scrollController,
+                  //         child: _buildNearbyTemplesWidget(),
+                  //       );
+                  //     })),
                   // Positioned(
                   //     top: 10,
                   //     left: 10,
@@ -510,19 +291,137 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget> {
         ));
   }
 
-  DropdownMenu<double> _buildSelectDistanceWidget(BuildContext context) {
-    return DropdownMenu(
-      width: 90,
-      inputDecorationTheme:
-          const InputDecorationTheme(fillColor: Colors.white, filled: true),
-      dropdownMenuEntries: List.generate(
-          distanceList.length,
-          (index) => DropdownMenuEntry(
-              value: distanceList[index],
-              label: distanceList[index].round().toString())),
-      onSelected: (double? selectedValue) {},
+  Column _buildNearbyTemplesWidget() {
+    return Column(
+      children: [
+        const Text(
+          "Select distance to find nearby temples",
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+            height: 60,
+            width: double.infinity,
+            child: ValueListenableBuilder(
+                valueListenable: _selectedDistanceIndex,
+                builder: (context, value, child) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemExtent: 90,
+                    itemCount: distanceList.length,
+                    itemBuilder: (context, index) => ChoiceChip(
+                      showCheckmark: false,
+                      label: Text(
+                        "${distanceList[index].round().toString()} km",
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                      selected: _selectedDistanceIndex.value == index,
+                      onSelected: (value) {
+                        _selectedDistanceIndex.value = index;
+                        print(distanceList[index]);
+                        // zoom level
+                        double zoomLevel = distanceList[index] ?? 5.0;
+                        double reduceValue = (zoomLevel / 5) - 1;
+                        zoomLevel =
+                            13.0 - (reduceValue > 3 ? (3 + .3) : reduceValue);
+                        // animate zoom
+                        _controller.animateCamera(
+                            CameraUpdate.newCameraPosition(CameraPosition(
+                                target: _kGooglePlex!.target,
+                                zoom: zoomLevel)));
+                        if (widget.currentLocationData?['current_location'] !=
+                            null) {
+                          BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                              ViewCurrentLocationEvent(
+                                  fromCurrentLocation: true,
+                                  currentLocationLatLng: LatLng(
+                                      widget
+                                          .currentLocationData?[
+                                              'current_location']
+                                          .latitude!,
+                                      widget
+                                          .currentLocationData?[
+                                              'current_location']
+                                          .longitude!),
+                                  listOfTemples: listOfTemples,
+                                  customInfoWindowController:
+                                      _customInfoWindowController,
+                                  distance: distanceList[index] ?? 5.0));
+                        } else {
+                          BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                              ViewNearByTemplesEvent(
+                                  fromCurrentLocation: false,
+                                  currentTemple: widget.temple,
+                                  listOfTemples: listOfTemples,
+                                  customInfoWindowController:
+                                      _customInfoWindowController,
+                                  distance: distanceList[index] ?? 5.0));
+                        }
+                      },
+                    ),
+                  );
+                })),
+        const Text("Nearby Temples"),
+        Flexible(
+            child: BlocBuilder<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
+          builder: (context, nearbyState) {
+            if (nearbyState is ViewMarkersState &&
+                nearbyState.filteredTemples != null &&
+                nearbyState.markers.length > 1) {
+              return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: nearbyState.markers.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 8),
+                      child: TempleListTile(
+                        temple: nearbyState.filteredTemples![index],
+                        onTemplePressed: (value) {
+                          ///
+                          _controller.moveCamera(CameraUpdate.newLatLng(LatLng(
+                              double.parse(nearbyState
+                                  .filteredTemples![index].templeLatitude!),
+                              double.parse(nearbyState
+                                  .filteredTemples![index].templeLangitude!))));
+                          _controller.animateCamera(
+                              CameraUpdate.newCameraPosition(CameraPosition(
+                                  target: LatLng(
+                                      double.parse(nearbyState
+                                          .filteredTemples![index]
+                                          .templeLatitude!),
+                                      double.parse(nearbyState
+                                          .filteredTemples![index]
+                                          .templeLangitude!)),
+                                  zoom: 13)));
+                        },
+                      ),
+                    );
+                  });
+            }
+            return const SizedBox.shrink();
+          },
+        ))
+      ],
     );
   }
+
+  // DropdownMenu<double> _buildSelectDistanceWidget(BuildContext context) {
+  //   return DropdownMenu(
+  //     width: 90,
+  //     inputDecorationTheme:
+  //         const InputDecorationTheme(fillColor: Colors.white, filled: true),
+  //     dropdownMenuEntries: List.generate(
+  //         distanceList.length,
+  //         (index) => DropdownMenuEntry(
+  //             value: distanceList[index],
+  //             label: distanceList[index].round().toString())),
+  //     onSelected: (double? selectedValue) {},
+  //   );
+  // }
 //
 
   //

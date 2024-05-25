@@ -50,7 +50,7 @@ dependencies:
   google_fonts: ^4.0.4
 
   #device-details
-  device_apps: ^2.2.0
+  # device_apps: ^2.2.0
   device_preview: ^1.1.0
 
   #local
@@ -62,7 +62,7 @@ dependencies:
 
   #map
   google_maps_flutter: ^2.2.8
-  location: ^4.4.0
+  location: ^6.0.2
   custom_info_window: ^1.0.1
   map_launcher: ^3.3.0
 
@@ -71,7 +71,7 @@ dependencies:
   webview_flutter: ^4.7.0
   table_calendar: ^3.0.9
   youtube_player_flutter: ^9.0.1
-  wakelock: ^0.5.0
+  wakelock_plus: ^1.2.5
   qr_flutter: ^4.1.0
 
 dev_dependencies:

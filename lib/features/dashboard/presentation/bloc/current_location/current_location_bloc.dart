@@ -1,12 +1,7 @@
 import 'dart:async';
-import 'dart:isolate';
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
-import 'package:location_platform_interface/location_platform_interface.dart';
-
-import '../../../../../config/common/class/app_info.dart';
 
 part 'current_location_event.dart';
 part 'current_location_state.dart';

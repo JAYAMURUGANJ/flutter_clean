@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../config/common/widgets/no_data_available.dart';
@@ -41,13 +41,13 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   @override
   void initState() {
     super.initState();
-    Wakelock.enable();
+    WakelockPlus.enable();
   }
 
   @override
   void dispose() {
     super.dispose();
-    Wakelock.disable();
+    WakelockPlus.disable();
   }
 
   @override

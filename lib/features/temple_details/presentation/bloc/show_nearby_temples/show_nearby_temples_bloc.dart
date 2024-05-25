@@ -1,12 +1,10 @@
 // ignore_for_file: library_prefixes
 
-import 'dart:async';
 import 'dart:math' as Math;
 
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 import '/features/temple_details/presentation/widgets/google_map_location.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
@@ -188,16 +186,6 @@ class ShowNearbyTemplesBloc
       ));
     } else {
       emit(ShowMarkerSWWState());
-    }
-  }
-
-  // get current location
-  Future<LocationData> getCurrentLocation() async {
-    Location location = Location();
-    try {
-      return await location.getLocation();
-    } catch (e) {
-      rethrow;
     }
   }
 }
