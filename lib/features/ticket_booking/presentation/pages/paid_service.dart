@@ -571,10 +571,13 @@ class _PaidServicePageState extends State<PaidServicePage> {
                 ? () {
                     // Handle pay button action
                     debugPrint('Payment successful');
-                    pageNavigation("/PayStatus", context);
+                    pageNavigation("/PaySplash", context);
                   }
                 : null,
-            child: const Text('Pay'),
+            child: const Text(
+              'Pay',
+              style: TextStyle(fontSize: 18),
+            ),
           ),
         ),
       ),

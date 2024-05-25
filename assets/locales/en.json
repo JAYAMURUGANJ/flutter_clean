@@ -76,5 +76,6 @@
     "designation": "Designation",
     "no_calendar_events":"No Events for\nthe Selected Date.",
     "live_telecasting_not_available":"No live telecasting is Available.",
-    "select_distance": "Select distance"
+    "select_distance": "Select distance",
+    "txn_details":"Transaction Details"
 }

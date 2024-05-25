@@ -75,5 +75,6 @@
     "designation": "பதவி",
     "no_calendar_events":"தேர்ந்தெடுக்கப்பட்ட தேதிக்கு\nநிகழ்வுகள் இல்லை.",
     "live_telecasting_not_available":"நேரடி ஒளிபரப்பு எதுவும் இல்லை",
-    "select_distance": "தூரத்தைத் தேர்ந்தெடுக்கவும்"
+    "select_distance": "தூரத்தைத் தேர்ந்தெடுக்கவும்",
+    "txn_details":"கட்டண விவரங்கள்"
 }

@@ -73,6 +73,7 @@ dependencies:
   youtube_player_flutter: ^9.0.1
   wakelock_plus: ^1.2.5
   qr_flutter: ^4.1.0
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -109,6 +110,7 @@ flutter:
     - assets/images/god/
     - assets/images/logo/
     - assets/images/icons/
+    - assets/images/lottie/
     - assets/images/markers/
     
   uses-material-design: true

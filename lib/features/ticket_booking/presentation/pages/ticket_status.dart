@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../../../config/common/widgets/app_header.dart';
 import '../widgets/ticket.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/app_logo.dart';
@@ -21,17 +22,28 @@ class _PaymentStatusState extends State<PaymentStatus> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: TicketWidget(
-            width: 350,
-            height: 600,
-            isCornerRounded: true,
-            padding: const EdgeInsets.all(20),
-            child: TicketData(
-              theme: theme,
+      backgroundColor: theme.colorScheme.onPrimaryContainer,
+      appBar: appHeader(
+          context: context,
+          leading: const SizedBox(),
+          body: const LocaleText("txn_details",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, color: Colors.white)),
+          trailing: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.close, color: Colors.white))),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: TicketWidget(
+              width: 350,
+              height: 650,
+              isCornerRounded: true,
+              padding: const EdgeInsets.all(20),
+              child: TicketData(
+                theme: theme,
+              ),
             ),
           ),
         ),
@@ -56,11 +68,14 @@ class _TicketDataState extends State<TicketData> {
   Widget build(BuildContext context) {
     final today = DateTime.now().today;
     return Stack(
-      alignment: AlignmentDirectional.topStart,
+      alignment: AlignmentDirectional.topEnd,
       children: [
-        Image.asset(
-          LocalImages().wm,
-          height: 360,
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Image.asset(
+            LocalImages().wm,
+            width: 350,
+          ),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +104,7 @@ class _TicketDataState extends State<TicketData> {
               ],
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(top: 5.0),
               child: Center(
                 child: Text(
                   'அருள்மிகு தண்டாயுதபாணி சுவாமி திருக்கோயில், பழனி - 624601',
@@ -105,7 +120,7 @@ class _TicketDataState extends State<TicketData> {
               padding: const EdgeInsets.only(top: 5.0),
               child: Center(
                 child: Text(
-                  'அர்ச்சனை டிக்கெட்',
+                  'அர்ச்சனை டிக்கெட் [₹ 50/-]',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: widget.theme.colorScheme.primary,
@@ -114,32 +129,11 @@ class _TicketDataState extends State<TicketData> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12.0, right: 52.0),
-                    child: ticketDetailsWidget(
-                        'ரசீது எண்', 'S0000624052100003076', "", ""),
-                  ),
-                  label2('டிக்கெட் எண்ணிக்கை', '-5',
-                      const EdgeInsets.only(left: 12.0)),
-                  ticketDetailsWidget('பக்தர்', 'ஜெயமுருகன்', 'தேதி',
-                      "${today.day}-${today.month}-${today.year}"),
-                  ticketDetailsWidget('பார்வை நேரம்', '10.00 am - 12.00 pm',
-                      'கட்டணம்', " ₹ 250/-"),
-                  ticketDetailsWidget(
-                      'கட்டணம் வகை', 'CARD - 86xx xxxx xxxx xx78', "", ""),
-                ],
-              ),
-            ),
             Center(
               child: QrImageView(
                 data: 'S0000624052100003076',
                 version: QrVersions.auto,
-                size: 150,
+                size: 110,
                 // gapless: true,
                 // embeddedImage: AssetImage(LocalImages().appLogo),
                 // embeddedImageStyle: const QrEmbeddedImageStyle(
@@ -147,13 +141,49 @@ class _TicketDataState extends State<TicketData> {
                 // ),
               ),
             ),
-            Center(
-              child: label2('கட்டணமில்லா எண்.-', '1800-425-1757',
-                  const EdgeInsets.only(left: 12.0)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, right: 52.0),
+                  child: ticketDetailsWidget(
+                      'ரசீது எண்', 'S0000624052100003076', "", ""),
+                ),
+                ticketDetailsWidget('பக்தர்', 'ஜெயமுருகன் ஜெயகுமார்', "", ""),
+                ticketDetailsWidget(
+                  'தேதி',
+                  "${today.day}-${today.month}-${today.year}",
+                  'பார்வை நேரம்',
+                  '10.00 am - 12.00 pm',
+                ),
+                5.ph,
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'கட்டணம்\n5 X ₹50 = ₹250/-',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ticketDetailsWidget(
+                    'கட்டணம் வகை', 'UPI - jai******@hdfcbank.com', "", ""),
+                ticketDetailsWidget(
+                    'வங்கி குறிப்பு எண்', '413018291522', "", ""),
+                ticketDetailsWidget(
+                    'அடையாளம் எண்', 'AADHAR - 62xx xxxx xxxx xx56', "", ""),
+              ],
             ),
             const SizedBox(height: 10)
-            //Tollfree No. : 1800-425-1757
           ],
+        ),
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            "கட்டணமில்லா எண்: 1800-425-1757",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );
@@ -179,6 +209,7 @@ Widget ticketDetailsWidget(String firstTitle, String firstDesc,
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(
                 firstDesc,
+                softWrap: true,
                 style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold),
               ),

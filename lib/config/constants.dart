@@ -57,6 +57,11 @@ class LocalImages {
   String wm = "assets/images/bg/water_mark.png";
 }
 
+class LottieImage {
+  String pop = "assets/images/lottie/pop.json";
+  String success = "assets/images/lottie/success.json";
+}
+
 // map radius list
 List<double> distanceList = [5, 10, 15, 20, 25, 30];
 

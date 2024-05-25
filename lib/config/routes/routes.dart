@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
 import '/features/dashboard/presentation/pages/live_telecast.dart';
@@ -40,6 +41,8 @@ class AppRoutes {
         return _materialRoute(const TempleLiveTeleCasts());
       case '/PayStatus':
         return _materialRoute(const PaymentStatus());
+      case '/PaySplash':
+        return _materialRoute(const PaymentSplashScreen());
       case '/NearByTemples':
         return _materialRoute(NearByTemplesWidget(
             currentLocationData: settings.arguments as Map<String, dynamic>));
