@@ -85,8 +85,7 @@ class Home extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        return AlertDialog.adaptive(
           title: buildDialogReason(context, "app_close"),
           actions: buildDialogAction(context),
         );
@@ -100,12 +99,16 @@ class Home extends StatelessWidget {
         ? LocaleText(
             reason,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge!,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold),
           )
         : Text(
             reason,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge!,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold),
           );
   }
 
