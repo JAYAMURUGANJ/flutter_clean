@@ -78,12 +78,7 @@
     "no_calendar_events": "தேர்ந்தெடுக்கப்பட்ட தேதிக்கு\nநிகழ்வுகள் இல்லை.",
     "live_telecasting_not_available": "நேரடி ஒளிபரப்பு எதுவும் இல்லை",
     "select_distance": "அருகிலுள்ள கோயில்களைக் கண்டறிய தூரத்தைத் தேர்ந்தெடுக்கவும்",
-<<<<<<< Updated upstream
-    "txn_details": "கட்டண விவரங்கள்",
-    "fetch_location": " தற்போதைய இருப்பிடத்தைத் தேடுகிறது...",
-    "no_nearby_temples": "அருகில் கோயில்கள் இல்லை"
-=======
+    "no_nearby_temples": "அருகில் கோயில்கள் இல்லை",
     "txn_details": "பரிவர்த்தனை விவரம்",
     "fetch_location": " தற்போதைய இருப்பிடத்தைத் தேடுகிறது..."
->>>>>>> Stashed changes
 }

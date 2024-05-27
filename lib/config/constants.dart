@@ -45,8 +45,6 @@ class NetworkImages {
       "https://static.vecteezy.com/system/resources/previews/008/064/864/non_2x/one-continuous-single-line-of-temple-isolated-on-white-background-vector.jpg";
   static const String templePlaceHolder =
       "https://www.seekpng.com/png/detail/252-2523694_hindu-temple-photo-hindu-temple-illustration.png";
-  static const String noNearByTemple =
-      "https://static.vecteezy.com/system/resources/previews/008/064/864/non_2x/one-continuous-single-line-of-temple-isolated-on-white-background-vector.jpg";
 }
 
 class LocalImages {
