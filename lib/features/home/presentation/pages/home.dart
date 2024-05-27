@@ -60,13 +60,21 @@ class Home extends StatelessWidget {
             },
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined), label: "Home"),
+                  activeIcon: Icon(Icons.home_filled),
+                  icon: Icon(Icons.home_outlined),
+                  label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.temple_hindu_outlined), label: "Temples"),
+                  activeIcon: Icon(Icons.temple_hindu),
+                  icon: Icon(Icons.temple_hindu_outlined),
+                  label: "Temples"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_month_outlined), label: "Booking"),
+                  activeIcon: Icon(Icons.calendar_month),
+                  icon: Icon(Icons.calendar_month_outlined),
+                  label: "Booking"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: "Settings"),
+                  activeIcon: Icon(Icons.settings_applications),
+                  icon: Icon(Icons.settings),
+                  label: "Settings"),
             ]);
       },
     );
