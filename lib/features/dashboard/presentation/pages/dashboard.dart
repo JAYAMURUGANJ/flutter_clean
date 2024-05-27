@@ -60,20 +60,29 @@ class Dashboard extends StatelessWidget {
 
   BlocListener<CurrentLocationBloc, CurrentLocationState>
       _buildCurrentLocationDialog() {
-    ValueNotifier<int> _selectedIndex = ValueNotifier(0);
+    ValueNotifier<int> selectedIndex = ValueNotifier(0);
     return BlocListener<CurrentLocationBloc, CurrentLocationState>(
       listener: (context, state) {
         if (state is CurrentLocationLoading) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Row(
-              children: [
-                CupertinoActivityIndicator(
-                  color: Colors.white,
-                ),
-                Text("fetching current location...")
-              ],
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: SizedBox(
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
+                  3.pw,
+                  const LocaleText(
+                    "fetch_location",
+                    overflow: TextOverflow.clip,
+                    maxLines: 2,
+                  )
+                ],
+              ),
             ),
-            duration: Duration(minutes: 2),
+            duration: const Duration(minutes: 2),
           ));
         }
         if (state is CurrentLocationFailed) {
@@ -84,12 +93,20 @@ class Dashboard extends StatelessWidget {
         }
         if (state is CurrentLocationSuccess) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
           showDialog(
               context: context,
               builder: ((context) => ValueListenableBuilder(
-                  valueListenable: _selectedIndex,
+                  valueListenable: selectedIndex,
                   builder: ((context, value, child) => AlertDialog.adaptive(
-                        title: const LocaleText('select_distance'),
+                        title: LocaleText(
+                          'select_distance',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         content: Wrap(
                           alignment: WrapAlignment.spaceAround,
                           runAlignment: WrapAlignment.spaceBetween,
@@ -97,33 +114,76 @@ class Dashboard extends StatelessWidget {
                             distanceList.length,
                             (index) => ChoiceChip(
                               showCheckmark: false,
-                              label:
-                                  Text(distanceList[index].round().toString()),
-                              selected: _selectedIndex.value == index,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.green.shade900, width: 2.0),
+                                borderRadius: BorderRadius.circular(
+                                  20,
+                                ),
+                              ),
+                              selectedColor: selectedIndex.value == index
+                                  ? Colors.green
+                                  : Colors.transparent,
+                              label: Text(
+                                "${distanceList[index].round().toString()} KM",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: selectedIndex.value == index
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              selected: selectedIndex.value == index,
                               onSelected: (value) {
-                                _selectedIndex.value = index;
-                                print(distanceList[index]);
+                                selectedIndex.value = index;
+                                debugPrint(distanceList[index].toString());
                               },
                             ),
                           ),
                         ),
                         actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('cancel')),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                pageNavigation(state.page.toString(), context,
-                                    arguments: {
-                                      "current_location": state.locationData,
-                                      "distance":
-                                          distanceList[_selectedIndex.value]
-                                    });
-                              },
-                              child: const Text('confirm')),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              OutlinedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: LocaleText(
+                                  "n",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent.shade400),
+                                ),
+                              ),
+                              OutlinedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  pageNavigation(state.page.toString(), context,
+                                      arguments: {
+                                        "from_current": true,
+                                        "current_location": state.locationData,
+                                        "distance":
+                                            distanceList[selectedIndex.value]
+                                      });
+                                },
+                                child: LocaleText(
+                                  "y",
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blueAccent.shade400),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       )))));
         }

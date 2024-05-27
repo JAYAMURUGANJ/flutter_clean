@@ -45,7 +45,7 @@ class AppRoutes {
         return _materialRoute(const PaymentSplashScreen());
       case '/NearByTemples':
         return _materialRoute(NearByTemplesWidget(
-            currentLocationData: settings.arguments as Map<String, dynamic>));
+            data: settings.arguments as Map<String, dynamic>));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

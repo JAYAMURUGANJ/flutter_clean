@@ -32,14 +32,19 @@ class TemplePooja extends StatelessWidget {
           return somthingWentWrong(context, error);
         }
         if (state is TemplePoojaLoaded) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: state.templePooja!.length,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final TemplePoojaEntity? templePooja = state.templePooja![index];
-              return _poojaTimeCard(templePooja, context);
-            },
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.templePooja!.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final TemplePoojaEntity? templePooja =
+                    state.templePooja![index];
+                return _poojaTimeCard(templePooja, context);
+              },
+            ),
           );
         }
         return const Center(child: Text(" No data Available"));

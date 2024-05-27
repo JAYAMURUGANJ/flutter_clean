@@ -36,17 +36,24 @@ class TempleTiming extends StatelessWidget {
         }
         if (state is TempleTimingLoaded) {
           final TempleTimingEntity? templeTiming = state.templeTiming![0];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildTimingCard(context, "morning",
-                  templeTiming!.mrngOpeningtime, templeTiming.mrngClosingTime),
-              20.ph,
-              _buildTimingCard(context, "evening", templeTiming.evngOpeningTime,
-                  templeTiming.evngClosingTime),
-              20.ph,
-              buildlabelValueTxt(context, "remarks", templeTiming.remarks),
-            ],
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildTimingCard(
+                    context,
+                    "morning",
+                    templeTiming!.mrngOpeningtime,
+                    templeTiming.mrngClosingTime),
+                20.ph,
+                _buildTimingCard(context, "evening",
+                    templeTiming.evngOpeningTime, templeTiming.evngClosingTime),
+                20.ph,
+                buildlabelValueTxt(context, "remarks", templeTiming.remarks),
+              ],
+            ),
           );
         }
         return const Center(child: Text(" No data Available"));
