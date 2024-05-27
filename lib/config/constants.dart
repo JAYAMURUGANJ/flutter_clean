@@ -120,16 +120,16 @@ List<TempleServices> bookingServicesList = [
   ),
   TempleServices(
     id: 2,
-    name: "free",
-    imageLink: "assets/images/icons/free.png",
-    bgColor: Colors.lightBlue.shade300,
+    name: "donation",
+    imageLink: "assets/images/icons/donation.png",
+    bgColor: Colors.deepOrange.shade300,
     page: "",
   ),
   TempleServices(
     id: 3,
-    name: "donation",
-    imageLink: "assets/images/icons/donation.png",
-    bgColor: Colors.deepOrange.shade300,
+    name: "food",
+    imageLink: "assets/images/icons/food.png",
+    bgColor: Colors.yellow.shade500,
     page: "",
   ),
   TempleServices(

@@ -48,9 +48,12 @@ buildNavigationDrawer(context) {
               height: MediaQuery.sizeOf(context).height / 2,
               child: Padding(
                 padding: defaultPadding,
-                child: Wrap(
-                  spacing: 50.0,
-                  runSpacing: 50.0,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.0,
+                  padding: const EdgeInsets.all(4.0),
+                  mainAxisSpacing: 4.0,
+                  crossAxisSpacing: 4.0,
                   children: children,
                 ),
               ),
