@@ -59,10 +59,8 @@ class CurrentLocationBloc
   fetchCurrentLocation(
       GetCurrentLocation event, Emitter<CurrentLocationState> emit) async {
     await checkPermission().then((status) async {
-      print("status $status");
       if (status == PermissionStatus.granted ||
           status == PermissionStatus.grantedLimited) {
-        print("entered");
         emit(CurrentLocationLoading());
         await getCurrentLocation().then((locationData) {
           emit(CurrentLocationSuccess(event.page, locationData));

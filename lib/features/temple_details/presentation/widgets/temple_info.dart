@@ -24,23 +24,28 @@ class TempleInfoWidget extends StatelessWidget {
         }
         if (state is TempleInfoLoaded) {
           final TempleInfoEntity? templeInfo = state.templeInfo![0];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              buildlabelValueTxt(
-                  context, "moolavar", templeInfo!.moolavarSwamiName),
-              buildlabelValueTxt(
-                  context, "moolavar_ambal", templeInfo.moolavarAmbalName),
-              buildlabelValueTxt(
-                  context, "thala_virutcham", templeInfo.sthalaVirutcham),
-              buildlabelValueTxt(
-                  context, "theertham", templeInfo.templeTheertham),
-              buildlabelValueTxt(context, "aagamam", templeInfo.aagamamDesc),
-              buildlabelValueTxt(
-                  context, "historical_name", templeInfo.historicalName),
-              buildlabelValueTxt(context, "saints_poets", templeInfo.poetName),
-              _templeDescription(templeInfo, context),
-            ],
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                buildlabelValueTxt(
+                    context, "moolavar", templeInfo!.moolavarSwamiName),
+                buildlabelValueTxt(
+                    context, "moolavar_ambal", templeInfo.moolavarAmbalName),
+                buildlabelValueTxt(
+                    context, "thala_virutcham", templeInfo.sthalaVirutcham),
+                buildlabelValueTxt(
+                    context, "theertham", templeInfo.templeTheertham),
+                buildlabelValueTxt(context, "aagamam", templeInfo.aagamamDesc),
+                buildlabelValueTxt(
+                    context, "historical_name", templeInfo.historicalName),
+                buildlabelValueTxt(
+                    context, "saints_poets", templeInfo.poetName),
+                _templeDescription(templeInfo, context),
+              ],
+            ),
           );
         }
         return const Center(child: Text(" No data Available"));

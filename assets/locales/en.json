@@ -74,8 +74,9 @@
     "n": "No",
     "live_events": "Live Events",
     "designation": "Designation",
-    "no_calendar_events":"No Events for\nthe Selected Date.",
-    "live_telecasting_not_available":"No live telecasting is Available.",
-    "select_distance": "Select distance",
-    "txn_details":"Transaction Details"
+    "no_calendar_events": "No Events for\nthe Selected Date.",
+    "live_telecasting_not_available": "No live telecasting is Available.",
+    "select_distance": "Select distance to view the near by temples",
+    "txn_details": "Transaction Details",
+    "fetch_location": "📍 Fetching current loction..."
 }
