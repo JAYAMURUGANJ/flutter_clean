@@ -25,13 +25,16 @@ class _PaymentStatusState extends State<PaymentStatus> {
       backgroundColor: theme.colorScheme.onPrimaryContainer,
       appBar: appHeader(
           context: context,
-          leading: const SizedBox(),
-          body: const LocaleText("txn_details",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, color: Colors.white)),
-          trailing: IconButton(
+          leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.close, color: Colors.white))),
+              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white)),
+          body: LocaleText("txn_details",
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleMedium!
+                  .copyWith(fontSize: 24, color: Colors.white)),
+          trailing: IconButton(
+              onPressed: _shareTicket,
+              icon: const Icon(Icons.share_sharp, color: Colors.white))),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -50,6 +53,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
       ),
     );
   }
+
+  void _shareTicket() {}
 }
 
 class TicketData extends StatefulWidget {
@@ -90,10 +95,9 @@ class _TicketDataState extends State<TicketData> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: LocaleText(
                       "thirukoil",
-                      style:
-                          Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                fontWeight: FontWeight.w800,
-                              ),
+                      style: widget.theme.textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -157,13 +161,14 @@ class _TicketDataState extends State<TicketData> {
                   '10.00 am - 12.00 pm',
                 ),
                 5.ph,
-                const Align(
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'கட்டணம்\n5 X ₹50 = ₹250/-',
+                    'கட்டணம்\n5 X ₹ 50 = ₹ 250/-',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
+                        fontSize: 20,
+                        color: widget.theme.colorScheme.primary,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

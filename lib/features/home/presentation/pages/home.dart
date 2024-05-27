@@ -58,23 +58,23 @@ class Home extends StatelessWidget {
             onTap: (value) {
               BlocProvider.of<BottomNavigationCubit>(context).changePage(value);
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.home_filled),
-                  icon: Icon(Icons.home_outlined),
-                  label: "Home"),
+                  activeIcon: const Icon(Icons.home_filled),
+                  icon: const Icon(Icons.home_outlined),
+                  label: Locales.lang == "en" ? "Home" : "முகப்பு"),
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.temple_hindu),
-                  icon: Icon(Icons.temple_hindu_outlined),
-                  label: "Temples"),
+                  activeIcon: const Icon(Icons.temple_hindu),
+                  icon: const Icon(Icons.temple_hindu_outlined),
+                  label: Locales.lang == "en" ? "Temple" : "கோவில்"),
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.calendar_month),
-                  icon: Icon(Icons.calendar_month_outlined),
-                  label: "Booking"),
+                  activeIcon: const Icon(Icons.calendar_month),
+                  icon: const Icon(Icons.calendar_month_outlined),
+                  label: Locales.lang == "en" ? "Booking" : "முன்பதிவு"),
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.settings_applications),
-                  icon: Icon(Icons.settings),
-                  label: "Settings"),
+                  activeIcon: const Icon(Icons.settings_applications),
+                  icon: const Icon(Icons.settings),
+                  label: Locales.lang == "en" ? "Setting" : "அமைப்பு"),
             ]);
       },
     );

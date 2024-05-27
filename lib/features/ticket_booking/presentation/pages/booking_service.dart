@@ -21,7 +21,8 @@ class _BookingServicePageState extends State<BookingServicePage> {
     return Scaffold(
       appBar: appHeader(
         context: context,
-        body: LocaleText("booking", style: appbarTextStyleLarge(theme)),
+        body: LocaleText("booking",
+            textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
         trailing: IconButton(
           onPressed: () => buildNavigationDrawer(context),
           icon: const Icon(Icons.menu),

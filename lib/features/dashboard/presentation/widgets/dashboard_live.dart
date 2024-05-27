@@ -41,43 +41,50 @@ class _DashboardLiveState extends State<DashboardLive> {
         }
 
         if (state is LiveEventsLoaded) {
-          List<LiveEventsEntity>? liveEvents = state.liveEvents!
-              .cast<LiveEventsEntity>()
-              .where(
-                (element) => element.scrollData!.any(
-                  (data) =>
-                      data.eventUrl != "" &&
-                      data.liveurl == widget.liveurl &&
-                      data.liveurlType == widget.liveurlType &&
-                      data.publishedUpto!.isBefore(DateTime.now()),
-                ),
-              )
-              .toList();
+          List<LiveEventsEntity>? liveEvents = [];
+
+          for (var element in state.liveEvents!.cast<LiveEventsEntity>()) {
+            // Check if the temple IDs match or if the temple ID is null
+
+            var filteredScrollData = element.scrollData!.where((data) {
+              return data.eventUrl!.youtubeLiveUrl != "" &&
+                  data.liveurl == widget.liveurl &&
+                  data.liveurlType == widget.liveurlType &&
+                  data.publishedUpto!.isBefore(DateTime.now());
+            }).toList();
+
+            if (filteredScrollData.isNotEmpty) {
+              liveEvents.add(LiveEventsEntity(
+                templeId: element.templeId,
+                ttempleName: element.ttempleName,
+                templeName: element.templeName,
+                maintowerImage: element.maintowerImage,
+                scrollData: filteredScrollData,
+              ));
+            }
+          }
+
           return Visibility(
             visible: liveEvents.isNotEmpty,
             child: Padding(
                 padding: defaultPadding,
                 child: SizedBox(
-                  height: 130,
+                  height: 120,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildHeading(context, "whats_new"),
-                      5.ph,
                       Expanded(
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: liveEvents.length,
-                          itemExtent: 90,
+                          itemExtent: 85,
                           itemBuilder: (context, i) {
-                            return Visibility(
-                              visible: liveEvents[i].scrollData!.isNotEmpty,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 7.0),
-                                child: _buildShowVideoBottomSheet(
-                                  liveEvents[i],
-                                ),
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 7.0),
+                              child: _buildShowVideoBottomSheet(
+                                liveEvents[i],
                               ),
                             );
                           },
@@ -94,8 +101,10 @@ class _DashboardLiveState extends State<DashboardLive> {
     );
   }
 
-  _buildShowVideoBottomSheet(LiveEventsEntity liveEvents) => GestureDetector(
-        onTap: () => buildBottomSheet(
+  _buildShowVideoBottomSheet(LiveEventsEntity liveEvents) {
+    return GestureDetector(
+      onTap: () {
+        buildBottomSheet(
           context,
           liveEvents,
           'live_events',
@@ -104,14 +113,16 @@ class _DashboardLiveState extends State<DashboardLive> {
             liveurlType: "C",
             liveurl: "Y",
           ),
-        ),
-        child: LiveEventShowCard(
-          event: liveEvents,
-        ),
-      );
+        );
+      },
+      child: LiveEventShowCard(
+        event: liveEvents,
+      ),
+    );
+  }
 }
 
-class LiveEventShowCard extends StatelessWidget {
+class LiveEventShowCard extends StatefulWidget {
   LiveEventsEntity event;
 
   LiveEventShowCard({
@@ -120,11 +131,16 @@ class LiveEventShowCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<LiveEventShowCard> createState() => _LiveEventShowCardState();
+}
+
+class _LiveEventShowCardState extends State<LiveEventShowCard> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        mainTower(event, 10),
+        mainTower(widget.event, 10),
         Image.asset(
           LocalImages().play,
         ),

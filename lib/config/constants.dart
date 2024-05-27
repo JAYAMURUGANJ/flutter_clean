@@ -40,6 +40,9 @@ class NetworkImages {
       "https://static.vecteezy.com/system/resources/previews/043/063/306/non_2x/calendar-icon-symbol-image-for-schedule-or-appointment-vector.jpg";
   static const String noLiveAvailable =
       "https://static.vecteezy.com/system/resources/previews/032/349/386/non_2x/camera-photography-icon-symbol-image-illustration-of-multimedia-photographic-lens-graphic-design-image-vector.jpg";
+
+  static const String noNearByTemple =
+      "https://static.vecteezy.com/system/resources/previews/008/064/864/non_2x/one-continuous-single-line-of-temple-isolated-on-white-background-vector.jpg";
   static const String templePlaceHolder =
       "https://www.seekpng.com/png/detail/252-2523694_hindu-temple-photo-hindu-temple-illustration.png";
   static const String noNearByTemple =

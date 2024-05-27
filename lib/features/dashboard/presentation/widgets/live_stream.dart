@@ -114,7 +114,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 ),
               ),
             ),
-            value: "${scrollData.eventUrl}",
+            value: "${scrollData.eventUrl}${scrollData.eventDesc}",
           );
         }).toList(),
       ),
