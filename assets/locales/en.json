@@ -79,5 +79,6 @@
     "live_telecasting_not_available": "No live telecasting is Available.",
     "select_distance": "Select distance to view the near by temples",
     "txn_details": "Transaction Details",
-    "fetch_location": " Fetching current loction..."
+    "fetch_location": " Fetching current loction...",
+    "no_nearby_temples": "No Nearby Temples"
 }

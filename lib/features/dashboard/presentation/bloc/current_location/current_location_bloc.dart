@@ -14,47 +14,6 @@ class CurrentLocationBloc
     on<CurrentLocationEvent>((event, emit) {});
     on<GetCurrentLocation>(fetchCurrentLocation);
   }
-  // void _launchMap(String page) {
-  //   AppInfo().getCurrentLocation().then((locationData) => showDialog(
-  //       context: context,
-  //       builder: ((context) {
-  //         return AlertDialog.adaptive(
-  //           title: const LocaleText('select_distance'),
-  //           content: Wrap(
-  //             alignment: WrapAlignment.spaceAround,
-  //             runAlignment: WrapAlignment.spaceBetween,
-  //             children: List.generate(
-  //               distanceList.length,
-  //               (index) => ChoiceChip(
-  //                 showCheckmark: false,
-  //                 label: Text(distanceList[index].round().toString()),
-  //                 selected: selectedDistanceIndex == index,
-  //                 onSelected: (value) {
-  //                   selectedDistanceIndex = index;
-  //                   print(distanceList[index]);
-  //                 },
-  //               ),
-  //             ),
-  //           ),
-  //           actions: [
-  //             TextButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child: const Text('cancel')),
-  //             TextButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context);
-  //                   pageNavigation(page.toString(), context, arguments: {
-  //                     "current_location": locationData,
-  //                     "distance": distanceList[selectedDistanceIndex]
-  //                   });
-  //                 },
-  //                 child: const Text('confirm')),
-  //           ],
-  //         );
-  //       })));
-  // }
 
   fetchCurrentLocation(
       GetCurrentLocation event, Emitter<CurrentLocationState> emit) async {

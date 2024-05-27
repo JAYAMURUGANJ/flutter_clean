@@ -72,9 +72,8 @@ class Dashboard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 5.pw,
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .8,
-                  child: const LocaleText(
+                const Flexible(
+                  child: LocaleText(
                     "fetch_location",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
