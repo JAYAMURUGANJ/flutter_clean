@@ -65,22 +65,22 @@ class Dashboard extends StatelessWidget {
       listener: (context, state) {
         if (state is CurrentLocationLoading) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: SizedBox(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const CupertinoActivityIndicator(
-                    color: Colors.white,
-                  ),
-                  3.pw,
-                  const LocaleText(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const CupertinoActivityIndicator(
+                  color: Colors.white,
+                ),
+                5.pw,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .8,
+                  child: const LocaleText(
                     "fetch_location",
-                    overflow: TextOverflow.clip,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
             duration: const Duration(minutes: 2),
           ));
@@ -102,10 +102,12 @@ class Dashboard extends StatelessWidget {
                         title: LocaleText(
                           'select_distance',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary),
                         ),
                         content: Wrap(
                           alignment: WrapAlignment.spaceAround,

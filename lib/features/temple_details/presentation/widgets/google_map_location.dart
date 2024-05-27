@@ -58,6 +58,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   final ValueNotifier<int> _selectedDistanceIndex = ValueNotifier(-1);
   final DraggableScrollableController _draggableScrollableController =
       DraggableScrollableController();
+  double _initialBottomSheetHeight = 0.2;
 
   @override
   void initState() {
@@ -81,6 +82,8 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
     } else if (widget.data?['current_location'] != null) {
       _selectedDistanceIndex.value =
           distanceList.indexOf(widget.data?['distance'] ?? 5.0);
+      // set bottomsheet initail height
+      _initialBottomSheetHeight = 0.6;
       // zoom level
       double zoomLevel = widget.data?['distance'] ?? 5.0;
       double reduceValue = (zoomLevel / 5) - 1;
@@ -108,6 +111,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   @override
   void dispose() {
     _customInfoWindowController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -269,7 +273,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                 ),
                 // bottom sheet
                 DraggableScrollableSheet(
-                    initialChildSize: .2,
+                    initialChildSize: _initialBottomSheetHeight,
                     minChildSize: .2,
                     maxChildSize: .6,
                     controller: _draggableScrollableController,
