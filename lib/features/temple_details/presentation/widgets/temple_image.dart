@@ -13,7 +13,6 @@ import '/features/temple_details/presentation/widgets/contact_details.dart';
 import '/features/temple_details/presentation/widgets/main_tower.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
 import '360_degree_view.dart';
-import 'google_map_location.dart';
 
 Widget buildTempleImage(context, ItmsResponseEntity temple) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(

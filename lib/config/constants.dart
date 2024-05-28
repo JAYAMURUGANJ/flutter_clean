@@ -6,6 +6,10 @@ import '/core/models/booking_services.dart';
 import '/core/models/god.dart';
 
 class ApiCredentials {
+  // app name
+  static const String appName = "Thirukoil";
+  static const String tAppName = "திருக்கோயில்";
+
   // api credentials
   static const String domain = "https://hrce.tn.gov.in/webservice/";
   static const String webService = "webservices.php";

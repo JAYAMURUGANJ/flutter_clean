@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
@@ -62,6 +63,9 @@ class _AppState extends State<App> {
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
             return MaterialApp(
+              title: Locales.lang == "en"
+                  ? ApiCredentials.appName
+                  : ApiCredentials.tAppName,
               builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,
               localizationsDelegates: Locales.delegates,

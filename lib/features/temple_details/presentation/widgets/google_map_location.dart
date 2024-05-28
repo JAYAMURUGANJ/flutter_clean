@@ -90,8 +90,12 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
     } else if (widget.data?['current_location'] != null) {
       _selectedDistanceIndex.value =
           distanceList.indexOf(widget.data?['distance'] ?? 5.0);
+
       // set bottomsheet initail height
       _initialBottomSheetHeight = 0.6;
+      // scroll to position
+      debugPrint(
+          "dd ${widget.data?['distance']} ${_selectedDistanceIndex.value}");
 
       // zoom level
       double zoomLevel = widget.data?['distance'] ?? 5.0;
@@ -131,7 +135,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
     return Scaffold(
         appBar: appHeader(
           context: context,
-          body: LocaleText("location",
+          body: LocaleText("location_map",
               textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
           trailing: (widget.data?['temple'] != null)
               ? const CloseButton()
@@ -351,22 +355,17 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                 valueListenable: _selectedDistanceIndex,
                 builder: (context, value, child) {
                   return ScrollablePositionedList.builder(
+                    initialScrollIndex: widget.data?['current_location'] != null
+                        ? distanceList.indexOf(widget.data?['distance'] ?? 5.0)
+                        : 0,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: distanceList.length,
                     itemScrollController: itemScrollController,
                     scrollOffsetController: scrollOffsetController,
                     itemPositionsListener: itemPositionsListener,
                     scrollOffsetListener: scrollOffsetListener,
-                    //
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: distanceList.length,
                     itemBuilder: (context, index) {
-                      // scroll to position
-                      itemScrollController.scrollTo(
-                          index: distanceList
-                              .indexOf(widget.data?['distance'] ?? 5.0),
-                          duration: const Duration(milliseconds: 120),
-                          curve: Curves.easeInOutCubic);
-                      //
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ChoiceChip(
@@ -392,6 +391,8 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                           ),
                           selected: _selectedDistanceIndex.value == index,
                           onSelected: (value) {
+                            //
+                            scrollToSelectedDistanceIndex(index);
                             expandBottomSheet();
                             _customInfoWindowController.hideInfoWindow!();
                             _selectedDistanceIndex.value = index;
@@ -442,7 +443,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
           builder: (context, nearbyState) {
             if (nearbyState is ViewMarkersState &&
                 nearbyState.filteredTemples != null) {
-              if (nearbyState.markers.length > 1) {
+              if (nearbyState.markers.isNotEmpty) {
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: nearbyState.markers.length,
@@ -488,6 +489,13 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
         ))
       ],
     );
+  }
+
+  Future<void> scrollToSelectedDistanceIndex(int index) {
+    return itemScrollController.scrollTo(
+        index: index,
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeInOutCubic);
   }
 
   Future<void> expandBottomSheet() {
