@@ -3,16 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import '/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 
-import '/config/common/widgets/bottom_sheet.dart';
-import '/config/common/widgets/no_data_available.dart';
 import '../../../event_calendar/presentation/pages/event_calendar.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../pages/live_telecast.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/common/widgets/no_data_available.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/core/models/booking_services.dart';
+import '/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 
 buildTempleServicesList(
     {required String listType,
@@ -27,7 +27,7 @@ buildTempleServicesList(
             itemExtent: 90,
             itemCount: services.length,
             itemBuilder: (context, index) => _serviceCard(
-                index, services, context, 100, 60, 12, "CIRCLE", templeData),
+                index, services, context, 100, 60, 10, "CIRCLE", templeData),
           ),
         )
       : GridView.builder(
@@ -40,7 +40,7 @@ buildTempleServicesList(
           itemCount: services.length, // total number of items
           itemBuilder: (context, index) {
             return _serviceCard(
-                index, services, context, 100, 100, 16, "RECT", templeData);
+                index, services, context, 100, 100, 12, "RECT", templeData);
           },
         );
 }

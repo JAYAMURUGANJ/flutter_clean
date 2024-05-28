@@ -307,10 +307,10 @@ List<Color> colors = [
 EdgeInsetsGeometry defaultPadding = const EdgeInsets.symmetric(horizontal: 12);
 
 // common test themes
-appbarTextStyleLarge(theme) =>
-    theme.textTheme.titleLarge!.copyWith(color: theme.colorScheme.primary);
+appbarTextStyleLarge(theme) => theme.textTheme.titleMedium!
+    .copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.bold);
 appbarTextStyleMedium(theme) =>
-    theme.textTheme.titleMedium!.copyWith(color: theme.colorScheme.primary);
+    theme.textTheme.titleSmall!.copyWith(color: theme.colorScheme.primary);
 
 final List<dynamic> mapThemes = [
   {

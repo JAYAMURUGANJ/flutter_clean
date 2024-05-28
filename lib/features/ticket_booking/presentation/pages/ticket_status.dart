@@ -31,24 +31,29 @@ class _PaymentStatusState extends State<PaymentStatus> {
           body: LocaleText("txn_details",
               textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium!
-                  .copyWith(fontSize: 24, color: Colors.white)),
+                  .copyWith(fontSize: 16, color: Colors.white)),
           trailing: IconButton(
               onPressed: _shareTicket,
               icon: const Icon(Icons.share_sharp, color: Colors.white))),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: TicketWidget(
-              width: 350,
-              height: 650,
-              isCornerRounded: true,
-              padding: const EdgeInsets.all(20),
-              child: TicketData(
-                theme: theme,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: TicketWidget(
+                  width: 350,
+                  height: 700,
+                  isCornerRounded: true,
+                  padding: const EdgeInsets.all(20),
+                  child: TicketData(
+                    theme: theme,
+                  ),
+                ),
               ),
             ),
-          ),
+            50.ph,
+          ],
         ),
       ),
     );
@@ -79,7 +84,9 @@ class _TicketDataState extends State<TicketData> {
           alignment: Alignment.bottomCenter,
           child: Image.asset(
             LocalImages().wm,
-            width: 350,
+            width: 280,
+            height: 450,
+            fit: BoxFit.contain,
           ),
         ),
         Column(
@@ -88,35 +95,33 @@ class _TicketDataState extends State<TicketData> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AppIcon(height: 50),
+                const AppIcon(height: 40),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: LocaleText(
                       "thirukoil",
-                      style: widget.theme.textTheme.headlineSmall!.copyWith(
-                        fontWeight: FontWeight.w800,
+                      style: widget.theme.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
                 Image.asset(
                   LocalImages().tnLogo,
-                  height: 50,
+                  height: 40,
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 5.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
               child: Center(
                 child: Text(
                   'அருள்மிகு தண்டாயுதபாணி சுவாமி திருக்கோயில், பழனி - 624601',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold),
+                  style: widget.theme.textTheme.bodySmall!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -126,10 +131,9 @@ class _TicketDataState extends State<TicketData> {
                 child: Text(
                   'அர்ச்சனை டிக்கெட் [₹ 50/-]',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: widget.theme.colorScheme.primary,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
+                  style: widget.theme.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: widget.theme.colorScheme.primary),
                 ),
               ),
             ),
@@ -183,11 +187,24 @@ class _TicketDataState extends State<TicketData> {
             const SizedBox(height: 10)
           ],
         ),
-        const Align(
+        Align(
           alignment: Alignment.bottomCenter,
-          child: Text(
-            "கட்டணமில்லா எண்: 1800-425-1757",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "கட்டணமில்லா எண்:",
+                style: widget.theme.textTheme.bodySmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "1800-425-1757",
+                style: widget.theme.textTheme.bodySmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ],

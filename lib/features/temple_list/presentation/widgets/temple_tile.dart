@@ -52,11 +52,11 @@ class TempleListTile extends StatelessWidget {
           textAlign: TextAlign.left,
           overflow: TextOverflow.ellipsis,
           style: Locales.lang == "en"
-              ? Theme.of(context).textTheme.bodyLarge!.copyWith(
+              ? Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                   )
-              : Theme.of(context).textTheme.bodyMedium!.copyWith(
+              : Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                   ),

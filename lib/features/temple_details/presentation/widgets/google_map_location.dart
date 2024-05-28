@@ -18,10 +18,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
-import '../../../temple_list/presentation/widgets/temple_tile.dart';
-import '/config/constants.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
+import '../../../temple_list/presentation/widgets/temple_tile.dart';
 import '../bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
+import '/config/constants.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -66,7 +66,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 
   final DraggableScrollableController _draggableScrollableController =
       DraggableScrollableController();
-  double _initialBottomSheetHeight = 0.2;
+  double _initialBottomSheetHeight = 0.25;
 
   @override
   void initState() {
@@ -179,9 +179,9 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                 ),
                 CustomInfoWindow(
                   controller: _customInfoWindowController,
-                  height: 240,
-                  width: 280,
-                  offset: 60.0,
+                  height: 210,
+                  width: 260,
+                  offset: 45.0,
                 ),
 
                 //for map theme changing
@@ -284,7 +284,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                 // bottom sheet
                 DraggableScrollableSheet(
                     initialChildSize: _initialBottomSheetHeight,
-                    minChildSize: .2,
+                    minChildSize: .25,
                     maxChildSize: .6,
                     controller: _draggableScrollableController,
                     shouldCloseOnMinExtent: false,
@@ -326,7 +326,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 15),
+                margin: const EdgeInsets.only(top: 5, bottom: 10),
                 height: 5,
                 width: 75,
                 decoration: BoxDecoration(
@@ -340,7 +340,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
           "Select_distance",
           style: Theme.of(context)
               .textTheme
-              .bodyMedium!
+              .bodySmall!
               .copyWith(fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
@@ -498,26 +498,6 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
     );
   }
 
-  Future<BitmapDescriptor> _getAssetIcon(
-      BuildContext context, String icon) async {
-    final Completer<BitmapDescriptor> bitmapIcon =
-        Completer<BitmapDescriptor>();
-    final ImageConfiguration config =
-        createLocalImageConfiguration(context, size: const Size(5, 5));
-
-    NetworkImage(icon)
-        .resolve(config)
-        .addListener(ImageStreamListener((ImageInfo image, bool sync) async {
-      final ByteData? bytes =
-          await image.image.toByteData(format: ImageByteFormat.png);
-      final BitmapDescriptor bitmap =
-          BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
-      bitmapIcon.complete(bitmap);
-    }));
-
-    return await bitmapIcon.future;
-  }
-
   // custom marker
 }
 
@@ -535,7 +515,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: Colors.white,
@@ -545,7 +525,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 100,
+                height: 80,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: CachedNetworkImage(
@@ -563,24 +543,24 @@ class BuildMarkerInfoWidget extends StatelessWidget {
                     )),
               ),
               const SizedBox(
-                height: 15,
+                height: 8,
               ),
               Flexible(
                 child: Text(
                   Locales.lang == "en"
                       ? temple.templeName ?? ''
                       : temple.ttempleName ?? "",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                  maxLines: 5,
                 ),
               ),
               const SizedBox(
-                height: 5,
+                height: 2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -597,11 +577,11 @@ class BuildMarkerInfoWidget extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Temple Info",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
@@ -617,11 +597,11 @@ class BuildMarkerInfoWidget extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Direction",
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),

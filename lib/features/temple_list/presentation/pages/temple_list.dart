@@ -20,7 +20,10 @@ class _TempleListPageState extends State<TempleListPage> {
     return Scaffold(
       appBar: appHeader(
           context: context,
-          body: searchWidget(context, searchFieldController),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: searchWidget(context, searchFieldController),
+          ),
           trailing: IconButton(
               onPressed: () => buildNavigationDrawer(context),
               icon: const Icon(Icons.menu))),

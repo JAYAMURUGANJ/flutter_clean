@@ -94,6 +94,7 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
                           widget.temple.urlTemplewebsite ?? "-",
                           Icons.language,
                           () {}),
+                      50.ph,
                     ],
                   ),
                 );

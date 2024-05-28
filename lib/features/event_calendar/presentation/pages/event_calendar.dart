@@ -7,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
-import 'package:news_app_clean_architecture/config/common/widgets/no_data_available.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../data/model/calendar_event.dart';
 import '../../data/model/calendar_event_details.dart';
 import '../../domain/entities/calendar_event.dart';
@@ -18,6 +16,8 @@ import '../bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import '../widgets/utils.dart';
 import '/config/common/widgets/app_header.dart';
 import '/config/common/widgets/navigation_drawer.dart';
+import '/config/common/widgets/no_data_available.dart';
+import '/config/common/widgets/something_went_wrong.dart';
 import '/config/constants.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
@@ -147,8 +147,8 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
                           : widget.templeData?.ttempleName?.split(',')[0] ?? "",
                       softWrap: true,
                       textAlign: TextAlign.center,
-                      maxLines: 3,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      maxLines: 4,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -238,147 +238,139 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
                 ),
                 const SizedBox(height: 8.0),
                 Expanded(
-                  child: Center(
-                    child: ValueListenableBuilder<List<CalendarEvent>>(
-                      valueListenable: _selectedEvents,
-                      builder: (context, value, _) {
-                        // Display details based on _selectedEvents
+                  child: ValueListenableBuilder<List<CalendarEvent>>(
+                    valueListenable: _selectedEvents,
+                    builder: (context, value, _) {
+                      // Display details based on _selectedEvents
 
-                        List<FestivalDatum> festivalData = [];
-                        if (value.isNotEmpty) {
-                          festivalData = value[0].festivalData!;
-                        }
-                        return BlocBuilder<CalendarEventBloc,
-                            CalendarEventState>(
-                          builder: (context, state) {
-                            if (state.calendarEvent is CalendarEventsLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-
-                            if (state is CalendarEventLoaded &&
-                                festivalData.isNotEmpty) {
-                              return ListView.builder(
-                                itemCount: festivalData.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 12.0,
-                                      vertical: 4.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    child: BlocBuilder<CalendarEventDetailsBloc,
-                                        CalendarEventDetailsState>(
-                                      builder: (context, detailsState) {
-                                        List<CalendarEventDetails>? detailsList;
-                                        if (detailsState
-                                            is CalendarEventDetailsLoaded) {
-                                          detailsList =
-                                              detailsState.calendarEventDetails
-                                                  as List<CalendarEventDetails>;
-                                        }
-                                        return ExpansionTile(
-                                          onExpansionChanged:
-                                              (isExpansionOpen) {
-                                            setState(() {
-                                              _isExpansionOpen =
-                                                  isExpansionOpen;
-                                            });
-                                            if (isExpansionOpen) {
-                                              BlocProvider.of<
-                                                          CalendarEventDetailsBloc>(
-                                                      context)
-                                                  .add(GetCalendarEventDetails(
-                                                festivalCode:
-                                                    festivalData[index]
-                                                        .festivalCode,
-                                                festivalDate: value[0]
-                                                    .calendarDays
-                                                    .toString(),
-                                              ));
-                                            }
-                                          },
-                                          leading: Stack(
-                                            alignment:
-                                                AlignmentDirectional.center,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 5.0),
-                                                child: Text(
-                                                  value[0]
-                                                      .calendarDays!
-                                                      .day
-                                                      .toString(),
-                                                  textAlign: TextAlign.justify,
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                ),
-                                              ),
-                                              const Icon(
-                                                Icons.calendar_today,
-                                                size: 50,
-                                              ),
-                                            ],
-                                          ),
-                                          title: Text(festivalData[index]
-                                              .festivalName
-                                              .toString()),
-                                          children: _isExpansionOpen
-                                              ? detailsState
-                                                      is CalendarEventDetailsLoaded
-                                                  ? [
-                                                      widget.templeData
-                                                                  ?.templeId ==
-                                                              null
-                                                          ? Text(
-                                                              detailsList![0]
-                                                                  .templeName!
-                                                                  .toString(),
-                                                              softWrap: true,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              maxLines: 3,
-                                                              style: TextStyle(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .primary,
-                                                              ),
-                                                            )
-                                                          : const SizedBox(),
-                                                      Text(
-                                                          '${detailsList![0].festivalInfo![0].festivalDetails}'),
-                                                      Text(
-                                                          'Time : ${detailsList[0].festivalInfo![0].festivalFromtime} - ${detailsList[0].festivalInfo![0].festivalTotime}'),
-                                                    ]
-                                                  : []
-                                              : [],
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-
-                            return SingleChildScrollView(
-                              child: DataNotAvailable(
-                                error: "no_calendar_events",
-                                img: NetworkImages.noEventAvailable,
-                              ),
+                      List<FestivalDatum> festivalData = [];
+                      if (value.isNotEmpty) {
+                        festivalData = value[0].festivalData!;
+                      }
+                      return BlocBuilder<CalendarEventBloc, CalendarEventState>(
+                        builder: (context, state) {
+                          if (state.calendarEvent is CalendarEventsLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        );
-                      },
-                    ),
+                          }
+
+                          if (state is CalendarEventLoaded &&
+                              festivalData.isNotEmpty) {
+                            return ListView.builder(
+                              itemCount: festivalData.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                    vertical: 4.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: BlocBuilder<CalendarEventDetailsBloc,
+                                      CalendarEventDetailsState>(
+                                    builder: (context, detailsState) {
+                                      List<CalendarEventDetails>? detailsList;
+                                      if (detailsState
+                                          is CalendarEventDetailsLoaded) {
+                                        detailsList =
+                                            detailsState.calendarEventDetails
+                                                as List<CalendarEventDetails>;
+                                      }
+                                      return ExpansionTile(
+                                        onExpansionChanged: (isExpansionOpen) {
+                                          setState(() {
+                                            _isExpansionOpen = isExpansionOpen;
+                                          });
+                                          if (isExpansionOpen) {
+                                            BlocProvider.of<
+                                                        CalendarEventDetailsBloc>(
+                                                    context)
+                                                .add(GetCalendarEventDetails(
+                                              festivalCode: festivalData[index]
+                                                  .festivalCode,
+                                              festivalDate: value[0]
+                                                  .calendarDays
+                                                  .toString(),
+                                            ));
+                                          }
+                                        },
+                                        leading: Stack(
+                                          alignment:
+                                              AlignmentDirectional.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5.0),
+                                              child: Text(
+                                                value[0]
+                                                    .calendarDays!
+                                                    .day
+                                                    .toString(),
+                                                textAlign: TextAlign.justify,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                            const Icon(
+                                              Icons.calendar_today,
+                                              size: 50,
+                                            ),
+                                          ],
+                                        ),
+                                        title: Text(festivalData[index]
+                                            .festivalName
+                                            .toString()),
+                                        children: _isExpansionOpen
+                                            ? detailsState
+                                                    is CalendarEventDetailsLoaded
+                                                ? [
+                                                    widget.templeData
+                                                                ?.templeId ==
+                                                            null
+                                                        ? Text(
+                                                            detailsList![0]
+                                                                .templeName!
+                                                                .toString(),
+                                                            softWrap: true,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 3,
+                                                            style: TextStyle(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                            ),
+                                                          )
+                                                        : const SizedBox(),
+                                                    Text(
+                                                        '${detailsList![0].festivalInfo![0].festivalDetails}'),
+                                                    Text(
+                                                        'Time : ${detailsList[0].festivalInfo![0].festivalFromtime} - ${detailsList[0].festivalInfo![0].festivalTotime}'),
+                                                  ]
+                                                : []
+                                            : [],
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            );
+                          }
+
+                          return SingleChildScrollView(
+                            child: DataNotAvailable(
+                              error: "no_calendar_events",
+                              img: NetworkImages.noEventAvailable,
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ],

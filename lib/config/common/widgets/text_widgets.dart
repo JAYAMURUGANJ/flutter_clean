@@ -6,7 +6,7 @@ import '/config/constants.dart';
 LocaleText buildHeading(BuildContext context, String text) {
   return LocaleText(
     text,
-    textAlign: TextAlign.center,
+    textAlign: TextAlign.left,
     style: Theme.of(context)
         .textTheme
         .labelSmall!
