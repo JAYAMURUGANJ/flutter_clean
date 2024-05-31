@@ -60,7 +60,8 @@
     "divya_prabandam": "Divya Prabandm",
     "live": "Live Telecast",
     "whats_new": "Whats New",
-    "booking": "Bookings",
+    "bookings": "Bookings",
+    "booking": "Booking",
     "facility": "Facilitys",
     "sculpture": "Sculpures",
     "shrine": "Shrines",
@@ -80,5 +81,6 @@
     "select_distance": "Select distance to view the near by temples",
     "txn_details": "Transaction Details",
     "fetch_location": " Fetching current loction...",
-    "no_nearby_temples": "No Nearby Temples"
+    "no_nearby_temples": "No Nearby Temples",
+    "click_to_view": "Click to view"
 }

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 
 import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
 import '../common/pages/error/dio_exception_screen.dart';
@@ -44,8 +46,8 @@ class AppRoutes {
       case '/PaySplash':
         return _materialRoute(const PaymentSplashScreen());
       case '/NearByTemples':
-        return _materialRoute(NearByTemplesWidget(
-            data: settings.arguments as Map<String, dynamic>));
+        return _materialRoute(
+            NearByTemplesWidget(data: settings.arguments as LocationInfo));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

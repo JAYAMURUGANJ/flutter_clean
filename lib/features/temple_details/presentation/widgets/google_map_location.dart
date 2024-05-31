@@ -14,6 +14,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 import 'package:news_app_clean_architecture/config/common/widgets/no_data_available.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
@@ -36,11 +37,11 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 
 class NearByTemplesWidget extends StatefulWidget {
   // final ItmsResponseEntity? temple;
-  final Map<String, dynamic>? data;
+  final LocationInfo data;
   const NearByTemplesWidget({
     Key? key,
     // this.temple,
-    this.data,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -77,34 +78,33 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
       zoom: 13.4746,
     );
 
-    if (widget.data?['temple'] != null) {
-      double templeLat = double.parse(widget.data?['temple'].templeLatitude!);
-      double templeLang = double.parse(widget.data?['temple'].templeLangitude!);
+    if (widget.data.temple != null) {
+      double templeLat = double.parse(widget.data.temple!.templeLatitude!);
+      double templeLang = double.parse(widget.data.temple!.templeLangitude!);
 
       _kGooglePlex = CameraPosition(
         target: LatLng(templeLat, templeLang),
         zoom: 13.4746,
       );
       BlocProvider.of<ShowNearbyTemplesBloc>(context).add(ViewSingleTempleEvent(
-          widget.data?['temple'], _customInfoWindowController));
-    } else if (widget.data?['current_location'] != null) {
+          widget.data.temple!, _customInfoWindowController));
+    } else if (widget.data.currentLocation != null) {
       _selectedDistanceIndex.value =
-          distanceList.indexOf(widget.data?['distance'] ?? 5.0);
+          distanceList.indexOf(widget.data.distance ?? 5.0);
 
       // set bottomsheet initail height
       _initialBottomSheetHeight = 0.6;
       // scroll to position
-      debugPrint(
-          "dd ${widget.data?['distance']} ${_selectedDistanceIndex.value}");
+      debugPrint("dd ${widget.data.distance} ${_selectedDistanceIndex.value}");
 
       // zoom level
-      double zoomLevel = widget.data?['distance'] ?? 5.0;
+      double zoomLevel = widget.data.distance ?? 5.0;
       double reduceValue = (zoomLevel / 5) - 1;
       zoomLevel = 13.0 - (reduceValue > 3 ? (3 + .3) : reduceValue);
 
       _kGooglePlex = CameraPosition(
-        target: LatLng(widget.data?['current_location'].latitude!,
-            widget.data?['current_location'].longitude!),
+        target: LatLng(widget.data.currentLocation!.latitude!,
+            widget.data.currentLocation!.longitude!),
         zoom: zoomLevel,
       );
 
@@ -112,11 +112,11 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
           ViewCurrentLocationEvent(
               fromCurrentLocation: true,
               currentLocationLatLng: LatLng(
-                  widget.data?['current_location'].latitude!,
-                  widget.data?['current_location'].longitude!),
+                  widget.data.currentLocation!.latitude!,
+                  widget.data.currentLocation!.longitude!),
               listOfTemples: listOfTemples,
               customInfoWindowController: _customInfoWindowController,
-              distance: widget.data?['distance']));
+              distance: widget.data.distance!));
     }
     super.initState();
   }
@@ -137,7 +137,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
           context: context,
           body: LocaleText("location_map",
               textAlign: TextAlign.center, style: appbarTextStyleLarge(theme)),
-          trailing: (widget.data?['temple'] != null)
+          trailing: (widget.data.temple != null)
               ? const CloseButton()
               : IconButton(
                   onPressed: () => buildNavigationDrawer(context),
@@ -161,9 +161,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                       initialCameraPosition: _kGooglePlex!,
                       //  myLocationButtonEnabled: true,
                       myLocationEnabled:
-                          widget.data?['current_location'] != null
-                              ? true
-                              : false,
+                          widget.data.currentLocation != null ? true : false,
                       mapType: MapType.normal,
                       zoomControlsEnabled: true,
                       markers: markerState is ViewMarkersState
@@ -355,8 +353,8 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                 valueListenable: _selectedDistanceIndex,
                 builder: (context, value, child) {
                   return ScrollablePositionedList.builder(
-                    initialScrollIndex: widget.data?['current_location'] != null
-                        ? distanceList.indexOf(widget.data?['distance'] ?? 5.0)
+                    initialScrollIndex: widget.data.currentLocation != null
+                        ? distanceList.indexOf(widget.data.distance ?? 5.0)
                         : 0,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -406,14 +404,14 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                                 CameraUpdate.newCameraPosition(CameraPosition(
                                     target: _kGooglePlex!.target,
                                     zoom: zoomLevel)));
-                            if (widget.data?['current_location'] != null) {
+                            if (widget.data.currentLocation != null) {
                               BlocProvider.of<ShowNearbyTemplesBloc>(context)
                                   .add(ViewCurrentLocationEvent(
                                       fromCurrentLocation: true,
                                       currentLocationLatLng: LatLng(
-                                          widget.data?['current_location']
-                                              .latitude!,
-                                          widget.data?['current_location']
+                                          widget
+                                              .data.currentLocation!.latitude!,
+                                          widget.data.currentLocation!
                                               .longitude!),
                                       listOfTemples: listOfTemples,
                                       customInfoWindowController:
@@ -423,7 +421,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                               BlocProvider.of<ShowNearbyTemplesBloc>(context)
                                   .add(ViewNearByTemplesEvent(
                                       fromCurrentLocation: false,
-                                      currentTemple: widget.data?['temple'],
+                                      currentTemple: widget.data.temple,
                                       listOfTemples: listOfTemples,
                                       customInfoWindowController:
                                           _customInfoWindowController,

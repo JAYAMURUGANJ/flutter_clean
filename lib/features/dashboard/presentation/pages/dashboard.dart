@@ -9,6 +9,7 @@ import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/app_refer_card.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
+import '../../../temple_details/data/model/location_info.dart';
 import '../bloc/current_location/current_location_bloc.dart';
 import '../widgets/dashboard_live.dart';
 import '../widgets/main_temple_swiper.dart';
@@ -165,12 +166,12 @@ class Dashboard extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.pop(context);
                                   pageNavigation(state.page.toString(), context,
-                                      arguments: {
-                                        "from_current": true,
-                                        "current_location": state.locationData,
-                                        "distance":
-                                            distanceList[selectedIndex.value]
-                                      });
+                                      arguments: LocationInfo(
+                                        fromCurrent: true,
+                                        currentLocation: state.locationData,
+                                        distance:
+                                            distanceList[selectedIndex.value],
+                                      ));
                                 },
                                 child: LocaleText(
                                   "y",

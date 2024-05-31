@@ -6,6 +6,7 @@ import 'package:news_app_clean_architecture/features/dashboard/presentation/widg
 
 import '../../../../config/common/widgets/bottom_sheet.dart';
 import '../../../../config/constants.dart';
+import '../../data/model/location_info.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
 import '/config/common/widgets/full_screen_image_viewer.dart';
@@ -99,7 +100,8 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                   child: IconButton(
                     onPressed: () {
                       pageNavigation("/NearByTemples", context,
-                          arguments: {"from_current": false, "temple": temple});
+                          arguments:
+                              LocationInfo(fromCurrent: false, temple: temple));
                     },
 
                     // => buildBottomSheet(
