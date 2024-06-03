@@ -20,6 +20,7 @@ class ContactDetailsBloc
 
   void onGetTempleContacts(
       GetContactDetails event, Emitter<ContactDetailsState> emit) async {
+    emit(const ContactDetailsLoading());
     String serviceId = "7013";
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])

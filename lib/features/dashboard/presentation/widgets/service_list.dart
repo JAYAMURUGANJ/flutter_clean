@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/sculpture_widget.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/shrines_widget.dart';
 
 import '../../../event_calendar/presentation/pages/event_calendar.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
@@ -57,21 +59,31 @@ _serviceCard(
   return GestureDetector(
     onTap: services[index].isBottomSheet!
         ? () {
-            switch (services[index].name!) {
-              case "events":
+            switch (services[index].id) {
+              case 3:
+                {
+                  buildBottomSheet(context, templeData, services[index].name!,
+                      SculpturesWidget(templeData: templeData));
+                }
+                break;
+              case 4:
+                {
+                  buildBottomSheet(context, templeData, services[index].name!,
+                      ShrinesWidget(templeData: templeData));
+                }
+                break;
+              case 5:
+                {
+                  buildBottomSheet(context, templeData, services[index].name!,
+                      TempleLiveTeleCasts(templeData: templeData));
+                }
+                break;
+              case 6:
                 {
                   buildBottomSheet(context, templeData, services[index].name!,
                       TempleEventCalendar(templeData: templeData));
                 }
                 break;
-
-              case "live":
-                {
-                  buildBottomSheet(context, templeData, "live_events",
-                      TempleLiveTeleCasts(templeData: templeData));
-                }
-                break;
-
               default:
                 {
                   DataNotAvailable(

@@ -1,6 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/repository/sculptures_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/repository/shrines_details_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/repository/sculptures_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/repository/shrines_details_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/sculptures_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/shrines_details_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -65,6 +74,9 @@ Future<void> initializeDependencies() async {
       CalendarEventDetailsRepositoryImpl(sl()));
   sl.registerSingleton<NearByTemplesRepository>(
       NearByTemplesRepositoryImpl(sl()));
+  sl.registerSingleton<ShrinesDetailsRepository>(
+      ShrinesDetailsRepositoryImpl(sl()));
+  sl.registerSingleton<SculpturesRepository>(SculpturesRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -77,6 +89,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<CalendarEventDetailsUseCase>(
       CalendarEventDetailsUseCase(sl()));
   sl.registerSingleton<NearByTemplesUseCase>(NearByTemplesUseCase(sl()));
+  sl.registerSingleton<ShrinesDetailsUseCase>(ShrinesDetailsUseCase(sl()));
+  sl.registerSingleton<SculpturesUseCase>(SculpturesUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -93,4 +107,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<NearbyTemplesBloc>(() => NearbyTemplesBloc(sl()));
   sl.registerFactory<ShowNearbyTemplesBloc>(() => ShowNearbyTemplesBloc());
   sl.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
+  sl.registerFactory<ShrinesBloc>(() => ShrinesBloc(sl()));
+  sl.registerFactory<SculpturesBloc>(() => SculpturesBloc(sl()));
+  sl.registerFactory<ViewDescBloc>(() => ViewDescBloc());
 }

@@ -1,8 +1,10 @@
 // ignore_for_file: library_prefixes
 
 import 'dart:math' as Math;
+import 'dart:ui';
 
 import 'package:custom_info_window/custom_info_window.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -25,6 +27,11 @@ class ShowNearbyTemplesBloc
       ViewSingleTempleEvent event, Emitter<ShowNearbyTemplesState> emit) async {
     emit(ViewNearbyTemplesLoading());
     Set<Marker> markers;
+
+    BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(64, 64)),
+        'assets/images/icons/marker_1.png');
+
     markers = {
       Marker(
         markerId: MarkerId(event.temple.templeId.toString()),
@@ -39,6 +46,7 @@ class ShowNearbyTemplesBloc
                 double.parse(event.temple.templeLangitude.toString())),
           );
         },
+        icon: customIcon,
       )
     };
 
@@ -50,10 +58,13 @@ class ShowNearbyTemplesBloc
         )));
   }
 
-  viewNearbyTemples(
-      ViewNearByTemplesEvent event, Emitter<ShowNearbyTemplesState> emit) {
+  viewNearbyTemples(ViewNearByTemplesEvent event,
+      Emitter<ShowNearbyTemplesState> emit) async {
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
+      BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(size: Size(64, 64)),
+          'assets/images/icons/marker_1.png');
       // filter radius data
       var filteredTemples = event.listOfTemples
           .where((marker) =>
@@ -89,6 +100,7 @@ class ShowNearbyTemplesBloc
                       filteredTemples[index].templeLangitude.toString())),
             );
           },
+          icon: customIcon,
         );
       });
       setOfMarkers = Set.from(markerItems);
@@ -140,6 +152,9 @@ class ShowNearbyTemplesBloc
       Emitter<ShowNearbyTemplesState> emit) async {
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
+      BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(size: Size(64, 64)),
+          'assets/images/icons/marker_1.png');
       // filter radius data
       var filteredTemples = event.listOfTemples
           .where((marker) =>
@@ -160,6 +175,7 @@ class ShowNearbyTemplesBloc
           position: LatLng(
               double.parse(filteredTemples[index].templeLatitude.toString()),
               double.parse(filteredTemples[index].templeLangitude.toString())),
+          icon: customIcon,
           onTap: () {
             event.customInfoWindowController.addInfoWindow!(
               BuildMarkerInfoWidget(
