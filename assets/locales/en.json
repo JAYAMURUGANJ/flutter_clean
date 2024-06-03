@@ -80,5 +80,7 @@
     "select_distance": "Select distance to view the near by temples",
     "txn_details": "Transaction Details",
     "fetch_location": " Fetching current loction...",
-    "no_nearby_temples": "No Nearby Temples"
+    "no_nearby_temples": "No Nearby Temples",
+    "close":"Close",
+    "qr_verify":"QR for Ticket\nVerification"
 }

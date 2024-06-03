@@ -27,7 +27,7 @@ buildTempleServicesList(
             itemExtent: 90,
             itemCount: services.length,
             itemBuilder: (context, index) => _serviceCard(
-                index, services, context, 100, 60, 10, "CIRCLE", templeData),
+                index, services, context, 100, 60, 11, "CIRCLE", templeData),
           ),
         )
       : GridView.builder(
