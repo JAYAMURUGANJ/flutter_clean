@@ -10,15 +10,15 @@ import '../../../../config/constants.dart';
 import '../../../../core/data_sources/ITMS_API_service.dart';
 import '../../../../core/models/encrypted_response.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../domain/repository/itms_repository.dart';
-import '../models/itms_response.dart';
+import '../../domain/repository/facility_repository.dart';
+import '../model/facility.dart';
 
-class ItmsRepositoryImpl implements ItmsRepository {
+class FacilityRepositoryImpl implements FacilityRepository {
   final HRCEApiService _apiService;
-  ItmsRepositoryImpl(this._apiService);
+  FacilityRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<ItmsResponse>>> getResponse(formData, serviceId) async {
+  Future<DataState<List<Facility>>> getResponse(formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
@@ -30,17 +30,17 @@ class ItmsRepositoryImpl implements ItmsRepository {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log(decryptedResponse, name: "API RESPONSE");
-        debugPrint("list $decryptedResponse");
+        debugPrint(decryptedResponse);
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
-          List<ItmsResponse> resultSet =
+          List<Facility> resultSet =
               EncryptedResponse.fromJson(clientJsonResponse[0])
                   .resultSet!
-                  .map<ItmsResponse>((dynamic i) =>
-                      ItmsResponse.fromJson(i as Map<String, dynamic>))
+                  .map<Facility>((dynamic i) =>
+                      Facility.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {

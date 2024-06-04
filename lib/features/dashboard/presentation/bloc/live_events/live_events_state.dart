@@ -23,6 +23,6 @@ class LiveEventsSomthingWentWrong extends LiveEventsState {
       : super(responseStatus: responseStatus);
 }
 
-class LiveEventsLodingError extends LiveEventsState {
-  const LiveEventsLodingError(DioException error) : super(error: error);
+class LiveEventsLoadingError extends LiveEventsState {
+  const LiveEventsLoadingError(DioException error) : super(error: error);
 }

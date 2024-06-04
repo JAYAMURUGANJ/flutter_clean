@@ -14,7 +14,7 @@ mainTempleListBlocBuilder() {
   final CardSwiperController controller = CardSwiperController();
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
-      if (state is TempleListLodingError) {
+      if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);
       }
       if (state is TempleListLoadingSomthingWentWrong) {

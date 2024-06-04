@@ -67,7 +67,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
         if (state is ShrinesLoading) {
           return const Center(child: CupertinoActivityIndicator());
         }
-        if (state is ShrinesLodingError) {
+        if (state is ShrinesLoadingError) {
           return ErrorWidget(state.error.toString());
         }
         if (state is ShrinesLoadingSomthingWentWrong) {

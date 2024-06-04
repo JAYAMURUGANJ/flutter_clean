@@ -24,6 +24,6 @@ class ContactDetailsLoadingSomthingWentWrong extends ContactDetailsState {
       : super(responseStatus: responseStatus);
 }
 
-class ContactDetailsLodingError extends ContactDetailsState {
-  const ContactDetailsLodingError(DioException error) : super(error: error);
+class ContactDetailsLoadingError extends ContactDetailsState {
+  const ContactDetailsLoadingError(DioException error) : super(error: error);
 }

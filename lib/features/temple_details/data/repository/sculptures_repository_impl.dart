@@ -30,7 +30,7 @@ class SculpturesRepositoryImpl implements SculpturesRepository {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log(decryptedResponse, name: "API RESPONSE");
-        debugPrint(decryptedResponse);
+        debugPrint("sculptures===> $decryptedResponse");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;

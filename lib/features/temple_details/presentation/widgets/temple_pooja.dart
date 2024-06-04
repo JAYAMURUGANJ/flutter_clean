@@ -14,7 +14,7 @@ class TemplePooja extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<TemplePoojaBloc, TemplePoojaState>(
       listener: (context, state) {
-        if (state is TemplePoojaLodingError) {
+        if (state is TemplePoojaLoadingError) {
           Navigator.pushNamed(context, '/DioException',
               arguments: state.error!);
         }

@@ -113,7 +113,7 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                         Divider(
                           height: 50,
                           thickness: 6,
-                          color: Colors.red.shade800,
+                          color: Theme.of(context).colorScheme.primary,
                           endIndent: MediaQuery.of(context).size.width * .35,
                         ),
                         ValueListenableBuilder(

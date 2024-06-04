@@ -23,6 +23,6 @@ class ShrinesLoadingSomthingWentWrong extends ShrinesState {
       : super(responseStatus: responseStatus);
 }
 
-class ShrinesLodingError extends ShrinesState {
-  const ShrinesLodingError(DioException error) : super(error: error);
+class ShrinesLoadingError extends ShrinesState {
+  const ShrinesLoadingError(DioException error) : super(error: error);
 }

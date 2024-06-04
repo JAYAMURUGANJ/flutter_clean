@@ -35,7 +35,7 @@ class TempleTimingBloc extends Bloc<TempleTimingEvent, TempleTimingState> {
             dataState.resultSet![0].responseDesc.toString()));
       }
     }
-    emit(TempleTimingLodingError(dataState.error!));
-    //[ { "result_set": [ { "mrng_openingtime": "05:30 AM", "mrng_closing_time": "12:30 PM", "evng_opening_time": "04:00 PM", "evng_closing_time": "09:30 PM", "remarks": "Only on Mahashivarathiri Temple will  be opened 24 hrs ( 5.00A.M to next day 5.00A.M)", "closing_time": "[{\"to_time\": \"21:30\", \"order_no\": 1, \"from_time\": \"21:15\"}]" } ], "response_status": "SUCCESS" } ]    emit(TempleListLodingError(dataState.error!));
+    emit(TempleTimingLoadingError(dataState.error!));
+    //[ { "result_set": [ { "mrng_openingtime": "05:30 AM", "mrng_closing_time": "12:30 PM", "evng_opening_time": "04:00 PM", "evng_closing_time": "09:30 PM", "remarks": "Only on Mahashivarathiri Temple will  be opened 24 hrs ( 5.00A.M to next day 5.00A.M)", "closing_time": "[{\"to_time\": \"21:30\", \"order_no\": 1, \"from_time\": \"21:15\"}]" } ], "response_status": "SUCCESS" } ]    emit(TempleListLoadingError(dataState.error!));
   }
 }

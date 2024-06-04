@@ -45,6 +45,6 @@ class CalendarEventBloc extends Bloc<CalendarEventEvent, CalendarEventState> {
       }
     }
 
-    emit(CalendarEventLodingError(dataState.error!));
+    emit(CalendarEventLoadingError(dataState.error!));
   }
 }

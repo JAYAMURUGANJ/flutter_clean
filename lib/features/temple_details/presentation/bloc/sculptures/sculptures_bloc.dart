@@ -34,7 +34,7 @@ class SculpturesBloc extends Bloc<SculpturesEvent, SculpturesState> {
         emit(SculpturesLoaded(dataState.resultSet!));
       } else {
         emit(SculpturesLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc));
       }
     }
   }

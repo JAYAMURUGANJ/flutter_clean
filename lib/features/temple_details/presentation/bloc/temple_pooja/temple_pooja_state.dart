@@ -23,6 +23,6 @@ class TemplePoojaLoadingSomthingWentWrong extends TemplePoojaState {
       : super(responseStatus: responseStatus);
 }
 
-class TemplePoojaLodingError extends TemplePoojaState {
-  const TemplePoojaLodingError(DioException error) : super(error: error);
+class TemplePoojaLoadingError extends TemplePoojaState {
+  const TemplePoojaLoadingError(DioException error) : super(error: error);
 }

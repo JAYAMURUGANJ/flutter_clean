@@ -23,6 +23,6 @@ class TempleInfoLoadingSomthingWentWrong extends TempleInfoState {
       : super(responseStatus: responseStatus);
 }
 
-class TempleInfoLodingError extends TempleInfoState {
-  const TempleInfoLodingError(DioException error) : super(error: error);
+class TempleInfoLoadingError extends TempleInfoState {
+  const TempleInfoLoadingError(DioException error) : super(error: error);
 }

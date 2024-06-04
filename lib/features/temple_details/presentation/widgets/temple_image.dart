@@ -103,15 +103,6 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                           arguments:
                               LocationInfo(fromCurrent: false, temple: temple));
                     },
-
-                    // => buildBottomSheet(
-                    //   context,
-                    //   temple,
-                    //   'location',
-                    //   NearByTemplesWidget(
-                    //     temple: temple,
-                    //   ),
-                    // ),
                     icon: Image.asset(
                       LocalImages().location,
                       width: 35,
@@ -143,6 +134,40 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
               left: 20,
               child: mainTower(temple, 46),
             ),
+            // speciality button
+            // Positioned(child: )
+
+            //photo & video gallery button
+
+            Positioned(
+                top: 5,
+                right: -20,
+                child: Column(
+                  children: [
+                    MaterialButton(
+                        onPressed: () {},
+                        elevation: 4,
+                        height: 38,
+                        shape: const CircleBorder(),
+                        color: Colors.white,
+                        child: Icon(
+                          CupertinoIcons.photo_on_rectangle,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 24,
+                        )),
+                    MaterialButton(
+                        onPressed: () {},
+                        elevation: 4,
+                        height: 38,
+                        shape: const CircleBorder(),
+                        color: Colors.white,
+                        child: Icon(
+                          CupertinoIcons.videocam_fill,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 28,
+                        )),
+                  ],
+                ))
           ],
         ),
       );

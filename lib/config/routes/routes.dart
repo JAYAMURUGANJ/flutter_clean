@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 
 import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';

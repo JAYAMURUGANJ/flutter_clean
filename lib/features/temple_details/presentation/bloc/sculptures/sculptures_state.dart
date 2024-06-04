@@ -22,12 +22,12 @@ class SculpturesLoaded extends SculpturesState {
 }
 
 class SculpturesLoadingSomthingWentWrong extends SculpturesState {
-  const SculpturesLoadingSomthingWentWrong(String responseStatus)
+  const SculpturesLoadingSomthingWentWrong(String? responseStatus)
       : super(responseStatus: responseStatus);
 }
 
-class SculpturesLodingError extends SculpturesState {
-  const SculpturesLodingError(DioException error) : super(error: error);
+class SculpturesLoadingError extends SculpturesState {
+  const SculpturesLoadingError(DioException error) : super(error: error);
 }
 
 class SculpturesDescView extends SculpturesState {

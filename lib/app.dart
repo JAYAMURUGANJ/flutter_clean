@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
@@ -65,6 +66,7 @@ class _AppState extends State<App> {
           BlocProvider<ShrinesBloc>(create: (context) => sl()),
           BlocProvider<SculpturesBloc>(create: (context) => sl()),
           BlocProvider<ViewDescBloc>(create: (context) => sl()),
+          BlocProvider<FacilityBloc>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
