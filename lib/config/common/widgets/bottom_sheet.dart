@@ -3,7 +3,8 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 import '/config/common/widgets/app_logo.dart';
 
-buildBottomSheet(context, dynamic data, String sheetTitle, Widget body) {
+buildBottomSheet(context, dynamic data, String sheetTitle, Widget body,
+    {bool showAppBar = true}) {
   return showModalBottomSheet(
     isScrollControlled: true,
     isDismissible: false,
@@ -12,7 +13,8 @@ buildBottomSheet(context, dynamic data, String sheetTitle, Widget body) {
     context: context,
     builder: (context) {
       return Scaffold(
-        appBar: buildBottomSheetAppBar(context, sheetTitle),
+        appBar: /*showAppBar ?*/
+            buildBottomSheetAppBar(context, sheetTitle) /* : null*/,
         body: body,
       );
     },

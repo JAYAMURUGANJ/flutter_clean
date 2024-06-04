@@ -69,7 +69,8 @@ _serviceCard(
               case 4:
                 {
                   buildBottomSheet(context, templeData, services[index].name!,
-                      ShrinesWidget(templeData: templeData));
+                      ShrinesWidget(templeData: templeData),
+                      showAppBar: false);
                 }
                 break;
               case 5:
