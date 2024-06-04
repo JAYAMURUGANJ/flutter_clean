@@ -82,5 +82,6 @@
     "txn_details": "Transaction Details",
     "fetch_location": " Fetching current loction...",
     "no_nearby_temples": "No Nearby Temples",
-    "click_to_view": "Click to view"
+    "close":"Close",
+    "qr_verify":"QR for Ticket\nVerification"
 }
