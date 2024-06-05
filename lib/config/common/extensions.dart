@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -66,4 +65,11 @@ extension StringExtension on String {
 
 extension DateTimeExtension on DateTime {
   DateTime get today => DateTime(year, month, day);
+}
+
+extension Iterables<E> on Iterable<E> {
+  Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
+      <K, List<E>>{},
+      (Map<K, List<E>> map, E element) =>
+          map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
 }

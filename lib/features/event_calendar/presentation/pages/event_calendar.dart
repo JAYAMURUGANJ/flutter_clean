@@ -393,13 +393,6 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
   }
 }
 
-extension Iterables<E> on Iterable<E> {
-  Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
-      <K, List<E>>{},
-      (Map<K, List<E>> map, E element) =>
-          map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
-}
-
 class ShimmerCalendar extends StatelessWidget {
   const ShimmerCalendar({Key? key}) : super(key: key);
 
@@ -423,7 +416,7 @@ class ShimmerCalendar extends StatelessWidget {
                   15.pw,
                   const Card(
                     child: SizedBox(
-                      width: 150,
+                      width: 100,
                       height: 12,
                     ),
                   ),
@@ -449,13 +442,14 @@ class ShimmerCalendar extends StatelessWidget {
           10.ph,
           SizedBox(
             height: 20,
+            width: MediaQuery.sizeOf(context).width,
             child: Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 7,
+                itemCount: 8,
                 itemBuilder: (context, index) {
                   return const Padding(
-                    padding: EdgeInsets.only(right: 8.0),
+                    padding: EdgeInsets.only(right: 3.0),
                     child: Card(
                       child: SizedBox(
                         width: 36,

@@ -48,7 +48,7 @@ class NetworkImages {
   static const String noNearByTemple =
       "https://static.vecteezy.com/system/resources/previews/008/064/864/non_2x/one-continuous-single-line-of-temple-isolated-on-white-background-vector.jpg";
   static const String templePlaceHolder =
-      "https://www.seekpng.com/png/detail/252-2523694_hindu-temple-photo-hindu-temple-illustration.png";
+      "https://images.jdmagicbox.com/comp/chennai/10/044p3011210/catalogue/arulmigu-vadapalani-andavar-thirukovil-vadapalani-chennai-temples-s7nf5xcu80.jpg";
 }
 
 class LocalImages {
