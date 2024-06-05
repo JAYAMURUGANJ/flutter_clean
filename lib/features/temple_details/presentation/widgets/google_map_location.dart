@@ -94,8 +94,6 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 
       // set bottomsheet initail height
       _initialBottomSheetHeight = 0.6;
-      // scroll to position
-      debugPrint("dd ${widget.data.distance} ${_selectedDistanceIndex.value}");
 
       // zoom level
       double zoomLevel = widget.data.distance ?? 5.0;
@@ -645,7 +643,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
       final availableMaps = await mapLauncher.MapLauncher.installedMaps;
       availableMaps.first.showMarker(coords: coords, title: title);
     } catch (e) {
-      debugPrint(e.toString());
+      return e.toString();
     }
   }
 }

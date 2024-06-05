@@ -97,9 +97,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
       file.writeAsBytesSync(pngBytes);
       Share.shareXFiles([XFile('${tempDir.path}/image.png')],
           text: 'Thirukoil Ticket');
-    } catch (e) {
-      debugPrint(e.toString());
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 }
 

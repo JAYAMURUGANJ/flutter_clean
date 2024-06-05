@@ -154,7 +154,6 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
 
 Future<String> getLiveVideoId(String eventUrl) async {
   var dio = Dio();
-  debugPrint(eventUrl);
   String urls = 'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q/live';
   RegExp regExp = RegExp(r"(?<=channel\/)(.*?)(?=\/live)");
   String channelId = regExp.firstMatch(urls)?.group(0) ?? '';
@@ -164,7 +163,6 @@ Future<String> getLiveVideoId(String eventUrl) async {
       '&eventType=live'
       '&type=video'
       '&key=AIzaSyAe-8b7JH3eiu2UrfxwKFGjofRqeGfnR3g';
-  debugPrint(url.toString());
 
   try {
     var response = await dio.get(url);
@@ -176,7 +174,7 @@ Future<String> getLiveVideoId(String eventUrl) async {
       }
     }
   } catch (e) {
-    debugPrint('Error: $e');
+    return e.toString();
   }
   return "null";
 }

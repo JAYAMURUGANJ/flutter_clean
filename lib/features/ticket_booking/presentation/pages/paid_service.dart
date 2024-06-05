@@ -569,8 +569,6 @@ class _PaidServicePageState extends State<PaidServicePage> {
             // onPressed: _termsChecked
             onPressed: !_termsChecked
                 ? () {
-                    // Handle pay button action
-                    debugPrint('Payment successful');
                     pageNavigation("/PaySplash", context);
                   }
                 : null,

@@ -138,7 +138,6 @@ class Dashboard extends StatelessWidget {
                               selected: selectedIndex.value == index,
                               onSelected: (value) {
                                 selectedIndex.value = index;
-                                debugPrint(distanceList[index].toString());
                               },
                             ),
                           ),

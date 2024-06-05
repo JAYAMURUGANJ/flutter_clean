@@ -31,9 +31,8 @@ class CalendarEventDetailsRepositoryImpl
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE");
+        log(decryptedResponse, name: "CALENDAR EVENTS");
 
-        debugPrint("cal details==> $decryptedResponse");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
@@ -61,7 +60,9 @@ class CalendarEventDetailsRepositoryImpl
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
+        log("",
+            name:
+                "The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
             error: e);
         return DataFailed(
           DioException(
@@ -74,7 +75,9 @@ class CalendarEventDetailsRepositoryImpl
           ),
         );
       } else {
-        log("Something happened in setting up or sending the request that triggered an Error!",
+        log("",
+            name:
+                "Something happened in setting up or sending the request that triggered an Error!",
             error: e.type);
         return DataFailed(
           DioException(

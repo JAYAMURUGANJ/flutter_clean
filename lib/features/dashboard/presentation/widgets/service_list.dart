@@ -97,7 +97,6 @@ _serviceCard(
         : services[index].page.toString().isNotEmpty
             ? () => pageNavigation(services[index].page.toString(), context)
             : () {
-                debugPrint(services[index].page.toString());
               },
     child: Column(
       children: [
@@ -212,7 +211,6 @@ otherServiceCard(int index, BuildContext context, double width, double height,
             }
           }
         : () {
-            debugPrint(listName[index].page.toString());
           },
     child: Column(
       children: [

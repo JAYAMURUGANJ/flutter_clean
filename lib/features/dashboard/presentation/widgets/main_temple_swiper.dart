@@ -96,9 +96,6 @@ bool onUndo(
   int currentIndex,
   CardSwiperDirection direction,
 ) {
-  debugPrint(
-    'The card $currentIndex was undod from the ${direction.name}',
-  );
   return true;
 }
 
@@ -107,9 +104,6 @@ bool onSwipe(
   int? currentIndex,
   CardSwiperDirection direction,
 ) {
-  debugPrint(
-    'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
-  );
   return true;
 }
 

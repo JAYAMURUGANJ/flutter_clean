@@ -29,8 +29,7 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE LIVE EVENT");
-        debugPrint("API RESPONSE LIVE EVENT: $decryptedResponse");
+        log(decryptedResponse, name: "Live Events");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
@@ -44,7 +43,7 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
-          log("Server Response NULL", error: decryptedResponse);
+          log("", name: "Server Response NULL", error: decryptedResponse);
           return DataSuccess([], "Server Response NULL: $decryptedResponse");
         }
       } else {
@@ -58,7 +57,9 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
+        log("",
+            name:
+                "The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
             error: e);
         return DataFailed(
           DioException(
@@ -71,7 +72,9 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
           ),
         );
       } else {
-        log("Something happened in setting up or sending the request that triggered an Error!",
+        log("",
+            name:
+                "Something happened in setting up or sending the request that triggered an Error!",
             error: e.type);
         return DataFailed(
           DioException(

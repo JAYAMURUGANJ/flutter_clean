@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 //key
-const String spNetworkIp = '192.168.224.50';
-const String spLocalLanguage = 'EN';
-const String spAppVersion = "1.0.0";
+String spNetworkIp = '192.168.224.50';
+String spLocalLanguage = 'EN';
+String spAppVersion = "1.0.0";
 
 class Prefs {
   static SharedPreferences _prefs =

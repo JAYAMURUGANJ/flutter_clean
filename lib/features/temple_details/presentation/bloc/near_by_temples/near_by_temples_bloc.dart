@@ -21,11 +21,9 @@ class NearbyTemplesBloc extends Bloc<NearbyTemplesEvent, NearByTemplesState> {
   void onGetNearByTemplesLocation(
       GetNearByTemplesEvent event, Emitter<NearByTemplesState> emit) async {
     String serviceId = "7011";
-    debugPrint(event.templeId.toString());
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])
             .getFormData();
-    debugPrint(formData);
     final dataState = await _getNearByTemplesUseCase(formData, serviceId);
 
     if (dataState is DataSuccess) {

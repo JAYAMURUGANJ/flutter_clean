@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '/config/common/class/cryption.dart';
@@ -17,7 +18,6 @@ class ITMSRequestHandler {
 
   String getFormData() {
     String formData = "";
-    debugPrint("AM IN FORM DATA");
     List<Adparam> adparam = [
       Adparam(
           deviceTime: DateTime.now().toStringForm,
@@ -47,9 +47,9 @@ class ITMSRequestHandler {
               "13dda615f7495d354a891c6406290db6cd4a443d180bac547208e769e3c18932",
           serviceRequester: ApiCredentials.serviceRequester)
     ];
-    debugPrint("Before Encryption: ${request[0].toJson()}");
+    log(request[0].toJson().toString(), name: "Before Encrypt Form Data");
     formData = Authentication().encrypt(itmsRequestToJson(request));
-    debugPrint("encrypted form_data: $formData");
+    log(formData.toString(), name: "After Encrypt Form Data");
     return formData;
   }
 }

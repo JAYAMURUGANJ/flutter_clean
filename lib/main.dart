@@ -31,12 +31,10 @@ void main() {
       await Locales.init(['ta', 'en']);
 
       AppInfo().getIPAddress().then((ip) async {
-        debugPrint("Network Ip: $ip");
         await Prefs.setString(
             spNetworkIp, ip == null ? "No Network" : ip.toString());
       });
       AppInfo().getAppVersion().then((version) async {
-        debugPrint("App Version: $version");
         await Prefs.setString(
             spAppVersion, version == null ? "Not Found" : version.toString());
       });

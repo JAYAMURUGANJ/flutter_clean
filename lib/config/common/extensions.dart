@@ -62,35 +62,6 @@ extension StringExtension on String {
       return YoutubePlayer.convertUrlToId(this)!;
     }
   }
-
-  Future<String> getLiveVideoId() async {
-    var dio = Dio();
-    debugPrint(this);
-    String urls =
-        'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q/live';
-    RegExp regExp = RegExp(r"(?<=channel\/)(.*?)(?=\/live)");
-    String channelId = regExp.firstMatch(urls)?.group(0) ?? '';
-    var url = 'https://www.googleapis.com/youtube/v3/search'
-        '?part=snippet'
-        '&channelId=$channelId'
-        '&eventType=live'
-        '&type=video'
-        '&key=AIzaSyAe-8b7JH3eiu2UrfxwKFGjofRqeGfnR3g';
-
-    try {
-      var response = await dio.get(url);
-      if (response.statusCode == 200) {
-        var jsonResponse = response.data;
-        var items = jsonResponse['items'];
-        if (items.length > 0) {
-          return items[0]['id']['videoId'];
-        }
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
-    return "";
-  }
 }
 
 extension DateTimeExtension on DateTime {

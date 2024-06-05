@@ -138,12 +138,6 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
                               }
                             }
                           }
-
-                          debugPrint(
-                              "stream type : ${liveStreamType[index].steamType.split("\n")}\n"
-                              "liveUrl : ${liveStreamType[index].liveUrl}\n"
-                              "liveurlType : ${liveStreamType[index].liveurlType}\n"
-                              "Data Count : ${liveEvents.length}\n");
                           buildBottomSheet(
                             context,
                             liveEvents,

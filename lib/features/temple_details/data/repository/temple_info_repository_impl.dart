@@ -29,7 +29,7 @@ class TempleInfoRepositoryImpl implements TempleInfoRepository {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE");
+        log(decryptedResponse, name: "TEMPLE INFO");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
@@ -57,7 +57,9 @@ class TempleInfoRepositoryImpl implements TempleInfoRepository {
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        log("The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
+        log("",
+            name:
+                "The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
             error: e);
         return DataFailed(
           DioException(
@@ -70,7 +72,9 @@ class TempleInfoRepositoryImpl implements TempleInfoRepository {
           ),
         );
       } else {
-        log("Something happened in setting up or sending the request that triggered an Error!",
+        log("",
+            name:
+                "Something happened in setting up or sending the request that triggered an Error!",
             error: e.type);
         return DataFailed(
           DioException(
