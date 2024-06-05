@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../data/model/calendar_event.dart';
@@ -121,7 +123,7 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
       body: BlocBuilder<CalendarEventBloc, CalendarEventState>(
         builder: (context, state) {
           if (state is CalendarEventsLoading) {
-            return const Center(child: CupertinoActivityIndicator());
+            return const Center(child: ShimmerCalendar());
           }
           if (state is CalendarEventLoadingSomthingWentWrong ||
               state is CalendarEventLoadingError) {
@@ -396,4 +398,123 @@ extension Iterables<E> on Iterable<E> {
       <K, List<E>>{},
       (Map<K, List<E>> map, E element) =>
           map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
+}
+
+class ShimmerCalendar extends StatelessWidget {
+  const ShimmerCalendar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.left_chevron,
+                    size: 30,
+                  ),
+                  15.pw,
+                  const Card(
+                    child: SizedBox(
+                      width: 150,
+                      height: 12,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Card(
+                    child: SizedBox(
+                      width: 80,
+                      height: 25,
+                    ),
+                  ),
+                  15.pw,
+                  const Icon(
+                    CupertinoIcons.right_chevron,
+                    size: 30,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          10.ph,
+          SizedBox(
+            height: 20,
+            child: Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Card(
+                      child: SizedBox(
+                        width: 36,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          20.ph,
+          Expanded(
+            child: GridView.builder(
+              itemCount: 30, // Assuming a month with 30 days
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 7, // 7 days in a week
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 12.0,
+              ),
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                );
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: SizedBox(
+                    height: 80,
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.calendar_today,
+                        size: 50,
+                      ),
+                      title: Card(
+                        child: SizedBox(
+                          width: 80,
+                          height: 12,
+                        ),
+                      ),
+                      trailing: Icon(
+                        CupertinoIcons.chevron_down,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
+        ]),
+      ),
+    );
+  }
 }
