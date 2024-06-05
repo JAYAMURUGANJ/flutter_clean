@@ -17,7 +17,7 @@ class TempleTiming extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<TempleTimingBloc, TempleTimingState>(
       listener: (context, state) {
-        if (state is TempleTimingLodingError) {
+        if (state is TempleTimingLoadingError) {
           Navigator.pushNamed(context, '/DioException',
               arguments: state.error!);
         }

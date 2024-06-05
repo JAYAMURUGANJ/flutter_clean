@@ -24,6 +24,6 @@ class TempleListLoadingSomthingWentWrong extends ITMSState {
       : super(responseStatus: responseStatus);
 }
 
-class TempleListLodingError extends ITMSState {
-  const TempleListLodingError(DioException error) : super(error: error);
+class TempleListLoadingError extends ITMSState {
+  const TempleListLoadingError(DioException error) : super(error: error);
 }

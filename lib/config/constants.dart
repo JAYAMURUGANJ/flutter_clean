@@ -155,6 +155,7 @@ List<TempleServices> templeServicesList = [
     imageLink: "assets/images/icons/facility.png",
     bgColor: Colors.deepOrange.shade300,
     page: "",
+    isBottomSheet: true,
   ),
   TempleServices(
     id: 2,

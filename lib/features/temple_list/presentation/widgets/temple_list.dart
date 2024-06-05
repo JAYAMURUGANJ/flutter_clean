@@ -15,7 +15,7 @@ import 'temple_tile.dart';
 alltempleListBlocBuilder() {
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
-      if (state is TempleListLodingError) {
+      if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);
       }
       if (state is TempleListLoadingSomthingWentWrong) {

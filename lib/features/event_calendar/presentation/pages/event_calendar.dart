@@ -124,11 +124,11 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
             return const Center(child: CupertinoActivityIndicator());
           }
           if (state is CalendarEventLoadingSomthingWentWrong ||
-              state is CalendarEventLodingError) {
+              state is CalendarEventLoadingError) {
             String error = state.responseStatus!;
             return somthingWentWrong(context, error);
           }
-          if (state is CalendarEventLodingError) {
+          if (state is CalendarEventLoadingError) {
             String error = state.responseStatus.toString();
             return somthingWentWrong(context, error);
           }

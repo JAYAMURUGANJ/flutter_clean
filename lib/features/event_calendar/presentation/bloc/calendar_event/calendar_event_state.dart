@@ -24,7 +24,6 @@ class CalendarEventLoadingSomthingWentWrong extends CalendarEventState {
       : super(responseStatus: responseStatus);
 }
 
-class CalendarEventLodingError extends CalendarEventState {
-  const CalendarEventLodingError(DioException error) : super(error: error);
+class CalendarEventLoadingError extends CalendarEventState {
+  const CalendarEventLoadingError(DioException error) : super(error: error);
 }
-

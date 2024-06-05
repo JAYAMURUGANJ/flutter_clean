@@ -13,6 +13,8 @@ SculpturesEntity _$SculptureEntityFromJson(Map<String, dynamic> json) =>
       sculptureInfo: (json['sculpture_info'] as List<dynamic>?)
           ?.map((e) => SculptureInfo.fromJson(e as Map<String, dynamic>))
           .toList(),
+      errorCode: json['error_code'] as String?,
+      responseDesc: json['response_desc'] as String?,
     );
 
 Map<String, dynamic> _$SculptureEntityToJson(SculpturesEntity instance) =>
@@ -20,6 +22,8 @@ Map<String, dynamic> _$SculptureEntityToJson(SculpturesEntity instance) =>
       'sculptures_name': instance.sculpturesName,
       'sculpture_desc': instance.sculptureDesc,
       'sculpture_info': instance.sculptureInfo,
+      'error_code': instance.errorCode,
+      'response_desc': instance.responseDesc,
     };
 
 SculptureInfo _$SculptureInfoFromJson(Map<String, dynamic> json) =>

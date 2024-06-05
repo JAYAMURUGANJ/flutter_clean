@@ -24,6 +24,6 @@ class NearByTemplesLoadingSomthingWentWrong extends NearByTemplesState {
       : super(responseStatus: responseStatus);
 }
 
-class NearByTemplesLodingError extends NearByTemplesState {
-  const NearByTemplesLodingError(DioException error) : super(error: error);
+class NearByTemplesLoadingError extends NearByTemplesState {
+  const NearByTemplesLoadingError(DioException error) : super(error: error);
 }

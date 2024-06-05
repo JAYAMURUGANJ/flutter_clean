@@ -23,6 +23,6 @@ class TempleTimingLoadingSomthingWentWrong extends TempleTimingState {
       : super(responseStatus: responseStatus);
 }
 
-class TempleTimingLodingError extends TempleTimingState {
-  const TempleTimingLodingError(DioException error) : super(error: error);
+class TempleTimingLoadingError extends TempleTimingState {
+  const TempleTimingLoadingError(DioException error) : super(error: error);
 }

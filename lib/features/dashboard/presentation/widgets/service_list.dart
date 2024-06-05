@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/facility_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/sculpture_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/shrines_widget.dart';
 
@@ -60,6 +61,12 @@ _serviceCard(
     onTap: services[index].isBottomSheet!
         ? () {
             switch (services[index].id) {
+              case 1:
+                {
+                  buildBottomSheet(context, templeData, services[index].name!,
+                      FacilityWidget(templeData: templeData));
+                }
+                break;
               case 3:
                 {
                   buildBottomSheet(context, templeData, services[index].name!,

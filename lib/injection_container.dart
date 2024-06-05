@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/repository/facility_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/sculptures_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/shrines_details_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/sculptures_repository.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/shrines_details_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/facility_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/sculptures_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/shrines_details_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
@@ -38,6 +41,7 @@ import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubi
 import 'features/temple_details/data/repository/near_by_temples_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_timing_repository_impl.dart';
+import 'features/temple_details/domain/repository/facility_repository.dart';
 import 'features/temple_details/domain/repository/near_by_temples_repository.dart';
 import 'features/temple_details/domain/repository/temple_pooja_repository.dart';
 import 'features/temple_details/domain/repository/temple_timing_repository.dart';
@@ -77,6 +81,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ShrinesDetailsRepository>(
       ShrinesDetailsRepositoryImpl(sl()));
   sl.registerSingleton<SculpturesRepository>(SculpturesRepositoryImpl(sl()));
+  sl.registerSingleton<FacilityRepository>(FacilityRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -91,6 +96,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<NearByTemplesUseCase>(NearByTemplesUseCase(sl()));
   sl.registerSingleton<ShrinesDetailsUseCase>(ShrinesDetailsUseCase(sl()));
   sl.registerSingleton<SculpturesUseCase>(SculpturesUseCase(sl()));
+  sl.registerSingleton<FacilityUseCase>(FacilityUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -110,4 +116,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ShrinesBloc>(() => ShrinesBloc(sl()));
   sl.registerFactory<SculpturesBloc>(() => SculpturesBloc(sl()));
   sl.registerFactory<ViewDescBloc>(() => ViewDescBloc());
+  sl.registerFactory<FacilityBloc>(() => FacilityBloc(sl()));
 }

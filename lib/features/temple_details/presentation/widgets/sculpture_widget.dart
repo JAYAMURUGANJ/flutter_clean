@@ -55,11 +55,11 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
             if (state is SculpturesLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
-            if (state is SculpturesLodingError) {
+            if (state is SculpturesLoadingError) {
               return ErrorWidget(state.error.toString());
             }
             if (state is SculpturesLoadingSomthingWentWrong) {
-              return SomethingWentWrong(error: state.error.toString());
+              return SomethingWentWrong(error: state.responseStatus.toString());
             }
             if (state is SculpturesLoaded) {
               List<SculpturesEntity> sculpturesList =
