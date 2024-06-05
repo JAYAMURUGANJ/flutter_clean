@@ -2,16 +2,23 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/facility_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_details/data/repository/photo_gallery_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/sculptures_repository_impl.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/repository/shrines_details_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/repository/photo_gallery_repository%20.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/sculptures_repository.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/repository/shrines_details_repository.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/facility_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/photo_gallery_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/sculptures_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/shrines_details_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/speciality_usecase.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery/photo_gallery_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery_desc/photo_gallery_desc_cubit.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
@@ -39,10 +46,12 @@ import 'features/event_calendar/domain/usecases/calendar_event_details_usecase.d
 import 'features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/temple_details/data/repository/near_by_temples_repository_impl.dart';
+import 'features/temple_details/data/repository/speciality_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_timing_repository_impl.dart';
 import 'features/temple_details/domain/repository/facility_repository.dart';
 import 'features/temple_details/domain/repository/near_by_temples_repository.dart';
+import 'features/temple_details/domain/repository/speciality_repository.dart';
 import 'features/temple_details/domain/repository/temple_pooja_repository.dart';
 import 'features/temple_details/domain/repository/temple_timing_repository.dart';
 import 'features/temple_details/domain/usecases/near_by_temple_usecase.dart';
@@ -82,6 +91,9 @@ Future<void> initializeDependencies() async {
       ShrinesDetailsRepositoryImpl(sl()));
   sl.registerSingleton<SculpturesRepository>(SculpturesRepositoryImpl(sl()));
   sl.registerSingleton<FacilityRepository>(FacilityRepositoryImpl(sl()));
+  sl.registerSingleton<SpecialityRepository>(SpecialityRepositoryImpl(sl()));
+  sl.registerSingleton<PhotoGalleryRepository>(
+      PhotoGalleryRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -97,6 +109,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ShrinesDetailsUseCase>(ShrinesDetailsUseCase(sl()));
   sl.registerSingleton<SculpturesUseCase>(SculpturesUseCase(sl()));
   sl.registerSingleton<FacilityUseCase>(FacilityUseCase(sl()));
+  sl.registerSingleton<SpecialityUseCase>(SpecialityUseCase(sl()));
+  sl.registerSingleton<PhotoGalleryUseCase>(PhotoGalleryUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -117,4 +131,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<SculpturesBloc>(() => SculpturesBloc(sl()));
   sl.registerFactory<ViewDescBloc>(() => ViewDescBloc());
   sl.registerFactory<FacilityBloc>(() => FacilityBloc(sl()));
+  sl.registerFactory<SpecialityBloc>(() => SpecialityBloc(sl()));
+  sl.registerFactory<PhotoGalleryBloc>(() => PhotoGalleryBloc(sl()));
+  sl.registerFactory<PhotoGalleryDescCubit>(() => PhotoGalleryDescCubit());
 }

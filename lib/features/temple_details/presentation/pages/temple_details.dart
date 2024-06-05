@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
@@ -35,6 +36,8 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
         .add(GetTempleTiming(templeId: widget.temple!.templeId.toString()));
     BlocProvider.of<TemplePoojaBloc>(context)
         .add(GetTemplePooja(templeId: widget.temple!.templeId.toString()));
+    BlocProvider.of<SpecialityBloc>(context)
+        .add(GetSpeciality(templeId: widget.temple!.templeId.toString()));
   }
 
   @override

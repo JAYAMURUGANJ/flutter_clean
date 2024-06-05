@@ -57,11 +57,13 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                         width: double.infinity,
                         placeholder: (context, url) =>
                             const CupertinoActivityIndicator(),
-                        imageUrl: ApiCredentials().documents +
-                            facilityList[index]
-                                .facilityImage![0]
-                                .fileLocation
-                                .toString(),
+                        imageUrl: facilityList[index].facilityImage!.isNotEmpty
+                            ? ApiCredentials().documents +
+                                facilityList[index]
+                                    .facilityImage![0]
+                                    .fileLocation
+                                    .toString()
+                            : NetworkImages.templePlaceHolder,
                         imageBuilder: (context, imageProvider) => ClipRRect(
                           child: DecoratedBox(
                             decoration: BoxDecoration(

@@ -2,12 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/features/dashboard/presentation/widgets/service_list.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/entities/speciality.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/speciality_widget.dart';
 
 import '../../../../config/common/widgets/bottom_sheet.dart';
 import '../../../../config/constants.dart';
 import '../../data/model/location_info.dart';
 import '../../domain/entities/temple_info.dart';
+import '../bloc/speciality/speciality_bloc.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
 import '/config/common/widgets/full_screen_image_viewer.dart';
 import '/features/temple_details/presentation/widgets/contact_details.dart';
@@ -135,7 +139,41 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
               child: mainTower(temple, 46),
             ),
             // speciality button
-            // Positioned(child: )
+            Positioned(
+              top: 0,
+              left: 10,
+              child: BlocBuilder<SpecialityBloc, SpecialityState>(
+                builder: (context, state) {
+                  if (state is SpecialityLoaded) {
+                    List<SpecialityEntity> specialityList =
+                        state.speciality!.cast<SpecialityEntity>();
+                    if (specialityList.isNotEmpty) {
+                      return MaterialButton(
+                        height: 30,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        onPressed: () {
+                          buildBottomSheet(context, temple, 'speciality',
+                              SpecialityWidget(specialityList: specialityList));
+                        },
+                        child: Text(
+                          "speciality",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+                  }
+                  return 0.pw;
+                },
+              ),
+            ),
 
             //photo & video gallery button
 
@@ -145,7 +183,12 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                 child: Column(
                   children: [
                     MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          pageNavigation("/PhotoGallery", context,
+                              arguments: temple);
+                          // buildBottomSheet(context, temple, 'photo_gallery',
+                          //     PhotoGalleryWidget(templeData: temple));
+                        },
                         elevation: 4,
                         height: 38,
                         shape: const CircleBorder(),

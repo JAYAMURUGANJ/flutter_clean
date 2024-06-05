@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/photo_gallery_widget.dart';
 
 import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
 import '../common/pages/error/dio_exception_screen.dart';
@@ -47,6 +48,9 @@ class AppRoutes {
       case '/NearByTemples':
         return _materialRoute(
             NearByTemplesWidget(data: settings.arguments as LocationInfo));
+      case '/PhotoGallery':
+        return _materialRoute(PhotoGalleryWidget(
+            templeData: settings.arguments as ItmsResponseEntity));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));
