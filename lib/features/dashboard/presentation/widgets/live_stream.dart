@@ -1,7 +1,7 @@
-// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -29,10 +29,18 @@ class TempleLiveStreams extends StatefulWidget {
 class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   String? videoId;
   dynamic controller;
+  bool isLoading = true; // New variable to track loading state
+
   @override
   void initState() {
     super.initState();
     WakelockPlus.enable();
+    // Simulate a delay to show the shimmer effect
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   @override
@@ -44,13 +52,15 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
   @override
   Widget build(BuildContext context) {
     return widget.liveEvents.isNotEmpty
-        ? SingleChildScrollView(child: _LiveStreamTempleListBuilder())
+        ? SingleChildScrollView(
+            child:
+                isLoading ? _shimmerEffect() : _liveStreamTempleListBuilder())
         : DataNotAvailable(
             error: "live_telecasting_not_available",
             img: NetworkImages.noLiveAvailable);
   }
 
-  Widget _LiveStreamTempleListBuilder() {
+  Widget _liveStreamTempleListBuilder() {
     return ExpansionPanelList.radio(
       elevation: 3,
       dividerColor: Colors.grey,
@@ -60,10 +70,10 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
           return ExpansionPanelRadio(
             canTapOnHeader: true,
             headerBuilder: (BuildContext context, bool isExpanded) =>
-                _ExpansionHeader(liveEvent, context),
+                _expansionHeader(liveEvent, context),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: _ExpansionBody(liveEvent),
+              child: _expansionBody(liveEvent),
             ),
             value: liveEvent.templeId.toString(),
           );
@@ -72,7 +82,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
     );
   }
 
-  Widget _ExpansionBody(LiveEventsEntity liveEvent) {
+  Widget _expansionBody(LiveEventsEntity liveEvent) {
     return SingleChildScrollView(
       child: ExpansionPanelList.radio(
         elevation: 3,
@@ -121,7 +131,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
     );
   }
 
-  Widget _ExpansionHeader(LiveEventsEntity liveEvent, BuildContext context) {
+  Widget _expansionHeader(LiveEventsEntity liveEvent, BuildContext context) {
     return ListTile(
       leading: mainTower(liveEvent, 30),
       title: Text(
@@ -135,6 +145,54 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
             ),
+      ),
+    );
+  }
+
+  // New widget for shimmer effect
+  Widget _shimmerEffect() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Column(
+        children: List.generate(
+          20,
+          (index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 50,
+                      child: Icon(Icons.temple_hindu),
+                    ),
+                    title: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Card(
+                          child: SizedBox(
+                            width: 150,
+                            height: 10,
+                          ),
+                        ),
+                        Card(
+                          child: SizedBox(
+                            width: 100,
+                            height: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: Icon(CupertinoIcons.chevron_down),
+                  ),
+                  Divider()
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
