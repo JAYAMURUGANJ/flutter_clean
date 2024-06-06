@@ -123,7 +123,6 @@ flutter:
     - assets/images/logo/
     - assets/images/icons/
     - assets/images/lottie/
-    - assets/images/markers/
     
   uses-material-design: true
 

@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 Future<Marker> createMarkerWithCustomIcon(String imageUrl, LatLng position,
     String markerTitle, Function()? onTap) async {
@@ -28,9 +29,7 @@ Future getMarkerIcon(String imageUrl, Size size) async {
 
 //=========>
   ui.Image? images;
-
-  final ByteData bytes =
-      await rootBundle.load('assets/images/markers/marker-1.png');
+  final ByteData bytes = await rootBundle.load(LocalImages().mapMarker);
   images = await decodeImageFromList(bytes.buffer.asUint8List());
 
   Paint greenBrush = Paint()..color = Colors.greenAccent;

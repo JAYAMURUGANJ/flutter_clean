@@ -92,6 +92,7 @@ class _DashboardState extends State<Dashboard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const CupertinoActivityIndicator(
+                  radius: 15,
                   color: Colors.white,
                 ),
                 5.pw,
@@ -130,7 +131,8 @@ class _DashboardState extends State<Dashboard> {
                       ),
                 ),
                 content: Wrap(
-                  spacing: 8.0,
+                  spacing: 2.0,
+                  alignment: WrapAlignment.center,
                   children: List.generate(
                     distanceList.length,
                     (index) => ChoiceChip(
@@ -145,13 +147,14 @@ class _DashboardState extends State<Dashboard> {
                       label: Text(
                         "${distanceList[index].round().toString()} KM",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 12,
                           color: selectedIndex.value == index
                               ? Colors.white
                               : Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      showCheckmark: false,
                       selected: selectedIndex.value == index,
                       onSelected: (value) {
                         selectedIndex.value = index;

@@ -123,7 +123,7 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
       body: BlocBuilder<CalendarEventBloc, CalendarEventState>(
         builder: (context, state) {
           if (state is CalendarEventsLoading) {
-            return const Center(child: ShimmerCalendar());
+            return const ShimmerCalendar();
           }
           if (state is CalendarEventLoadingSomthingWentWrong ||
               state is CalendarEventLoadingError) {
@@ -443,21 +443,19 @@ class ShimmerCalendar extends StatelessWidget {
           SizedBox(
             height: 20,
             width: MediaQuery.sizeOf(context).width,
-            child: Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(right: 3.0),
-                    child: Card(
-                      child: SizedBox(
-                        width: 36,
-                      ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 8,
+              itemBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.only(right: 3.0),
+                  child: Card(
+                    child: SizedBox(
+                      width: 36,
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
           20.ph,

@@ -58,7 +58,7 @@ class LocalImages {
   String location = "assets/images/icons/location.png";
   String degreeView = "assets/images/icons/360_degree.png";
   String contact = "assets/images/icons/contact.png";
-  String mapMarker = "assets/images/icons/marker.png";
+  String mapMarker = "assets/images/icons/map_maker.png";
   String drawerBg = "assets/images/icons/drawer_bg.png";
   String play = "assets/images/icons/media-play.png";
   String wm = "assets/images/bg/water_mark.png";

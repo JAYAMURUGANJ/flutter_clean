@@ -1,12 +1,12 @@
 // ignore_for_file: library_prefixes
 
 import 'dart:math' as Math;
-import 'dart:ui';
 
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '/features/temple_details/presentation/widgets/google_map_location.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
@@ -29,8 +29,7 @@ class ShowNearbyTemplesBloc
     Set<Marker> markers;
 
     BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(64, 64)),
-        'assets/images/icons/marker_1.png');
+        const ImageConfiguration(size: Size(40, 40)), LocalImages().mapMarker);
 
     markers = {
       Marker(
@@ -63,8 +62,8 @@ class ShowNearbyTemplesBloc
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
       BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
-          const ImageConfiguration(size: Size(64, 64)),
-          'assets/images/icons/marker_1.png');
+          const ImageConfiguration(size: Size(40, 40)),
+          LocalImages().mapMarker);
       // filter radius data
       var filteredTemples = event.listOfTemples
           .where((marker) =>
@@ -153,8 +152,8 @@ class ShowNearbyTemplesBloc
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
       BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
-          const ImageConfiguration(size: Size(64, 64)),
-          'assets/images/icons/marker_1.png');
+          const ImageConfiguration(size: Size(40, 40)),
+          LocalImages().mapMarker);
       // filter radius data
       var filteredTemples = event.listOfTemples
           .where((marker) =>

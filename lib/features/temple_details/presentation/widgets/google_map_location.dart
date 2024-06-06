@@ -345,96 +345,94 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
           textAlign: TextAlign.center,
         ),
         SizedBox(
-            height: 60,
-            width: double.infinity,
-            child: ValueListenableBuilder(
-                valueListenable: _selectedDistanceIndex,
-                builder: (context, value, child) {
-                  return ScrollablePositionedList.builder(
-                    initialScrollIndex: widget.data.currentLocation != null
-                        ? distanceList.indexOf(widget.data.distance ?? 5.0)
-                        : 0,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: distanceList.length,
-                    itemScrollController: itemScrollController,
-                    scrollOffsetController: scrollOffsetController,
-                    itemPositionsListener: itemPositionsListener,
-                    scrollOffsetListener: scrollOffsetListener,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ChoiceChip(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.green.shade900, width: 2.0),
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
-                          ),
-                          selectedColor: _selectedDistanceIndex.value == index
-                              ? Colors.green
-                              : Colors.transparent,
-                          showCheckmark: false,
-                          label: Text(
-                            "${distanceList[index].round().toString()} KM",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: _selectedDistanceIndex.value == index
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          selected: _selectedDistanceIndex.value == index,
-                          onSelected: (value) {
-                            //
-                            scrollToSelectedDistanceIndex(index);
-                            expandBottomSheet();
-                            _customInfoWindowController.hideInfoWindow!();
-                            _selectedDistanceIndex.value = index;
-                            // zoom level
-                            double zoomLevel = distanceList[index];
-                            double reduceValue = (zoomLevel / 5) - 1;
-                            zoomLevel = 13.0 -
-                                (reduceValue > 3 ? (3 + .3) : reduceValue);
-                            // animate zoom
-                            _controller.animateCamera(
-                                CameraUpdate.newCameraPosition(CameraPosition(
-                                    target: _kGooglePlex!.target,
-                                    zoom: zoomLevel)));
-                            if (widget.data.currentLocation != null) {
-                              BlocProvider.of<ShowNearbyTemplesBloc>(context)
-                                  .add(ViewCurrentLocationEvent(
-                                      fromCurrentLocation: true,
-                                      currentLocationLatLng: LatLng(
-                                          widget
-                                              .data.currentLocation!.latitude!,
-                                          widget.data.currentLocation!
-                                              .longitude!),
-                                      listOfTemples: listOfTemples,
-                                      customInfoWindowController:
-                                          _customInfoWindowController,
-                                      distance: distanceList[index]));
-                            } else {
-                              BlocProvider.of<ShowNearbyTemplesBloc>(context)
-                                  .add(ViewNearByTemplesEvent(
-                                      fromCurrentLocation: false,
-                                      currentTemple: widget.data.temple,
-                                      listOfTemples: listOfTemples,
-                                      customInfoWindowController:
-                                          _customInfoWindowController,
-                                      distance: distanceList[index]));
-                            }
-                          },
+          height: 60,
+          width: double.infinity,
+          child: ValueListenableBuilder(
+            valueListenable: _selectedDistanceIndex,
+            builder: (context, value, child) {
+              return ScrollablePositionedList.builder(
+                initialScrollIndex: widget.data.currentLocation != null
+                    ? distanceList.indexOf(widget.data.distance ?? 5.0)
+                    : 0,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: distanceList.length,
+                itemScrollController: itemScrollController,
+                scrollOffsetController: scrollOffsetController,
+                itemPositionsListener: itemPositionsListener,
+                scrollOffsetListener: scrollOffsetListener,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ChoiceChip(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            color: Colors.green.shade900, width: 2.0),
+                        borderRadius: BorderRadius.circular(
+                          20,
                         ),
-                      );
-                    },
+                      ),
+                      selectedColor: _selectedDistanceIndex.value == index
+                          ? Colors.green
+                          : Colors.transparent,
+                      showCheckmark: false,
+                      label: Text(
+                        "${distanceList[index].round().toString()} KM",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: _selectedDistanceIndex.value == index
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      selected: _selectedDistanceIndex.value == index,
+                      onSelected: (value) {
+                        scrollToSelectedDistanceIndex(index);
+                        expandBottomSheet();
+                        _customInfoWindowController.hideInfoWindow!();
+                        _selectedDistanceIndex.value = index;
+                        double zoomLevel = distanceList[index];
+                        double reduceValue = (zoomLevel / 5) - 1;
+                        zoomLevel =
+                            13.0 - (reduceValue > 3 ? (3 + .3) : reduceValue);
+                        _controller.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                                target: _kGooglePlex!.target, zoom: zoomLevel),
+                          ),
+                        );
+                        if (widget.data.currentLocation != null) {
+                          BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                            ViewCurrentLocationEvent(
+                                fromCurrentLocation: true,
+                                currentLocationLatLng: LatLng(
+                                    widget.data.currentLocation!.latitude!,
+                                    widget.data.currentLocation!.longitude!),
+                                listOfTemples: listOfTemples,
+                                customInfoWindowController:
+                                    _customInfoWindowController,
+                                distance: distanceList[index]),
+                          );
+                        } else {
+                          BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+                            ViewNearByTemplesEvent(
+                                fromCurrentLocation: false,
+                                currentTemple: widget.data.temple,
+                                listOfTemples: listOfTemples,
+                                customInfoWindowController:
+                                    _customInfoWindowController,
+                                distance: distanceList[index]),
+                          );
+                        }
+                      },
+                    ),
                   );
-                })),
-        const SizedBox(
-          height: 10,
+                },
+              );
+            },
+          ),
         ),
-        Flexible(
+        Expanded(
             child: BlocBuilder<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
           builder: (context, nearbyState) {
             if (nearbyState is ViewMarkersState &&
@@ -447,7 +445,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 8),
+                            vertical: 2, horizontal: 8),
                         child: TempleListTile(
                           temple: nearbyState.filteredTemples![index],
                           onTemplePressed: (value) {
