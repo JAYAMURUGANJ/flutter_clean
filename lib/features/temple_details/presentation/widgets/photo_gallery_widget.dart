@@ -1,0 +1,272 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
+import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery_desc/photo_gallery_desc_cubit.dart';
+
+import '../../../../config/common/pages/error/something_went_wrong_screen.dart';
+import '../../../../config/common/widgets/app_header.dart';
+import '../../../../config/common/widgets/full_screen_image_viewer.dart';
+import '../../../../config/constants.dart';
+import '../../../temple_list/domain/entities/itms_response.dart';
+import '../../domain/entities/photo_gallery.dart';
+import '../bloc/photo_gallery/photo_gallery_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
+class PhotoGalleryWidget extends StatefulWidget {
+  final ItmsResponseEntity templeData;
+  const PhotoGalleryWidget({Key? key, required this.templeData})
+      : super(key: key);
+
+  @override
+  State<PhotoGalleryWidget> createState() => _PhotoGalleryWidgetState();
+}
+
+class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
+  @override
+  void initState() {
+    BlocProvider.of<PhotoGalleryDescCubit>(context).closePhotoGalleryDesc();
+    BlocProvider.of<PhotoGalleryBloc>(context)
+        .add(GetPhotoGallery(templeId: widget.templeData.templeId.toString()));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
+
+        if (BlocProvider.of<PhotoGalleryDescCubit>(context).state
+            is PhotoGalleryDescLoaded) {
+          BlocProvider.of<PhotoGalleryDescCubit>(context)
+              .closePhotoGalleryDesc();
+        } else {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        appBar: appHeader(
+          context: context,
+          body: LocaleText("photo_gallery",
+              textAlign: TextAlign.center,
+              style: appbarTextStyleLarge(Theme.of(context))),
+          trailing: CloseButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: BlocBuilder<PhotoGalleryDescCubit, PhotoGalleryDescState>(
+          builder: (context, descState) {
+            if (descState is PhotoGalleryDescLoaded) {
+              return _buildDescWidget(descState.photoGalleryDesc);
+            }
+            return BlocBuilder<PhotoGalleryBloc, PhotoGalleryState>(
+              builder: (context, state) {
+                if (state is PhotoGalleryLoading) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state is PhotoGalleryLoadingError) {
+                  return ErrorWidget(state.error.toString());
+                }
+                if (state is PhotoGalleryLoadingSomthingWentWrong) {
+                  return SomethingWentWrong(
+                      error: state.responseStatus.toString());
+                }
+                if (state is PhotoGalleryLoaded) {
+                  List<PhotoGalleryEntity> photoGalleryList =
+                      state.photoGallery!.cast<PhotoGalleryEntity>();
+                  return MasonryGridView.count(
+                    padding: const EdgeInsets.all(18),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                    itemCount: photoGalleryList.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<PhotoGalleryDescCubit>(context)
+                                  .viewPhotoGalleryDesc(
+                                      photoGalleryList[index]);
+                            },
+                            child: ClipRRect(
+                              clipBehavior: Clip.antiAlias,
+                              borderRadius: BorderRadius.circular(16),
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) => const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 24),
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                                imageUrl: photoGalleryList[index]
+                                        .photoInfo!
+                                        .isNotEmpty
+                                    ? ApiCredentials().documents +
+                                        photoGalleryList[index]
+                                            .photoInfo![0]
+                                            .fileLocation
+                                            .toString()
+                                    : NetworkImages.templePlaceHolder,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8, top: 8),
+                            child: Text(
+                              photoGalleryList[index].title ?? "",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+                return 0.pw;
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  _buildDescWidget(PhotoGalleryEntity photoData) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child:
+              //  Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              // IconButton(
+              //     onPressed: () {
+              //       BlocProvider.of<PhotoGalleryDescCubit>(context)
+              //           .closePhotoGalleryDesc();
+              //     },
+              //     icon: const Icon(CupertinoIcons.back)),
+              Text(
+            photoData.title ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          //     0.pw
+          //   ],
+          // ),
+        ),
+        CarouselSlider.builder(
+            itemCount: photoData.photoInfo!.length,
+            itemBuilder: (context, index, realIndex) => GestureDetector(
+                  onTap: () {
+                    fullScreenImageViewer(
+                      context,
+                      photoData.photoInfo!.isNotEmpty
+                          ? ApiCredentials().documents +
+                              photoData.photoInfo![index].fileLocation
+                                  .toString()
+                          : NetworkImages.templePlaceHolder,
+                    );
+                  },
+                  child: CachedNetworkImage(
+                    width: double.infinity,
+                    placeholder: (context, url) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24),
+                      child: CupertinoActivityIndicator(),
+                    ),
+                    imageUrl: photoData.photoInfo!.isNotEmpty
+                        ? ApiCredentials().documents +
+                            photoData.photoInfo![index].fileLocation.toString()
+                        : NetworkImages.templePlaceHolder,
+                    fit: BoxFit.cover,
+                    imageBuilder: (context, imageProvider) => ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.08),
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover)),
+                      ),
+                    ),
+                  ),
+                ),
+            options: CarouselOptions(
+              height: 200,
+              clipBehavior: Clip.antiAlias,
+              viewportFraction: 0.8,
+              initialPage: 0,
+              enableInfiniteScroll:
+                  photoData.photoInfo!.length > 1 ? true : false,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.3,
+              scrollDirection: Axis.horizontal,
+            )),
+        _buildTitleDescWidget("gallery_desc", photoData.galleryDesc ?? ""),
+        _buildTitleDescWidget(
+            "event_date", photoData.eventDate.indianDateFormat),
+        _buildTitleDescWidget("description", photoData.description ?? "",
+            valueOnNextLine: true),
+      ],
+    );
+  }
+
+  _buildTitleDescWidget(String title, String value,
+      {bool valueOnNextLine = false}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: 6, horizontal: MediaQuery.of(context).size.width * .1),
+      child: Flex(
+        direction: valueOnNextLine ? Axis.vertical : Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.start,
+        clipBehavior: Clip.antiAlias,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LocaleText(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.left,
+          ),
+          if (!valueOnNextLine)
+            Text(
+              " : ",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.justify,
+          ),
+        ],
+      ),
+    );
+  }
+}

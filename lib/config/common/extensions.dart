@@ -17,6 +17,10 @@ extension DataToString on dynamic {
   String get toStringForm {
     return DateFormat('yyyy-MM-dd HH:mm:ss').format(this).toString();
   }
+
+  String get indianDateFormat {
+    return DateFormat('dd-MM-yyyy').format(this).toString();
+  }
 }
 
 extension CustomSizedBox on num {
