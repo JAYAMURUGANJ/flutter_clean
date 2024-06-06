@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/facility_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/sculpture_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/shrines_widget.dart';
 
@@ -63,8 +62,8 @@ _serviceCard(
             switch (services[index].id) {
               case 1:
                 {
-                  buildBottomSheet(context, templeData, services[index].name!,
-                      FacilityWidget(templeData: templeData));
+                  pageNavigation("/Facility", context,
+                      arguments: templeData as ItmsResponseEntity);
                 }
                 break;
               case 3:
@@ -103,8 +102,7 @@ _serviceCard(
           }
         : services[index].page.toString().isNotEmpty
             ? () => pageNavigation(services[index].page.toString(), context)
-            : () {
-              },
+            : () {},
     child: Column(
       children: [
         cardType == "RECT"
@@ -217,8 +215,7 @@ otherServiceCard(int index, BuildContext context, double width, double height,
               }
             }
           }
-        : () {
-          },
+        : () {},
     child: Column(
       children: [
         Container(

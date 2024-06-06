@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
@@ -43,7 +42,6 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
         if (didPop) {
           return;
         }
-
         if (BlocProvider.of<PhotoGalleryDescCubit>(context).state
             is PhotoGalleryDescLoaded) {
           BlocProvider.of<PhotoGalleryDescCubit>(context)
@@ -54,16 +52,12 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
       },
       child: Scaffold(
         appBar: appHeader(
-          context: context,
-          body: LocaleText("photo_gallery",
-              textAlign: TextAlign.center,
-              style: appbarTextStyleLarge(Theme.of(context))),
-          trailing: CloseButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
+            leading: const BackButton(),
+            context: context,
+            body: LocaleText("photo_gallery",
+                textAlign: TextAlign.center,
+                style: appbarTextStyleLarge(Theme.of(context))),
+            trailing: 32.pw),
         body: BlocBuilder<PhotoGalleryDescCubit, PhotoGalleryDescState>(
           builder: (context, descState) {
             if (descState is PhotoGalleryDescLoaded) {
@@ -118,6 +112,10 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                                             .toString()
                                     : NetworkImages.templePlaceHolder,
                                 fit: BoxFit.cover,
+                                imageBuilder: (context, imageProvider) =>
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Image(image: imageProvider)),
                               ),
                             ),
                           ),
@@ -146,90 +144,123 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
   }
 
   _buildDescWidget(PhotoGalleryEntity photoData) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child:
-              //  Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              // IconButton(
-              //     onPressed: () {
-              //       BlocProvider.of<PhotoGalleryDescCubit>(context)
-              //           .closePhotoGalleryDesc();
-              //     },
-              //     icon: const Icon(CupertinoIcons.back)),
-              Text(
-            photoData.title ?? "",
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Text(
+              photoData.title ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
           ),
-          //     0.pw
-          //   ],
-          // ),
-        ),
-        CarouselSlider.builder(
-            itemCount: photoData.photoInfo!.length,
-            itemBuilder: (context, index, realIndex) => GestureDetector(
-                  onTap: () {
-                    fullScreenImageViewer(
-                      context,
-                      photoData.photoInfo!.isNotEmpty
+          CarouselSlider.builder(
+              itemCount: photoData.photoInfo!.length,
+              itemBuilder: (context, index, realIndex) => GestureDetector(
+                    onTap: () {
+                      fullScreenImageViewer(
+                        context,
+                        photoData.photoInfo!.isNotEmpty
+                            ? ApiCredentials().documents +
+                                photoData.photoInfo![index].fileLocation
+                                    .toString()
+                            : NetworkImages.templePlaceHolder,
+                      );
+                    },
+                    child: CachedNetworkImage(
+                      width: double.infinity,
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                      imageUrl: photoData.photoInfo!.isNotEmpty
                           ? ApiCredentials().documents +
                               photoData.photoInfo![index].fileLocation
                                   .toString()
                           : NetworkImages.templePlaceHolder,
-                    );
-                  },
-                  child: CachedNetworkImage(
-                    width: double.infinity,
-                    placeholder: (context, url) => const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: CupertinoActivityIndicator(),
-                    ),
-                    imageUrl: photoData.photoInfo!.isNotEmpty
-                        ? ApiCredentials().documents +
-                            photoData.photoInfo![index].fileLocation.toString()
-                        : NetworkImages.templePlaceHolder,
-                    fit: BoxFit.cover,
-                    imageBuilder: (context, imageProvider) => ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.08),
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover)),
+                      fit: BoxFit.cover,
+                      imageBuilder: (context, imageProvider) => ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.08),
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover)),
+                        ),
                       ),
                     ),
                   ),
+              options: CarouselOptions(
+                height: 200,
+                clipBehavior: Clip.antiAlias,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll:
+                    photoData.photoInfo!.length > 1 ? true : false,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.3,
+                scrollDirection: Axis.horizontal,
+              )),
+          20.ph,
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  photoData.galleryDesc ?? "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
                 ),
-            options: CarouselOptions(
-              height: 200,
-              clipBehavior: Clip.antiAlias,
-              viewportFraction: 0.8,
-              initialPage: 0,
-              enableInfiniteScroll:
-                  photoData.photoInfo!.length > 1 ? true : false,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              scrollDirection: Axis.horizontal,
-            )),
-        _buildTitleDescWidget("gallery_desc", photoData.galleryDesc ?? ""),
-        _buildTitleDescWidget(
-            "event_date", photoData.eventDate.indianDateFormat),
-        _buildTitleDescWidget("description", photoData.description ?? "",
-            valueOnNextLine: true),
-      ],
+                15.ph,
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month_outlined,
+                      size: 18,
+                    ),
+                    const Text(" : "),
+                    Text(
+                      photoData.eventDate.indianDateFormat,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+                15.ph,
+                if (photoData.description != null &&
+                    photoData.description!.isNotEmpty)
+                  LocaleText(
+                    "description",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                5.ph,
+                Text(
+                  photoData.description ?? "",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -248,7 +279,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
             title,
             style: Theme.of(context)
                 .textTheme
-                .bodyMedium!
+                .bodyLarge!
                 .copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.left,
           ),
@@ -257,12 +288,12 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
               " : ",
               style: Theme.of(context)
                   .textTheme
-                  .bodyMedium!
+                  .bodyLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           Text(
             value,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.justify,
           ),
         ],

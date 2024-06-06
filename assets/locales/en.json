@@ -82,6 +82,12 @@
     "txn_details": "Transaction Details",
     "fetch_location": " Fetching current loction...",
     "no_nearby_temples": "No Nearby Temples",
-    "close":"Close",
-    "qr_verify":"QR for Ticket\nVerification"
+    "close": "Close",
+    "qr_verify": "QR for Ticket\nVerification",
+    "gallery_desc": "Gallery Description",
+    "event_date": "Event Date",
+    "event_details": "Event Details",
+    "description": "Description",
+    "photo_gallery": "Photo Gallery",
+    "speciality": "Speciality"
 }

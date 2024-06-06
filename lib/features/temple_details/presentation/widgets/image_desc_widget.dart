@@ -71,13 +71,11 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                   //    borderRadius: BorderRadius.circular(15),
-                  color: Colors.black.withOpacity(0.5),
+
                   image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.8), BlendMode.darken),
-                  )),
+                image: imageProvider,
+                fit: BoxFit.cover,
+              )),
             ),
           ),
         ),
@@ -98,6 +96,11 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(16.0),
+                    decoration: const BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8))),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -149,26 +152,34 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
             right: 10,
             child: Row(
               children: [
-                IconButton(
-                    onPressed: () {
-                      widget.pageController.previousPage(
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.easeInOut);
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.back,
-                      color: Colors.white,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      widget.pageController.nextPage(
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.easeInOut);
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.forward,
-                      color: Colors.white,
-                    )),
+                MaterialButton(
+                  minWidth: 1,
+                  color: Colors.white,
+                  shape: const CircleBorder(),
+                  onPressed: () {
+                    widget.pageController.previousPage(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut);
+                  },
+                  child: const Icon(
+                    CupertinoIcons.back,
+                    size: 24,
+                  ),
+                ),
+                MaterialButton(
+                  minWidth: 1,
+                  color: Colors.white,
+                  shape: const CircleBorder(),
+                  onPressed: () {
+                    widget.pageController.nextPage(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut);
+                  },
+                  child: const Icon(
+                    CupertinoIcons.forward,
+                    size: 24,
+                  ),
+                ),
               ],
             )),
         Positioned(

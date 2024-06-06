@@ -27,8 +27,18 @@ class TempleDetailsView extends StatefulWidget {
 class _TempleDetailsViewState extends State<TempleDetailsView>
     with TickerProviderStateMixin {
   late TabController tabController;
+  late AnimationController _buttonAnimationController;
+  late Animation<Color?> _colorAnimation;
   @override
   void initState() {
+    _buttonAnimationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _buttonAnimationController.repeat(reverse: true);
+    _colorAnimation = ColorTween(
+      begin: Colors.amber,
+      end: Colors.purple,
+    ).animate(_buttonAnimationController);
+
     super.initState();
     BlocProvider.of<TempleInfoBloc>(context)
         .add(GetTempleInfo(templeId: widget.temple!.templeId.toString()));
@@ -38,6 +48,13 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
         .add(GetTemplePooja(templeId: widget.temple!.templeId.toString()));
     BlocProvider.of<SpecialityBloc>(context)
         .add(GetSpeciality(templeId: widget.temple!.templeId.toString()));
+  }
+
+  @override
+  void dispose() {
+    _buttonAnimationController.dispose();
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,7 +71,8 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      buildTempleImage(context, widget.temple!),
+                      buildTempleImage(context, widget.temple!,
+                          _buttonAnimationController, _colorAnimation),
                       buildTempleServices(context, widget.temple),
                       buildTabBar(context, tabController),
                     ],

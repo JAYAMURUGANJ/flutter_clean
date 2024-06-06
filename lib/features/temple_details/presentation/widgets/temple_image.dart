@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/features/dashboard/presentation/widgets/service_list.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/speciality.dart';
-import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/speciality_widget.dart';
-
-import '../../../../config/common/widgets/bottom_sheet.dart';
-import '../../../../config/constants.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+import '/config/common/extensions.dart';
+import '/config/common/widgets/bottom_sheet.dart';
+import '/config/constants.dart';
+import '../../../dashboard/presentation/widgets/service_list.dart';
 import '../../data/model/location_info.dart';
+import '../../domain/entities/speciality.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/speciality/speciality_bloc.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
@@ -19,7 +18,11 @@ import '/features/temple_details/presentation/widgets/main_tower.dart';
 import '/features/temple_list/domain/entities/itms_response.dart';
 import '360_degree_view.dart';
 
-Widget buildTempleImage(context, ItmsResponseEntity temple) {
+Widget buildTempleImage(
+    context,
+    ItmsResponseEntity temple,
+    AnimationController buttonAnimationController,
+    Animation<Color?> colorAnimation) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(
     builder: (context, state) {
       TempleInfoEntity? templeInfo;
@@ -150,23 +153,36 @@ Widget buildTempleImage(context, ItmsResponseEntity temple) {
                     if (specialityList.isNotEmpty) {
                       return MaterialButton(
                         height: 30,
+                        minWidth: 1,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14)),
+                            borderRadius: BorderRadius.circular(12)),
                         onPressed: () {
-                          buildBottomSheet(context, temple, 'speciality',
-                              SpecialityWidget(specialityList: specialityList));
+                          pageNavigation("/Speciality", context,
+                              arguments: specialityList);
                         },
-                        child: Text(
-                          "speciality",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                        child: AnimatedBuilder(
+                            animation: buttonAnimationController,
+                            builder: (context, child) {
+                              return Row(
+                                children: [
+                                  Icon(
+                                    CupertinoIcons.sparkles,
+                                    color: colorAnimation.value,
+                                  ),
+                                  LocaleText(
+                                    "speciality",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                            color: colorAnimation.value,
+                                            fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              );
+                            }),
                       );
                     }
                   }

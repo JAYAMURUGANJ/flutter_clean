@@ -37,7 +37,9 @@ class _PaymentStatusState extends State<PaymentStatus> {
       appBar: appHeader(
           context: context,
           leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+              },
               icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white)),
           body: LocaleText("txn_details",
               textAlign: TextAlign.center,
