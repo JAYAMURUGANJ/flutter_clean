@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
@@ -85,7 +86,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 16),
-                              height: 300,
+                              height: 280,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: Colors.white,
@@ -132,17 +133,19 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          facilityList[index].facilityTitle ??
-                                              "",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                        Flexible(
+                                          child: Text(
+                                            facilityList[index].facilityTitle ??
+                                                "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                         CircleAvatar(
                                           radius: 14,
@@ -254,20 +257,30 @@ class _FacilityWidgetState extends State<FacilityWidget> {
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      CupertinoIcons.sparkles,
-                      size: 18,
-                    ),
-                    5.pw,
-                    Text(
-                      "${facilityList.facilityDesc ?? ""}\n",
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    LocaleText("available",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                            color: Theme.of(context).colorScheme.primary)),
+                    Text(" : ${facilityList.noofFacilities}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontWeight: FontWeight.bold)),
                   ],
+                ),
+                10.ph,
+                LocaleText(
+                  "description",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                  textAlign: TextAlign.left,
+                ),
+                5.ph,
+                Text(
+                  facilityList.facilityDesc ?? "",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.justify,
                 ),
               ],
             ),

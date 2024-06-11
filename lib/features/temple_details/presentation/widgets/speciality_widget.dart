@@ -155,7 +155,9 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            padding: EdgeInsets.symmetric(
+                vertical: 16,
+                horizontal: MediaQuery.of(context).size.width * .1),
             child: Text(
               widget.specialityList[selectedIndex].specialityTitle ?? "",
               style: Theme.of(context)
@@ -269,7 +271,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                 Text(
                   widget.specialityList[selectedIndex].specialityDetails ?? "",
                   style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.left,
                 ),
               ],
             ),

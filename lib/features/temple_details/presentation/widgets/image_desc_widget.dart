@@ -10,12 +10,14 @@ class ImageDescWidget extends StatefulWidget {
   final String imageUrl;
   final String? name;
   final String? desc;
+  final int length;
   const ImageDescWidget(
       {Key? key,
       required this.pageController,
       required this.imageUrl,
       this.name,
-      this.desc})
+      this.desc,
+      required this.length})
       : super(key: key);
 
   @override
@@ -70,8 +72,6 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
             clipBehavior: Clip.antiAlias,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                  //    borderRadius: BorderRadius.circular(15),
-
                   image: DecorationImage(
                 image: imageProvider,
                 fit: BoxFit.cover,
@@ -147,41 +147,43 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                 ],
               ),
             )),
-        Positioned(
-            top: 15,
-            right: 10,
-            child: Row(
-              children: [
-                MaterialButton(
-                  minWidth: 1,
-                  color: Colors.white,
-                  shape: const CircleBorder(),
-                  onPressed: () {
-                    widget.pageController.previousPage(
-                        duration: const Duration(milliseconds: 250),
-                        curve: Curves.easeInOut);
-                  },
-                  child: const Icon(
-                    CupertinoIcons.back,
-                    size: 24,
+        // navigation button
+        if (widget.length > 1)
+          Positioned(
+              top: 15,
+              right: 10,
+              child: Row(
+                children: [
+                  MaterialButton(
+                    minWidth: 1,
+                    color: Colors.white,
+                    shape: const CircleBorder(),
+                    onPressed: () {
+                      widget.pageController.previousPage(
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut);
+                    },
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      size: 24,
+                    ),
                   ),
-                ),
-                MaterialButton(
-                  minWidth: 1,
-                  color: Colors.white,
-                  shape: const CircleBorder(),
-                  onPressed: () {
-                    widget.pageController.nextPage(
-                        duration: const Duration(milliseconds: 250),
-                        curve: Curves.easeInOut);
-                  },
-                  child: const Icon(
-                    CupertinoIcons.forward,
-                    size: 24,
+                  MaterialButton(
+                    minWidth: 1,
+                    color: Colors.white,
+                    shape: const CircleBorder(),
+                    onPressed: () {
+                      widget.pageController.nextPage(
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut);
+                    },
+                    child: const Icon(
+                      CupertinoIcons.forward,
+                      size: 24,
+                    ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              )),
         Positioned(
           left: 0,
           top: 15,

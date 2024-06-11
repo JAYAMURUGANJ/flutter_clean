@@ -11,6 +11,7 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/worship/worship_bloc.dart';
 
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
@@ -73,6 +74,8 @@ class _AppState extends State<App> {
           BlocProvider<SpecialityBloc>(create: (context) => sl()),
           BlocProvider<PhotoGalleryBloc>(create: (context) => sl()),
           BlocProvider<PhotoGalleryDescCubit>(create: (context) => sl()),
+          BlocProvider<WorshipBloc>(
+              create: (context) => sl()..add(GetWorship())),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

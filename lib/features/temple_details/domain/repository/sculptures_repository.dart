@@ -1,8 +1,8 @@
 import '../../../../core/resources/data_state.dart';
-import '../entities/sculptures.dart';
+import '../entities/sculpture.dart';
 
 abstract class SculpturesRepository {
   // API methods
-  Future<DataState<List<SculpturesEntity>>> getResponse(
+  Future<DataState<List<SculptureEntity>>> getResponse(
       formData, String serviceId);
 }

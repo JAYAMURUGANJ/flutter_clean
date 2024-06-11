@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sculptures.dart';
+part of 'sculpture.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SculpturesEntity _$SculptureEntityFromJson(Map<String, dynamic> json) =>
-    SculpturesEntity(
+SculptureEntity _$SculptureEntityFromJson(Map<String, dynamic> json) =>
+    SculptureEntity(
       sculpturesName: json['sculptures_name'] as String?,
       sculptureDesc: json['sculpture_desc'] as String?,
       sculptureInfo: (json['sculpture_info'] as List<dynamic>?)
@@ -17,7 +17,7 @@ SculpturesEntity _$SculptureEntityFromJson(Map<String, dynamic> json) =>
       responseDesc: json['response_desc'] as String?,
     );
 
-Map<String, dynamic> _$SculptureEntityToJson(SculpturesEntity instance) =>
+Map<String, dynamic> _$SculptureEntityToJson(SculptureEntity instance) =>
     <String, dynamic>{
       'sculptures_name': instance.sculpturesName,
       'sculpture_desc': instance.sculptureDesc,

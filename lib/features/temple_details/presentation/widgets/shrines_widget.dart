@@ -83,13 +83,15 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
               itemCount: shrinesList.length,
               itemBuilder: (context, index) {
                 return ImageDescWidget(
-                    pageController: _pageController,
-                    imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
-                        ? ApiCredentials().documents +
-                            shrinesList[index].subshrineImage![0].fileLocation!
-                        : NetworkImages.templePlaceHolder,
-                    name: shrinesList[index].subshrineName,
-                    desc: shrinesList[index].subshrineDesc);
+                  pageController: _pageController,
+                  imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
+                      ? ApiCredentials().documents +
+                          shrinesList[index].subshrineImage![0].fileLocation!
+                      : NetworkImages.templePlaceHolder,
+                  name: shrinesList[index].subshrineName,
+                  desc: shrinesList[index].subshrineDesc,
+                  length: shrinesList.length,
+                );
               });
         }
         return 0.pw;

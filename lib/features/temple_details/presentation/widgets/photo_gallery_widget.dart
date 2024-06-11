@@ -51,6 +51,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
         }
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         appBar: appHeader(
             leading: const BackButton(),
             context: context,
@@ -115,7 +116,10 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                                 imageBuilder: (context, imageProvider) =>
                                     ClipRRect(
                                         borderRadius: BorderRadius.circular(16),
-                                        child: Image(image: imageProvider)),
+                                        child: Image(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        )),
                               ),
                             ),
                           ),
@@ -220,10 +224,9 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
               children: [
                 Text(
                   photoData.galleryDesc ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
                   textAlign: TextAlign.left,
                 ),
                 15.ph,
@@ -245,10 +248,9 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                     photoData.description!.isNotEmpty)
                   LocaleText(
                     "description",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary),
                     textAlign: TextAlign.left,
                   ),
                 5.ph,

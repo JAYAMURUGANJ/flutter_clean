@@ -28,7 +28,9 @@ class TempleTiming extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is TempleTimingLoading) {
-          return const CupertinoActivityIndicator();
+          return SizedBox(
+              height: MediaQuery.of(context).size.height * .25,
+              child: const CupertinoActivityIndicator());
         }
         if (state is TempleTimingLoadingSomthingWentWrong) {
           String error = state.responseStatus!;
@@ -74,6 +76,7 @@ class TempleTiming extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary),
           ),
+          5.ph,
           DataTable(
               border: TableBorder.all(
                   width: 1,

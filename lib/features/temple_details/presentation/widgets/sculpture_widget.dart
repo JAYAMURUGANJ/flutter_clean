@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/sculptures.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/entities/sculpture.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/image_desc_widget.dart';
@@ -62,8 +62,8 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
               return SomethingWentWrong(error: state.responseStatus.toString());
             }
             if (state is SculpturesLoaded) {
-              List<SculpturesEntity> sculpturesList =
-                  state.sculptures!.cast<SculpturesEntity>();
+              List<SculptureEntity> sculpturesList =
+                  state.sculptures!.cast<SculptureEntity>();
               return PageView.builder(
                   controller: _pageController,
                   itemCount: sculpturesList.length,
@@ -78,6 +78,7 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
                           : NetworkImages.templePlaceHolder,
                       name: sculpturesList[index].sculpturesName ?? "",
                       desc: sculpturesList[index].sculptureDesc ?? "",
+                      length: sculpturesList.length,
                     );
 
                     //

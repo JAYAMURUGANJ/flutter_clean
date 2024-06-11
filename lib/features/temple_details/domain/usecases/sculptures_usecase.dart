@@ -1,10 +1,10 @@
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/sculptures.dart';
+import '../entities/sculpture.dart';
 import '../repository/sculptures_repository.dart';
 
 class SculpturesUseCase
-    implements UseCase<DataState<List<SculpturesEntity>>, void> {
+    implements UseCase<DataState<List<SculptureEntity>>, void> {
   final SculpturesRepository _sculpturesRepository;
 
   SculpturesUseCase(
@@ -12,6 +12,6 @@ class SculpturesUseCase
   );
 
   @override
-  Future<DataState<List<SculpturesEntity>>> call(formData, serviceId) async =>
+  Future<DataState<List<SculptureEntity>>> call(formData, serviceId) async =>
       await _sculpturesRepository.getResponse(formData, serviceId);
 }

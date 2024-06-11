@@ -88,5 +88,7 @@
     "event_details": "நிகழ்வு விவரம்",
     "description": "விவரம்",
     "photo_gallery": "புகைப்பட தொகுப்பு",
-    "speciality": "சிறப்புகள்"
+    "speciality": "சிறப்புகள்",
+    "available": "எண்ணிக்கை",
+    "go_to_website": "இணையதளத்திற்குச் செல்ல"
 }

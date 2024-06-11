@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'sculptures.g.dart';
+part 'sculpture.g.dart';
 
 @JsonSerializable()
-class SculpturesEntity extends Equatable {
+class SculptureEntity extends Equatable {
   @JsonKey(name: "sculptures_name")
   final String? sculpturesName;
   @JsonKey(name: "sculpture_desc")
@@ -16,7 +16,7 @@ class SculpturesEntity extends Equatable {
   @JsonKey(name: 'response_desc')
   final String? responseDesc;
 
-  const SculpturesEntity({
+  const SculptureEntity({
     this.sculpturesName,
     this.sculptureDesc,
     this.sculptureInfo,
@@ -24,7 +24,7 @@ class SculpturesEntity extends Equatable {
     this.responseDesc,
   });
 
-  factory SculpturesEntity.fromJson(Map<String, dynamic> json) =>
+  factory SculptureEntity.fromJson(Map<String, dynamic> json) =>
       _$SculptureEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$SculptureEntityToJson(this);

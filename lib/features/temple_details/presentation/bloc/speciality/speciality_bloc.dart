@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/class/cryption.dart';
 import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/speciality_usecase.dart';
 
 import '../../../../../core/models/itms_request.dart';
@@ -23,6 +25,7 @@ class SpecialityBloc extends Bloc<SpecialityEvent, SpecialityState> {
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])
             .getFormData();
+    debugPrint("form data ${Authentication().decrypt(formData)}");
     final dataState = await _getSpecialityUseCase(formData, serviceId);
 
     if (dataState is DataSuccess) {

@@ -24,7 +24,8 @@ void main() {
 
       //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
       Bloc.observer = MyBlocObserver();
-      await dotenv.load(fileName: ".env_dev");
+      // await dotenv.load(fileName: ".env_dev");
+      await dotenv.load(fileName: ".env_uat");
       WidgetsFlutterBinding.ensureInitialized();
       await initializeDependencies();
       await Prefs.init();

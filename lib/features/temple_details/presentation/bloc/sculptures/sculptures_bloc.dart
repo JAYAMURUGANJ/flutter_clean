@@ -7,7 +7,7 @@ import 'package:news_app_clean_architecture/features/temple_details/domain/useca
 import '../../../../../core/models/itms_request.dart';
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/resources/itms_request_handler.dart';
-import '../../../domain/entities/sculptures.dart';
+import '../../../domain/entities/sculpture.dart';
 
 part 'sculptures_event.dart';
 part 'sculptures_state.dart';

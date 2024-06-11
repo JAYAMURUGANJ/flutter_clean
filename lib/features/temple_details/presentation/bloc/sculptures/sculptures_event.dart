@@ -12,7 +12,7 @@ class GetSculpturesEvent extends SculpturesEvent {
 }
 
 class GetSculptureDescEvent extends SculpturesEvent {
-  final SculpturesEntity sculpture;
+  final SculptureEntity sculpture;
   GetSculptureDescEvent({
     required this.sculpture,
   });

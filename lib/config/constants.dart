@@ -11,7 +11,8 @@ class ApiCredentials {
   static const String tAppName = "திருக்கோயில்";
 
   // api credentials
-  static const String domain = "https://hrce.tn.gov.in/webservice/";
+  static const String domain = "http://10.163.19.165/hrce/webservice/";
+  // static const String domain = "https://hrce.tn.gov.in/webservice/";
   static const String webService = "webservices.php";
   static const String filePath = "documentview.php?file_path=";
 

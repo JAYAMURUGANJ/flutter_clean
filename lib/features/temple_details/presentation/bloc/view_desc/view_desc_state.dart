@@ -7,7 +7,7 @@ class ViewDescState {
 class ViewDescInitial extends ViewDescState {}
 
 class ShowViewDesc extends ViewDescState {
-  final SculpturesEntity sculpture;
+  final SculptureEntity sculpture;
 
   ShowViewDesc({required this.sculpture});
 }

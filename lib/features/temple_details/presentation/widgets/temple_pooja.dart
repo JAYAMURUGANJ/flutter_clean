@@ -25,7 +25,9 @@ class TemplePooja extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is TemplePoojaLoading) {
-          return const CupertinoActivityIndicator();
+          return SizedBox(
+              height: MediaQuery.of(context).size.height * .25,
+              child: const CupertinoActivityIndicator());
         }
         if (state is TemplePoojaLoadingSomthingWentWrong) {
           String error = state.responseStatus!;

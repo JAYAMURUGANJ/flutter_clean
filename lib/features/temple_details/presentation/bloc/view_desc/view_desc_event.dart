@@ -5,7 +5,7 @@ class ViewDescEvent {
 }
 
 class GetDesc extends ViewDescEvent {
-  final SculpturesEntity sculpture;
+  final SculptureEntity sculpture;
   GetDesc(this.sculpture);
 }
 

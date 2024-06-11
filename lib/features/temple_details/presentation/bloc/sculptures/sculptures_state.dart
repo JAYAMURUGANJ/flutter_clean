@@ -2,7 +2,7 @@ part of 'sculptures_bloc.dart';
 
 class SculpturesState {
   final List<dynamic>? sculptures;
-  final SculpturesEntity? sculpture;
+  final SculptureEntity? sculpture;
   final String? responseStatus;
   final DioException? error;
 
@@ -17,7 +17,7 @@ class SculpturesLoading extends SculpturesState {
 }
 
 class SculpturesLoaded extends SculpturesState {
-  const SculpturesLoaded(List<SculpturesEntity> sculptures)
+  const SculpturesLoaded(List<SculptureEntity> sculptures)
       : super(sculptures: sculptures);
 }
 
@@ -31,6 +31,6 @@ class SculpturesLoadingError extends SculpturesState {
 }
 
 class SculpturesDescView extends SculpturesState {
-  const SculpturesDescView(SculpturesEntity sculpture)
+  const SculpturesDescView(SculptureEntity sculpture)
       : super(sculpture: sculpture);
 }

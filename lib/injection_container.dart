@@ -20,6 +20,10 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_list/data/repository/worship_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/repository/worship_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/usecases/worship_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/worship/worship_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -94,6 +98,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SpecialityRepository>(SpecialityRepositoryImpl(sl()));
   sl.registerSingleton<PhotoGalleryRepository>(
       PhotoGalleryRepositoryImpl(sl()));
+  sl.registerSingleton<WorshipRepository>(WorshipRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<ItmsResponseUseCase>(ItmsResponseUseCase(sl()));
@@ -111,6 +116,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<FacilityUseCase>(FacilityUseCase(sl()));
   sl.registerSingleton<SpecialityUseCase>(SpecialityUseCase(sl()));
   sl.registerSingleton<PhotoGalleryUseCase>(PhotoGalleryUseCase(sl()));
+  sl.registerSingleton<WorshipUseCase>(WorshipUseCase(sl()));
 
   //Blocs
   sl.registerFactory<ITMSBloc>(() => ITMSBloc(sl()));
@@ -134,4 +140,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<SpecialityBloc>(() => SpecialityBloc(sl()));
   sl.registerFactory<PhotoGalleryBloc>(() => PhotoGalleryBloc(sl()));
   sl.registerFactory<PhotoGalleryDescCubit>(() => PhotoGalleryDescCubit());
+  sl.registerFactory<WorshipBloc>(() => WorshipBloc(sl()));
 }

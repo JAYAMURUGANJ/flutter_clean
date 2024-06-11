@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/sculptures.dart';
+import 'package:news_app_clean_architecture/features/temple_details/domain/entities/sculpture.dart';
 
 part 'view_desc_event.dart';
 part 'view_desc_state.dart';

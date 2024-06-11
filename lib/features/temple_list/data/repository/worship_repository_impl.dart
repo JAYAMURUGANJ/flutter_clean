@@ -10,15 +10,15 @@ import '../../../../config/constants.dart';
 import '../../../../core/data_sources/ITMS_API_service.dart';
 import '../../../../core/models/encrypted_response.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../domain/repository/itms_repository.dart';
-import '../models/itms_response.dart';
+import '../../domain/repository/worship_repository.dart';
+import '../models/worship.dart';
 
-class ItmsRepositoryImpl implements ItmsRepository {
+class WorshipRepositoryImpl implements WorshipRepository {
   final HRCEApiService _apiService;
-  ItmsRepositoryImpl(this._apiService);
+  WorshipRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<ItmsResponse>>> getResponse(formData, serviceId) async {
+  Future<DataState<List<Worship>>> getResponse(formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
@@ -36,11 +36,11 @@ class ItmsRepositoryImpl implements ItmsRepository {
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
-          List<ItmsResponse> resultSet =
+          List<Worship> resultSet =
               EncryptedResponse.fromJson(clientJsonResponse[0])
                   .resultSet!
-                  .map<ItmsResponse>((dynamic i) =>
-                      ItmsResponse.fromJson(i as Map<String, dynamic>))
+                  .map<Worship>(
+                      (dynamic i) => Worship.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {

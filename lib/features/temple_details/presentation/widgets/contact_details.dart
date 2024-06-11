@@ -70,7 +70,7 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
                       buildContactCard(
                           context,
                           contactDetails.username ?? "",
-                          contactDetails.designationDesc ?? "-",
+                          contactDetails.designationDesc,
                           Icons.contact_emergency,
                           () {},
                           localLable: false),
@@ -87,19 +87,18 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
                           context,
                           "email",
                           contactDetails.email
-                                  ?.replaceAll("[at]", "@")
-                                  .replaceAll("[dot]", ".") ??
-                              "",
+                              ?.replaceAll("[at]", "@")
+                              .replaceAll("[dot]", "."),
                           Icons.mail_outline, () {
                         _launchUrl(
                             "mailto:${contactDetails.email?.replaceAll("[at]", "@").replaceAll("[dot]", ".")}");
                       }),
                       buildContactCard(context, "phone",
-                          contactDetails.landline!, Icons.phone_outlined, () {
+                          contactDetails.landline, Icons.phone_outlined, () {
                         _launchUrl("tel:${contactDetails.landline}");
                       }),
                       buildContactCard(
-                          context, "website", "click_to_view", Icons.language,
+                          context, "website", "go_to_website", Icons.language,
                           () {
                         _launchUrl(widget.temple.urlTemplewebsite ?? "-");
                       }, subTitleLocalLabel: true),
@@ -133,54 +132,57 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
   }
 }
 
-buildContactCard(BuildContext context, String lable, String value,
+buildContactCard(BuildContext context, String lable, String? value,
     IconData icon, VoidCallback action,
     {bool localLable = true, bool subTitleLocalLabel = false}) {
-  return Padding(
-    padding: defaultPadding,
-    child: ListTile(
-      onTap: action,
-      trailing: IconButton(
-        icon: Icon(icon),
-        highlightColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-        hoverColor: Colors.white,
-        onPressed: action,
-      ),
-      title: localLable
-          ? LocaleText(
-              lable,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
-            )
-          : Text(
-              lable,
-              softWrap: true,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+  return (value != null && value.isNotEmpty)
+      ? Padding(
+          padding: defaultPadding,
+          child: ListTile(
+            onTap: action,
+            trailing: IconButton(
+              icon: Icon(icon),
+              highlightColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.3),
+              hoverColor: Colors.white,
+              onPressed: action,
+            ),
+            title: localLable
+                ? LocaleText(
+                    lable,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary),
+                  )
+                : Text(
+                    lable,
+                    softWrap: true,
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                   ),
-            ),
-      subtitle: subTitleLocalLabel
-          ? LocaleText(
-              value,
-              maxLines: 4,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
-            )
-          : Text(
-              value,
-              maxLines: 4,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
-            ),
-    ),
-  );
+            subtitle: subTitleLocalLabel
+                ? LocaleText(
+                    value,
+                    maxLines: 4,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
+                  )
+                : Text(
+                    value,
+                    maxLines: 4,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
+                  ),
+          ),
+        )
+      : 0.ph;
 }
 
 Future<void> _launchUrl(String url) async {

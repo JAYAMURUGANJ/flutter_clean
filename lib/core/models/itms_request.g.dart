@@ -39,7 +39,9 @@ Map<String, dynamic> _$ITMSRequestToJson(ITMSRequest instance) =>
       'requestor_userid': instance.requestorUserid,
       'requestor_userpwd': instance.requestorUserpwd,
       'service_requester': instance.serviceRequester,
-    };
+    }..removeWhere((key, value) => value == null);
+
+// }..removeWhere((key, value) => value == null);
 
 Adparam _$AdparamFromJson(Map<String, dynamic> json) => Adparam(
       deviceTime: json['device_time'] as String,

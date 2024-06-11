@@ -18,7 +18,7 @@ class ITMSRequest {
   @JsonKey(name: 'service_id')
   String serviceId;
   @JsonKey(name: 'filter_data')
-  List<FilterData> filterData;
+  List<FilterData>? filterData;
   @JsonKey(name: 'request_time')
   String requestTime;
   @JsonKey(name: 'version_date')
@@ -36,7 +36,7 @@ class ITMSRequest {
     required this.ipaddress,
     required this.langType,
     required this.serviceId,
-    required this.filterData,
+    this.filterData,
     required this.requestTime,
     required this.versionDate,
     required this.versionNumber,

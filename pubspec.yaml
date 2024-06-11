@@ -113,6 +113,7 @@ flutter_native_splash:
 
 flutter:
   assets:
+    - .env_uat
     - .env_dev
     - assets/locales/
     - assets/images/bg/

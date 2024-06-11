@@ -89,5 +89,7 @@
     "event_details": "Event Details",
     "description": "Description",
     "photo_gallery": "Photo Gallery",
-    "speciality": "Speciality"
+    "speciality": "Speciality",
+    "available": "Available",
+    "go_to_website": "Go To Website"
 }
