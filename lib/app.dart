@@ -1,9 +1,11 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
+import 'package:news_app_clean_architecture/features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery/photo_gallery_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery_desc/photo_gallery_desc_cubit.dart';
@@ -76,32 +78,35 @@ class _AppState extends State<App> {
           BlocProvider<PhotoGalleryDescCubit>(create: (context) => sl()),
           BlocProvider<WorshipBloc>(
               create: (context) => sl()..add(GetWorship())),
+          BlocProvider<SelectedFavoriteTemplesCubit>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {
-            return MaterialApp(
-              title: Locales.lang == "en"
-                  ? ApiCredentials.appName
-                  : ApiCredentials.tAppName,
-              builder: DevicePreview.appBuilder,
-              debugShowCheckedModeBanner: false,
-              localizationsDelegates: Locales.delegates,
-              supportedLocales: Locales.supportedLocales,
-              locale: locale,
-              theme:
-                  //FlexThemeData.light(scheme: FlexScheme.barossa),
-                  theme().copyWith(
-                colorScheme: themeState is LightModeState
-                    ? lightColorScheme[themeState.index]
-                    : lightColorScheme[0],
+            return BetterFeedback(
+              child: MaterialApp(
+                title: Locales.lang == "en"
+                    ? ApiCredentials.appName
+                    : ApiCredentials.tAppName,
+                builder: DevicePreview.appBuilder,
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: Locales.delegates,
+                supportedLocales: Locales.supportedLocales,
+                locale: locale,
+                theme:
+                    //FlexThemeData.light(scheme: FlexScheme.barossa),
+                    theme().copyWith(
+                  colorScheme: themeState is LightModeState
+                      ? lightColorScheme[themeState.index]
+                      : lightColorScheme[0],
+                ),
+                darkTheme:
+                    ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+                themeMode: themeState is DarkModeState
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                onGenerateRoute: AppRoutes.onGenerateRoutes,
+                initialRoute: "/",
               ),
-              darkTheme:
-                  ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-              themeMode: themeState is DarkModeState
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              onGenerateRoute: AppRoutes.onGenerateRoutes,
-              initialRoute: "/",
             );
           },
         ),

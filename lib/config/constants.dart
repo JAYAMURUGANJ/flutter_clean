@@ -19,7 +19,9 @@ class ApiCredentials {
   static const String baseUrl = domain + webService;
   String documents = domain + filePath;
 
-  static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
+  static String? requestorUserPwd =
+      // "70fd7481af9f82ec81dcaaefebb76010106e28a09f9eeb58afa89eb50119586b";
+      dotenv.env['REQUESTER_USER_PWD'];
 
   // for encryption & decryption of requests and responses
   static String? keyUTF8 = dotenv.env['KEYUTF8'];
@@ -128,9 +130,9 @@ List<TempleServices> bookingServicesList = [
   ),
   TempleServices(
     id: 2,
-    name: "donation",
-    imageLink: "assets/images/icons/donation.png",
-    bgColor: Colors.deepOrange.shade300,
+    name: "free",
+    imageLink: "assets/images/icons/free.png",
+    bgColor: Colors.lightBlue.shade300,
     page: "",
   ),
   TempleServices(
@@ -142,6 +144,13 @@ List<TempleServices> bookingServicesList = [
   ),
   TempleServices(
     id: 4,
+    name: "donation",
+    imageLink: "assets/images/icons/donation.png",
+    bgColor: Colors.deepOrange.shade300,
+    page: "",
+  ),
+  TempleServices(
+    id: 5,
     name: "postal_prasadam",
     imageLink: "assets/images/icons/postal.png",
     bgColor: Colors.lightGreen.shade300,

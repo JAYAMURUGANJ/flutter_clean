@@ -19,6 +19,11 @@ class TempleListLoaded extends ITMSState {
       : super(templeList: templeList);
 }
 
+class FilteredTempleListLoaded extends ITMSState {
+  const FilteredTempleListLoaded(List<ItmsResponseEntity> templeList)
+      : super(templeList: templeList);
+}
+
 class TempleListLoadingSomthingWentWrong extends ITMSState {
   const TempleListLoadingSomthingWentWrong(String responseStatus)
       : super(responseStatus: responseStatus);

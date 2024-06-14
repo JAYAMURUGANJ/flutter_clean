@@ -34,7 +34,7 @@ class _SettingsState extends State<Settings> {
         child: SingleChildScrollView(
           child: Column(children: [
             LabelText(label: 'language'),
-            LanguageList(),
+            LanguageList(isRow: true),
             SizedBox(
               height: 25,
             ),

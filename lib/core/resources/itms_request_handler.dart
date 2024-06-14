@@ -26,7 +26,7 @@ class ITMSRequestHandler {
 
     List<Ipaddress> ipAddress = [
       Ipaddress(
-          ip: "Prefs.getString(spNetworkIp)!",
+          ip: Prefs.getString(spNetworkIp) ?? "",
           deviceId: '1e7d538a43388eee',
           deviceName: 'PAX A910')
     ];
@@ -43,8 +43,9 @@ class ITMSRequestHandler {
           versionDate: ApiCredentials.versionData!,
           versionNumber: spAppVersion,
           requestorUserid: ApiCredentials.requestorUserId,
-          requestorUserpwd:
-              "13dda615f7495d354a891c6406290db6cd4a443d180bac547208e769e3c18932",
+          // requestorUserpwd:
+          //     "13dda615f7495d354a891c6406290db6cd4a443d180bac547208e769e3c18932",
+          requestorUserpwd: ApiCredentials.requestorUserPwd!,
           serviceRequester: ApiCredentials.serviceRequester)
     ];
     log(request[0].toJson().toString(), name: "Before Encrypt Form Data");

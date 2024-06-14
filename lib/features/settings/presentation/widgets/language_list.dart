@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 class LanguageList extends StatefulWidget {
-  const LanguageList({Key? key}) : super(key: key);
+  final bool isRow;
+  const LanguageList({Key? key, required this.isRow}) : super(key: key);
 
   @override
   State<LanguageList> createState() => _LanguageListState();
@@ -12,7 +13,9 @@ class _LanguageListState extends State<LanguageList> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    // padding: const EdgeInsets.symmetric(horizontal: 36),
+    return Flex(
+      direction: widget.isRow ? Axis.horizontal : Axis.vertical,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(2, (index) {

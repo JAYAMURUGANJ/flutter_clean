@@ -13,9 +13,10 @@ ThemeData theme() {
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: appBarTheme(),
       textTheme: Locales.lang == "en"
-          ? GoogleFonts.exo2TextTheme()
-              .copyWith(titleMedium: const TextStyle(fontSize: 18))
-          : GoogleFonts.tiroTamilTextTheme()
+          ? GoogleFonts.openSansTextTheme().copyWith(
+              titleMedium: const TextStyle(fontSize: 18),
+            )
+          : GoogleFonts.notoSansTamilTextTheme()
               .copyWith(titleMedium: const TextStyle(fontSize: 18)));
 }
 

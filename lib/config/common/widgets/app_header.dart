@@ -22,7 +22,7 @@ PreferredSize appHeader(
           child: Row(
             children: [
               if (leadingAvail) leading,
-              Expanded(child: body),
+              Expanded(child: Center(child: body)),
               trailing,
             ],
           ),

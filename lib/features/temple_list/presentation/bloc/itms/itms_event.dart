@@ -111,3 +111,8 @@ class FilterTempleList extends ITMSEvent {
   final String value;
   FilterTempleList(this.value);
 }
+
+class FilterTempleListByWorship extends ITMSEvent {
+  final int worshipCode;
+  FilterTempleListByWorship(this.worshipCode);
+}

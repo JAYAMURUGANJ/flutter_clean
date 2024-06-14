@@ -21,7 +21,7 @@ class SpecialityBloc extends Bloc<SpecialityEvent, SpecialityState> {
   void onGetTempleContacts(
       GetSpeciality event, Emitter<SpecialityState> emit) async {
     emit(const SpecialityLoading());
-    String serviceId = "7006";
+    String serviceId = "7016";
     String formData =
         ITMSRequestHandler(serviceId, [FilterData(templeId: event.templeId)])
             .getFormData();

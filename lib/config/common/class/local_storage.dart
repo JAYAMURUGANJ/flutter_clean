@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 String spNetworkIp = '192.168.224.50';
 String spLocalLanguage = 'EN';
 String spAppVersion = "1.0.0";
+String spOnBoardingStatus = "on_boarding_status";
 
 class Prefs {
   static SharedPreferences _prefs =

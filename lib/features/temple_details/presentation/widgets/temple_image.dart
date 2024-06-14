@@ -58,8 +58,11 @@ Widget buildTempleImage(
                   placeholder: (context, url) =>
                       const CupertinoActivityIndicator(),
                   imageUrl: state is TempleInfoLoaded
-                      ? ApiCredentials().documents +
-                          templeInfo!.templeImages![0].fileLocation.toString()
+                      ? templeInfo!.templeImages!.isNotEmpty
+                          ? ApiCredentials().documents +
+                              templeInfo.templeImages![0].fileLocation
+                                  .toString()
+                          : NetworkImages.templePlaceHolder
                       : temple.maintowerImage!.isNotEmpty
                           ? ApiCredentials().documents +
                               temple.maintowerImage![0].fileLocation.toString()

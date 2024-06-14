@@ -13,7 +13,7 @@ class _HRCEApiService implements HRCEApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://hrce.tn.gov.in/webservice/webservices.php';
+    baseUrl ??= ApiCredentials.baseUrl;
   }
 
   final Dio _dio;

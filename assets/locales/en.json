@@ -91,5 +91,9 @@
     "photo_gallery": "Photo Gallery",
     "speciality": "Speciality",
     "available": "Available",
-    "go_to_website": "Go To Website"
+    "go_to_website": "Go To Website",
+    "temple_list": "Temple List",
+    "choose_language": "Choose\nLanguage",
+    "choose_theme": "Choose Theme",
+    "choose_favorite_god": "Choose\nFavorite\nGod"
 }

@@ -49,6 +49,7 @@ import 'features/event_calendar/domain/repository/calendar_event_details_reposit
 import 'features/event_calendar/domain/usecases/calendar_event_details_usecase.dart';
 import 'features/event_calendar/presentation/bloc/calendar_event_details/calendar_event_details_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
+import 'features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
 import 'features/temple_details/data/repository/near_by_temples_repository_impl.dart';
 import 'features/temple_details/data/repository/speciality_repository_impl.dart';
 import 'features/temple_details/data/repository/temple_pooja_repository_impl.dart';
@@ -141,4 +142,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<PhotoGalleryBloc>(() => PhotoGalleryBloc(sl()));
   sl.registerFactory<PhotoGalleryDescCubit>(() => PhotoGalleryDescCubit());
   sl.registerFactory<WorshipBloc>(() => WorshipBloc(sl()));
+  sl.registerFactory<SelectedFavoriteTemplesCubit>(
+      () => SelectedFavoriteTemplesCubit());
 }

@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/usecases/worship_usecase.dart';
 
 import '../../../../../core/resources/data_state.dart';
@@ -12,10 +12,10 @@ part 'worship_state.dart';
 class WorshipBloc extends Bloc<WorshipEvent, WorshipState> {
   final WorshipUseCase _getWorshipUseCase;
   WorshipBloc(this._getWorshipUseCase) : super(WorshipInitial()) {
-    on<WorshipEvent>((event, emit) {});
+    on<GetWorship>(onGetWorship);
   }
 
-  void onGetTempleContacts(GetWorship event, Emitter<WorshipState> emit) async {
+  void onGetWorship(GetWorship event, Emitter<WorshipState> emit) async {
     emit(const WorshipLoading());
     String serviceId = "7022";
     String formData = ITMSRequestHandler(serviceId, null).getFormData();

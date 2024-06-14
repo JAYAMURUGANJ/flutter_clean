@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
 
-import '../bloc/itms/itms_bloc.dart';
-import '../bloc/itms/itms_event.dart';
+import '../pages/temple_list.dart';
 
-TextField searchWidget(BuildContext context, searchFieldController) {
+TextField searchWidget(
+    BuildContext context,
+    searchFieldController,
+    ValueNotifier<List<ItmsResponseEntity>>? templeListNotifier,
+    List<ItmsResponseEntity> loadedTempleList) {
   return TextField(
     controller: searchFieldController,
     onChanged: (value) {
-      BlocProvider.of<ITMSBloc>(context).add(FilterTempleList(value));
+      List<ItmsResponseEntity> filteredTemples = loadedTempleList
+          .where((item) =>
+              item.templeName!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+      templeListNotifier!.value = filteredTemples;
     },
     onTapOutside: (event) {
       FocusManager.instance.primaryFocus?.unfocus();
@@ -26,7 +33,9 @@ TextField searchWidget(BuildContext context, searchFieldController) {
       suffixIcon: IconButton(
         onPressed: () {
           searchFieldController.clear();
-          BlocProvider.of<ITMSBloc>(context).add(FilterTempleList(""));
+          FocusManager.instance.primaryFocus?.unfocus();
+          templeListNotifier!.value = loadedTempleList;
+          showFilterWidget.value = false;
         },
         icon: const Icon(
           Icons.clear_rounded,

@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/class/cryption.dart';
 
 import '../../../domain/entities/itms_response.dart';
 import '../../../domain/usecases/itms_response.dart';
@@ -26,7 +28,8 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     on<GetTempleWhatsnew>(onGetTempleWhatsnew);
     on<GetTempleFacility>(onGetTempleFacility);
     on<GetTempleList>(onGetTempleList);
-    on<FilterTempleList>(onFilterTempleList);
+    // on<FilterTempleList>(onFilterTempleList);
+    // on<FilterTempleListByWorship>(onFilterTempleListByWorship);
 
 // Note :
 // The two type of data fetched one all temple event list (7025) and fetched
@@ -286,6 +289,8 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
           degree360Avail: "Y", seniorgradeTemples: event.seniorgradeTemples)
     ]).getFormData();
 
+    debugPrint("  temple list ===> ${Authentication().decrypt(formData)}");
+
     final dataState = await _getItmsResponseUseCase(formData, serviceId);
 
     if (dataState is DataSuccess) {
@@ -302,5 +307,19 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
     if (dataState is DataFailed) {
       emit(TempleListLoadingError(dataState.error!));
     }
+  }
+
+  onFilterTempleListByWorship(
+      FilterTempleListByWorship event, Emitter<ITMSState> emit) {
+    try {
+      List<ItmsResponseEntity> filteredTemples = templesList
+          .where((item) => (item.worshipCode ?? 0) == (event.worshipCode))
+          .toList();
+      if (event.worshipCode == -1) {
+        emit(TempleListLoaded(templesList));
+      } else {
+        emit(TempleListLoaded(filteredTemples));
+      }
+    } catch (e) {}
   }
 }

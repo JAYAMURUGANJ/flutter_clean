@@ -3,15 +3,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship.dart';
 
 import '../../domain/entities/itms_response.dart';
 import '../bloc/itms/itms_bloc.dart';
 import '../bloc/itms/itms_state.dart';
+import '../bloc/worship/worship_bloc.dart';
+import '../pages/temple_list.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
+import 'search_bar.dart';
 import 'temple_tile.dart';
 
+ValueNotifier<List<ItmsResponseEntity>>? _templeListNotifier;
+ValueNotifier<int> godSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
   return BlocConsumer<ITMSBloc, ITMSState>(
     listener: (context, state) {
@@ -27,9 +33,11 @@ alltempleListBlocBuilder() {
       if (state is TempleListLoading) {
         return const Center(child: CupertinoActivityIndicator());
       }
-
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
+        List<ItmsResponseEntity> loadedList =
+            state.templeList as List<ItmsResponseEntity>;
+        _templeListNotifier = ValueNotifier(loadedList);
         return allTempleListPageView(context, templeList, state);
       }
       return const SizedBox();
@@ -38,19 +46,91 @@ alltempleListBlocBuilder() {
 }
 
 allTempleListPageView(
-    BuildContext context, templeList, TempleListLoaded state) {
+    BuildContext context, loadedTempleList, TempleListLoaded state) {
   return SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 14),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        5.ph,
-        buildHeading(context, "categories"),
-        _godCategories(),
-        _buildHeadingTextwithValue(templeList, context),
-        _allTempleListView(templeList, state),
-      ],
-    ),
+    child: ValueListenableBuilder<List<ItmsResponseEntity>>(
+        valueListenable: _templeListNotifier!,
+        builder: (context, templeList, child) {
+          return ValueListenableBuilder<bool>(
+              valueListenable: showFilterWidget,
+              builder: (context, showFilter, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Visibility(
+                      visible: godSelected.value == -1,
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: searchWidget(context, searchFieldController,
+                                _templeListNotifier, loadedTempleList),
+                          ),
+                          Visibility(
+                            visible: searchFieldController.text.isEmpty,
+                            child: IconButton(
+                              onPressed: () {
+                                showFilterWidget.value =
+                                    !showFilterWidget.value;
+                              },
+                              icon: Icon(
+                                Icons.filter_list_rounded,
+                                color: showFilter
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.grey,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    godSelected.value == -1 ? 16.ph : 0.ph,
+                    Visibility(
+                      visible: searchFieldController.text.isEmpty && showFilter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildHeading(context, "categories",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            Visibility(
+                              visible: godSelected.value != -1,
+                              child: GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    godSelected.value = -1;
+                                    _templeListNotifier!.value =
+                                        loadedTempleList;
+                                  },
+                                  child: Text(
+                                    "clear",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                        visible:
+                            searchFieldController.text.isEmpty && showFilter,
+                        child: _godCategories(state)),
+                    _buildHeadingTextwithValue(templeList, context),
+                    _allTempleListView(templeList, state),
+                  ],
+                );
+              });
+        }),
   );
 }
 
@@ -61,7 +141,7 @@ _buildHeadingTextwithValue(templeList, BuildContext context) {
       Card(
         child: Padding(
           padding: const EdgeInsets.all(2.0),
-          child: Text(templeList.length.toString()),
+          child: Text(_templeListNotifier!.value.length.toString()),
         ),
       ),
       buildHeading(context, "temples"),
@@ -80,40 +160,81 @@ _allTempleListView(templeList, TempleListLoaded state) {
         onTemplePressed: (article) => _onTemplePressed(context, article),
       );
     },
-    itemCount: state.templeList!.length,
+    itemCount: templeList.length,
   );
 }
 
-_godCategories() {
-  return SizedBox(
-    height: 90,
-    child: ListView.builder(
-      // padding: const EdgeInsets.only(right: 2),
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      itemExtent: 80,
-      itemCount: godList.length,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () {},
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: godList[index].bgColor,
-            image:
-                DecorationImage(image: AssetImage(godList[index].imageLink!)),
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                spreadRadius: 1,
-                blurRadius: 4,
-                offset: const Offset(0, 3), // changes position of shadow
+_godCategories(TempleListLoaded templeLoadedstate) {
+  List<ItmsResponseEntity> templeList =
+      templeLoadedstate.templeList as List<ItmsResponseEntity>;
+  return BlocBuilder<WorshipBloc, WorshipState>(
+    builder: (context, state) {
+      if (state is WorshipLoaded) {
+        List<WorshipEntity> godList = state.worship as List<WorshipEntity>;
+        return ValueListenableBuilder(
+            valueListenable: godSelected,
+            builder: (context, isSelected, child) {
+              return SizedBox(
+                height: 75,
+                child: ListView.builder(
+                  itemCount: godList.length,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ChoiceChip(
+                        showCheckmark: false,
+                        label: Text(godList[index].worshipDesc!),
+                        selected: index == isSelected,
+                        onSelected: (value) {
+                          godSelected.value = index;
+                          List<ItmsResponseEntity> filteredTemples = templeList
+                              .where((item) =>
+                                  (item.worshipCode ?? 0) ==
+                                  (godList[index].worshipCode))
+                              .toList();
+                          _templeListNotifier!.value = filteredTemples;
+                        },
+                      ),
+                    );
+                  },
+                ),
+              );
+            });
+      }
+
+      return SizedBox(
+        height: 90,
+        child: ListView.builder(
+          // padding: const EdgeInsets.only(right: 2),
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemExtent: 80,
+          itemCount: godList.length,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: godList[index].bgColor,
+                image: DecorationImage(
+                    image: AssetImage(godList[index].imageLink!)),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.4),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    ),
+      );
+    },
   );
 }
 

@@ -5,14 +5,15 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 
 import '/config/constants.dart';
 
-LocaleText buildHeading(BuildContext context, String text) {
+LocaleText buildHeading(BuildContext context, String text, {TextStyle? style}) {
   return LocaleText(
     text,
     textAlign: TextAlign.left,
-    style: Theme.of(context)
-        .textTheme
-        .labelSmall!
-        .copyWith(fontWeight: FontWeight.bold),
+    style: style ??
+        Theme.of(context)
+            .textTheme
+            .labelSmall!
+            .copyWith(fontWeight: FontWeight.bold),
   );
 }
 
