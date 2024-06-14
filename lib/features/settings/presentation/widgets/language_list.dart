@@ -23,11 +23,16 @@ class _LanguageListState extends State<LanguageList> {
         return ChoiceChip(
           showCheckmark: false,
           labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-          label: Text(index == 0 ? 'English' : 'தமிழ்'),
-          labelStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+          label: SizedBox(
+              width: 70,
+              child: Text(
+                index == 0 ? 'English' : 'தமிழ்',
+                textAlign: TextAlign.center,
+              )),
+          labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: selectedIndex == index ? Colors.white : Colors.black,
               fontWeight: FontWeight.w600,
-              letterSpacing: 1.2),
+              letterSpacing: 1.3),
           selected: selectedIndex == index,
           selectedColor: Theme.of(context).colorScheme.primary,
           backgroundColor: Colors.black.withOpacity(0.1),

@@ -11,8 +11,6 @@ class LanguageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -21,19 +19,36 @@ class LanguageCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
             height: 100,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.topLeft,
-              child: LocaleText(
-                "choose_language",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontWeight: FontWeight.w900),
-                textAlign: TextAlign.left,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.topLeft,
+                  child: LocaleText(
+                    "choose_language",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Row(
+                  children: List.generate(
+                      3,
+                      (index) => const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 3),
+                            child: CircleAvatar(
+                              radius: 5,
+                              backgroundColor: Colors.grey,
+                            ),
+                          )),
+                )
+              ],
             ),
           ),
         ),

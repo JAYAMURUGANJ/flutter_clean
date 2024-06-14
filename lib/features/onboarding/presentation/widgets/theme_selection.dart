@@ -22,27 +22,25 @@ class _ThemeSelectionWidgetState extends State<ThemeSelectionWidget> {
         children: [
           Image.asset(
             "assets/images/icons/theme_selection.png",
-            scale: 1.0,
+            scale: 1.3,
           ),
-          20.ph,
-          SizedBox(
-            height: 100,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.topCenter,
-              child: LocaleText(
-                "choose_theme",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontWeight: FontWeight.w900),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+          10.ph,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.topCenter,
+            child: LocaleText(
+              "choose_theme",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(fontWeight: FontWeight.w900),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          ThemeList(),
+          20.ph,
+          const ThemeList(),
         ],
       ),
     );

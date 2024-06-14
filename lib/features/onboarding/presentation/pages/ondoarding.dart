@@ -12,19 +12,16 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final List<Widget> _onBoardingScreens = [
-    // ignore: prefer_const_constructors
+  final List<Widget> _onBoardingScreens = const [
     LanguageCard(),
-    const ThemeSelectionWidget(),
-    const FavoriteTemplesSelection(),
+    ThemeSelectionWidget(),
+    FavoriteTemplesSelection(),
   ];
   final ValueNotifier<int> _currentPage = ValueNotifier(0);
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: ValueListenableBuilder<int>(
             valueListenable: _currentPage,
@@ -43,25 +40,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     },
                   ),
                 ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerFloat,
-                floatingActionButton: SizedBox(
-                    width: screenWidth * .8,
-                    child: FilledButton(
-                        onPressed: () {
-                          if (currentIndex == (_onBoardingScreens.length - 1)) {
-                            Navigator.pushReplacementNamed(context, "Home");
-                            Prefs.setBool(spOnBoardingStatus, false);
-                          } else {
-                            _pageController.nextPage(
-                                duration: const Duration(milliseconds: 100),
-                                curve: Curves.bounceIn);
-                          }
-                        },
-                        child: Text(
-                            currentIndex == (_onBoardingScreens.length - 1)
-                                ? "Start"
-                                : "next"))),
+                bottomNavigationBar: SizedBox(
+                  height: 50,
+                  child: MaterialButton(
+                    color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      if (currentIndex == (_onBoardingScreens.length - 1)) {
+                        Navigator.pushReplacementNamed(context, "Home");
+                        Prefs.setBool(spOnBoardingStatus, false);
+                      } else {
+                        _pageController.nextPage(
+                            duration: const Duration(milliseconds: 100),
+                            curve: Curves.bounceIn);
+                      }
+                    },
+                    child: currentIndex == (_onBoardingScreens.length - 1)
+                        ? const Text(
+                            "Start",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : const Icon(
+                            Icons.arrow_forward,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                  ),
+                ),
               );
             }));
   }
