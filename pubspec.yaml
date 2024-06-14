@@ -119,7 +119,6 @@ flutter:
     - .env_dev
     - assets/locales/
     - assets/images/bg/
-    - assets/images/god/
     - assets/images/logo/
     - assets/images/icons/
     - assets/images/lottie/
