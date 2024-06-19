@@ -4,26 +4,28 @@ import 'package:flutter_locales/flutter_locales.dart';
 import '/config/common/widgets/app_logo.dart';
 
 buildBottomSheet(
-  context,
+  ctx,
   dynamic data,
   String sheetTitle,
   Widget body,
 ) {
-  return showBottomSheet(
-    context: context,
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    isDismissible: false,
     enableDrag: false,
-    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-    builder: (context) {
+    useSafeArea: true,
+    useRootNavigator: true,
+    context: ctx,
+    builder: (bottomSheetContext) {
       return Scaffold(
-        key: GlobalKey(debugLabel: sheetTitle),
-        appBar: buildBottomSheetAppBar(context, sheetTitle),
+        appBar: buildBottomSheetAppBar(bottomSheetContext, sheetTitle),
         body: body,
       );
     },
   );
 }
 
-buildBottomSheetAppBar(BuildContext context, String sheetTitle) {
+buildBottomSheetAppBar(BuildContext bottomSheetContext, String sheetTitle) {
   return AppBar(
     elevation: 0,
     leading: const Padding(
@@ -34,9 +36,9 @@ buildBottomSheetAppBar(BuildContext context, String sheetTitle) {
       IconButton(
         onPressed: () {
           try {
-            Navigator.of(context).pop();
-          } on Exception catch (e) {
-            debugPrint("error==> ${e.toString()}");
+            Navigator.of(bottomSheetContext).pop();
+          } on Exception {
+            rethrow;
           }
         },
         icon: const Icon(
@@ -45,12 +47,14 @@ buildBottomSheetAppBar(BuildContext context, String sheetTitle) {
         ),
       ),
     ],
-    backgroundColor: Theme.of(context).colorScheme.primary,
+    backgroundColor: Theme.of(bottomSheetContext).colorScheme.primary,
     title: LocaleText(
       sheetTitle,
       textAlign: TextAlign.center,
-      style:
-          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+      style: Theme.of(bottomSheetContext)
+          .textTheme
+          .titleLarge!
+          .copyWith(color: Colors.white),
     ),
   );
 }

@@ -26,6 +26,7 @@ import 'config/theme/color_schemes.g.dart';
 import 'features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
 import 'features/home/presentation/bloc/bottom_navigation/bottom_navigation_cubit.dart';
 import 'features/settings/presentation/bloc/theme/theme_bloc.dart';
+import 'features/temple_details/presentation/bloc/custom_scroll/custom_scroll_cubit.dart';
 import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
@@ -79,6 +80,7 @@ class _AppState extends State<App> {
           BlocProvider<WorshipBloc>(
               create: (context) => sl()..add(GetWorship())),
           BlocProvider<SelectedFavoriteTemplesCubit>(create: (context) => sl()),
+          BlocProvider<CustomScrollCubit>(create: (context) => sl()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, themeState) {

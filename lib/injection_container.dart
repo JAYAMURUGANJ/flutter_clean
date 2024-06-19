@@ -62,6 +62,7 @@ import 'features/temple_details/domain/repository/temple_timing_repository.dart'
 import 'features/temple_details/domain/usecases/near_by_temple_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_pooja_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_timinig_usecase.dart';
+import 'features/temple_details/presentation/bloc/custom_scroll/custom_scroll_cubit.dart';
 import 'features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
@@ -144,4 +145,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<WorshipBloc>(() => WorshipBloc(sl()));
   sl.registerFactory<SelectedFavoriteTemplesCubit>(
       () => SelectedFavoriteTemplesCubit());
+  sl.registerFactory<CustomScrollCubit>(() => CustomScrollCubit());
 }
