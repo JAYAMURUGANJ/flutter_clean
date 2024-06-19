@@ -21,7 +21,7 @@ import '/features/temple_list/presentation/pages/temple_list.dart';
 import '/features/ticket_booking/presentation/pages/booking_service.dart';
 import '/features/ticket_booking/presentation/pages/paid_service.dart';
 import '/features/ticket_booking/presentation/pages/ticket_status.dart';
-import '/splash.dart';
+import '../common/pages/splash.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
