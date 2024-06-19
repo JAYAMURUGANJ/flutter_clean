@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_function_literals_in_foreach_calls, library_prefixes
+// ignore_for_file: library_private_types_in_public_api, avoid_function_literals_in_foreach_calls, library_prefixes, deprecated_member_use
 
 import 'dart:async';
 import 'dart:ui' as ui;

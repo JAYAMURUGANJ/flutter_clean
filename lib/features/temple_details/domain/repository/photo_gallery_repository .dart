@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import '../../../../core/resources/data_state.dart';
 import '../entities/photo_gallery.dart';
 

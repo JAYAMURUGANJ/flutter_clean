@@ -21,21 +21,6 @@ buildBottomSheet(
       );
     },
   );
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    isDismissible: false,
-    enableDrag: false,
-    useSafeArea: true,
-    useRootNavigator: true,
-    context: context,
-    builder: (context) {
-      return Scaffold(
-        key: GlobalKey(debugLabel: sheetTitle),
-        appBar: buildBottomSheetAppBar(context, sheetTitle),
-        body: body,
-      );
-    },
-  );
 }
 
 buildBottomSheetAppBar(BuildContext context, String sheetTitle) {

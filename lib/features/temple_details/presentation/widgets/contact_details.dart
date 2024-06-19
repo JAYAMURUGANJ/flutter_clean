@@ -186,8 +186,8 @@ buildContactCard(BuildContext context, String lable, String? value,
 }
 
 Future<void> _launchUrl(String url) async {
-  Uri _url = Uri.parse(url);
-  if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');
+  Uri url0 = Uri.parse(url);
+  if (!await launchUrl(url0)) {
+    throw Exception('Could not launch $url0');
   }
 }

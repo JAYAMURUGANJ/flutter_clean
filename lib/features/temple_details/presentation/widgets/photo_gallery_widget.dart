@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/photo_gallery_desc/photo_gallery_desc_cubit.dart';
 
@@ -13,8 +15,6 @@ import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/itms_response.dart';
 import '../../domain/entities/photo_gallery.dart';
 import '../bloc/photo_gallery/photo_gallery_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class PhotoGalleryWidget extends StatefulWidget {
   final ItmsResponseEntity templeData;
@@ -260,43 +260,6 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildTitleDescWidget(String title, String value,
-      {bool valueOnNextLine = false}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: 6, horizontal: MediaQuery.of(context).size.width * .1),
-      child: Flex(
-        direction: valueOnNextLine ? Axis.vertical : Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.start,
-        clipBehavior: Clip.antiAlias,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LocaleText(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.left,
-          ),
-          if (!valueOnNextLine)
-            Text(
-              " : ",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.bodyLarge,
-            textAlign: TextAlign.justify,
           ),
         ],
       ),

@@ -6,7 +6,6 @@ import 'package:news_app_clean_architecture/features/settings/presentation/bloc/
 
 import '../../../temple_list/domain/entities/worship.dart';
 import '../../../temple_list/presentation/bloc/worship/worship_bloc.dart';
-import '../pages/settings.dart';
 
 class FavoriteTemplesWidget extends StatefulWidget {
   const FavoriteTemplesWidget({Key? key}) : super(key: key);

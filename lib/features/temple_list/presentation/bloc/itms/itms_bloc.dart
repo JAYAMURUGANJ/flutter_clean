@@ -308,18 +308,4 @@ class ITMSBloc extends Bloc<ITMSEvent, ITMSState> {
       emit(TempleListLoadingError(dataState.error!));
     }
   }
-
-  onFilterTempleListByWorship(
-      FilterTempleListByWorship event, Emitter<ITMSState> emit) {
-    try {
-      List<ItmsResponseEntity> filteredTemples = templesList
-          .where((item) => (item.worshipCode ?? 0) == (event.worshipCode))
-          .toList();
-      if (event.worshipCode == -1) {
-        emit(TempleListLoaded(templesList));
-      } else {
-        emit(TempleListLoaded(filteredTemples));
-      }
-    } catch (e) {}
-  }
 }
