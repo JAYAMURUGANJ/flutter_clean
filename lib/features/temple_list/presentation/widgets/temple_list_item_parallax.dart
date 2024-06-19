@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/common/widgets/parallax_image.dart';
 import '../../../../config/constants.dart';
-import '../../domain/entities/itms_response.dart';
+import '../../domain/entities/temple_list_response.dart';
 
 class TempleListItem extends StatelessWidget {
   TempleListItem({

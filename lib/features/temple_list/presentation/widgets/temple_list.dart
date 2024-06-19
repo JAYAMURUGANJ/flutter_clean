@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship.dart';
 
-import '../../domain/entities/itms_response.dart';
-import '../bloc/itms/itms_bloc.dart';
-import '../bloc/itms/itms_state.dart';
+import '../../domain/entities/temple_list_response.dart';
+import '../bloc/temple_list/temple_list_bloc.dart';
+import '../bloc/temple_list/temple_list_state.dart';
 import '../bloc/worship/worship_bloc.dart';
 import '../pages/temple_list.dart';
 import '/config/common/extensions.dart';
@@ -19,7 +19,7 @@ import 'temple_tile.dart';
 ValueNotifier<List<ItmsResponseEntity>>? _templeListNotifier;
 ValueNotifier<int> godSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
-  return BlocConsumer<ITMSBloc, ITMSState>(
+  return BlocConsumer<TempleListBloc, TempleListState>(
     listener: (context, state) {
       if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);

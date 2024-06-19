@@ -6,7 +6,7 @@ import 'package:news_app_clean_architecture/config/common/pages/error/something_
 import 'package:news_app_clean_architecture/features/temple_details/domain/entities/shrines_details.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/image_desc_widget.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list_response.dart';
 import '../../../../config/constants.dart';
 
 class ShrinesWidget extends StatefulWidget {

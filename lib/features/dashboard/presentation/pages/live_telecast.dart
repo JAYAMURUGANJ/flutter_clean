@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../../temple_list/domain/entities/itms_response.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '../../domain/entities/live_events.dart';
 import '../widgets/live_stream.dart';
 import '/config/common/extensions.dart';

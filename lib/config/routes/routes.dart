@@ -16,7 +16,7 @@ import '/features/home/presentation/pages/home.dart';
 import '/features/settings/presentation/pages/settings.dart';
 import '/features/temple_details/presentation/pages/temple_details.dart';
 import '/features/temple_details/presentation/widgets/google_map_location.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
+import '../../features/temple_list/domain/entities/temple_list_response.dart';
 import '/features/temple_list/presentation/pages/temple_list.dart';
 import '/features/ticket_booking/presentation/pages/booking_service.dart';
 import '/features/ticket_booking/presentation/pages/paid_service.dart';

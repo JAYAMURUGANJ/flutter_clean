@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'itms_response.g.dart';
+part 'temple_list_response.g.dart';
 
 @JsonSerializable()
 class ItmsResponseEntity extends Equatable {

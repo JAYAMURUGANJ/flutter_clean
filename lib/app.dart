@@ -30,8 +30,8 @@ import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearb
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
-import 'features/temple_list/presentation/bloc/itms/itms_bloc.dart';
-import 'features/temple_list/presentation/bloc/itms/itms_event.dart';
+import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
+import 'features/temple_list/presentation/bloc/temple_list/temple_list_event.dart';
 import 'injection_container.dart';
 
 class App extends StatefulWidget {
@@ -53,7 +53,7 @@ class _AppState extends State<App> {
     return LocaleBuilder(builder: (Locale? locale) {
       return MultiBlocProvider(
         providers: [
-          BlocProvider<ITMSBloc>(
+          BlocProvider<TempleListBloc>(
             create: (context) =>
                 sl()..add(GetTempleList(seniorgradeTemples: 'Y')),
           ),

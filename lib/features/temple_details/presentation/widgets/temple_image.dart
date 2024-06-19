@@ -15,7 +15,7 @@ import '../bloc/temple_info/temple_info_bloc.dart';
 import '/config/common/widgets/full_screen_image_viewer.dart';
 import '/features/temple_details/presentation/widgets/contact_details.dart';
 import '/features/temple_details/presentation/widgets/main_tower.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '360_degree_view.dart';
 
 Widget buildTempleImage(

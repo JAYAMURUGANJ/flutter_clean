@@ -19,11 +19,11 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
-import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../../../temple_list/presentation/widgets/temple_tile.dart';
 import '../bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import '/config/constants.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
   ByteData data = await rootBundle.load(path);
@@ -71,7 +71,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 
   @override
   void initState() {
-    listOfTemples = BlocProvider.of<ITMSBloc>(context).state.templeList
+    listOfTemples = BlocProvider.of<TempleListBloc>(context).state.templeList
         as List<ItmsResponseEntity>;
     _kGooglePlex = const CameraPosition(
       target: LatLng(37.4220936, -122.083922),

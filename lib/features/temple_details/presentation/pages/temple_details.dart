@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 
-import '../../../temple_list/domain/entities/itms_response.dart';
-import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/tab_widget.dart';
@@ -61,7 +61,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
   Widget build(BuildContext context) {
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     return BlocProvider(
-      create: (_) => sl<ITMSBloc>(),
+      create: (_) => sl<TempleListBloc>(),
       child: SafeArea(
         child: Scaffold(
           appBar: appBar(context, widget.temple),

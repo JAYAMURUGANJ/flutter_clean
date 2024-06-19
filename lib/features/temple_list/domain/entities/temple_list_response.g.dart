@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'itms_response.dart';
+part of 'temple_list_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

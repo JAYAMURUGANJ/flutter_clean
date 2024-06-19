@@ -10,7 +10,7 @@ import '../../../../config/constants.dart';
 import '../../../../core/data_sources/ITMS_API_service.dart';
 import '../../../../core/models/encrypted_response.dart';
 import '../../../../core/resources/data_state.dart';
-import '../../domain/repository/itms_repository.dart';
+import '../../domain/repository/temple_list_repository.dart';
 import '../models/itms_response.dart';
 
 class ItmsRepositoryImpl implements ItmsRepository {

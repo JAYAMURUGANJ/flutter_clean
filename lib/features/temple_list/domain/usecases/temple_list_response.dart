@@ -1,13 +1,13 @@
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/itms_response.dart';
-import '../repository/itms_repository.dart';
+import '../entities/temple_list_response.dart';
+import '../repository/temple_list_repository.dart';
 
-class ItmsResponseUseCase
+class TempleResponseUseCase
     implements UseCase<DataState<List<ItmsResponseEntity>>, void> {
   final ItmsRepository _templeRepository;
 
-  ItmsResponseUseCase(
+  TempleResponseUseCase(
     this._templeRepository,
   );
 

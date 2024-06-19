@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list_response.dart';
 
 import '../../../../config/constants.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';

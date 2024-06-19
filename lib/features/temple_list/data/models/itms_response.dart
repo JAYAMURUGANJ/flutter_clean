@@ -1,4 +1,4 @@
-import '../../domain/entities/itms_response.dart';
+import '../../domain/entities/temple_list_response.dart';
 
 class ItmsResponse extends ItmsResponseEntity {
   const ItmsResponse({

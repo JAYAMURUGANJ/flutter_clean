@@ -11,7 +11,7 @@ import '../bloc/contact_details/contact_details_bloc.dart';
 import '/config/common/extensions.dart';
 import '/config/constants.dart';
 import '/features/temple_details/domain/entities/contact_details.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import 'main_tower.dart';
 
 class BuildContactDetails extends StatefulWidget {

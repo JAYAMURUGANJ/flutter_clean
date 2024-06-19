@@ -9,7 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 
 import '/features/temple_details/presentation/widgets/google_map_location.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
+import '../../../../temple_list/domain/entities/temple_list_response.dart';
 
 part 'show_nearby_temples_event.dart';
 part 'show_nearby_temples_state.dart';

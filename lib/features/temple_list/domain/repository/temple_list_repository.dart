@@ -1,5 +1,5 @@
 import '/core/resources/data_state.dart';
-import '/features/temple_list/domain/entities/itms_response.dart';
+import '../entities/temple_list_response.dart';
 
 abstract class ItmsRepository {
   // API methods

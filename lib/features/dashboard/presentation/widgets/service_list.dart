@@ -7,7 +7,7 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/shrines_widget.dart';
 
 import '../../../event_calendar/presentation/pages/event_calendar.dart';
-import '../../../temple_list/domain/entities/itms_response.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '../pages/live_telecast.dart';
 import '/config/common/widgets/bottom_sheet.dart';
 import '/config/common/widgets/no_data_available.dart';

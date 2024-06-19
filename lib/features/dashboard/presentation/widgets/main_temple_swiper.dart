@@ -4,16 +4,16 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../temple_list/domain/entities/itms_response.dart';
-import '../../../temple_list/presentation/bloc/itms/itms_bloc.dart';
-import '../../../temple_list/presentation/bloc/itms/itms_state.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_state.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import 'main_temple_list_tile.dart';
 
 mainTempleListBlocBuilder() {
   final CardSwiperController controller = CardSwiperController();
-  return BlocConsumer<ITMSBloc, ITMSState>(
+  return BlocConsumer<TempleListBloc, TempleListState>(
     listener: (context, state) {
       if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);

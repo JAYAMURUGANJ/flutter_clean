@@ -9,7 +9,7 @@ import 'package:news_app_clean_architecture/features/temple_details/domain/entit
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/image_desc_widget.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/itms_response.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list_response.dart';
 
 import '../../../../config/common/pages/error/something_went_wrong_screen.dart';
 import '../../../../config/constants.dart';
