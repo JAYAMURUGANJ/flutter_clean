@@ -91,6 +91,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
                   name: shrinesList[index].subshrineName,
                   desc: shrinesList[index].subshrineDesc,
                   length: shrinesList.length,
+                  index: index,
                 );
               });
         }

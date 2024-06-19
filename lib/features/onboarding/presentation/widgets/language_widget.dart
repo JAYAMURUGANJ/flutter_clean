@@ -19,36 +19,20 @@ class LanguageCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
             height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.topLeft,
-                  child: LocaleText(
-                    "choose_language",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Row(
-                  children: List.generate(
-                      3,
-                      (index) => const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            child: CircleAvatar(
-                              radius: 5,
-                              backgroundColor: Colors.grey,
-                            ),
-                          )),
-                )
-              ],
+            width: MediaQuery.of(context).size.width,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.topLeft,
+              child: LocaleText(
+                "choose_language",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ),

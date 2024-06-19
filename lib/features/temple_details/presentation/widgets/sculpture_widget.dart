@@ -79,8 +79,8 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
                       name: sculpturesList[index].sculpturesName ?? "",
                       desc: sculpturesList[index].sculptureDesc ?? "",
                       length: sculpturesList.length,
+                      index: index,
                     );
-
                     //
                   });
             }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/features/onboarding/presentation/pages/ondoarding.dart';
+import 'package:news_app_clean_architecture/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/photo_gallery_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/speciality_widget.dart';

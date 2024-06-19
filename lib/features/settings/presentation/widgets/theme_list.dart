@@ -17,11 +17,17 @@ class ThemeList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: lightColorScheme.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                mainAxisSpacing: 12.0,
-                crossAxisSpacing: 20,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisExtent: 51.0,
-                maxCrossAxisExtent: 50),
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 12.0,
+                crossAxisCount: 5),
+
+            // SliverGridDelegateWithMaxCrossAxisExtent(
+            //     mainAxisSpacing: 12.0,
+            //     crossAxisSpacing: 20,
+            //     mainAxisExtent: 51.0,
+            //     maxCrossAxisExtent: 50),
             itemBuilder: (_, int index) {
               return GestureDetector(
                   onTap: () {
@@ -29,17 +35,17 @@ class ThemeList extends StatelessWidget {
                         .add(LightModeEvent(index: index));
                   },
                   child: CircleAvatar(
-                    radius: 29,
+                    radius: 30,
                     backgroundColor: themeState is LightModeState
                         ? index == themeState.index
                             ? lightColorScheme[index].primary
                             : Colors.transparent
                         : Colors.transparent,
                     child: CircleAvatar(
-                      radius: 22,
+                      radius: 20,
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
-                        radius: 18,
+                        radius: 16,
                         backgroundColor: lightColorScheme[index].primary,
                       ),
                     ),

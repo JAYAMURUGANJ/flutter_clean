@@ -30,7 +30,6 @@ class SpecialityRepositoryImpl implements SpecialityRepository {
         String decryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log(decryptedResponse, name: "API RESPONSE");
-        debugPrint("speciality details ===> $decryptedResponse");
         var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
         String responseStatus =
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;

@@ -70,7 +70,7 @@ Widget buildTabularlabelValueTxt(
                       clipBehavior: Clip.hardEdge,
                       child: LocaleText(
                         filteredList[index].title,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                         textAlign: TextAlign.center,

@@ -20,7 +20,7 @@ import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart'
 
 class TempleLiveTeleCasts extends StatefulWidget {
   final ItmsResponseEntity? templeData;
-  const  TempleLiveTeleCasts({
+  const TempleLiveTeleCasts({
     Key? key,
     this.templeData,
   }) : super(key: key);

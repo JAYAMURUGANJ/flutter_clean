@@ -42,11 +42,14 @@ class _ShowTemple360ViewState extends State<ShowTemple360View> {
       body: WebViewWidget(
         controller: controller,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.reload(),
-        child: const Icon(
-          Icons.refresh_outlined,
-          size: 35,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 25),
+        child: FloatingActionButton(
+          onPressed: () => controller.reload(),
+          child: const Icon(
+            Icons.refresh_outlined,
+            size: 35,
+          ),
         ),
       ),
     );

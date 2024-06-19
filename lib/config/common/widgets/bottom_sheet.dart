@@ -3,18 +3,35 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 import '/config/common/widgets/app_logo.dart';
 
-buildBottomSheet(context, dynamic data, String sheetTitle, Widget body,
-    {bool showAppBar = true}) {
+buildBottomSheet(
+  context,
+  dynamic data,
+  String sheetTitle,
+  Widget body,
+) {
+  return showBottomSheet(
+    context: context,
+    enableDrag: false,
+    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+    builder: (context) {
+      return Scaffold(
+        key: GlobalKey(debugLabel: sheetTitle),
+        appBar: buildBottomSheetAppBar(context, sheetTitle),
+        body: body,
+      );
+    },
+  );
   return showModalBottomSheet(
     isScrollControlled: true,
     isDismissible: false,
     enableDrag: false,
     useSafeArea: true,
+    useRootNavigator: true,
     context: context,
     builder: (context) {
       return Scaffold(
-        appBar: /*showAppBar ?*/
-            buildBottomSheetAppBar(context, sheetTitle) /* : null*/,
+        key: GlobalKey(debugLabel: sheetTitle),
+        appBar: buildBottomSheetAppBar(context, sheetTitle),
         body: body,
       );
     },
@@ -30,7 +47,13 @@ buildBottomSheetAppBar(BuildContext context, String sheetTitle) {
     ),
     actions: [
       IconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () {
+          try {
+            Navigator.of(context).pop();
+          } on Exception catch (e) {
+            debugPrint("error==> ${e.toString()}");
+          }
+        },
         icon: const Icon(
           Icons.close,
           color: Colors.white,
