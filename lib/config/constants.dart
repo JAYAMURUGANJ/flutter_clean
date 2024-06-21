@@ -55,6 +55,7 @@ class NetworkImages {
 }
 
 class LocalImages {
+  String logo = "assets/images/logo/logo.png";
   String appLogo = "assets/images/logo/app_logo.png";
   String tnLogo = "assets/images/logo/tn_logo.png";
   String splashBg = "assets/images/bg/splash.jpg";

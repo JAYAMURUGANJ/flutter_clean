@@ -108,7 +108,7 @@ class AppReferalCard extends StatelessWidget {
                     radius: 38,
                     child: Image(
                       image: ExactAssetImage(
-                        LocalImages().appLogo,
+                        LocalImages().logo,
                       ),
                       fit: BoxFit.fill,
                     ),
