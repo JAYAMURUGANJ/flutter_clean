@@ -39,7 +39,7 @@ Map<String, dynamic> _$ITMSRequestToJson(ITMSRequest instance) =>
       'requestor_userid': instance.requestorUserid,
       'requestor_userpwd': instance.requestorUserpwd,
       'service_requester': instance.serviceRequester,
-    };
+    }..removeWhere((key, value) => value == null);
 
 Adparam _$AdparamFromJson(Map<String, dynamic> json) => Adparam(
       deviceTime: json['device_time'] as String,
@@ -49,7 +49,7 @@ Adparam _$AdparamFromJson(Map<String, dynamic> json) => Adparam(
 Map<String, dynamic> _$AdparamToJson(Adparam instance) => <String, dynamic>{
       'device_time': instance.deviceTime,
       'server_time': instance.serverTime,
-    };
+    }..removeWhere((key, value) => value == null);
 
 Ipaddress _$IpaddressFromJson(Map<String, dynamic> json) => Ipaddress(
       ip: json['ip'] as String,
@@ -61,7 +61,7 @@ Map<String, dynamic> _$IpaddressToJson(Ipaddress instance) => <String, dynamic>{
       'ip': instance.ip,
       'device_id': instance.deviceId,
       'device_name': instance.deviceName,
-    };
+    }..removeWhere((key, value) => value == null);
 
 FilterData _$FilterDataFromJson(Map<String, dynamic> json) => FilterData(
       districtCode: json['district_code'] as String?,
@@ -84,4 +84,4 @@ Map<String, dynamic> _$FilterDataToJson(FilterData instance) =>
       'festival_month': instance.festivalMonth,
       'festival_code': instance.festivalCode,
       'festival_date': instance.festivalDate,
-    };
+    }..removeWhere((key, value) => value == null);
