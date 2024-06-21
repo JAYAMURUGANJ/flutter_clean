@@ -16,7 +16,7 @@ import '/config/constants.dart';
 import 'search_bar.dart';
 import 'temple_tile.dart';
 
-ValueNotifier<List<ItmsResponseEntity>>? _templeListNotifier;
+ValueNotifier<List<TempleListResponseEntity>>? _templeListNotifier;
 ValueNotifier<int> godSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
   return BlocConsumer<TempleListBloc, TempleListState>(
@@ -35,8 +35,8 @@ alltempleListBlocBuilder() {
       }
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        List<ItmsResponseEntity> loadedList =
-            state.templeList as List<ItmsResponseEntity>;
+        List<TempleListResponseEntity> loadedList =
+            state.templeList as List<TempleListResponseEntity>;
         _templeListNotifier = ValueNotifier(loadedList);
         return allTempleListPageView(context, templeList, state);
       }
@@ -49,7 +49,7 @@ allTempleListPageView(
     BuildContext context, loadedTempleList, TempleListLoaded state) {
   return SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 14),
-    child: ValueListenableBuilder<List<ItmsResponseEntity>>(
+    child: ValueListenableBuilder<List<TempleListResponseEntity>>(
         valueListenable: _templeListNotifier!,
         builder: (context, templeList, child) {
           return ValueListenableBuilder<bool>(
@@ -165,8 +165,8 @@ _allTempleListView(templeList, TempleListLoaded state) {
 }
 
 _godCategories(TempleListLoaded templeLoadedstate) {
-  List<ItmsResponseEntity> templeList =
-      templeLoadedstate.templeList as List<ItmsResponseEntity>;
+  List<TempleListResponseEntity> templeList =
+      templeLoadedstate.templeList as List<TempleListResponseEntity>;
   return BlocBuilder<WorshipBloc, WorshipState>(
     builder: (context, state) {
       if (state is WorshipLoaded) {
@@ -189,11 +189,12 @@ _godCategories(TempleListLoaded templeLoadedstate) {
                         selected: index == isSelected,
                         onSelected: (value) {
                           godSelected.value = index;
-                          List<ItmsResponseEntity> filteredTemples = templeList
-                              .where((item) =>
-                                  (item.worshipCode ?? 0) ==
-                                  (godList[index].worshipCode))
-                              .toList();
+                          List<TempleListResponseEntity> filteredTemples =
+                              templeList
+                                  .where((item) =>
+                                      (item.worshipCode ?? 0) ==
+                                      (godList[index].worshipCode))
+                                  .toList();
                           _templeListNotifier!.value = filteredTemples;
                         },
                       ),
@@ -238,6 +239,6 @@ _godCategories(TempleListLoaded templeLoadedstate) {
   );
 }
 
-_onTemplePressed(BuildContext context, ItmsResponseEntity article) {
+_onTemplePressed(BuildContext context, TempleListResponseEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

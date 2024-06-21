@@ -7,7 +7,7 @@ abstract class ShowNearbyTemplesEvent {
 class ViewCurrentLocationEvent extends ShowNearbyTemplesEvent {
   final bool fromCurrentLocation;
   final LatLng? currentLocationLatLng;
-  final List<ItmsResponseEntity> listOfTemples;
+  final List<TempleListResponseEntity> listOfTemples;
   final CustomInfoWindowController customInfoWindowController;
   final double distance;
   ViewCurrentLocationEvent(
@@ -19,15 +19,15 @@ class ViewCurrentLocationEvent extends ShowNearbyTemplesEvent {
 }
 
 class ViewSingleTempleEvent extends ShowNearbyTemplesEvent {
-  final ItmsResponseEntity temple;
+  final TempleListResponseEntity temple;
   final CustomInfoWindowController customInfoWindowController;
   ViewSingleTempleEvent(this.temple, this.customInfoWindowController);
 }
 
 class ViewNearByTemplesEvent extends ShowNearbyTemplesEvent {
   final bool fromCurrentLocation;
-  final ItmsResponseEntity? currentTemple;
-  final List<ItmsResponseEntity> listOfTemples;
+  final TempleListResponseEntity? currentTemple;
+  final List<TempleListResponseEntity> listOfTemples;
   final CustomInfoWindowController customInfoWindowController;
   final double distance;
   final LatLng? currentLocationLatLng;

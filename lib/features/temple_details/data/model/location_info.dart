@@ -5,7 +5,7 @@ class LocationInfo {
   bool fromCurrent;
   LocationData? currentLocation;
   double? distance;
-  ItmsResponseEntity? temple;
+  TempleListResponseEntity? temple;
 
   LocationInfo({
     required this.fromCurrent,

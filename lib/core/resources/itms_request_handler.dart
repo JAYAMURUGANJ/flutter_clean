@@ -1,8 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter_locales/flutter_locales.dart';
-
-import '../../config/common/class/local_storage.dart';
 import '/config/common/class/cryption.dart';
 import '/config/common/extensions.dart';
 import '/config/constants.dart';
@@ -33,19 +30,33 @@ class ITMSRequestHandler {
     String requestTime = DateTime.now().toStringForm;
 
     List<ITMSRequest> request = [
+      // ITMSRequest(
+      //   adparam: adparam,
+      //   ipaddress: ipAddress,
+      //   langType: Locales.lang == "en" ? "EN" : "TA",
+      //   serviceId: serviceId,
+      //   filterData: filterData,
+      //   requestTime: requestTime,
+      //   versionDate: ApiCredentials.versionData!,
+      //   versionNumber: spAppVersion,
+      //   requestorUserid: ApiCredentials.requestorUserId,
+      //   requestorUserpwd: ApiCredentials.requestorUserPwd!,
+      //   serviceRequester: ApiCredentials.serviceRequester,
+      // ),
       ITMSRequest(
         adparam: adparam,
         ipaddress: ipAddress,
-        langType: Locales.lang == "en" ? "EN" : "TA",
+        langType: "TA",
         serviceId: serviceId,
         filterData: filterData,
         requestTime: requestTime,
-        versionDate: ApiCredentials.versionData!,
-        versionNumber: spAppVersion,
+        versionDate: "2022-10-10 10:00:00",
+        versionNumber: "1.0.0",
         requestorUserid: ApiCredentials.requestorUserId,
-        requestorUserpwd: ApiCredentials.requestorUserPwd!,
+        requestorUserpwd:
+            "70fd7481af9f82ec81dcaaefebb76010106e28a09f9eeb58afa89eb50119586b",
         serviceRequester: ApiCredentials.serviceRequester,
-      ),
+      )
     ];
 
     log(request[0].toJson().toString(), name: "Before Encrypt Form Data");

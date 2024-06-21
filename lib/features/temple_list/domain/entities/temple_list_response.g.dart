@@ -6,21 +6,22 @@ part of 'temple_list_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ItmsResponseEntity _$ItmsResponseEntityFromJson(Map<String, dynamic> json) =>
-    ItmsResponseEntity(
-      templeId: (json['temple_Id'] as num?)?.toInt(),
+TempleListResponseEntity _$TempleListResponseEntityFromJson(
+        Map<String, dynamic> json) =>
+    TempleListResponseEntity(
+      templeId: json['temple_Id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
-      jurisOfficeCode: (json['juris_office_code'] as num?)?.toInt(),
+      jurisOfficeCode: json['juris_office_code'] as int?,
       districtCode: json['district_code'] as String?,
       talukCode: json['taluk_code'] as String?,
       villageCode: json['village_code'] as String?,
-      templeTypecode: (json['temple_typecode'] as num?)?.toInt(),
-      instituteCategorycode: (json['institute_categorycode'] as num?)?.toInt(),
-      templesectionCode: (json['templesection_code'] as num?)?.toInt(),
-      managementTypecode: (json['management_typecode'] as num?)?.toInt(),
-      managementSubtypecode: (json['management_subtype_code'] as num?)?.toInt(),
-      worshipCode: (json['worship_code'] as num?)?.toInt(),
+      templeTypecode: json['temple_typecode'] as int?,
+      instituteCategorycode: json['institute_categorycode'] as int?,
+      templesectionCode: json['templesection_code'] as int?,
+      managementTypecode: json['management_typecode'] as int?,
+      managementSubtypecode: json['management_subtype_code'] as int?,
+      worshipCode: json['worship_code'] as int?,
       urlTemplewebsite: json['url_templewebsite'] as String?,
       postalAvail: json['postal_avail'] as String?,
       annadhanamEnabled: json['annadhanam_enabled'] as String?,
@@ -35,7 +36,8 @@ ItmsResponseEntity _$ItmsResponseEntityFromJson(Map<String, dynamic> json) =>
       responseDesc: json['response_desc'] as String?,
     );
 
-Map<String, dynamic> _$ItmsResponseEntityToJson(ItmsResponseEntity instance) =>
+Map<String, dynamic> _$TempleListResponseEntityToJson(
+        TempleListResponseEntity instance) =>
     <String, dynamic>{
       'temple_Id': instance.templeId,
       'temple_name': instance.templeName,

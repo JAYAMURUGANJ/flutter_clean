@@ -10,7 +10,7 @@ import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/constants.dart';
 
 class SculpturesWidget extends StatefulWidget {
-  final ItmsResponseEntity? templeData;
+  final TempleListResponseEntity? templeData;
   const SculpturesWidget({Key? key, this.templeData}) : super(key: key);
 
   @override

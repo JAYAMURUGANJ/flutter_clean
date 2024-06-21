@@ -79,7 +79,7 @@ Future<void> initializeDependencies() async {
 
   // Dependencies
   sl.registerSingleton<HRCEApiService>(HRCEApiService(sl()));
-  sl.registerSingleton<ItmsRepository>(ItmsRepositoryImpl(sl()));
+  sl.registerSingleton<TempleListRepository>(ItmsRepositoryImpl(sl()));
   sl.registerSingleton<TempleInfoRepository>(TempleInfoRepositoryImpl(sl()));
   sl.registerSingleton<TempleTimingRepository>(
       TempleTimingRepositoryImpl(sl()));
@@ -103,7 +103,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<WorshipRepository>(WorshipRepositoryImpl(sl()));
 
   //UseCases
-  sl.registerSingleton<TempleResponseUseCase>(TempleResponseUseCase(sl()));
+  sl.registerSingleton<TempleListResponseUseCase>(
+      TempleListResponseUseCase(sl()));
   sl.registerSingleton<TempleInfoUseCase>(TempleInfoUseCase(sl()));
   sl.registerSingleton<TempleTimingUseCase>(TempleTimingUseCase(sl()));
   sl.registerSingleton<TemplePoojaUseCase>(TemplePoojaUseCase(sl()));

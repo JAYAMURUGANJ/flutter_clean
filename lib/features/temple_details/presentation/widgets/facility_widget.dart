@@ -15,7 +15,7 @@ import '/features/temple_details/domain/entities/facility.dart';
 import '/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
 
 class FacilityWidget extends StatefulWidget {
-  final ItmsResponseEntity? templeData;
+  final TempleListResponseEntity? templeData;
   const FacilityWidget({Key? key, this.templeData}) : super(key: key);
 
   @override

@@ -9,9 +9,9 @@ part of 'calendar_event_details.dart';
 CalendarEventDetailsEntity _$CalendarEventDetailsEntityFromJson(
         Map<String, dynamic> json) =>
     CalendarEventDetailsEntity(
-      templeId: (json['temple_id'] as num?)?.toInt(),
+      templeId: json['temple_id'] as int?,
       templeName: json['temple_name'] as String?,
-      festivalId: (json['festival_id'] as num?)?.toInt(),
+      festivalId: json['festival_id'] as int?,
       festivalFrom: json['festival_from'] == null
           ? null
           : DateTime.parse(json['festival_from'] as String),

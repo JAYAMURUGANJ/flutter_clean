@@ -4,7 +4,7 @@ import 'package:news_app_clean_architecture/features/temple_list/domain/entities
 import '../../../../config/constants.dart';
 import '../../../dashboard/presentation/widgets/service_list.dart';
 
-buildTempleServices(context, ItmsResponseEntity? templeData) {
+buildTempleServices(context, TempleListResponseEntity? templeData) {
   return Padding(
     padding: defaultPadding,
     child: buildTempleServicesList(

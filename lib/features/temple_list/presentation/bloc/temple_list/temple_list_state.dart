@@ -15,12 +15,12 @@ class TempleListLoading extends TempleListState {
 }
 
 class TempleListLoaded extends TempleListState {
-  const TempleListLoaded(List<ItmsResponseEntity> templeList)
+  const TempleListLoaded(List<TempleListResponseEntity> templeList)
       : super(templeList: templeList);
 }
 
 class FilteredTempleListLoaded extends TempleListState {
-  const FilteredTempleListLoaded(List<ItmsResponseEntity> templeList)
+  const FilteredTempleListLoaded(List<TempleListResponseEntity> templeList)
       : super(templeList: templeList);
 }
 

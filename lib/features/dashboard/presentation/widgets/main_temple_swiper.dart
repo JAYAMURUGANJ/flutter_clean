@@ -166,6 +166,6 @@ bool onSwipe(
   return true;
 }
 
-onTemplePressed(BuildContext context, ItmsResponseEntity article) {
+onTemplePressed(BuildContext context, TempleListResponseEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

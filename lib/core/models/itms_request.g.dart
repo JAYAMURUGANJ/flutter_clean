@@ -15,8 +15,8 @@ ITMSRequest _$ITMSRequestFromJson(Map<String, dynamic> json) => ITMSRequest(
           .toList(),
       langType: json['lang_type'] as String,
       serviceId: json['service_id'] as String,
-      filterData: (json['filter_data'] as List<dynamic>)
-          .map((e) => FilterData.fromJson(e as Map<String, dynamic>))
+      filterData: (json['filter_data'] as List<dynamic>?)
+          ?.map((e) => FilterData.fromJson(e as Map<String, dynamic>))
           .toList(),
       requestTime: json['request_time'] as String,
       versionDate: json['version_date'] as String,
@@ -39,9 +39,7 @@ Map<String, dynamic> _$ITMSRequestToJson(ITMSRequest instance) =>
       'requestor_userid': instance.requestorUserid,
       'requestor_userpwd': instance.requestorUserpwd,
       'service_requester': instance.serviceRequester,
-    }..removeWhere((key, value) => value == null);
-
-// }..removeWhere((key, value) => value == null);
+    };
 
 Adparam _$AdparamFromJson(Map<String, dynamic> json) => Adparam(
       deviceTime: json['device_time'] as String,

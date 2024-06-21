@@ -1,13 +1,12 @@
 import 'package:feedback/feedback.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../../../config/common/widgets/app_header.dart';
-import '../../../../config/common/widgets/navigation_drawer.dart';
-import '../../../../config/constants.dart';
 import '../widgets/language_list.dart';
 import '../widgets/theme_list.dart';
+import '/config/common/widgets/app_header.dart';
+import '/config/common/widgets/navigation_drawer.dart';
+import '/config/constants.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -52,7 +51,7 @@ class _SettingsState extends State<Settings> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          BetterFeedback.of(context).show((p0) => print(p0.text));
+          BetterFeedback.of(context).show((p0) => debugPrint(p0.text));
         },
         child: const Icon(Icons.feedback),
       ),

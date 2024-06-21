@@ -9,7 +9,7 @@ part of 'live_events.dart';
 LiveEventsEntity _$LiveEventsEntityFromJson(Map<String, dynamic> json) =>
     LiveEventsEntity(
       templeid: json['templeid'] as String?,
-      templeId: (json['temple_id'] as num?)?.toInt(),
+      templeId: json['temple_id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
       maintowerImage: (json['maintower_image'] as List<dynamic>?)

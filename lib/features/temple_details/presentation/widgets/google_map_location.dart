@@ -54,7 +54,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   late GoogleMapController _controller;
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-  List<ItmsResponseEntity> listOfTemples = [];
+  List<TempleListResponseEntity> listOfTemples = [];
   int selectedMapStyleIndex = 0;
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
@@ -72,7 +72,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   @override
   void initState() {
     listOfTemples = BlocProvider.of<TempleListBloc>(context).state.templeList
-        as List<ItmsResponseEntity>;
+        as List<TempleListResponseEntity>;
     _kGooglePlex = const CameraPosition(
       target: LatLng(37.4220936, -122.083922),
       zoom: 13.4746,
@@ -504,7 +504,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 }
 
 class BuildMarkerInfoWidget extends StatelessWidget {
-  final ItmsResponseEntity temple;
+  final TempleListResponseEntity temple;
   final CustomInfoWindowController customInfoWindowController;
   const BuildMarkerInfoWidget(
       {Key? key,
@@ -631,7 +631,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
   }
 
   // open external map apps
-  openMapsApp(context, ItmsResponseEntity temple) async {
+  openMapsApp(context, TempleListResponseEntity temple) async {
     try {
       final coords = mapLauncher.Coords(double.parse(temple.templeLatitude!),
           double.parse(temple.templeLangitude!));

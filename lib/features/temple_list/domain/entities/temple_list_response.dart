@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'temple_list_response.g.dart';
 
 @JsonSerializable()
-class ItmsResponseEntity extends Equatable {
+class TempleListResponseEntity extends Equatable {
   @JsonKey(name: 'temple_Id')
   final int? templeId;
   @JsonKey(name: 'temple_name')
@@ -52,7 +52,7 @@ class ItmsResponseEntity extends Equatable {
   @JsonKey(name: 'response_desc')
   final String? responseDesc;
 
-  const ItmsResponseEntity({
+  const TempleListResponseEntity({
     this.templeId,
     this.templeName,
     this.ttempleName,
@@ -78,10 +78,10 @@ class ItmsResponseEntity extends Equatable {
     this.responseDesc,
   });
 
-  factory ItmsResponseEntity.fromJson(Map<String, dynamic> json) =>
-      _$ItmsResponseEntityFromJson(json);
+  factory TempleListResponseEntity.fromJson(Map<String, dynamic> json) =>
+      _$TempleListResponseEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ItmsResponseEntityToJson(this);
+  Map<String, dynamic> toJson() => _$TempleListResponseEntityToJson(this);
 
   @override
   List<Object?> get props {

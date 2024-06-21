@@ -17,7 +17,7 @@ import '../../domain/entities/photo_gallery.dart';
 import '../bloc/photo_gallery/photo_gallery_bloc.dart';
 
 class PhotoGalleryWidget extends StatefulWidget {
-  final ItmsResponseEntity templeData;
+  final TempleListResponseEntity templeData;
   const PhotoGalleryWidget({Key? key, required this.templeData})
       : super(key: key);
 

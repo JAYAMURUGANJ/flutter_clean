@@ -11,6 +11,7 @@ import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '../../data/model/calendar_event.dart';
 import '../../data/model/calendar_event_details.dart';
 import '../../domain/entities/calendar_event.dart';
@@ -22,10 +23,9 @@ import '/config/common/widgets/no_data_available.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/constants.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
 
 class TempleEventCalendar extends StatefulWidget {
-  final ItmsResponseEntity? templeData;
+  final TempleListResponseEntity? templeData;
   const TempleEventCalendar({Key? key, this.templeData}) : super(key: key);
 
   @override

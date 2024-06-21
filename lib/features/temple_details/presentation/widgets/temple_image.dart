@@ -3,24 +3,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import '/config/common/extensions.dart';
-import '/config/common/widgets/bottom_sheet.dart';
-import '/config/constants.dart';
+
 import '../../../dashboard/presentation/widgets/service_list.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '../../data/model/location_info.dart';
 import '../../domain/entities/speciality.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/speciality/speciality_bloc.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
+import '/config/common/extensions.dart';
+import '/config/common/widgets/bottom_sheet.dart';
 import '/config/common/widgets/full_screen_image_viewer.dart';
+import '/config/constants.dart';
 import '/features/temple_details/presentation/widgets/contact_details.dart';
 import '/features/temple_details/presentation/widgets/main_tower.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '360_degree_view.dart';
 
 Widget buildTempleImage(
     context,
-    ItmsResponseEntity temple,
+    TempleListResponseEntity temple,
     AnimationController buttonAnimationController,
     Animation<Color?> colorAnimation) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(

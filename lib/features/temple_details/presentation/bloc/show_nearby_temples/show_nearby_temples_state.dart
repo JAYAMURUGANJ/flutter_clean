@@ -11,7 +11,7 @@ class ViewNearbyTemplesLoading extends ShowNearbyTemplesState {}
 class ViewSingleTempleState extends ShowNearbyTemplesState {
   final Set<Marker> markers;
   // final ItmsResponseEntity temple;
-  final List<ItmsResponseEntity>? filteredTemples;
+  final List<TempleListResponseEntity>? filteredTemples;
   final CameraPosition? cameraPosition;
   ViewSingleTempleState(this.markers,
       {this.filteredTemples, this.cameraPosition});
@@ -20,14 +20,14 @@ class ViewSingleTempleState extends ShowNearbyTemplesState {
 class ViewMarkersState extends ShowNearbyTemplesState {
   final Set<Marker> markers;
   // final ItmsResponseEntity temple;
-  final List<ItmsResponseEntity>? filteredTemples;
+  final List<TempleListResponseEntity>? filteredTemples;
   final CameraPosition? cameraPosition;
   ViewMarkersState(this.markers, {this.filteredTemples, this.cameraPosition});
 }
 
 class ViewNearbyTemplesState extends ShowNearbyTemplesState {
   final Set<Marker> markers;
-  final List<ItmsResponseEntity> filteredTemples;
+  final List<TempleListResponseEntity> filteredTemples;
   final CameraPosition? cameraPosition;
   ViewNearbyTemplesState(this.markers, this.filteredTemples,
       {this.cameraPosition});

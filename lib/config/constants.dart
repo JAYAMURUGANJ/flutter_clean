@@ -24,8 +24,11 @@ class ApiCredentials {
       dotenv.env['REQUESTER_USER_PWD'];
 
   // for encryption & decryption of requests and responses
-  static String? keyUTF8 = dotenv.env['KEYUTF8'];
-  static String? ivUTF8 = dotenv.env['IVUTF8'];
+  // static String? keyUTF8 = dotenv.env['KEYUTF8'];
+  // static String? ivUTF8 = dotenv.env['IVUTF8'];
+
+  static String? keyUTF8 = "fWe6qWEJCWb2gcH4+APJL1YmtZmn0NVS";
+  static String? ivUTF8 = "c1aeB65F17A1c7f3";
 
   // version date for the appliction version when it was launched
   static String? versionData = dotenv.env['VERSION_DATE'];

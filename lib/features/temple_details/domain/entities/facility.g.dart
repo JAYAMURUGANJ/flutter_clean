@@ -9,7 +9,7 @@ part of 'facility.dart';
 FacilityEntity _$FacilityEntityFromJson(Map<String, dynamic> json) =>
     FacilityEntity(
       templeid: json['templeid'] as String?,
-      templeId: (json['temple_id'] as num?)?.toInt(),
+      templeId: json['temple_id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
       facilityTitle: json['facility_title'] as String?,

@@ -13,12 +13,13 @@ import '../../../../core/resources/data_state.dart';
 import '../../domain/repository/temple_list_repository.dart';
 import '../models/itms_response.dart';
 
-class ItmsRepositoryImpl implements ItmsRepository {
+class ItmsRepositoryImpl implements TempleListRepository {
   final HRCEApiService _apiService;
   ItmsRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<ItmsResponse>>> getResponse(formData, serviceId) async {
+  Future<DataState<List<TempleListResponse>>> getTempleList(
+      formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
@@ -36,11 +37,11 @@ class ItmsRepositoryImpl implements ItmsRepository {
             EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
-          List<ItmsResponse> resultSet =
+          List<TempleListResponse> resultSet =
               EncryptedResponse.fromJson(clientJsonResponse[0])
                   .resultSet!
-                  .map<ItmsResponse>((dynamic i) =>
-                      ItmsResponse.fromJson(i as Map<String, dynamic>))
+                  .map<TempleListResponse>((dynamic i) =>
+                      TempleListResponse.fromJson(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {

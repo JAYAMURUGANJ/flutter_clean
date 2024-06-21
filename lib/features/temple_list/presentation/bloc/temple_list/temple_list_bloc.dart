@@ -11,8 +11,8 @@ import 'temple_list_event.dart';
 import 'temple_list_state.dart';
 
 class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
-  final TempleResponseUseCase _getItmsResponseUseCase;
-  List<ItmsResponseEntity> templesList = [];
+  final TempleListResponseUseCase _getItmsResponseUseCase;
+  List<TempleListResponseEntity> templesList = [];
 
   TempleListBloc(this._getItmsResponseUseCase)
       : super(const TempleListLoading()) {

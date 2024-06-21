@@ -7,15 +7,15 @@ import 'package:news_app_clean_architecture/features/temple_details/data/model/l
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../dashboard/presentation/widgets/service_list.dart';
+import '../../../temple_list/domain/entities/temple_list_response.dart';
 import '../bloc/contact_details/contact_details_bloc.dart';
 import '/config/common/extensions.dart';
 import '/config/constants.dart';
 import '/features/temple_details/domain/entities/contact_details.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
 import 'main_tower.dart';
 
 class BuildContactDetails extends StatefulWidget {
-  final ItmsResponseEntity temple;
+  final TempleListResponseEntity temple;
   const BuildContactDetails(this.temple, {Key? key}) : super(key: key);
 
   @override
