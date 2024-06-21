@@ -13,6 +13,7 @@ import '/app.dart';
 import 'config/common/class/app_info.dart';
 import 'config/common/class/error_logger.dart';
 import 'config/common/class/local_storage.dart';
+import 'config/config_loader.dart';
 import 'core/bloc/bloc_observer.dart';
 import 'injection_container.dart';
 
@@ -30,6 +31,32 @@ void main() {
       await initializeDependencies();
       await Prefs.init();
       await Locales.init(['ta', 'en']);
+
+      /// endpoint cofiguration
+      String envFile = "development";
+
+      const flavor = String.fromEnvironment('FLAVOR');
+
+      switch (flavor) {
+        case 'development':
+          envFile = "development";
+          break;
+        case 'staging':
+          envFile = "staging";
+          break;
+        case 'production':
+          envFile = "release";
+          break;
+      }
+
+      // Load the configuration
+      final configLoader = ConfigLoader(
+          environment: envFile); // Change this based on environment
+      final config = await configLoader.load();
+
+      debugPrint("config ===>  ${config.apiBaseUrl}");
+
+      ///===>
 
       AppInfo().getIPAddress().then((ip) async {
         await Prefs.setString(

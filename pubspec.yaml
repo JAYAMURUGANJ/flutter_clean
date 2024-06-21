@@ -125,6 +125,7 @@ flutter:
     - assets/images/logo/
     - assets/images/icons/
     - assets/images/lottie/
+    - config/
     
   uses-material-design: true
 

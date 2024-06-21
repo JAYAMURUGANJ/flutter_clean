@@ -11,12 +11,9 @@ class ConfigLoader {
 
   Future<Config> load() async {
     try {
-      debugPrint("load entered");
       final String configString =
           await rootBundle.loadString('config/$environment.json');
-      debugPrint("load entered 2");
       final configJson = json.decode(configString);
-      debugPrint("load entered 3");
       return Config.fromJson(configJson);
     } catch (e) {
       return Config(apiBaseUrl: "", debug: false);

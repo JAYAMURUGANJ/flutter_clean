@@ -42,6 +42,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 bottomNavigationBar: SizedBox(
                   height: 100,
+                  width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,10 +64,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 )),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(
+                        padding:
                             (currentIndex != (_onBoardingScreens.length - 1))
-                                ? 8.0
-                                : 0.0),
+                                ? const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 16)
+                                : const EdgeInsets.only(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -85,46 +87,53 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           fontSize: 18,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold))),
-                            MaterialButton(
-                              height: 50,
-                              minWidth: (currentIndex ==
+                            SizedBox(
+                              width: (currentIndex ==
                                       (_onBoardingScreens.length - 1))
                                   ? MediaQuery.of(context).size.width
                                   : null,
-                              color: Theme.of(context).colorScheme.primary,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      (currentIndex !=
-                                              (_onBoardingScreens.length - 1))
-                                          ? 8
-                                          : 0)),
-                              onPressed: () {
-                                if (currentIndex ==
-                                    (_onBoardingScreens.length - 1)) {
-                                  Navigator.pushReplacementNamed(
-                                      context, "Home");
-                                  Prefs.setBool(spOnBoardingStatus, false);
-                                } else {
-                                  _pageController.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 100),
-                                      curve: Curves.bounceIn);
-                                }
-                              },
-                              child: currentIndex ==
-                                      (_onBoardingScreens.length - 1)
-                                  ? const Text(
-                                      "Start",
-                                      style: TextStyle(
-                                          fontSize: 18,
+                              child: Padding(
+                                padding: EdgeInsets.all((currentIndex ==
+                                        (_onBoardingScreens.length - 1))
+                                    ? 16.0
+                                    : 0.0),
+                                child: MaterialButton(
+                                  height: 50,
+                                  // minWidth: (currentIndex ==
+                                  //         (_onBoardingScreens.length - 1))
+                                  //     ? MediaQuery.of(context).size.width
+                                  //     : null,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  shape: const StadiumBorder(),
+                                  onPressed: () {
+                                    if (currentIndex ==
+                                        (_onBoardingScreens.length - 1)) {
+                                      Navigator.pushReplacementNamed(
+                                          context, "Home");
+                                      Prefs.setBool(spOnBoardingStatus, false);
+                                    } else {
+                                      _pageController.nextPage(
+                                          duration:
+                                              const Duration(milliseconds: 100),
+                                          curve: Curves.bounceIn);
+                                    }
+                                  },
+                                  child: currentIndex ==
+                                          (_onBoardingScreens.length - 1)
+                                      ? const Text(
+                                          "Get Started",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : const Icon(
+                                          Icons.arrow_forward,
+                                          size: 24,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  : const Icon(
-                                      Icons.arrow_forward,
-                                      size: 24,
-                                      color: Colors.white,
-                                    ),
+                                        ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
