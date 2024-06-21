@@ -61,6 +61,20 @@ android {
         }
     }
     namespace 'com.example.news_app_clean_architecture'
+
+    // endpoint configuration
+
+    flavorDimensions "env"
+    productFlavors {
+        development {
+            dimension "env"
+            buildConfigField "String", "ENV", "\"development\""
+        }
+        production {
+            dimension "env"
+            buildConfigField "String", "ENV", "\"production\""
+        }
+    }
 }
 
 flutter {

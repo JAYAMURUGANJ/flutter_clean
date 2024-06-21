@@ -1,3 +1,5 @@
+import 'package:feedback/feedback.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
@@ -47,6 +49,12 @@ class _SettingsState extends State<Settings> {
             // FavoriteTemples()
           ]),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          BetterFeedback.of(context).show((p0) => print(p0.text));
+        },
+        child: const Icon(Icons.feedback),
       ),
     );
   }

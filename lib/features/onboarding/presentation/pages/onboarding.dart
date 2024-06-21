@@ -41,13 +41,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 bottomNavigationBar: SizedBox(
-                  height: 80,
+                  height: 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: List.generate(
                             _onBoardingScreens.length,
                             (index) => Padding(
@@ -61,33 +62,72 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ),
                                 )),
                       ),
-                      MaterialButton(
-                        minWidth: double.infinity,
-                        height: 50,
-                        color: Theme.of(context).colorScheme.primary,
-                        onPressed: () {
-                          if (currentIndex == (_onBoardingScreens.length - 1)) {
-                            Navigator.pushReplacementNamed(context, "Home");
-                            Prefs.setBool(spOnBoardingStatus, false);
-                          } else {
-                            _pageController.nextPage(
-                                duration: const Duration(milliseconds: 100),
-                                curve: Curves.bounceIn);
-                          }
-                        },
-                        child: currentIndex == (_onBoardingScreens.length - 1)
-                            ? const Text(
-                                "Start",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : const Icon(
-                                Icons.arrow_forward,
-                                size: 30,
-                                color: Colors.white,
-                              ),
+                      Padding(
+                        padding: EdgeInsets.all(
+                            (currentIndex != (_onBoardingScreens.length - 1))
+                                ? 8.0
+                                : 0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (currentIndex != (_onBoardingScreens.length - 1))
+                              MaterialButton(
+                                  height: 50,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  shape: const StadiumBorder(),
+                                  onPressed: () {
+                                    Navigator.pushReplacementNamed(
+                                        context, "Home");
+                                    Prefs.setBool(spOnBoardingStatus, false);
+                                  },
+                                  child: const Text("Skip",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold))),
+                            MaterialButton(
+                              height: 50,
+                              minWidth: (currentIndex ==
+                                      (_onBoardingScreens.length - 1))
+                                  ? MediaQuery.of(context).size.width
+                                  : null,
+                              color: Theme.of(context).colorScheme.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      (currentIndex !=
+                                              (_onBoardingScreens.length - 1))
+                                          ? 8
+                                          : 0)),
+                              onPressed: () {
+                                if (currentIndex ==
+                                    (_onBoardingScreens.length - 1)) {
+                                  Navigator.pushReplacementNamed(
+                                      context, "Home");
+                                  Prefs.setBool(spOnBoardingStatus, false);
+                                } else {
+                                  _pageController.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 100),
+                                      curve: Curves.bounceIn);
+                                }
+                              },
+                              child: currentIndex ==
+                                      (_onBoardingScreens.length - 1)
+                                  ? const Text(
+                                      "Start",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  : const Icon(
+                                      Icons.arrow_forward,
+                                      size: 24,
+                                      color: Colors.white,
+                                    ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
