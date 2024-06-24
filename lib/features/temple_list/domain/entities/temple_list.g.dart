@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'temple_list_response.dart';
+part of 'temple_list.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TempleListResponseEntity _$TempleListResponseEntityFromJson(
-        Map<String, dynamic> json) =>
-    TempleListResponseEntity(
+TempleListEntity _$TempleListEntityFromJson(Map<String, dynamic> json) =>
+    TempleListEntity(
       templeId: json['temple_Id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
@@ -36,8 +35,7 @@ TempleListResponseEntity _$TempleListResponseEntityFromJson(
       responseDesc: json['response_desc'] as String?,
     );
 
-Map<String, dynamic> _$TempleListResponseEntityToJson(
-        TempleListResponseEntity instance) =>
+Map<String, dynamic> _$TempleListEntityToJson(TempleListEntity instance) =>
     <String, dynamic>{
       'temple_Id': instance.templeId,
       'temple_name': instance.templeName,

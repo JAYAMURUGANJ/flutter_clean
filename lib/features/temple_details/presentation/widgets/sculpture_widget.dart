@@ -4,13 +4,13 @@ import '/features/temple_details/domain/entities/sculpture.dart';
 import '/config/common/extensions.dart';
 import '/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import '/features/temple_details/presentation/widgets/image_desc_widget.dart';
-import '/features/temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/constants.dart';
 
 class SculpturesWidget extends StatefulWidget {
-  final TempleListResponseEntity? templeData;
+  final TempleListEntity? templeData;
   const SculpturesWidget({Key? key, this.templeData}) : super(key: key);
 
   @override

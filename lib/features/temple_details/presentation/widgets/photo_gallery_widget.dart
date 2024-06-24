@@ -12,12 +12,12 @@ import '../../../../config/common/pages/error/something_went_wrong_screen.dart';
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/full_screen_image_viewer.dart';
 import '../../../../config/constants.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../domain/entities/photo_gallery.dart';
 import '../bloc/photo_gallery/photo_gallery_bloc.dart';
 
 class PhotoGalleryWidget extends StatefulWidget {
-  final TempleListResponseEntity templeData;
+  final TempleListEntity templeData;
   const PhotoGalleryWidget({Key? key, required this.templeData})
       : super(key: key);
 

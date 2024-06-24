@@ -1,7 +1,7 @@
-import '../../domain/entities/temple_list_response.dart';
+import '../../domain/entities/temple_list.dart';
 
-class TempleListResponse extends TempleListResponseEntity {
-  const TempleListResponse({
+class TempleList extends TempleListEntity {
+  const TempleList({
     int? templeId,
     String? templeName,
     String? ttempleName,
@@ -51,8 +51,8 @@ class TempleListResponse extends TempleListResponseEntity {
           responseDesc: responseDesc,
         );
 
-  factory TempleListResponse.fromJson(Map<String, dynamic> json) {
-    return TempleListResponse(
+  factory TempleList.fromJson(Map<String, dynamic> json) {
+    return TempleList(
       templeId: json['temple_id'],
       templeName: json['temple_name'] ?? "",
       ttempleName: json['ttemple_name'] ?? "",

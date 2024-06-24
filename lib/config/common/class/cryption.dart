@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
-
-import '../../constants.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 class Authentication {
   final key = Key.fromUtf8(ApiCredentials.keyUTF8!); //32 chars

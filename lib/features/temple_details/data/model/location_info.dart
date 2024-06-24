@@ -1,11 +1,11 @@
 import 'package:location/location.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list_response.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list.dart';
 
 class LocationInfo {
   bool fromCurrent;
   LocationData? currentLocation;
   double? distance;
-  TempleListResponseEntity? temple;
+  TempleListEntity? temple;
 
   LocationInfo({
     required this.fromCurrent,

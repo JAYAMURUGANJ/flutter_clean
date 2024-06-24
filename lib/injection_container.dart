@@ -66,9 +66,9 @@ import 'features/temple_details/presentation/bloc/custom_scroll/custom_scroll_cu
 import 'features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
-import 'features/temple_list/data/repository/itms_repository_impl.dart';
+import 'features/temple_list/data/repository/temple_list_impl.dart';
 import 'features/temple_list/domain/repository/temple_list_repository.dart';
-import 'features/temple_list/domain/usecases/temple_list_response.dart';
+import 'features/temple_list/domain/usecases/temple_list_usecase.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 
 final sl = GetIt.instance;
@@ -103,8 +103,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<WorshipRepository>(WorshipRepositoryImpl(sl()));
 
   //UseCases
-  sl.registerSingleton<TempleListResponseUseCase>(
-      TempleListResponseUseCase(sl()));
+  sl.registerSingleton<TempleListUseCase>(TempleListUseCase(sl()));
   sl.registerSingleton<TempleInfoUseCase>(TempleInfoUseCase(sl()));
   sl.registerSingleton<TempleTimingUseCase>(TempleTimingUseCase(sl()));
   sl.registerSingleton<TemplePoojaUseCase>(TemplePoojaUseCase(sl()));

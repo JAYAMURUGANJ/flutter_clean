@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../domain/entities/temple_list_response.dart';
+import '../../domain/entities/temple_list.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/network_image_cache.dart';
 import '/config/constants.dart';
 
 class TempleListTile extends StatelessWidget {
-  final TempleListResponseEntity? temple;
-  final void Function(TempleListResponseEntity article)? onTemplePressed;
+  final TempleListEntity? temple;
+  final void Function(TempleListEntity article)? onTemplePressed;
 
   const TempleListTile({
     Key? key,

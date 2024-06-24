@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship.dart';
 
-import '../../domain/entities/temple_list_response.dart';
+import '../../domain/entities/temple_list.dart';
 import '../bloc/temple_list/temple_list_bloc.dart';
 import '../bloc/temple_list/temple_list_state.dart';
 import '../bloc/worship/worship_bloc.dart';
@@ -16,7 +16,7 @@ import '/config/constants.dart';
 import 'search_bar.dart';
 import 'temple_tile.dart';
 
-ValueNotifier<List<TempleListResponseEntity>>? _templeListNotifier;
+ValueNotifier<List<TempleListEntity>>? _templeListNotifier;
 ValueNotifier<int> godSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
   return BlocConsumer<TempleListBloc, TempleListState>(
@@ -35,8 +35,8 @@ alltempleListBlocBuilder() {
       }
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        List<TempleListResponseEntity> loadedList =
-            state.templeList as List<TempleListResponseEntity>;
+        List<TempleListEntity> loadedList =
+            state.templeList as List<TempleListEntity>;
         _templeListNotifier = ValueNotifier(loadedList);
         return allTempleListPageView(context, templeList, state);
       }
@@ -49,7 +49,7 @@ allTempleListPageView(
     BuildContext context, loadedTempleList, TempleListLoaded state) {
   return SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 14),
-    child: ValueListenableBuilder<List<TempleListResponseEntity>>(
+    child: ValueListenableBuilder<List<TempleListEntity>>(
         valueListenable: _templeListNotifier!,
         builder: (context, templeList, child) {
           return ValueListenableBuilder<bool>(
@@ -165,8 +165,8 @@ _allTempleListView(templeList, TempleListLoaded state) {
 }
 
 _godCategories(TempleListLoaded templeLoadedstate) {
-  List<TempleListResponseEntity> templeList =
-      templeLoadedstate.templeList as List<TempleListResponseEntity>;
+  List<TempleListEntity> templeList =
+      templeLoadedstate.templeList as List<TempleListEntity>;
   return BlocBuilder<WorshipBloc, WorshipState>(
     builder: (context, state) {
       if (state is WorshipLoaded) {
@@ -189,12 +189,11 @@ _godCategories(TempleListLoaded templeLoadedstate) {
                         selected: index == isSelected,
                         onSelected: (value) {
                           godSelected.value = index;
-                          List<TempleListResponseEntity> filteredTemples =
-                              templeList
-                                  .where((item) =>
-                                      (item.worshipCode ?? 0) ==
-                                      (godList[index].worshipCode))
-                                  .toList();
+                          List<TempleListEntity> filteredTemples = templeList
+                              .where((item) =>
+                                  (item.worshipCode ?? 0) ==
+                                  (godList[index].worshipCode))
+                              .toList();
                           _templeListNotifier!.value = filteredTemples;
                         },
                       ),
@@ -239,6 +238,6 @@ _godCategories(TempleListLoaded templeLoadedstate) {
   );
 }
 
-_onTemplePressed(BuildContext context, TempleListResponseEntity article) {
+_onTemplePressed(BuildContext context, TempleListEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

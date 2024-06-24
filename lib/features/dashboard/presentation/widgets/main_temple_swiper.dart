@@ -4,7 +4,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_state.dart';
 import '/config/common/widgets/text_widgets.dart';
@@ -166,6 +166,6 @@ bool onSwipe(
   return true;
 }
 
-onTemplePressed(BuildContext context, TempleListResponseEntity article) {
+onTemplePressed(BuildContext context, TempleListEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

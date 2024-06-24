@@ -19,7 +19,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../../../temple_list/presentation/widgets/temple_tile.dart';
 import '../bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
@@ -54,7 +54,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   late GoogleMapController _controller;
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-  List<TempleListResponseEntity> listOfTemples = [];
+  List<TempleListEntity> listOfTemples = [];
   int selectedMapStyleIndex = 0;
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
@@ -72,7 +72,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   @override
   void initState() {
     listOfTemples = BlocProvider.of<TempleListBloc>(context).state.templeList
-        as List<TempleListResponseEntity>;
+        as List<TempleListEntity>;
     _kGooglePlex = const CameraPosition(
       target: LatLng(37.4220936, -122.083922),
       zoom: 13.4746,
@@ -504,7 +504,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 }
 
 class BuildMarkerInfoWidget extends StatelessWidget {
-  final TempleListResponseEntity temple;
+  final TempleListEntity temple;
   final CustomInfoWindowController customInfoWindowController;
   const BuildMarkerInfoWidget(
       {Key? key,
@@ -631,7 +631,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
   }
 
   // open external map apps
-  openMapsApp(context, TempleListResponseEntity temple) async {
+  openMapsApp(context, TempleListEntity temple) async {
     try {
       final coords = mapLauncher.Coords(double.parse(temple.templeLatitude!),
           double.parse(temple.templeLangitude!));

@@ -1,8 +1,8 @@
-import '../entities/temple_list_response.dart';
+import '../entities/temple_list.dart';
 import '/core/resources/data_state.dart';
 
 abstract class TempleListRepository {
   // API methods
-  Future<DataState<List<TempleListResponseEntity>>> getTempleList(
-      formData, String serviceId);
+  Future<DataState<List<TempleListEntity>>> getTempleList(
+      String formData, String serviceId);
 }

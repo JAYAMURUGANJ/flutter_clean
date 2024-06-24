@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 
-import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
 import '../widgets/app_bar.dart';
@@ -16,7 +16,7 @@ import '/injection_container.dart';
 TabController? tabController;
 
 class TempleDetailsView extends StatefulWidget {
-  final TempleListResponseEntity? temple;
+  final TempleListEntity? temple;
 
   const TempleDetailsView({Key? key, this.temple}) : super(key: key);
 

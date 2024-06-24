@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list_response.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list.dart';
 
 import '../pages/temple_list.dart';
 
 TextField searchWidget(
     BuildContext context,
     searchFieldController,
-    ValueNotifier<List<TempleListResponseEntity>>? templeListNotifier,
-    List<TempleListResponseEntity> loadedTempleList) {
+    ValueNotifier<List<TempleListEntity>>? templeListNotifier,
+    List<TempleListEntity> loadedTempleList) {
   return TextField(
     controller: searchFieldController,
     onChanged: (value) {
-      List<TempleListResponseEntity> filteredTemples = loadedTempleList
+      List<TempleListEntity> filteredTemples = loadedTempleList
           .where((item) =>
               item.templeName!.toLowerCase().contains(value.toLowerCase()))
           .toList();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/common/widgets/parallax_image.dart';
 import '../../../../config/constants.dart';
-import '../../domain/entities/temple_list_response.dart';
+import '../../domain/entities/temple_list.dart';
 
 class TempleListItem extends StatelessWidget {
   TempleListItem({
@@ -11,8 +11,8 @@ class TempleListItem extends StatelessWidget {
     this.onTemplePressed,
   }) : super(key: key);
 
-  final TempleListResponseEntity? temple;
-  final void Function(TempleListResponseEntity article)? onTemplePressed;
+  final TempleListEntity? temple;
+  final void Function(TempleListEntity article)? onTemplePressed;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
   @override

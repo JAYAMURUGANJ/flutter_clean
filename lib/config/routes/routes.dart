@@ -7,7 +7,7 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 
 import '../../features/temple_details/domain/entities/speciality.dart';
 import '../../features/temple_details/presentation/widgets/facility_widget.dart';
-import '../../features/temple_list/domain/entities/temple_list_response.dart';
+import '../../features/temple_list/domain/entities/temple_list.dart';
 import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
 import '../common/pages/error/dio_exception_screen.dart';
 import '../common/pages/error/something_went_wrong_screen.dart';
@@ -33,8 +33,8 @@ class AppRoutes {
       case 'Home':
         return _materialRoute(const Home());
       case '/TempleDetails':
-        return _materialRoute(TempleDetailsView(
-            temple: settings.arguments as TempleListResponseEntity));
+        return _materialRoute(
+            TempleDetailsView(temple: settings.arguments as TempleListEntity));
       case '/TempleList':
         return _materialRoute(const TempleListPage());
       case '/PaidService':
@@ -56,13 +56,13 @@ class AppRoutes {
             NearByTemplesWidget(data: settings.arguments as LocationInfo));
       case '/PhotoGallery':
         return _materialRoute(PhotoGalleryWidget(
-            templeData: settings.arguments as TempleListResponseEntity));
+            templeData: settings.arguments as TempleListEntity));
       case '/Speciality':
         return _materialRoute(SpecialityWidget(
             specialityList: settings.arguments as List<SpecialityEntity>));
       case '/Facility':
-        return _materialRoute(FacilityWidget(
-            templeData: settings.arguments as TempleListResponseEntity));
+        return _materialRoute(
+            FacilityWidget(templeData: settings.arguments as TempleListEntity));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

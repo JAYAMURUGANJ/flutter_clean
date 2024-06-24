@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '../../../dashboard/presentation/widgets/service_list.dart';
-import '../../../temple_list/domain/entities/temple_list_response.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../data/model/location_info.dart';
 import '../../domain/entities/speciality.dart';
 import '../../domain/entities/temple_info.dart';
@@ -21,7 +21,7 @@ import '360_degree_view.dart';
 
 Widget buildTempleImage(
     context,
-    TempleListResponseEntity temple,
+    TempleListEntity temple,
     AnimationController buttonAnimationController,
     Animation<Color?> colorAnimation) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(

@@ -19,9 +19,7 @@ class ApiCredentials {
   static const String baseUrl = domain + webService;
   String documents = domain + filePath;
 
-  static String? requestorUserPwd =
-      // "70fd7481af9f82ec81dcaaefebb76010106e28a09f9eeb58afa89eb50119586b";
-      dotenv.env['REQUESTER_USER_PWD'];
+  static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
 
   // for encryption & decryption of requests and responses
   static String? keyUTF8 = dotenv.env['KEYUTF8'];
