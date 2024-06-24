@@ -27,7 +27,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  bool isLoading = true; // New variable to track loading state
+  bool isLoading = true;
+
+  BuildContext? loaderContext; // New variable to track loading state
 
   @override
   void initState() {
@@ -87,26 +89,7 @@ class _DashboardState extends State<Dashboard> {
     return BlocListener<CurrentLocationBloc, CurrentLocationState>(
       listener: (context, state) {
         if (state is CurrentLocationLoading) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const CupertinoActivityIndicator(
-                  radius: 15,
-                  color: Colors.white,
-                ),
-                5.pw,
-                const Flexible(
-                  child: LocaleText(
-                    "fetch_location",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                )
-              ],
-            ),
-            duration: const Duration(minutes: 2),
-          ));
+          _fetchingLocationDialog();
         }
         if (state is CurrentLocationFailed) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -115,8 +98,7 @@ class _DashboardState extends State<Dashboard> {
           ));
         }
         if (state is CurrentLocationSuccess) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+          _closeFetchingLocationDialog();
           showDialog(
             context: context,
             builder: (context) => ValueListenableBuilder(
@@ -132,7 +114,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 content: Wrap(
                   spacing: 2.0,
-                  alignment: WrapAlignment.center,
+                  alignment: WrapAlignment.spaceAround,
                   children: List.generate(
                     distanceList.length,
                     (index) => ChoiceChip(
@@ -164,7 +146,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 actions: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       OutlinedButton(
                         onPressed: () => Navigator.pop(context),
@@ -306,5 +288,35 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
     );
+  }
+
+  _fetchingLocationDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        loaderContext = ctx;
+        return AlertDialog.adaptive(
+          content: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CupertinoActivityIndicator(),
+              5.pw,
+              const LocaleText(
+                "fetch_location",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  _closeFetchingLocationDialog() {
+    if (loaderContext != null) {
+      Navigator.of(loaderContext!, rootNavigator: true).pop();
+    }
   }
 }

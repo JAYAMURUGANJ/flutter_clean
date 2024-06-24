@@ -12,6 +12,9 @@ class CurrentLocationBloc
     extends Bloc<CurrentLocationEvent, CurrentLocationState> {
   CurrentLocationBloc() : super(CurrentLocationInitial()) {
     on<CurrentLocationEvent>((event, emit) {});
+    on<SetCurrentLocationInitial>((event, emit) {
+      emit(CurrentLocationInitial());
+    });
     on<GetCurrentLocation>(fetchCurrentLocation);
   }
 
