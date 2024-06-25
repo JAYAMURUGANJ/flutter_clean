@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_locales/flutter_locales.dart';
+import 'package:get/get.dart';
+
+import '../../../../config/common/class/local_controller.dart';
 
 languageChanger(BuildContext context) {
-  return context.currentLocale!.languageCode == 'en'
+  final LocalizationController localizationController =
+      Get.find<LocalizationController>();
+  return localizationController.currentLanguage == 'en'
       ? IconButton(
-          onPressed: () => context.changeLocale("ta"),
+          onPressed: () => localizationController.changeLocale("ta"),
           isSelected: true,
           icon: CircleAvatar(
             child: Padding(
@@ -20,7 +24,7 @@ languageChanger(BuildContext context) {
           ),
         )
       : IconButton(
-          onPressed: () => context.changeLocale("en"),
+          onPressed: () => localizationController.changeLocale("en"),
           isSelected: true,
           icon: CircleAvatar(
             child: Padding(

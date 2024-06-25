@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:get/get.dart';
+
+import '../../../../config/common/class/local_controller.dart';
 
 class LanguageList extends StatefulWidget {
   final bool isRow;
@@ -13,6 +16,9 @@ class _LanguageListState extends State<LanguageList> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final LocalizationController localizationController =
+        Get.find<LocalizationController>();
+
     // padding: const EdgeInsets.symmetric(horizontal: 36),
     return Flex(
       direction: widget.isRow ? Axis.horizontal : Axis.vertical,
@@ -38,9 +44,9 @@ class _LanguageListState extends State<LanguageList> {
           backgroundColor: Colors.black.withOpacity(0.1),
           onSelected: (value) {
             index == 0
-                ? context.changeLocale('en')
-                : context.changeLocale('ta');
-            context.currentLocale!.languageCode == 'en'
+                ? localizationController.changeLocale('en')
+                : localizationController.changeLocale('ta');
+            localizationController.currentLanguage == 'en'
                 ? selectedIndex = 0
                 : selectedIndex = 1;
           },

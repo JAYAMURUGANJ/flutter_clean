@@ -12,7 +12,7 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      LocalImages().appLogo,
+      LocalImages().logo,
       height: height,
     );
   }

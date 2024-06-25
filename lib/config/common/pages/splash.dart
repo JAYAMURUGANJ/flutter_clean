@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     // _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
     // _controller.forward();
 
-    Timer(const Duration(seconds: 4), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacementNamed(context,
           Prefs.getBool(spOnBoardingStatus) ?? false ? "Home" : "/OnBoarding");
     });
@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
               appHeader(
                 context: context,
                 leading: const Align(
-                    alignment: Alignment.topLeft, child: AppIcon(height: 55)),
+                    alignment: Alignment.topLeft, child: AppIcon(height: 50)),
                 body: Align(
                   alignment: Alignment.topCenter,
                   child: Padding(

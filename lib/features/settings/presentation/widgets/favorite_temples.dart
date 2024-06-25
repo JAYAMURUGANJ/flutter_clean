@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_locales/flutter_locales.dart';
+import 'package:get/get.dart';
 
+import '../../../../config/common/class/local_controller.dart';
 import '../../../temple_list/domain/entities/worship_god_list.dart';
 import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 import '/config/common/extensions.dart';
@@ -20,6 +21,8 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
   List<int> selectedTemples = [];
   @override
   Widget build(BuildContext context) {
+    final LocalizationController localizationController =
+        Get.find<LocalizationController>();
     return BlocConsumer<WorshipGodListBloc, WorshipGodListState>(
       listener: (context, state) {
         if (state is WorshipLoadingError) {
@@ -96,7 +99,8 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          context.currentLocale!.languageCode ==
+                                          localizationController
+                                                      .currentLanguage ==
                                                   "ta"
                                               ? godList[index].tworshipDesc!
                                               : godList[index].worshipDesc!,

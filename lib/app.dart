@@ -20,6 +20,7 @@ import '/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.da
 import '/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import '/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import '/features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
+import 'config/common/class/local_controller.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
@@ -50,66 +51,67 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return LocaleBuilder(builder: (Locale? locale) {
-      return MultiBlocProvider(
-        providers: [
-          BlocProvider<TempleListBloc>(
-            create: (context) =>
-                sl()..add(GetTempleList(seniorgradeTemples: 'Y')),
-          ),
-          BlocProvider<BottomNavigationCubit>(create: (context) => sl()),
-          BlocProvider<ThemeBloc>(create: (context) => sl()),
-          BlocProvider<TempleInfoBloc>(create: (context) => sl()),
-          BlocProvider<TempleTimingBloc>(create: (context) => sl()),
-          BlocProvider<TemplePoojaBloc>(create: (context) => sl()),
-          BlocProvider<LiveEventsBloc>(create: (context) => sl()),
-          BlocProvider<ContactDetailsBloc>(create: (context) => sl()),
-          BlocProvider<CalendarEventBloc>(create: (context) => sl()),
-          BlocProvider<CalendarEventDetailsBloc>(create: (context) => sl()),
-          BlocProvider<NearbyTemplesBloc>(create: (context) => sl()),
-          BlocProvider<ShowNearbyTemplesBloc>(create: (context) => sl()),
-          BlocProvider<CurrentLocationBloc>(create: (context) => sl()),
-          BlocProvider<ShrinesBloc>(create: (context) => sl()),
-          BlocProvider<SculpturesBloc>(create: (context) => sl()),
-          BlocProvider<FacilityBloc>(create: (context) => sl()),
-          BlocProvider<SpecialityBloc>(create: (context) => sl()),
-          BlocProvider<PhotoGalleryBloc>(create: (context) => sl()),
-          BlocProvider<PhotoGalleryDescCubit>(create: (context) => sl()),
-          BlocProvider<WorshipGodListBloc>(
-              create: (context) => sl()..add(GetWorship())),
-          BlocProvider<SelectedFavoriteTemplesCubit>(create: (context) => sl()),
-        ],
-        child: BlocBuilder<ThemeBloc, ThemeState>(
-          builder: (context, themeState) {
-            return BetterFeedback(
-              child: GetMaterialApp(
-                title: Locales.lang == "en"
-                    ? ApiCredentials.appName
-                    : ApiCredentials.tAppName,
-                builder: DevicePreview.appBuilder,
-                debugShowCheckedModeBanner: false,
-                localizationsDelegates: Locales.delegates,
-                supportedLocales: Locales.supportedLocales,
-                locale: locale,
-                theme:
-                    //FlexThemeData.light(scheme: FlexScheme.barossa),
-                    theme().copyWith(
-                  colorScheme: themeState is LightModeState
-                      ? lightColorScheme[themeState.index]
-                      : lightColorScheme[0],
-                ),
-                darkTheme:
-                    ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-                themeMode: themeState is DarkModeState
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
-                onGenerateRoute: AppRoutes.onGenerateRoutes,
-                initialRoute: "/",
-              ),
-            );
-          },
+    final LocalizationController localizationController =
+        Get.put(LocalizationController());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TempleListBloc>(
+          create: (context) =>
+              sl()..add(GetTempleList(seniorgradeTemples: 'Y')),
         ),
-      );
-    });
+        BlocProvider<BottomNavigationCubit>(create: (context) => sl()),
+        BlocProvider<ThemeBloc>(create: (context) => sl()),
+        BlocProvider<TempleInfoBloc>(create: (context) => sl()),
+        BlocProvider<TempleTimingBloc>(create: (context) => sl()),
+        BlocProvider<TemplePoojaBloc>(create: (context) => sl()),
+        BlocProvider<LiveEventsBloc>(create: (context) => sl()),
+        BlocProvider<ContactDetailsBloc>(create: (context) => sl()),
+        BlocProvider<CalendarEventBloc>(create: (context) => sl()),
+        BlocProvider<CalendarEventDetailsBloc>(create: (context) => sl()),
+        BlocProvider<NearbyTemplesBloc>(create: (context) => sl()),
+        BlocProvider<ShowNearbyTemplesBloc>(create: (context) => sl()),
+        BlocProvider<CurrentLocationBloc>(create: (context) => sl()),
+        BlocProvider<ShrinesBloc>(create: (context) => sl()),
+        BlocProvider<SculpturesBloc>(create: (context) => sl()),
+        BlocProvider<FacilityBloc>(create: (context) => sl()),
+        BlocProvider<SpecialityBloc>(create: (context) => sl()),
+        BlocProvider<PhotoGalleryBloc>(create: (context) => sl()),
+        BlocProvider<PhotoGalleryDescCubit>(create: (context) => sl()),
+        BlocProvider<WorshipGodListBloc>(
+            create: (context) => sl()..add(GetWorship())),
+        BlocProvider<SelectedFavoriteTemplesCubit>(create: (context) => sl()),
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) {
+          return BetterFeedback(
+            child: GetMaterialApp(
+              title: Locales.lang == "en"
+                  ? ApiCredentials.appName
+                  : ApiCredentials.tAppName,
+              builder: DevicePreview.appBuilder,
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: Locales.delegates,
+              supportedLocales: Locales.supportedLocales,
+              locale: localizationController.locale.value,
+              fallbackLocale: const Locale('en'),
+              theme:
+                  //FlexThemeData.light(scheme: FlexScheme.barossa),
+                  theme().copyWith(
+                colorScheme: themeState is LightModeState
+                    ? lightColorScheme[themeState.index]
+                    : lightColorScheme[0],
+              ),
+              darkTheme:
+                  ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+              themeMode: themeState is DarkModeState
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              onGenerateRoute: AppRoutes.onGenerateRoutes,
+              initialRoute: "/",
+            ),
+          );
+        },
+      ),
+    );
   }
 }
