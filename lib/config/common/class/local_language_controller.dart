@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LocalizationController extends GetxController {
-  var locale = const Locale('en').obs;
+  var locale = const Locale('ta').obs;
 
   void changeLocale(String langCode) {
     var newLocale = Locale(langCode);

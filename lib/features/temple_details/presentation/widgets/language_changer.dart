@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../config/common/class/local_controller.dart';
+import '../../../../config/common/class/local_language_controller.dart';
 
 languageChanger(BuildContext context) {
   final LocalizationController localizationController =

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../../../config/common/class/local_controller.dart';
+import '../../../../config/common/class/local_language_controller.dart';
 import '../../../temple_list/domain/entities/worship_god_list.dart';
 import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 import '/config/common/extensions.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:get/get.dart';
 
-import '../../../../config/common/class/local_controller.dart';
+import '../../../../config/common/class/local_language_controller.dart';
 
 class LanguageList extends StatefulWidget {
   final bool isRow;

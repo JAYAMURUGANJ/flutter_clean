@@ -20,7 +20,7 @@ import '/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.da
 import '/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import '/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import '/features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
-import 'config/common/class/local_controller.dart';
+import 'config/common/class/local_language_controller.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'config/theme/color_schemes.g.dart';
@@ -93,7 +93,7 @@ class _AppState extends State<App> {
               localizationsDelegates: Locales.delegates,
               supportedLocales: Locales.supportedLocales,
               locale: localizationController.locale.value,
-              fallbackLocale: const Locale('en'),
+              fallbackLocale: const Locale('ta'),
               theme:
                   //FlexThemeData.light(scheme: FlexScheme.barossa),
                   theme().copyWith(
