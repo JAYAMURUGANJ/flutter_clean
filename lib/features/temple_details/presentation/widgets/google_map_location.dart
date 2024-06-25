@@ -54,7 +54,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   late GoogleMapController _controller;
   final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-  List<TempleListEntity> listOfTemples = [];
+  List<TempleEntity> listOfTemples = [];
   int selectedMapStyleIndex = 0;
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
@@ -72,7 +72,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
   @override
   void initState() {
     listOfTemples = BlocProvider.of<TempleListBloc>(context).state.templeList
-        as List<TempleListEntity>;
+        as List<TempleEntity>;
     _kGooglePlex = const CameraPosition(
       target: LatLng(37.4220936, -122.083922),
       zoom: 13.4746,
@@ -86,8 +86,9 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
         target: LatLng(templeLat, templeLang),
         zoom: 13.4746,
       );
-      BlocProvider.of<ShowNearbyTemplesBloc>(context).add(ViewSingleTempleEvent(
-          widget.data.temple!, _customInfoWindowController));
+      BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
+        ViewSingleTempleEvent(widget.data.temple!, _customInfoWindowController),
+      );
     } else if (widget.data.currentLocation != null) {
       _selectedDistanceIndex.value =
           distanceList.indexOf(widget.data.distance ?? 5.0);
@@ -107,14 +108,15 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
       );
 
       BlocProvider.of<ShowNearbyTemplesBloc>(context).add(
-          ViewCurrentLocationEvent(
-              fromCurrentLocation: true,
-              currentLocationLatLng: LatLng(
-                  widget.data.currentLocation!.latitude!,
-                  widget.data.currentLocation!.longitude!),
-              listOfTemples: listOfTemples,
-              customInfoWindowController: _customInfoWindowController,
-              distance: widget.data.distance!));
+        ViewCurrentLocationEvent(
+          fromCurrentLocation: true,
+          currentLocationLatLng: LatLng(widget.data.currentLocation!.latitude!,
+              widget.data.currentLocation!.longitude!),
+          listOfTemples: listOfTemples,
+          customInfoWindowController: _customInfoWindowController,
+          distance: widget.data.distance!,
+        ),
+      );
     }
     super.initState();
   }
@@ -142,8 +144,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
                   icon: const Icon(Icons.menu),
                 ),
         ),
-        body: BlocConsumer<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
-          listener: (context, markerState) {},
+        body: BlocBuilder<ShowNearbyTemplesBloc, ShowNearbyTemplesState>(
           builder: (context, markerState) {
             return Stack(
               children: [
@@ -504,7 +505,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
 }
 
 class BuildMarkerInfoWidget extends StatelessWidget {
-  final TempleListEntity temple;
+  final TempleEntity temple;
   final CustomInfoWindowController customInfoWindowController;
   const BuildMarkerInfoWidget(
       {Key? key,
@@ -631,7 +632,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
   }
 
   // open external map apps
-  openMapsApp(context, TempleListEntity temple) async {
+  openMapsApp(context, TempleEntity temple) async {
     try {
       final coords = mapLauncher.Coords(double.parse(temple.templeLatitude!),
           double.parse(temple.templeLangitude!));

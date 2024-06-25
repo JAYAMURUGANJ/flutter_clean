@@ -4,7 +4,7 @@ import '../entities/temple_list.dart';
 import '../repository/temple_list_repository.dart';
 
 class TempleListUseCase
-    implements UseCase<DataState<List<TempleListEntity>>, void> {
+    implements UseCase<DataState<List<TempleEntity>>, void> {
   final TempleListRepository _templeListRepository;
 
   TempleListUseCase(
@@ -12,6 +12,6 @@ class TempleListUseCase
   );
 
   @override
-  Future<DataState<List<TempleListEntity>>> call(formData, serviceId) async =>
+  Future<DataState<List<TempleEntity>>> call(formData, serviceId) async =>
       await _templeListRepository.getTempleList(formData, serviceId);
 }

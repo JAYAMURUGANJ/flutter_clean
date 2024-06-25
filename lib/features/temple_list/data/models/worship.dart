@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship_god_list.dart';
 
-class Worship extends WorshipEntity {
-  const Worship({
+class WorshipGod extends WorshipGodEntity {
+  const WorshipGod({
     final int? worshipCode,
     final String? worshipDesc,
     final String? tworshipDesc,
@@ -17,9 +17,10 @@ class Worship extends WorshipEntity {
           responseDesc: responseDesc,
         );
 
-  factory Worship.fromJson(String str) => Worship.fromMap(json.decode(str));
+  factory WorshipGod.fromJson(String str) =>
+      WorshipGod.fromMap(json.decode(str));
 
-  factory Worship.fromMap(Map<String, dynamic> json) => Worship(
+  factory WorshipGod.fromMap(Map<String, dynamic> json) => WorshipGod(
         worshipCode: json["worship_code"],
         worshipDesc: json["worship_desc"],
         tworshipDesc: json["tworship_desc"],

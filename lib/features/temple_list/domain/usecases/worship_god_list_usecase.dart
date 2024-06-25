@@ -1,9 +1,10 @@
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/worship.dart';
-import '../repository/worship_repository.dart';
+import '../entities/worship_god_list.dart';
+import '../repository/worship_god_list_repository.dart';
 
-class WorshipUseCase implements UseCase<DataState<List<WorshipEntity>>, void> {
+class WorshipUseCase
+    implements UseCase<DataState<List<WorshipGodEntity>>, void> {
   final WorshipRepository _worshipRepository;
 
   WorshipUseCase(
@@ -11,6 +12,6 @@ class WorshipUseCase implements UseCase<DataState<List<WorshipEntity>>, void> {
   );
 
   @override
-  Future<DataState<List<WorshipEntity>>> call(formData, serviceId) async =>
+  Future<DataState<List<WorshipGodEntity>>> call(formData, serviceId) async =>
       await _worshipRepository.getResponse(formData, serviceId);
 }

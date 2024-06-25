@@ -11,8 +11,8 @@ class TempleListItem extends StatelessWidget {
     this.onTemplePressed,
   }) : super(key: key);
 
-  final TempleListEntity? temple;
-  final void Function(TempleListEntity article)? onTemplePressed;
+  final TempleEntity? temple;
+  final void Function(TempleEntity article)? onTemplePressed;
   final GlobalKey _backgroundImageKey = GlobalKey();
 
   @override

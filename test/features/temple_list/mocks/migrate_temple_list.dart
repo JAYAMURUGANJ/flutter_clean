@@ -41,7 +41,7 @@ import 'package:news_app_clean_architecture/features/temple_list/domain/entities
 //     TempleListResponseEntity.fromJson(templeDetail);
 
 final mockListOfTemple = [
-  const TempleListEntity(
+  const TempleEntity(
       templeId: 38367,
       templeName: "Arulmigu Thanumalayan Temple, Suchindrum - 629704",
       ttempleName: "அருள்மிகு தாணுமாலயன் திருக்கோயில், சுசீந்திரம் - 629704",

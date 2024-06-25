@@ -7,8 +7,8 @@ import '/config/common/widgets/parallax_image.dart';
 import '/config/constants.dart';
 
 class MainTempleListTile extends StatelessWidget {
-  final TempleListEntity? temple;
-  final void Function(TempleListEntity article)? onTemplePressed;
+  final TempleEntity? temple;
+  final void Function(TempleEntity article)? onTemplePressed;
 
   const MainTempleListTile({
     Key? key,

@@ -19,7 +19,7 @@ import '/features/dashboard/presentation/bloc/current_location/current_location_
 buildTempleServicesList(
     {required String listType,
     required List<TempleServices> services,
-    TempleListEntity? templeData}) {
+    TempleEntity? templeData}) {
   return listType != 'GRID'
       ? SizedBox(
           height: Locales.lang == "en" ? 100 : 120,
@@ -55,7 +55,7 @@ _serviceCard(
     double height,
     double fontSize,
     String cardType,
-    TempleListEntity? templeData) {
+    TempleEntity? templeData) {
   return GestureDetector(
     onTap: services[index].isBottomSheet!
         ? () {
@@ -63,7 +63,7 @@ _serviceCard(
               case 1:
                 {
                   pageNavigation("/Facility", context,
-                      arguments: templeData as TempleListEntity);
+                      arguments: templeData as TempleEntity);
                 }
                 break;
               case 3:

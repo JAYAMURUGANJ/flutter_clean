@@ -7,10 +7,14 @@ class TemplePooja extends TemplePoojaEntity {
     String? poojaDesc,
     String? alangaram,
     String? poojaTime,
+    String? errorCode,
+    String? responseDesc,
   }) : super(
           poojaDesc: poojaDesc,
           alangaram: alangaram,
           poojaTime: poojaTime,
+          errorCode: errorCode,
+          responseDesc: responseDesc,
         );
 
   factory TemplePooja.fromJson(String str) =>
@@ -20,5 +24,7 @@ class TemplePooja extends TemplePoojaEntity {
         poojaDesc: json["pooja_desc"],
         alangaram: json["alangaram"],
         poojaTime: json["pooja_time"],
+        errorCode: json["error_code"],
+        responseDesc: json["response_desc"],
       );
 }

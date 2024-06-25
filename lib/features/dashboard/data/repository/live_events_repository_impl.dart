@@ -27,66 +27,41 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String decryptedResponse =
+        String serverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "Live Events");
-        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+        log(serverDecryptedResponse, name: "Live Events");
+        var serverJsonResponse =
+            await compute(jsonDecode, serverDecryptedResponse);
         String responseStatus =
-            EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
           List<LiveEvents> resultSet =
-              EncryptedResponse.fromJson(clientJsonResponse[0])
+              EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
                   .map<LiveEvents>((dynamic i) =>
                       LiveEvents.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
-          log("", name: "Server Response NULL", error: decryptedResponse);
-          return DataSuccess([], "Server Response NULL: $decryptedResponse");
+          return const DataSuccess([
+            LiveEvents(
+                errorCode: "ITMSSE01",
+                responseDesc: "🚫 ITMS-Server,\nLive Events return NULL value❗")
+          ], "FAILURE");
         }
       } else {
         return DataFailed(
           DioException(
-            error: httpResponse.response.statusMessage,
-            response: httpResponse.response,
             requestOptions: httpResponse.response.requestOptions,
+            response: httpResponse.response,
+            error: httpResponse.response.statusMessage,
+            type: DioExceptionType.badResponse,
           ),
         );
       }
     } on DioException catch (e) {
-      if (e.response != null) {
-        log("",
-            name:
-                "The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
-            error: e);
-        return DataFailed(
-          DioException(
-            type: e.type,
-            error: e.error,
-            message: e.message,
-            response: e.response,
-            stackTrace: e.stackTrace,
-            requestOptions: e.requestOptions,
-          ),
-        );
-      } else {
-        log("",
-            name:
-                "Something happened in setting up or sending the request that triggered an Error!",
-            error: e.type);
-        return DataFailed(
-          DioException(
-            type: e.type,
-            error: e.error,
-            message: e.message,
-            response: e.response,
-            stackTrace: e.stackTrace,
-            requestOptions: e.requestOptions,
-          ),
-        );
-      }
+      return DataFailed(e);
     }
   }
 }

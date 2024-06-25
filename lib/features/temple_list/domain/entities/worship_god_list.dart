@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'worship.g.dart';
+part 'worship_god_list.g.dart';
 
 @JsonSerializable()
-class WorshipEntity extends Equatable {
+class WorshipGodEntity extends Equatable {
   @JsonKey(name: "worship_code")
   final int? worshipCode;
   @JsonKey(name: "worship_desc")
@@ -16,7 +16,7 @@ class WorshipEntity extends Equatable {
   @JsonKey(name: 'response_desc')
   final String? responseDesc;
 
-  const WorshipEntity({
+  const WorshipGodEntity({
     this.worshipCode,
     this.worshipDesc,
     this.tworshipDesc,
@@ -24,7 +24,7 @@ class WorshipEntity extends Equatable {
     this.responseDesc,
   });
 
-  factory WorshipEntity.fromJson(Map<String, dynamic> json) =>
+  factory WorshipGodEntity.fromJson(Map<String, dynamic> json) =>
       _$WorshipEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorshipEntityToJson(this);

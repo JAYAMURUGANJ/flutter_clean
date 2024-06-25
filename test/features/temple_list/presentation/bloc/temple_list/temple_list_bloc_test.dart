@@ -37,7 +37,7 @@ void main() {
     });
 
     blocTest<TempleListBloc, TempleListState>(
-      'Sucess Bloc State-[TempleListLoading, TempleListLoaded]',
+      'Success Bloc State-[TempleListLoading, TempleListLoaded]',
       build: () {
         mockGetTempleListSuccess();
         return templeListBloc;

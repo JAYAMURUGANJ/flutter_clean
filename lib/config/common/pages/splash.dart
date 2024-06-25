@@ -5,10 +5,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '/config/common/widgets/app_logo.dart';
+import '../../constants.dart';
 import '../class/local_storage.dart';
 import '../widgets/app_header.dart';
-import '../../constants.dart';
+import '/config/common/widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -3,8 +3,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../config/constants.dart';
 import '../models/form_data.dart';
+import '/config/constants.dart';
 
 part 'ITMS_API_service.g.dart';
 

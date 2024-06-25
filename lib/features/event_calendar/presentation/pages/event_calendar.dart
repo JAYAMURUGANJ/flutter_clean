@@ -25,7 +25,7 @@ import '/config/constants.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
 
 class TempleEventCalendar extends StatefulWidget {
-  final TempleListEntity? templeData;
+  final TempleEntity? templeData;
   const TempleEventCalendar({Key? key, this.templeData}) : super(key: key);
 
   @override

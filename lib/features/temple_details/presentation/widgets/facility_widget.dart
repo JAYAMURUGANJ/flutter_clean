@@ -15,7 +15,7 @@ import '/features/temple_details/domain/entities/facility.dart';
 import '/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
 
 class FacilityWidget extends StatefulWidget {
-  final TempleListEntity? templeData;
+  final TempleEntity? templeData;
   const FacilityWidget({Key? key, this.templeData}) : super(key: key);
 
   @override
@@ -59,10 +59,20 @@ class _FacilityWidgetState extends State<FacilityWidget> {
               return const Center(child: CupertinoActivityIndicator());
             }
             if (state is FacilityLoadingError) {
-              return ErrorWidget(state.error.toString());
+              return Center(
+                child: SizedBox(
+                  height: 300,
+                  child: ErrorWidget(state.error.toString()),
+                ),
+              );
             }
             if (state is FacilityLoadingSomthingWentWrong) {
-              return SomethingWentWrong(error: state.responseStatus.toString());
+              return Center(
+                child: SizedBox(
+                  height: 300,
+                  child: SomethingWentWrong(error: state.responseStatus!),
+                ),
+              );
             }
             if (state is FacilityLoaded) {
               List<FacilityEntity> facilityList =

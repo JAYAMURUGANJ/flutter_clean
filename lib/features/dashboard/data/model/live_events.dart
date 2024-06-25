@@ -14,6 +14,8 @@ class LiveEvents extends LiveEventsEntity {
     final String? ttempleName,
     final List<MaintowerImage>? maintowerImage,
     final List<ScrollDatum>? scrollData,
+    String? errorCode,
+    String? responseDesc,
   }) : super(
           templeid: templeid,
           templeId: templeId,
@@ -21,6 +23,8 @@ class LiveEvents extends LiveEventsEntity {
           ttempleName: ttempleName,
           maintowerImage: maintowerImage,
           scrollData: scrollData,
+          errorCode: errorCode,
+          responseDesc: responseDesc,
         );
   factory LiveEvents.fromJson(String str) =>
       LiveEvents.fromMap(json.decode(str));
@@ -38,5 +42,7 @@ class LiveEvents extends LiveEventsEntity {
             ? []
             : List<ScrollDatum>.from(
                 json["scroll_data"]!.map((x) => ScrollDatum.fromJson(x))),
+        errorCode: json["error_code"] ?? "",
+        responseDesc: json["response_desc"] ?? "",
       );
 }

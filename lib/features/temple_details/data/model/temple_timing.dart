@@ -9,14 +9,16 @@ class TempleTiming extends TempleTimingEntity {
     String? evngOpeningTime,
     String? evngClosingTime,
     String? remarks,
-    // List<ClosingTime>? closingTime,
+    String? errorCode,
+    String? responseDesc,
   }) : super(
           mrngOpeningtime: mrngOpeningtime,
           mrngClosingTime: mrngClosingTime,
           evngOpeningTime: evngOpeningTime,
           evngClosingTime: evngClosingTime,
           remarks: remarks,
-          // closingTime: closingTime,
+          errorCode: errorCode,
+          responseDesc: responseDesc,
         );
 
   factory TempleTiming.fromJson(String str) =>
@@ -28,9 +30,7 @@ class TempleTiming extends TempleTimingEntity {
         evngOpeningTime: json["evng_opening_time"],
         evngClosingTime: json["evng_closing_time"],
         remarks: json["remarks"],
-        // closingTime: json["closing_time"] == null
-        //     ? []
-        //     : List<ClosingTime>.from(
-        //         json["closing_time"]!.map((x) => ClosingTime.fromJson(x))),
+        errorCode: json["error_code"],
+        responseDesc: json["response_desc"],
       );
 }

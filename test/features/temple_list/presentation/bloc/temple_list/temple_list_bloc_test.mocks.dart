@@ -45,7 +45,7 @@ class MockTempleListUseCase extends _i1.Mock implements _i3.TempleListUseCase {
   }
 
   @override
-  _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>> call(
+  _i4.Future<_i2.DataState<List<_i5.TempleEntity>>> call(
     String? formData,
     String? serviceId,
   ) =>
@@ -57,9 +57,8 @@ class MockTempleListUseCase extends _i1.Mock implements _i3.TempleListUseCase {
             serviceId,
           ],
         ),
-        returnValue:
-            _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>>.value(
-                _FakeDataState_0<List<_i5.TempleListEntity>>(
+        returnValue: _i4.Future<_i2.DataState<List<_i5.TempleEntity>>>.value(
+            _FakeDataState_0<List<_i5.TempleEntity>>(
           this,
           Invocation.method(
             #call,
@@ -69,5 +68,5 @@ class MockTempleListUseCase extends _i1.Mock implements _i3.TempleListUseCase {
             ],
           ),
         )),
-      ) as _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>>);
+      ) as _i4.Future<_i2.DataState<List<_i5.TempleEntity>>>);
 }

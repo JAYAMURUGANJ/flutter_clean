@@ -6,8 +6,8 @@ part of 'temple_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TempleListEntity _$TempleListEntityFromJson(Map<String, dynamic> json) =>
-    TempleListEntity(
+TempleEntity _$TempleListEntityFromJson(Map<String, dynamic> json) =>
+    TempleEntity(
       templeId: json['temple_Id'] as int?,
       templeName: json['temple_name'] as String?,
       ttempleName: json['ttemple_name'] as String?,
@@ -35,7 +35,7 @@ TempleListEntity _$TempleListEntityFromJson(Map<String, dynamic> json) =>
       responseDesc: json['response_desc'] as String?,
     );
 
-Map<String, dynamic> _$TempleListEntityToJson(TempleListEntity instance) =>
+Map<String, dynamic> _$TempleListEntityToJson(TempleEntity instance) =>
     <String, dynamic>{
       'temple_Id': instance.templeId,
       'temple_name': instance.templeName,

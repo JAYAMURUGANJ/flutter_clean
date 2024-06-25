@@ -19,7 +19,7 @@ import '/core/models/live_stream.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
 
 class TempleLiveTeleCasts extends StatefulWidget {
-  final TempleListEntity? templeData;
+  final TempleEntity? templeData;
   const TempleLiveTeleCasts({
     Key? key,
     this.templeData,

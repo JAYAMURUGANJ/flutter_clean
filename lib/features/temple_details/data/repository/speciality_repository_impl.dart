@@ -27,24 +27,29 @@ class SpecialityRepositoryImpl implements SpecialityRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String decryptedResponse =
+        String serverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE");
-        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+        var serverJsonResponse =
+            await compute(jsonDecode, serverDecryptedResponse);
+        log(serverJsonResponse.toString(),
+            name: "SPECIALITY", time: DateTime.now());
         String responseStatus =
-            EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
           List<Speciality> resultSet =
-              EncryptedResponse.fromJson(clientJsonResponse[0])
+              EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
                   .map<Speciality>((dynamic i) =>
                       Speciality.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
-          log("Server Response NULL", error: decryptedResponse);
-          return DataSuccess([], "Server Response NULL: $decryptedResponse");
+          return const DataSuccess([
+            Speciality(
+                errorCode: "ITMSSE01",
+                responseDesc: "🚫 ITMS-Server,\nSpeciality return NULL value❗")
+          ], "FAILURE");
         }
       } else {
         return DataFailed(

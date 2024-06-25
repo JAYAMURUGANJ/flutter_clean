@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/facility_usecase.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/facility.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
+import '/features/temple_details/domain/usecases/facility_usecase.dart';
 
 part 'facility_event.dart';
 part 'facility_state.dart';
 
 class FacilityBloc extends Bloc<FacilityEvent, FacilityState> {
   final FacilityUseCase _getFacilityUseCase;
+  List<FacilityEntity> facilities = [];
   FacilityBloc(this._getFacilityUseCase) : super(FacilityInitial()) {
     on<GetFacilityEvent>(onGetFacility);
   }
@@ -28,11 +29,16 @@ class FacilityBloc extends Bloc<FacilityEvent, FacilityState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(FacilityLoaded(dataState.resultSet!));
+        facilities = dataState.resultSet!;
+        emit(FacilityLoaded(facilities));
       } else {
         emit(FacilityLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc!));
       }
+    }
+
+    if (dataState is DataFailed) {
+      emit(FacilityLoadingError(dataState.error!));
     }
   }
 }

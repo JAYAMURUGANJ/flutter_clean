@@ -16,7 +16,7 @@ import '/injection_container.dart';
 TabController? tabController;
 
 class TempleDetailsView extends StatefulWidget {
-  final TempleListEntity? temple;
+  final TempleEntity? temple;
 
   const TempleDetailsView({Key? key, this.temple}) : super(key: key);
 

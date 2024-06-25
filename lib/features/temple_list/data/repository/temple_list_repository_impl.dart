@@ -5,21 +5,20 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../domain/repository/calendar_event_repository.dart';
-import '../model/calendar_event.dart';
-import '/config/common/class/cryption.dart';
-import '/config/constants.dart';
-import '/core/data_sources/ITMS_API_service.dart';
-import '/core/models/encrypted_response.dart';
-import '/core/resources/data_state.dart';
+import '../../../../config/common/class/cryption.dart';
+import '../../../../config/constants.dart';
+import '../../../../core/data_sources/ITMS_API_service.dart';
+import '../../../../core/models/encrypted_response.dart';
+import '../../../../core/resources/data_state.dart';
+import '../../domain/repository/temple_list_repository.dart';
+import '../models/temple_list.dart';
 
-class CalendarEventRepositoryImpl implements CalendarEventRepository {
+class ItmsRepositoryImpl implements TempleListRepository {
   final HRCEApiService _apiService;
-  CalendarEventRepositoryImpl(this._apiService);
+  ItmsRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<CalendarEvent>>> getResponse(
-      formData, serviceId) async {
+  Future<DataState<List<Temple>>> getTempleList(formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
@@ -28,29 +27,31 @@ class CalendarEventRepositoryImpl implements CalendarEventRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String serverDecryptedResponse =
+        String serverserverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         var serverJsonResponse =
-            await compute(jsonDecode, serverDecryptedResponse);
+            await compute(jsonDecode, serverserverDecryptedResponse);
         log(serverJsonResponse.toString(),
-            name: "CALENDAR EVENTS", time: DateTime.now());
+            name: "TEMPLE MASTER", time: DateTime.now());
         String responseStatus =
-            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0])
+                .responseStatus
+                .toString();
 
         if (responseStatus.isNotEmpty) {
-          List<CalendarEvent> resultSet =
+          List<Temple> resultSet =
               EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
-                  .map<CalendarEvent>((dynamic i) =>
-                      CalendarEvent.fromMap(i as Map<String, dynamic>))
+                  .map<Temple>(
+                      (dynamic i) => Temple.fromJson(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
+          //condition for ---- [{"result_set":null,"response_status":""}]
           return const DataSuccess([
-            CalendarEvent(
+            Temple(
                 errorCode: "ITMSSE01",
-                responseDesc:
-                    "🚫 ITMS-Server,\nCalendar Event return NULL value❗")
+                responseDesc: "🚫 ITMS-Server,\nTemple List return NULL value❗")
           ], "FAILURE");
         }
       } else {

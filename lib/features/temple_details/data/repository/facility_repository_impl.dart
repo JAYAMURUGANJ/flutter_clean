@@ -27,66 +27,43 @@ class FacilityRepositoryImpl implements FacilityRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String decryptedResponse =
+        String serverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "FACILITY INFO");
-        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+        var serverJsonResponse =
+            await compute(jsonDecode, serverDecryptedResponse);
+        log(serverJsonResponse.toString(),
+            name: "FACILITY INFO", time: DateTime.now());
         String responseStatus =
-            EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
           List<Facility> resultSet =
-              EncryptedResponse.fromJson(clientJsonResponse[0])
+              EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
                   .map<Facility>((dynamic i) =>
                       Facility.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
-          log("Server Response NULL", error: decryptedResponse);
-          return DataSuccess([], "Server Response NULL: $decryptedResponse");
+          //condition for ---- [{"result_set":null,"response_status":""}]
+          return const DataSuccess([
+            Facility(
+                errorCode: "ITMSSE01",
+                responseDesc: "🚫 ITMS-Server,\nFacility return NULL value❗")
+          ], "FAILURE");
         }
       } else {
         return DataFailed(
           DioException(
-            error: httpResponse.response.statusMessage,
-            response: httpResponse.response,
             requestOptions: httpResponse.response.requestOptions,
+            response: httpResponse.response,
+            error: httpResponse.response.statusMessage,
+            type: DioExceptionType.badResponse,
           ),
         );
       }
     } on DioException catch (e) {
-      if (e.response != null) {
-        log("",
-            name:
-                "The request was made and the server responded with a status code.That falls out of the range of 2xx and is also not 304!",
-            error: e);
-        return DataFailed(
-          DioException(
-            type: e.type,
-            error: e.error,
-            message: e.message,
-            response: e.response,
-            stackTrace: e.stackTrace,
-            requestOptions: e.requestOptions,
-          ),
-        );
-      } else {
-        log("",
-            name:
-                "Something happened in setting up or sending the request that triggered an Error!",
-            error: e.type);
-        return DataFailed(
-          DioException(
-            type: e.type,
-            error: e.error,
-            message: e.message,
-            response: e.response,
-            stackTrace: e.stackTrace,
-            requestOptions: e.requestOptions,
-          ),
-        );
-      }
+      return DataFailed(e);
     }
   }
 }

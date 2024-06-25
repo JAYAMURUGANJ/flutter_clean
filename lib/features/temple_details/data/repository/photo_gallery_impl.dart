@@ -27,25 +27,30 @@ class PhotoGalleryRepositoryImpl implements PhotoGalleryRepository {
       });
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        String decryptedResponse =
+        String serverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
-        log(decryptedResponse, name: "API RESPONSE");
-        debugPrint("photo gallery ===> $decryptedResponse");
-        var clientJsonResponse = await compute(jsonDecode, decryptedResponse);
+        var serverJsonResponse =
+            await compute(jsonDecode, serverDecryptedResponse);
+        log(serverJsonResponse.toString(),
+            name: "API RESPONSE", time: DateTime.now());
         String responseStatus =
-            EncryptedResponse.fromJson(clientJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
 
         if (responseStatus.isNotEmpty) {
           List<PhotoGallery> resultSet =
-              EncryptedResponse.fromJson(clientJsonResponse[0])
+              EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
                   .map<PhotoGallery>((dynamic i) =>
                       PhotoGallery.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
-          log("Server Response NULL", error: decryptedResponse);
-          return DataSuccess([], "Server Response NULL: $decryptedResponse");
+          return const DataSuccess([
+            PhotoGallery(
+                errorCode: "ITMSSE01",
+                responseDesc:
+                    "🚫 ITMS-Server,\nPhoto Gallery return NULL value❗")
+          ], "FAILURE");
         }
       } else {
         return DataFailed(

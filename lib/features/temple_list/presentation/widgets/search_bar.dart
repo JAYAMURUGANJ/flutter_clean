@@ -6,12 +6,12 @@ import '../pages/temple_list.dart';
 TextField searchWidget(
     BuildContext context,
     searchFieldController,
-    ValueNotifier<List<TempleListEntity>>? templeListNotifier,
-    List<TempleListEntity> loadedTempleList) {
+    ValueNotifier<List<TempleEntity>>? templeListNotifier,
+    List<TempleEntity> loadedTempleList) {
   return TextField(
     controller: searchFieldController,
     onChanged: (value) {
-      List<TempleListEntity> filteredTemples = loadedTempleList
+      List<TempleEntity> filteredTemples = loadedTempleList
           .where((item) =>
               item.templeName!.toLowerCase().contains(value.toLowerCase()))
           .toList();

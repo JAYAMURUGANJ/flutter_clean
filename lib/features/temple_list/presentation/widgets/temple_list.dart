@@ -3,20 +3,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_list/domain/entities/worship.dart';
 
 import '../../domain/entities/temple_list.dart';
 import '../bloc/temple_list/temple_list_bloc.dart';
 import '../bloc/temple_list/temple_list_state.dart';
-import '../bloc/worship/worship_bloc.dart';
+import '../bloc/worship_god_list/worship_god_list_bloc.dart';
 import '../pages/temple_list.dart';
 import '/config/common/extensions.dart';
+import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
+import '/features/temple_list/domain/entities/worship_god_list.dart';
 import 'search_bar.dart';
 import 'temple_tile.dart';
 
-ValueNotifier<List<TempleListEntity>>? _templeListNotifier;
+ValueNotifier<List<TempleEntity>>? _templeListNotifier;
 ValueNotifier<int> godSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
   return BlocConsumer<TempleListBloc, TempleListState>(
@@ -24,19 +25,22 @@ alltempleListBlocBuilder() {
       if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);
       }
-      if (state is TempleListLoadingSomthingWentWrong) {
-        Navigator.pushNamed(context, '/SomthingWentWrong',
-            arguments: state.responseStatus!);
-      }
     },
     builder: (context, state) {
+      if (state is TempleListLoadingSomthingWentWrong) {
+        return Center(
+          child: SizedBox(
+            height: 300,
+            child: SomethingWentWrong(error: state.responseStatus!),
+          ),
+        );
+      }
       if (state is TempleListLoading) {
         return const Center(child: CupertinoActivityIndicator());
       }
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
-        List<TempleListEntity> loadedList =
-            state.templeList as List<TempleListEntity>;
+        List<TempleEntity> loadedList = state.templeList as List<TempleEntity>;
         _templeListNotifier = ValueNotifier(loadedList);
         return allTempleListPageView(context, templeList, state);
       }
@@ -49,7 +53,7 @@ allTempleListPageView(
     BuildContext context, loadedTempleList, TempleListLoaded state) {
   return SingleChildScrollView(
     padding: const EdgeInsets.symmetric(horizontal: 14),
-    child: ValueListenableBuilder<List<TempleListEntity>>(
+    child: ValueListenableBuilder<List<TempleEntity>>(
         valueListenable: _templeListNotifier!,
         builder: (context, templeList, child) {
           return ValueListenableBuilder<bool>(
@@ -165,12 +169,13 @@ _allTempleListView(templeList, TempleListLoaded state) {
 }
 
 _godCategories(TempleListLoaded templeLoadedstate) {
-  List<TempleListEntity> templeList =
-      templeLoadedstate.templeList as List<TempleListEntity>;
-  return BlocBuilder<WorshipBloc, WorshipState>(
+  List<TempleEntity> templeList =
+      templeLoadedstate.templeList as List<TempleEntity>;
+  return BlocBuilder<WorshipGodListBloc, WorshipGodListState>(
     builder: (context, state) {
       if (state is WorshipLoaded) {
-        List<WorshipEntity> godList = state.worship as List<WorshipEntity>;
+        List<WorshipGodEntity> godList =
+            state.worship as List<WorshipGodEntity>;
         return ValueListenableBuilder(
             valueListenable: godSelected,
             builder: (context, isSelected, child) {
@@ -189,7 +194,7 @@ _godCategories(TempleListLoaded templeLoadedstate) {
                         selected: index == isSelected,
                         onSelected: (value) {
                           godSelected.value = index;
-                          List<TempleListEntity> filteredTemples = templeList
+                          List<TempleEntity> filteredTemples = templeList
                               .where((item) =>
                                   (item.worshipCode ?? 0) ==
                                   (godList[index].worshipCode))
@@ -238,6 +243,6 @@ _godCategories(TempleListLoaded templeLoadedstate) {
   );
 }
 
-_onTemplePressed(BuildContext context, TempleListEntity article) {
+_onTemplePressed(BuildContext context, TempleEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

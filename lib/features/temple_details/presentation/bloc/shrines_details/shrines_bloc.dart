@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/entities/shrines_details.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/shrines_details_usecase.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
+import '/features/temple_details/domain/entities/shrines_details.dart';
+import '/features/temple_details/domain/usecases/shrines_details_usecase.dart';
 
 part 'shrines_event.dart';
 part 'shrines_state.dart';
 
 class ShrinesBloc extends Bloc<ShrinesEvent, ShrinesState> {
   final ShrinesDetailsUseCase _getShrinesDetailsUseCase;
+  List<ShrinesDetailsEntity> shrinesDetails = [];
   ShrinesBloc(this._getShrinesDetailsUseCase) : super(ShrinesInitial()) {
     on<GetShrinesEvent>(onGetShrines);
   }
@@ -27,11 +28,16 @@ class ShrinesBloc extends Bloc<ShrinesEvent, ShrinesState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(ShrinesLoaded(dataState.resultSet!));
+        shrinesDetails = dataState.resultSet!;
+        emit(ShrinesLoaded(shrinesDetails));
       } else {
         emit(ShrinesLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc!));
       }
+    }
+
+    if (dataState is DataFailed) {
+      emit(ShrinesLoadingError(dataState.error!));
     }
   }
 }

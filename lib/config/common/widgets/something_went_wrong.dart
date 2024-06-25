@@ -18,6 +18,7 @@ somthingWentWrong(BuildContext context, String error) {
         Text(
           error,
           textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         )
       ],
     ),

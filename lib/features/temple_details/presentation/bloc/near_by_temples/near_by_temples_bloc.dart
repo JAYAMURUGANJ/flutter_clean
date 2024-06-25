@@ -12,6 +12,7 @@ part 'near_by_temples_state.dart';
 
 class NearbyTemplesBloc extends Bloc<NearbyTemplesEvent, NearByTemplesState> {
   final NearByTemplesUseCase _getNearByTemplesUseCase;
+  List<NearByTemplesEntity> nearByTemples = [];
   NearbyTemplesBloc(this._getNearByTemplesUseCase)
       : super(NearByTemplesInitial()) {
     on<GetNearByTemplesEvent>(onGetNearByTemplesLocation);
@@ -28,11 +29,15 @@ class NearbyTemplesBloc extends Bloc<NearbyTemplesEvent, NearByTemplesState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(NearByTemplesLoaded(dataState.resultSet!));
+        nearByTemples = dataState.resultSet!;
+        emit(NearByTemplesLoaded(nearByTemples));
       } else {
         emit(NearByTemplesLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc!));
       }
+    }
+    if (dataState is DataFailed) {
+      emit(NearByTemplesLoadingError(dataState.error!));
     }
     //[ { "result_set": [ { "location_desc": "Airport", "location_from": "Chennai International Airport", "distance": "11", "blueprint_image": [], "longitude": "", "latitude": "" }, { "location_desc": "Railway Station", "location_from": "Chennai Central Train Station", "distance": "6", "blueprint_image": [], "longitude": "", "latitude": "" } ], "response_status": "SUCCESS" } ]
   }

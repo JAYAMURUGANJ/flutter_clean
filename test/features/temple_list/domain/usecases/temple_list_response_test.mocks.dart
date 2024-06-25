@@ -46,7 +46,7 @@ class MockTempleListRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>> getTempleList(
+  _i4.Future<_i2.DataState<List<_i5.TempleEntity>>> getTempleList(
     String? formData,
     String? serviceId,
   ) =>
@@ -58,9 +58,8 @@ class MockTempleListRepository extends _i1.Mock
             serviceId,
           ],
         ),
-        returnValue:
-            _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>>.value(
-                _FakeDataState_0<List<_i5.TempleListEntity>>(
+        returnValue: _i4.Future<_i2.DataState<List<_i5.TempleEntity>>>.value(
+            _FakeDataState_0<List<_i5.TempleEntity>>(
           this,
           Invocation.method(
             #getTempleList,
@@ -70,5 +69,5 @@ class MockTempleListRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i4.Future<_i2.DataState<List<_i5.TempleListEntity>>>);
+      ) as _i4.Future<_i2.DataState<List<_i5.TempleEntity>>>);
 }

@@ -11,7 +11,7 @@ import 'package:news_app_clean_architecture/features/temple_list/domain/entities
 import '../../../../config/constants.dart';
 
 class ShrinesWidget extends StatefulWidget {
-  final TempleListEntity? templeData;
+  final TempleEntity? templeData;
   const ShrinesWidget({Key? key, this.templeData}) : super(key: key);
 
   @override
@@ -72,7 +72,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
           return ErrorWidget(state.error.toString());
         }
         if (state is ShrinesLoadingSomthingWentWrong) {
-          return SomethingWentWrong(error: state.error.toString());
+          return SomethingWentWrong(error: state.responseStatus!);
         }
         if (state is ShrinesLoaded) {
           List<ShrinesDetailsEntity> shrinesList =

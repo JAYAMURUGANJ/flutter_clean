@@ -34,7 +34,7 @@ class AppRoutes {
         return _materialRoute(const Home());
       case '/TempleDetails':
         return _materialRoute(
-            TempleDetailsView(temple: settings.arguments as TempleListEntity));
+            TempleDetailsView(temple: settings.arguments as TempleEntity));
       case '/TempleList':
         return _materialRoute(const TempleListPage());
       case '/PaidService':
@@ -55,14 +55,14 @@ class AppRoutes {
         return _materialRoute(
             NearByTemplesWidget(data: settings.arguments as LocationInfo));
       case '/PhotoGallery':
-        return _materialRoute(PhotoGalleryWidget(
-            templeData: settings.arguments as TempleListEntity));
+        return _materialRoute(
+            PhotoGalleryWidget(templeData: settings.arguments as TempleEntity));
       case '/Speciality':
         return _materialRoute(SpecialityWidget(
             specialityList: settings.arguments as List<SpecialityEntity>));
       case '/Facility':
         return _materialRoute(
-            FacilityWidget(templeData: settings.arguments as TempleListEntity));
+            FacilityWidget(templeData: settings.arguments as TempleEntity));
       case '/SomthingWentWrong':
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));

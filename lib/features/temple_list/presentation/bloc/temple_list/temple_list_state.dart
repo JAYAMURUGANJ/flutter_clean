@@ -22,7 +22,7 @@ class TempleListLoading extends TempleListState {
 }
 
 class TempleListLoaded extends TempleListState {
-  const TempleListLoaded(List<TempleListEntity> templeList)
+  const TempleListLoaded(List<TempleEntity> templeList)
       : super(templeList: templeList);
 
   @override

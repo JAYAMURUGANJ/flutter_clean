@@ -37,11 +37,6 @@ import '/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.
 import '/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import '/features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import '/features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
-import '/features/temple_details/presentation/bloc/view_desc/view_desc_bloc.dart';
-import '/features/temple_list/data/repository/worship_repository_impl.dart';
-import '/features/temple_list/domain/repository/worship_repository.dart';
-import '/features/temple_list/domain/usecases/worship_usecase.dart';
-import '/features/temple_list/presentation/bloc/worship/worship_bloc.dart';
 import 'core/data_sources/ITMS_API_service.dart';
 import 'features/event_calendar/data/repository/calendar_event_repository_impl.dart';
 import 'features/event_calendar/data/repository/calendar_events_details_repository_impl.dart';
@@ -62,14 +57,17 @@ import 'features/temple_details/domain/repository/temple_timing_repository.dart'
 import 'features/temple_details/domain/usecases/near_by_temple_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_pooja_usecase.dart';
 import 'features/temple_details/domain/usecases/temple_timinig_usecase.dart';
-import 'features/temple_details/presentation/bloc/custom_scroll/custom_scroll_cubit.dart';
 import 'features/temple_details/presentation/bloc/near_by_temples/near_by_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearby_temples_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
-import 'features/temple_list/data/repository/temple_list_impl.dart';
+import 'features/temple_list/data/repository/temple_list_repository_impl.dart';
+import 'features/temple_list/data/repository/worship_god_list_repository_impl.dart';
 import 'features/temple_list/domain/repository/temple_list_repository.dart';
+import 'features/temple_list/domain/repository/worship_god_list_repository.dart';
 import 'features/temple_list/domain/usecases/temple_list_usecase.dart';
+import 'features/temple_list/domain/usecases/worship_god_list_usecase.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
+import 'features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -137,13 +135,11 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
   sl.registerFactory<ShrinesBloc>(() => ShrinesBloc(sl()));
   sl.registerFactory<SculpturesBloc>(() => SculpturesBloc(sl()));
-  sl.registerFactory<ViewDescBloc>(() => ViewDescBloc());
   sl.registerFactory<FacilityBloc>(() => FacilityBloc(sl()));
   sl.registerFactory<SpecialityBloc>(() => SpecialityBloc(sl()));
   sl.registerFactory<PhotoGalleryBloc>(() => PhotoGalleryBloc(sl()));
   sl.registerFactory<PhotoGalleryDescCubit>(() => PhotoGalleryDescCubit());
-  sl.registerFactory<WorshipBloc>(() => WorshipBloc(sl()));
+  sl.registerFactory<WorshipGodListBloc>(() => WorshipGodListBloc(sl()));
   sl.registerFactory<SelectedFavoriteTemplesCubit>(
       () => SelectedFavoriteTemplesCubit());
-  sl.registerFactory<CustomScrollCubit>(() => CustomScrollCubit());
 }

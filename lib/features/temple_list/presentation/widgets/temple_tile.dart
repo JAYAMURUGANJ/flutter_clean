@@ -7,8 +7,8 @@ import '/config/common/widgets/network_image_cache.dart';
 import '/config/constants.dart';
 
 class TempleListTile extends StatelessWidget {
-  final TempleListEntity? temple;
-  final void Function(TempleListEntity article)? onTemplePressed;
+  final TempleEntity? temple;
+  final void Function(TempleEntity article)? onTemplePressed;
 
   const TempleListTile({
     Key? key,

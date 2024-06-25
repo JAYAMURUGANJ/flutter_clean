@@ -12,6 +12,8 @@ part 'calendar_event_state.dart';
 
 class CalendarEventBloc extends Bloc<CalendarEventEvent, CalendarEventState> {
   final CalendarEventUseCase _getCalendarEventUseCase;
+
+  List<CalendarEventEntity> calendarEvents = [];
   CalendarEventBloc(this._getCalendarEventUseCase)
       : super(CalendarEventInitial()) {
     on<GetCalendarEvent>(onGetCalenderevent);
@@ -38,13 +40,15 @@ class CalendarEventBloc extends Bloc<CalendarEventEvent, CalendarEventState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(CalendarEventLoaded(dataState.resultSet));
+        calendarEvents = dataState.resultSet!;
+        emit(CalendarEventLoaded(calendarEvents));
       } else {
         emit(CalendarEventLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc!));
       }
     }
-
-    emit(CalendarEventLoadingError(dataState.error!));
+    if (dataState is DataFailed) {
+      emit(CalendarEventLoadingError(dataState.error!));
+    }
   }
 }

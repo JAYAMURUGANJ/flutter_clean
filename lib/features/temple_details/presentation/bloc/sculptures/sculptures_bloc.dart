@@ -2,18 +2,20 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_clean_architecture/features/temple_details/domain/usecases/sculptures_usecase.dart';
 
-import '../../../../../core/models/itms_request.dart';
-import '../../../../../core/resources/data_state.dart';
-import '../../../../../core/resources/itms_request_handler.dart';
 import '../../../domain/entities/sculpture.dart';
+import '/core/models/itms_request.dart';
+import '/core/resources/data_state.dart';
+import '/core/resources/itms_request_handler.dart';
+import '/features/temple_details/domain/usecases/sculptures_usecase.dart';
 
 part 'sculptures_event.dart';
 part 'sculptures_state.dart';
 
 class SculpturesBloc extends Bloc<SculpturesEvent, SculpturesState> {
   final SculpturesUseCase _getSculpturesUseCase;
+  List<SculptureEntity> sculptures = [];
+
   SculpturesBloc(this._getSculpturesUseCase) : super(SculpturesInitial()) {
     on<GetSculpturesEvent>(onGetSculptures);
     on<GetSculptureDescEvent>(onGetSculptureDesc);
@@ -31,11 +33,15 @@ class SculpturesBloc extends Bloc<SculpturesEvent, SculpturesState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-        emit(SculpturesLoaded(dataState.resultSet!));
+        sculptures = dataState.resultSet!;
+        emit(SculpturesLoaded(sculptures));
       } else {
         emit(SculpturesLoadingSomthingWentWrong(
             dataState.resultSet![0].responseDesc));
       }
+    }
+    if (dataState is DataFailed) {
+      emit(SculpturesLoadingError(dataState.error!));
     }
   }
 

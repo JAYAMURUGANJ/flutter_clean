@@ -10,7 +10,7 @@ import 'temple_list_state.dart';
 
 class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
   final TempleListUseCase _getItmsResponseUseCase;
-  List<TempleListEntity> templesList = [];
+  List<TempleEntity> templesList = [];
 
   TempleListBloc(this._getItmsResponseUseCase)
       : super(const TempleListLoading()) {
@@ -35,10 +35,10 @@ class TempleListBloc extends Bloc<TempleListEvent, TempleListState> {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
         templesList = dataState.resultSet!;
-        emit(TempleListLoaded(dataState.resultSet!));
+        emit(TempleListLoaded(templesList));
       } else {
         emit(TempleListLoadingSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+            dataState.resultSet![0].responseDesc!));
       }
     }
     if (dataState is DataFailed) {

@@ -3,19 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../dashboard/presentation/widgets/service_list.dart';
 import '../../../temple_list/domain/entities/temple_list.dart';
 import '../bloc/contact_details/contact_details_bloc.dart';
 import '/config/common/extensions.dart';
+import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/constants.dart';
+import '/features/temple_details/data/model/location_info.dart';
 import '/features/temple_details/domain/entities/contact_details.dart';
 import 'main_tower.dart';
 
 class BuildContactDetails extends StatefulWidget {
-  final TempleListEntity temple;
+  final TempleEntity temple;
   const BuildContactDetails(this.temple, {Key? key}) : super(key: key);
 
   @override
@@ -52,62 +53,83 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
             ),
             height: MediaQuery.sizeOf(context).height / 3,
           ),
-          BlocBuilder<ContactDetailsBloc, ContactDetailsState>(
-            builder: (context, state) {
-              if (state is ContactDetailsLoading) {
-                return const Center(child: CupertinoActivityIndicator());
+          BlocConsumer<ContactDetailsBloc, ContactDetailsState>(
+            listener: (context, state) {
+              if (state is ContactDetailsLoadingError) {
+                Navigator.pushNamed(context, '/DioException',
+                    arguments: state.error!);
               }
-              if (state is ContactDetailsLoaded) {
-                ContactDetailsEntity contactDetails = state.contactDetails![0];
-                return SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      buildTempleName(contactDetails, context),
-                      5.ph,
-                      mainTower(widget.temple, 80),
-                      30.ph,
-                      buildContactCard(
-                          context,
-                          contactDetails.username ?? "",
-                          contactDetails.designationDesc,
-                          Icons.contact_emergency,
-                          () {},
-                          localLable: false),
-                      buildContactCard(
-                          context,
-                          "address",
-                          "${contactDetails.templeDoorno} ${contactDetails.templeStreet!}, ${contactDetails.templeLocation}, ${contactDetails.districtName} - ${contactDetails.pincode}",
-                          Icons.location_on_outlined, () {
-                        pageNavigation("/NearByTemples", context,
-                            arguments: LocationInfo(
-                                fromCurrent: false, temple: widget.temple));
-                      }),
-                      buildContactCard(
-                          context,
-                          "email",
-                          contactDetails.email
-                              ?.replaceAll("[at]", "@")
-                              .replaceAll("[dot]", "."),
-                          Icons.mail_outline, () {
-                        _launchUrl(
-                            "mailto:${contactDetails.email?.replaceAll("[at]", "@").replaceAll("[dot]", ".")}");
-                      }),
-                      buildContactCard(context, "phone",
-                          contactDetails.landline, Icons.phone_outlined, () {
-                        _launchUrl("tel:${contactDetails.landline}");
-                      }),
-                      buildContactCard(
-                          context, "website", "go_to_website", Icons.language,
-                          () {
-                        _launchUrl(widget.temple.urlTemplewebsite ?? "-");
-                      }, subTitleLocalLabel: true),
-                      50.ph,
-                    ],
+            },
+            builder: (context, state) {
+              if (state is ContactDetailsLoadingSomthingWentWrong) {
+                return Center(
+                  child: SizedBox(
+                    height: 300,
+                    child: SomethingWentWrong(error: state.responseStatus!),
                   ),
                 );
               }
-              return const SizedBox.shrink();
+              return BlocBuilder<ContactDetailsBloc, ContactDetailsState>(
+                builder: (context, state) {
+                  if (state is ContactDetailsLoading) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  }
+                  if (state is ContactDetailsLoaded) {
+                    ContactDetailsEntity contactDetails =
+                        state.contactDetails![0];
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          buildTempleName(contactDetails, context),
+                          5.ph,
+                          mainTower(widget.temple, 80),
+                          30.ph,
+                          buildContactCard(
+                              context,
+                              contactDetails.username ?? "",
+                              contactDetails.designationDesc,
+                              Icons.contact_emergency,
+                              () {},
+                              localLable: false),
+                          buildContactCard(
+                              context,
+                              "address",
+                              "${contactDetails.templeDoorno} ${contactDetails.templeStreet!}, ${contactDetails.templeLocation}, ${contactDetails.districtName} - ${contactDetails.pincode}",
+                              Icons.location_on_outlined, () {
+                            pageNavigation("/NearByTemples", context,
+                                arguments: LocationInfo(
+                                    fromCurrent: false, temple: widget.temple));
+                          }),
+                          buildContactCard(
+                              context,
+                              "email",
+                              contactDetails.email
+                                  ?.replaceAll("[at]", "@")
+                                  .replaceAll("[dot]", "."),
+                              Icons.mail_outline, () {
+                            _launchUrl(
+                                "mailto:${contactDetails.email?.replaceAll("[at]", "@").replaceAll("[dot]", ".")}");
+                          }),
+                          buildContactCard(
+                              context,
+                              "phone",
+                              contactDetails.landline,
+                              Icons.phone_outlined, () {
+                            _launchUrl("tel:${contactDetails.landline}");
+                          }),
+                          buildContactCard(context, "website", "go_to_website",
+                              Icons.language, () {
+                            _launchUrl(widget.temple.urlTemplewebsite ?? "-");
+                          }, subTitleLocalLabel: true),
+                          50.ph,
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              );
             },
           )
         ],

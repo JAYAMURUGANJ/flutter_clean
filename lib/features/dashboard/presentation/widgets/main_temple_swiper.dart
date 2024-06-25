@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import '../../../temple_list/presentation/bloc/temple_list/temple_list_state.dart';
+import '/config/common/extensions.dart';
+import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import 'main_temple_list_tile.dart';
@@ -18,16 +19,20 @@ mainTempleListBlocBuilder() {
       if (state is TempleListLoadingError) {
         Navigator.pushNamed(context, '/DioException', arguments: state.error!);
       }
-      if (state is TempleListLoadingSomthingWentWrong) {
-        Navigator.pushNamed(context, '/SomthingWentWrong',
-            arguments: state.responseStatus!);
-      }
     },
     builder: (context, state) {
+      if (state is TempleListLoadingSomthingWentWrong) {
+        return Center(
+          child: Container(
+            color: Colors.amber,
+            height: 250,
+            child: SomethingWentWrong(error: state.responseStatus!),
+          ),
+        );
+      }
       if (state is TempleListLoading) {
         return maintempleshimmerEffect(context);
       }
-
       if (state is TempleListLoaded) {
         dynamic templeList = state.templeList!;
         return Padding(
@@ -166,6 +171,6 @@ bool onSwipe(
   return true;
 }
 
-onTemplePressed(BuildContext context, TempleListEntity article) {
+onTemplePressed(BuildContext context, TempleEntity article) {
   Navigator.pushNamed(context, '/TempleDetails', arguments: article);
 }

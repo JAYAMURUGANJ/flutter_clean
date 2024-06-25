@@ -3,6 +3,6 @@ import '/core/resources/data_state.dart';
 
 abstract class TempleListRepository {
   // API methods
-  Future<DataState<List<TempleListEntity>>> getTempleList(
+  Future<DataState<List<TempleEntity>>> getTempleList(
       String formData, String serviceId);
 }

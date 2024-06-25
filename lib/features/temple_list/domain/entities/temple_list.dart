@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'temple_list.g.dart';
 
 @JsonSerializable()
-class TempleListEntity extends Equatable {
+class TempleEntity extends Equatable {
   @JsonKey(name: 'temple_Id')
   final int? templeId;
   @JsonKey(name: 'temple_name')
@@ -52,7 +52,7 @@ class TempleListEntity extends Equatable {
   @JsonKey(name: 'response_desc')
   final String? responseDesc;
 
-  const TempleListEntity({
+  const TempleEntity({
     this.templeId,
     this.templeName,
     this.ttempleName,
@@ -78,7 +78,7 @@ class TempleListEntity extends Equatable {
     this.responseDesc,
   });
 
-  factory TempleListEntity.fromJson(Map<String, dynamic> json) =>
+  factory TempleEntity.fromJson(Map<String, dynamic> json) =>
       _$TempleListEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$TempleListEntityToJson(this);

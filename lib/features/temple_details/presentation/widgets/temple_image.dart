@@ -21,7 +21,7 @@ import '360_degree_view.dart';
 
 Widget buildTempleImage(
     context,
-    TempleListEntity temple,
+    TempleEntity temple,
     AnimationController buttonAnimationController,
     Animation<Color?> colorAnimation) {
   return BlocBuilder<TempleInfoBloc, TempleInfoState>(
