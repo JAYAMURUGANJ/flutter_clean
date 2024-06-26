@@ -88,7 +88,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
                   imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
                       ? ApiCredentials().documents +
                           shrinesList[index].subshrineImage![0].fileLocation!
-                      : NetworkImages.templePlaceHolder,
+                      : LocalImages().templePlaceHolder,
                   name: shrinesList[index].subshrineName,
                   desc: shrinesList[index].subshrineDesc,
                   length: shrinesList.length,

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../class/exception.dart';
-import '../../widgets/network_image_cache.dart';
 import '/config/constants.dart';
 
 class DioExceptionScreen extends StatelessWidget {
@@ -25,7 +24,7 @@ class DioExceptionScreen extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.only(
                     start: 14, end: 14, bottom: 7, top: 7),
                 height: MediaQuery.of(context).size.width / 2.2,
-                child: buildImage(context, NetworkImages.dioError),
+                child: Image.asset(LocalImages().dioError),
               ),
               Text(
                 errorMessage,

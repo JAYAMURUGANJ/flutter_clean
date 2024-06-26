@@ -54,7 +54,7 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
                 imageUrl: sculpturesList[index].sculptureInfo!.isNotEmpty
                     ? ApiCredentials().documents +
                         sculpturesList[index].sculptureInfo![0].fileLocation!
-                    : NetworkImages.templePlaceHolder,
+                    : LocalImages().templePlaceHolder,
                 name: sculpturesList[index].sculpturesName ?? "",
                 desc: sculpturesList[index].sculptureDesc ?? "",
                 length: sculpturesList.length,

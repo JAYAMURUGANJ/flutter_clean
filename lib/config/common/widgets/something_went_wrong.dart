@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'network_image_cache.dart';
 
 somthingWentWrong(BuildContext context, String error) {
   return Center(
@@ -13,7 +12,7 @@ somthingWentWrong(BuildContext context, String error) {
           padding: const EdgeInsetsDirectional.only(
               start: 14, end: 14, bottom: 7, top: 7),
           height: MediaQuery.of(context).size.width / 2.2,
-          child: buildImage(context, NetworkImages.somthingWentWrong),
+          child: Image.asset(LocalImages().somthingWentWrong),
         ),
         Text(
           error,

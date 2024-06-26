@@ -46,7 +46,7 @@ class MainTempleListTile extends StatelessWidget {
                 imageUrl: temple!.maintowerImage!.isNotEmpty
                     ? ApiCredentials().documents +
                         temple!.maintowerImage![0].fileLocation.toString()
-                    : NetworkImages.templePlaceHolder,
+                    : LocalImages().templePlaceHolder,
                 backgroundImageKey: backgroundImageKey,
               ),
             ),

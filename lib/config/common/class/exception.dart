@@ -33,10 +33,6 @@ class ApiException {
             errorMsg: "Receive Timeout",
             description: "Problem may be your Internet connection or Server");
       case DioExceptionType.unknown:
-        return ApiError(
-            errorMsg: "Something Went Wrong!",
-            description:
-                "Check API url/Network Connectivity or\n parameters are invalid");
       default:
         return ApiError(
             errorMsg: "Something Went Wrong!",

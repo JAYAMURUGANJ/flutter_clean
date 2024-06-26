@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/network_aware.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -107,279 +108,290 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
   @override
   Widget build(BuildContext context) {
     dynamic theme = Theme.of(context);
-    return Scaffold(
-      appBar: (widget.templeData?.templeId != null)
-          ? null
-          : appHeader(
-              context: context,
-              body: LocaleText("events",
-                  textAlign: TextAlign.center,
-                  style: appbarTextStyleLarge(theme)),
-              trailing: IconButton(
-                onPressed: () => buildNavigationDrawer(context),
-                icon: const Icon(Icons.menu),
-              ),
-            ),
-      body: BlocBuilder<CalendarEventBloc, CalendarEventState>(
-        builder: (context, state) {
-          if (state is CalendarEventsLoading) {
-            return const ShimmerCalendar();
-          }
-          if (state is CalendarEventLoadingSomthingWentWrong ||
-              state is CalendarEventLoadingError) {
-            String error = state.responseStatus!;
-            return somthingWentWrong(context, error);
-          }
-          if (state is CalendarEventLoadingError) {
-            String error = state.responseStatus.toString();
-            return somthingWentWrong(context, error);
-          }
-
-          if (state is CalendarEventLoaded) {
-            dataMapList = state.calendarEvent! as List<CalendarEvent>;
-            return Column(
-              children: [
-                if (widget.templeData?.templeId != null)
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    child: Text(
-                      Locales.lang == "en"
-                          ? widget.templeData?.templeName?.split(',')[0] ?? ''
-                          : widget.templeData?.ttempleName?.split(',')[0] ?? "",
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      maxLines: 4,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
-                  ),
-                TableCalendar<CalendarEvent>(
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  rangeStartDay: _rangeStart,
-                  rangeEndDay: _rangeEnd,
-                  calendarFormat: _calendarFormat,
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onCalendarCreated: ((pageController) {
-                    _onDaySelected(_selectedDay!, _focusedDay);
-                  }),
-                  rangeSelectionMode: _rangeSelectionMode,
-                  eventLoader: _getEventsForDay,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  onDaySelected: _onDaySelected,
-                  calendarBuilders: CalendarBuilders(
-                    dowBuilder: (context, day) {
-                      if (day.weekday == DateTime.sunday) {
-                        final text = DateFormat.E().format(day);
-                        return Center(
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: 14,
-                            ),
-                          ),
-                        );
-                      } else {
-                        final text = DateFormat.E().format(day);
-                        return Center(
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    todayBuilder: (context, date, _) {
-                      return Container(
-                          margin: const EdgeInsets.all(4.0),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            date.day.toString(),
-                            style: const TextStyle(color: Colors.white),
-                          ));
-                    },
-                  ),
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                    String formatedMonth = getMonthYear(focusedDay);
-                    setState(() {
-                      if (focusedDay.month != DateTime.now().month) {
-                        //first day of the month
-                        _selectedDay =
-                            DateTime(focusedDay.year, focusedDay.month, 1);
-                      } else {
-                        //currend day of the month
-                        _selectedDay = DateTime.now();
-                      }
-                    });
-
-                    BlocProvider.of<CalendarEventBloc>(context).add(
-                        GetCalendarEvent(
-                            templeId: widget.templeData?.templeId.toString(),
-                            filterMonth: formatedMonth));
-                  },
+    return NetworkAware(
+      child: Scaffold(
+        appBar: (widget.templeData?.templeId != null)
+            ? null
+            : appHeader(
+                context: context,
+                body: LocaleText("events",
+                    textAlign: TextAlign.center,
+                    style: appbarTextStyleLarge(theme)),
+                trailing: IconButton(
+                  onPressed: () => buildNavigationDrawer(context),
+                  icon: const Icon(Icons.menu),
                 ),
-                const SizedBox(height: 8.0),
-                Expanded(
-                  child: ValueListenableBuilder<List<CalendarEvent>>(
-                    valueListenable: _selectedEvents,
-                    builder: (context, value, _) {
-                      // Display details based on _selectedEvents
+              ),
+        body: BlocBuilder<CalendarEventBloc, CalendarEventState>(
+          builder: (context, state) {
+            if (state is CalendarEventsLoading) {
+              return const ShimmerCalendar();
+            }
+            if (state is CalendarEventLoadingSomthingWentWrong ||
+                state is CalendarEventLoadingError) {
+              String error = state.responseStatus!;
+              return somthingWentWrong(context, error);
+            }
+            if (state is CalendarEventLoadingError) {
+              String error = state.responseStatus.toString();
+              return somthingWentWrong(context, error);
+            }
 
-                      List<FestivalDatum> festivalData = [];
-                      if (value.isNotEmpty) {
-                        festivalData = value[0].festivalData!;
+            if (state is CalendarEventLoaded) {
+              dataMapList = state.calendarEvent! as List<CalendarEvent>;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (widget.templeData?.templeId != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      child: Text(
+                        Locales.lang == "en"
+                            ? widget.templeData?.templeName?.split(',')[0] ?? ''
+                            : widget.templeData?.ttempleName?.split(',')[0] ??
+                                "",
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        maxLines: 4,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                    ),
+                  TableCalendar<CalendarEvent>(
+                    firstDay: kFirstDay,
+                    lastDay: kLastDay,
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                    rangeStartDay: _rangeStart,
+                    rangeEndDay: _rangeEnd,
+                    calendarFormat: _calendarFormat,
+                    onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
                       }
-                      return BlocBuilder<CalendarEventBloc, CalendarEventState>(
-                        builder: (context, state) {
-                          if (state.calendarEvent is CalendarEventsLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-
-                          if (state is CalendarEventLoaded &&
-                              festivalData.isNotEmpty) {
-                            return ListView.builder(
-                              itemCount: festivalData.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 12.0,
-                                    vertical: 4.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: BlocBuilder<CalendarEventDetailsBloc,
-                                      CalendarEventDetailsState>(
-                                    builder: (context, detailsState) {
-                                      List<CalendarEventDetails>? detailsList;
-                                      if (detailsState
-                                          is CalendarEventDetailsLoaded) {
-                                        detailsList =
-                                            detailsState.calendarEventDetails
-                                                as List<CalendarEventDetails>;
-                                      }
-                                      return ExpansionTile(
-                                        onExpansionChanged: (isExpansionOpen) {
-                                          setState(() {
-                                            _isExpansionOpen = isExpansionOpen;
-                                          });
-                                          if (isExpansionOpen) {
-                                            BlocProvider.of<
-                                                        CalendarEventDetailsBloc>(
-                                                    context)
-                                                .add(GetCalendarEventDetails(
-                                              festivalCode: festivalData[index]
-                                                  .festivalCode,
-                                              festivalDate: value[0]
-                                                  .calendarDays
-                                                  .toString(),
-                                            ));
-                                          }
-                                        },
-                                        leading: Stack(
-                                          alignment:
-                                              AlignmentDirectional.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 5.0),
-                                              child: Text(
-                                                value[0]
-                                                    .calendarDays!
-                                                    .day
-                                                    .toString(),
-                                                textAlign: TextAlign.justify,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                            const Icon(
-                                              Icons.calendar_today,
-                                              size: 50,
-                                            ),
-                                          ],
-                                        ),
-                                        title: Text(festivalData[index]
-                                            .festivalName
-                                            .toString()),
-                                        children: _isExpansionOpen
-                                            ? detailsState
-                                                    is CalendarEventDetailsLoaded
-                                                ? [
-                                                    widget.templeData
-                                                                ?.templeId ==
-                                                            null
-                                                        ? Text(
-                                                            detailsList![0]
-                                                                .templeName!
-                                                                .toString(),
-                                                            softWrap: true,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            maxLines: 3,
-                                                            style: TextStyle(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                          )
-                                                        : const SizedBox(),
-                                                    Text(
-                                                        '${detailsList![0].festivalInfo![0].festivalDetails}'),
-                                                    Text(
-                                                        'Time : ${detailsList[0].festivalInfo![0].festivalFromtime} - ${detailsList[0].festivalInfo![0].festivalTotime}'),
-                                                  ]
-                                                : []
-                                            : [],
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          }
-
-                          return SingleChildScrollView(
-                            child: DataNotAvailable(
-                              error: "no_calendar_events",
-                              img: NetworkImages.noEventAvailable,
+                    },
+                    onCalendarCreated: ((pageController) {
+                      _onDaySelected(_selectedDay!, _focusedDay);
+                    }),
+                    rangeSelectionMode: _rangeSelectionMode,
+                    eventLoader: _getEventsForDay,
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    onDaySelected: _onDaySelected,
+                    calendarBuilders: CalendarBuilders(
+                      dowBuilder: (context, day) {
+                        if (day.weekday == DateTime.sunday) {
+                          final text = DateFormat.E().format(day);
+                          return Center(
+                            child: Text(
+                              text,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 14,
+                              ),
                             ),
                           );
-                        },
-                      );
+                        } else {
+                          final text = DateFormat.E().format(day);
+                          return Center(
+                            child: Text(
+                              text,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      todayBuilder: (context, date, _) {
+                        return Container(
+                            margin: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              date.day.toString(),
+                              style: const TextStyle(color: Colors.white),
+                            ));
+                      },
+                    ),
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                      String formatedMonth = getMonthYear(focusedDay);
+                      setState(() {
+                        if (focusedDay.month != DateTime.now().month) {
+                          //first day of the month
+                          _selectedDay =
+                              DateTime(focusedDay.year, focusedDay.month, 1);
+                        } else {
+                          //currend day of the month
+                          _selectedDay = DateTime.now();
+                        }
+                      });
+
+                      BlocProvider.of<CalendarEventBloc>(context).add(
+                          GetCalendarEvent(
+                              templeId: widget.templeData?.templeId.toString(),
+                              filterMonth: formatedMonth));
                     },
                   ),
-                ),
-              ],
-            );
-          }
-          return const SizedBox();
-        },
+                  const SizedBox(height: 8.0),
+                  Flexible(
+                    child: ValueListenableBuilder<List<CalendarEvent>>(
+                      valueListenable: _selectedEvents,
+                      builder: (context, value, _) {
+                        // Display details based on _selectedEvents
+
+                        List<FestivalDatum> festivalData = [];
+                        if (value.isNotEmpty) {
+                          festivalData = value[0].festivalData!;
+                        }
+                        return BlocBuilder<CalendarEventBloc,
+                            CalendarEventState>(
+                          builder: (context, state) {
+                            if (state.calendarEvent is CalendarEventsLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            if (state is CalendarEventLoaded &&
+                                festivalData.isNotEmpty) {
+                              return ListView.builder(
+                                itemCount: festivalData.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 12.0,
+                                      vertical: 4.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    child: BlocBuilder<CalendarEventDetailsBloc,
+                                        CalendarEventDetailsState>(
+                                      builder: (context, detailsState) {
+                                        List<CalendarEventDetails>? detailsList;
+                                        if (detailsState
+                                            is CalendarEventDetailsLoaded) {
+                                          detailsList =
+                                              detailsState.calendarEventDetails
+                                                  as List<CalendarEventDetails>;
+                                        }
+                                        return ExpansionTile(
+                                          onExpansionChanged:
+                                              (isExpansionOpen) {
+                                            setState(() {
+                                              _isExpansionOpen =
+                                                  isExpansionOpen;
+                                            });
+                                            if (isExpansionOpen) {
+                                              BlocProvider.of<
+                                                          CalendarEventDetailsBloc>(
+                                                      context)
+                                                  .add(GetCalendarEventDetails(
+                                                festivalCode:
+                                                    festivalData[index]
+                                                        .festivalCode,
+                                                festivalDate: value[0]
+                                                    .calendarDays
+                                                    .toString(),
+                                              ));
+                                            }
+                                          },
+                                          leading: Stack(
+                                            alignment:
+                                                AlignmentDirectional.center,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 5.0),
+                                                child: Text(
+                                                  value[0]
+                                                      .calendarDays!
+                                                      .day
+                                                      .toString(),
+                                                  textAlign: TextAlign.justify,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons.calendar_today,
+                                                size: 50,
+                                              ),
+                                            ],
+                                          ),
+                                          title: Text(festivalData[index]
+                                              .festivalName
+                                              .toString()),
+                                          children: _isExpansionOpen
+                                              ? detailsState
+                                                      is CalendarEventDetailsLoaded
+                                                  ? [
+                                                      widget.templeData
+                                                                  ?.templeId ==
+                                                              null
+                                                          ? Text(
+                                                              detailsList![0]
+                                                                  .templeName!
+                                                                  .toString(),
+                                                              softWrap: true,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              maxLines: 3,
+                                                              style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                              ),
+                                                            )
+                                                          : const SizedBox(),
+                                                      Text(
+                                                          '${detailsList![0].festivalInfo![0].festivalDetails}'),
+                                                      Text(
+                                                          'Time : ${detailsList[0].festivalInfo![0].festivalFromtime} - ${detailsList[0].festivalInfo![0].festivalTotime}'),
+                                                    ]
+                                                  : []
+                                              : [],
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+
+                            return SingleChildScrollView(
+                              child: DataNotAvailable(
+                                error: "no_calendar_events",
+                                img: LocalImages().noEventAvailable,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }

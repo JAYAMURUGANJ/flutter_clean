@@ -25,7 +25,7 @@ mainTower(dynamic temple, double radius) {
         // imageUrl: temple!.maintowerImage![0].fileLocation.toString(),
         imageUrl: temple.maintowerImage!.isNotEmpty
             ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple.maintowerImage![0].fileLocation}'
-            : NetworkImages.templePlaceHolder,
+            : LocalImages().templePlaceHolder,
 
         imageBuilder: (context, imageProvider) => CircleAvatar(
           radius: radius,

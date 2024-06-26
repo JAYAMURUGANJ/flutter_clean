@@ -32,27 +32,19 @@ class ApiCredentials {
   static const String serviceRequester = 'HRCEVENDR1';
 }
 
-class NetworkImages {
-  // Network images URLs
-  static const String dioError =
-      "https://static.vecteezy.com/system/resources/previews/026/766/398/non_2x/error-server-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
-
-  static const String somthingWentWrong =
-      "https://static.vecteezy.com/system/resources/previews/012/003/110/non_2x/information-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg";
-  static const String noDataAvailable =
-      "https://static.vecteezy.com/system/resources/previews/044/159/035/non_2x/storage-data-icon-symbol-image-for-database-illustration-free-vector.jpg";
-  static const String noEventAvailable =
-      "https://static.vecteezy.com/system/resources/previews/043/063/306/non_2x/calendar-icon-symbol-image-for-schedule-or-appointment-vector.jpg";
-  static const String noLiveAvailable =
-      "https://static.vecteezy.com/system/resources/previews/032/349/386/non_2x/camera-photography-icon-symbol-image-illustration-of-multimedia-photographic-lens-graphic-design-image-vector.jpg";
-
-  static const String noNearByTemple =
-      "https://static.vecteezy.com/system/resources/previews/008/064/864/non_2x/one-continuous-single-line-of-temple-isolated-on-white-background-vector.jpg";
-  static const String templePlaceHolder =
-      "https://images.jdmagicbox.com/comp/chennai/10/044p3011210/catalogue/arulmigu-vadapalani-andavar-thirukovil-vadapalani-chennai-temples-s7nf5xcu80.jpg";
-}
-
 class LocalImages {
+  // Network images URLs
+  String dioError = "assets/images/icons/dio_error.png";
+
+  String somthingWentWrong = "assets/images/icons/went_wrong.png";
+  String noDataAvailable = "assets/images/icons/no_data_found.png";
+  String noEventAvailable = "assets/images/icons/no_event.png";
+  String noLiveAvailable = "assets/images/icons/no_live.png";
+
+  String noNearByTemple = "assets/images/icons/no_temple.png";
+  String templePlaceHolder =
+      "https://images.jdmagicbox.com/comp/chennai/10/044p3011210/catalogue/arulmigu-vadapalani-andavar-thirukovil-vadapalani-chennai-temples-s7nf5xcu80.jpg";
+
   String logo = "assets/images/logo/logo.png";
   String appLogo = "assets/images/logo/app_logo.png";
   String tnLogo = "assets/images/logo/tn_logo.png";
@@ -64,6 +56,7 @@ class LocalImages {
   String drawerBg = "assets/images/icons/drawer_bg.png";
   String play = "assets/images/icons/media-play.png";
   String wm = "assets/images/bg/water_mark.png";
+  String networkError = "assets/images/icons/network_error.png";
 }
 
 class LottieImage {

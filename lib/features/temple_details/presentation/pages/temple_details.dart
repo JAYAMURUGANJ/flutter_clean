@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/config/common/widgets/network_aware.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 
 import '../../../temple_list/domain/entities/temple_list.dart';
@@ -60,27 +61,29 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
   @override
   Widget build(BuildContext context) {
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
-    return BlocProvider(
-      create: (_) => sl<TempleListBloc>(),
-      child: SafeArea(
-        child: Scaffold(
-          appBar: appBar(context, widget.temple),
-          body: NestedScrollView(
-            headerSliverBuilder: (context, value) {
-              return [
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      buildTempleImage(context, widget.temple!,
-                          _buttonAnimationController, _colorAnimation),
-                      buildTempleServices(context, widget.temple),
-                      buildTabBar(context, tabController),
-                    ],
+    return NetworkAware(
+      child: BlocProvider(
+        create: (_) => sl<TempleListBloc>(),
+        child: SafeArea(
+          child: Scaffold(
+            appBar: appBar(context, widget.temple),
+            body: NestedScrollView(
+              headerSliverBuilder: (context, value) {
+                return [
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        buildTempleImage(context, widget.temple!,
+                            _buttonAnimationController, _colorAnimation),
+                        buildTempleServices(context, widget.temple),
+                        buildTabBar(context, tabController),
+                      ],
+                    ),
                   ),
-                ),
-              ];
-            },
-            body: buildTabView(context, tabController),
+                ];
+              },
+              body: buildTabView(context, tabController),
+            ),
           ),
         ),
       ),

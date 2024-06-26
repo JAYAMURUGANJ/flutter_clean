@@ -54,7 +54,7 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
           if (state is LiveEventsSomthingWentWrong) {
             return DataNotAvailable(
                 error: "Somthing Went Wrong",
-                img: NetworkImages.noEventAvailable);
+                img: LocalImages().noEventAvailable);
           }
           if (state is LiveEventsLoaded) {
             return Stack(
@@ -161,7 +161,7 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
           }
           return DataNotAvailable(
               error: "Live Telecasting not available",
-              img: NetworkImages.noLiveAvailable);
+              img: LocalImages().noLiveAvailable);
         },
       ),
     );

@@ -98,7 +98,7 @@ _serviceCard(
                 {
                   DataNotAvailable(
                       error: "live_telecasting_not_available",
-                      img: NetworkImages.noLiveAvailable);
+                      img: LocalImages().noLiveAvailable);
                 }
                 break;
             }

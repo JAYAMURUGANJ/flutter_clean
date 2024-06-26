@@ -30,7 +30,7 @@ class TempleListTile extends StatelessWidget {
               temple!.maintowerImage!.isNotEmpty
                   ? ApiCredentials().documents +
                       temple!.maintowerImage![0].fileLocation.toString()
-                  : NetworkImages.templePlaceHolder,
+                  : LocalImages().templePlaceHolder,
               width: 90,
               height: 90,
             ),

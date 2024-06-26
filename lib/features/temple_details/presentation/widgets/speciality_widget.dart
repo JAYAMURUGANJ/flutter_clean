@@ -91,7 +91,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                                     widget.specialityList[index]
                                         .specialityImage![0].fileLocation
                                         .toString()
-                                : NetworkImages.templePlaceHolder,
+                                : LocalImages().templePlaceHolder,
                             fit: BoxFit.cover,
                           ),
                           Padding(
@@ -180,7 +180,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                           widget.specialityList[selectedIndex]
                               .specialityImage![index].fileLocation!
                               .toString()
-                      : NetworkImages.templePlaceHolder,
+                      : LocalImages().templePlaceHolder,
                 );
               },
               child: CachedNetworkImage(
@@ -195,7 +195,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                         widget.specialityList[selectedIndex]
                             .specialityImage![index].fileLocation!
                             .toString()
-                    : NetworkImages.templePlaceHolder,
+                    : LocalImages().templePlaceHolder,
                 fit: BoxFit.cover,
                 imageBuilder: (context, imageProvider) => ClipRRect(
                   borderRadius: BorderRadius.circular(16),

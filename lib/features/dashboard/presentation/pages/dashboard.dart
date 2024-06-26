@@ -300,12 +300,20 @@ class _DashboardState extends State<Dashboard> {
           content: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CupertinoActivityIndicator(),
+              CupertinoActivityIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               5.pw,
-              const LocaleText(
-                "fetch_location",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              Flexible(
+                child: LocaleText(
+                  "fetch_location",
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                  maxLines: 2,
+                ),
               )
             ],
           ),

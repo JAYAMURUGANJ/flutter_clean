@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
 import '/config/common/extensions.dart';
-import '/config/common/widgets/network_image_cache.dart';
 
 class DataNotAvailable extends StatefulWidget {
   String error;
@@ -27,7 +26,7 @@ class _DataNotAvailableState extends State<DataNotAvailable> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          buildImage(context, widget.img, width: 130, height: 120),
+          Image.asset(widget.img, width: 130, height: 120),
           10.ph,
           LocaleText(
             widget.error,

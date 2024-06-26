@@ -57,7 +57,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 isLoading ? _shimmerEffect() : _liveStreamTempleListBuilder())
         : DataNotAvailable(
             error: "live_telecasting_not_available",
-            img: NetworkImages.noLiveAvailable);
+            img: LocalImages().noLiveAvailable);
   }
 
   Widget _liveStreamTempleListBuilder() {

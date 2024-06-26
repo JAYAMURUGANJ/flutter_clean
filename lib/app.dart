@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ import '/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.da
 import '/features/temple_details/presentation/bloc/shrines_details/shrines_bloc.dart';
 import '/features/temple_details/presentation/bloc/speciality/speciality_bloc.dart';
 import '/features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
+import 'config/common/bloc/bloc/connectivity_bloc.dart';
 import 'config/common/class/local_language_controller.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
@@ -55,6 +57,9 @@ class _AppState extends State<App> {
         Get.put(LocalizationController());
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ConnectivityBloc>(
+          create: (context) => ConnectivityBloc(Connectivity()),
+        ),
         BlocProvider<TempleListBloc>(
           create: (context) =>
               sl()..add(GetTempleList(seniorgradeTemples: 'Y')),

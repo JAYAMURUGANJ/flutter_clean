@@ -476,7 +476,7 @@ class _NearByTemplesWidgetState extends State<NearByTemplesWidget>
               } else {
                 return DataNotAvailable(
                     error: "no_nearby_temples",
-                    img: NetworkImages.noNearByTemple);
+                    img: LocalImages().noNearByTemple);
               }
             }
             return const SizedBox.shrink();
@@ -534,7 +534,7 @@ class BuildMarkerInfoWidget extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: temple.maintowerImage!.isNotEmpty
                           ? 'https://hrce.tn.gov.in/webservice/documentview.php?file_path=${temple.maintowerImage![0].fileLocation}'
-                          : NetworkImages.templePlaceHolder,
+                          : LocalImages().templePlaceHolder,
                       imageBuilder: (context, imageProvider) => ClipRRect(
                         child: DecoratedBox(
                           decoration: BoxDecoration(

@@ -111,7 +111,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                                             .photoInfo![0]
                                             .fileLocation
                                             .toString()
-                                    : NetworkImages.templePlaceHolder,
+                                    : LocalImages().templePlaceHolder,
                                 fit: BoxFit.cover,
                                 imageBuilder: (context, imageProvider) =>
                                     ClipRRect(
@@ -173,7 +173,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                             ? ApiCredentials().documents +
                                 photoData.photoInfo![index].fileLocation
                                     .toString()
-                            : NetworkImages.templePlaceHolder,
+                            : LocalImages().templePlaceHolder,
                       );
                     },
                     child: CachedNetworkImage(
@@ -186,7 +186,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                           ? ApiCredentials().documents +
                               photoData.photoInfo![index].fileLocation
                                   .toString()
-                          : NetworkImages.templePlaceHolder,
+                          : LocalImages().templePlaceHolder,
                       fit: BoxFit.cover,
                       imageBuilder: (context, imageProvider) => ClipRRect(
                         borderRadius: BorderRadius.circular(16),

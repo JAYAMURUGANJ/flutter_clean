@@ -95,5 +95,6 @@
     "temple_list": "Temple List",
     "choose_language": "Choose\nLanguage",
     "choose_theme": "Choose Theme",
-    "choose_favorite_god": "Choose\nFavorite God"
+    "choose_favorite_god": "Choose\nFavorite God",
+    "no_network":"Check mobile\nnetwork connection"
 }

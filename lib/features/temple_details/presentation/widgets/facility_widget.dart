@@ -130,7 +130,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                                                 .facilityImage![0]
                                                 .fileLocation
                                                 .toString()
-                                        : NetworkImages.templePlaceHolder,
+                                        : LocalImages().templePlaceHolder,
                                     fit: BoxFit.cover,
                                   ),
                                   Padding(
@@ -214,7 +214,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                       ? ApiCredentials().documents +
                           facilityList.facilityImage![index].fileLocation!
                               .toString()
-                      : NetworkImages.templePlaceHolder,
+                      : LocalImages().templePlaceHolder,
                 );
               },
               child: CachedNetworkImage(
@@ -227,7 +227,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                     ? ApiCredentials().documents +
                         facilityList.facilityImage![index].fileLocation!
                             .toString()
-                    : NetworkImages.templePlaceHolder,
+                    : LocalImages().templePlaceHolder,
                 fit: BoxFit.cover,
                 imageBuilder: (context, imageProvider) => ClipRRect(
                   borderRadius: BorderRadius.circular(16),

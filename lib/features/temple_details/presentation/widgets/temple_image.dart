@@ -52,7 +52,7 @@ Widget buildTempleImage(
                             ? ApiCredentials().documents +
                                 temple.maintowerImage![0].fileLocation
                                     .toString()
-                            : NetworkImages.templePlaceHolder,
+                            : LocalImages().templePlaceHolder,
                   );
                 },
                 child: CachedNetworkImage(
@@ -63,11 +63,11 @@ Widget buildTempleImage(
                           ? ApiCredentials().documents +
                               templeInfo.templeImages![0].fileLocation
                                   .toString()
-                          : NetworkImages.templePlaceHolder
+                          : LocalImages().templePlaceHolder
                       : temple.maintowerImage!.isNotEmpty
                           ? ApiCredentials().documents +
                               temple.maintowerImage![0].fileLocation.toString()
-                          : NetworkImages.templePlaceHolder,
+                          : LocalImages().templePlaceHolder,
                   imageBuilder: (context, imageProvider) => ClipRRect(
                     child: DecoratedBox(
                       decoration: BoxDecoration(

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/widgets/network_aware.dart';
 import '../../../dashboard/presentation/pages/dashboard.dart';
 import '../../../settings/presentation/pages/settings.dart';
 import '../../../temple_list/presentation/pages/temple_list.dart';
@@ -21,21 +22,23 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (bool didPop) async {
-        if (didPop) {
-          return;
-        }
-        final NavigatorState navigator = Navigator.of(context);
-        final bool? shouldPop = await _showDialog(context);
-        if (shouldPop ?? false) {
-          navigator.pop();
-        }
-      },
-      child: Scaffold(
-        body: _buildBody(),
-        bottomNavigationBar: _buildBottomBar(),
+    return NetworkAware(
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) async {
+          if (didPop) {
+            return;
+          }
+          final NavigatorState navigator = Navigator.of(context);
+          final bool? shouldPop = await _showDialog(context);
+          if (shouldPop ?? false) {
+            navigator.pop();
+          }
+        },
+        child: Scaffold(
+          body: _buildBody(),
+          bottomNavigationBar: _buildBottomBar(),
+        ),
       ),
     );
   }
