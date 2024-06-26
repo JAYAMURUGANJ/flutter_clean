@@ -27,7 +27,6 @@ class ApiCredentials {
 
   // version date for the appliction version when it was launched
   static String? versionData = dotenv.env['VERSION_DATE'];
-
   static const String requestorUserId = 'hrcevendor1';
   static const String serviceRequester = 'HRCEVENDR1';
 }
@@ -42,8 +41,9 @@ class LocalImages {
   String noLiveAvailable = "assets/images/icons/no_live.png";
 
   String noNearByTemple = "assets/images/icons/no_temple.png";
+  //String templePlaceHolder = "assets/images/icons/no_tower_image.png";
   String templePlaceHolder =
-      "https://images.jdmagicbox.com/comp/chennai/10/044p3011210/catalogue/arulmigu-vadapalani-andavar-thirukovil-vadapalani-chennai-temples-s7nf5xcu80.jpg";
+      "https://www.tripsavvy.com/thmb/QW72TY8cFl91jto3DQJQwzf8mlw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/_DSC1048_Snapseed-56a3bd775f9b58b7d0d38fee.jpg";
 
   String logo = "assets/images/logo/logo.png";
   String appLogo = "assets/images/logo/app_logo.png";
