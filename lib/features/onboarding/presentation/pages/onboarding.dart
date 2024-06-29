@@ -79,20 +79,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             children: [
                               if (currentIndex !=
                                   (_onBoardingScreens.length - 1))
-                                MaterialButton(
-                                    height: 50,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    shape: const StadiumBorder(),
+                                TextButton(
                                     onPressed: () {
                                       Navigator.pushReplacementNamed(
                                           context, "Home");
                                       Prefs.setBool(spOnBoardingStatus, false);
                                     },
-                                    child: const Text("Skip",
+                                    child: Text("Skip",
                                         style: TextStyle(
                                             fontSize: 18,
-                                            color: Colors.white,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
                                             fontWeight: FontWeight.bold))),
                               SizedBox(
                                 width: (currentIndex ==

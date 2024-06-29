@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import '/config/common/extensions.dart';
+import '/config/constants.dart';
 import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../../../config/common/widgets/text_widgets.dart';
 import '../../domain/entities/temple_timing.dart';
 import '../bloc/temple_timing/temple_timing_bloc.dart';
-import '/config/common/extensions.dart';
-import '/config/constants.dart';
 
 class TempleTiming extends StatelessWidget {
   const TempleTiming({Key? key}) : super(key: key);
@@ -34,7 +34,8 @@ class TempleTiming extends StatelessWidget {
         }
         if (state is TempleTimingLoadingSomthingWentWrong) {
           String error = state.responseStatus!;
-          return somthingWentWrong(context, error);
+          return somthingWentWrong(context, error,
+              errorIcon: LocalImages().noDataAvailable);
         }
         if (state is TempleTimingLoaded) {
           final TempleTimingEntity? templeTiming = state.templeTiming![0];
@@ -82,7 +83,7 @@ class TempleTiming extends StatelessWidget {
                   width: 1,
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.black),
-              headingRowColor: MaterialStateProperty.all(
+              headingRowColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.primaryContainer),
               headingRowHeight: 45,
               headingTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(

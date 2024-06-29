@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../temple_list/domain/entities/temple_list.dart';
-import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
-import '../../../temple_list/presentation/bloc/temple_list/temple_list_state.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_state.dart';
 import 'main_temple_list_tile.dart';
 
 mainTempleListBlocBuilder() {
@@ -26,7 +26,10 @@ mainTempleListBlocBuilder() {
           child: Container(
             color: Colors.amber,
             height: 250,
-            child: SomethingWentWrong(error: state.responseStatus!),
+            child: SomethingWentWrong(
+              error: state.responseStatus!,
+              errorIcon: LocalImages().noNearByTemple,
+            ),
           ),
         );
       }

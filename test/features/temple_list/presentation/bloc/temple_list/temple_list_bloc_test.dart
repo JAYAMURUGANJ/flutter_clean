@@ -1,4 +1,8 @@
+import 'dart:ui';
+
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,8 +16,13 @@ import '../../../mocks/migrate_temple_list.dart';
 import 'temple_list_bloc_test.mocks.dart';
 
 @GenerateMocks([TempleListUseCase])
-void main() {
-  group("Test-TempleListBloc", () {
+Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    await dotenv.load(fileName: ".env_pro");
+    Locales(const Locale("en"));
+  });
+  group("Test-Bloc", () {
     late MockTempleListUseCase usecase;
     late TempleListBloc templeListBloc;
 
@@ -32,12 +41,12 @@ void main() {
       );
     }
 
-    test('Initial Bloc State-TempleListLoading', () {
+    test('LOADING Bloc State-TempleListLoading', () {
       expect(templeListBloc.state, const TempleListLoading());
     });
 
     blocTest<TempleListBloc, TempleListState>(
-      'Success Bloc State-[TempleListLoading, TempleListLoaded]',
+      'SUCCESS Bloc State-[TempleListLoading, TempleListLoaded]',
       build: () {
         mockGetTempleListSuccess();
         return templeListBloc;

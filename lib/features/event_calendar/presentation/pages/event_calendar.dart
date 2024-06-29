@@ -12,18 +12,18 @@ import 'package:news_app_clean_architecture/config/common/widgets/network_aware.
 import 'package:shimmer/shimmer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../temple_list/domain/entities/temple_list.dart';
-import '../../data/model/calendar_event.dart';
-import '../../data/model/calendar_event_details.dart';
-import '../../domain/entities/calendar_event.dart';
-import '../bloc/calendar_event_details/calendar_event_details_bloc.dart';
-import '../widgets/utils.dart';
 import '/config/common/widgets/app_header.dart';
 import '/config/common/widgets/navigation_drawer.dart';
 import '/config/common/widgets/no_data_available.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/constants.dart';
 import '/features/event_calendar/presentation/bloc/calendar_event/calendar_event_bloc.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
+import '../../data/model/calendar_event.dart';
+import '../../data/model/calendar_event_details.dart';
+import '../../domain/entities/calendar_event.dart';
+import '../bloc/calendar_event_details/calendar_event_details_bloc.dart';
+import '../widgets/utils.dart';
 
 class TempleEventCalendar extends StatefulWidget {
   final TempleEntity? templeData;
@@ -127,10 +127,10 @@ class _TempleEventCalendarState extends State<TempleEventCalendar> {
             if (state is CalendarEventsLoading) {
               return const ShimmerCalendar();
             }
-            if (state is CalendarEventLoadingSomthingWentWrong ||
-                state is CalendarEventLoadingError) {
+            if (state is CalendarEventLoadingSomthingWentWrong) {
               String error = state.responseStatus!;
-              return somthingWentWrong(context, error);
+              return somthingWentWrong(context, error,
+                  errorIcon: LocalImages().noEventAvailable);
             }
             if (state is CalendarEventLoadingError) {
               String error = state.responseStatus.toString();

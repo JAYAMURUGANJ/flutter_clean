@@ -30,6 +30,7 @@ class LiveEventsRepositoryImpl implements LiveEventsRepository {
         String serverDecryptedResponse =
             Authentication().decrypt(httpResponse.data.formData);
         log(serverDecryptedResponse, name: "Live Events");
+
         var serverJsonResponse =
             await compute(jsonDecode, serverDecryptedResponse);
         String responseStatus =

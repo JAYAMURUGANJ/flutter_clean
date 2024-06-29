@@ -35,13 +35,11 @@ class LocalImages {
   // Network images URLs
   String dioError = "assets/images/icons/dio_error.png";
 
-  String somthingWentWrong = "assets/images/icons/went_wrong.png";
+  static const String somthingWentWrong = "assets/images/icons/went_wrong.png";
   String noDataAvailable = "assets/images/icons/no_data_found.png";
   String noEventAvailable = "assets/images/icons/no_event.png";
   String noLiveAvailable = "assets/images/icons/no_live.png";
-
   String noNearByTemple = "assets/images/icons/no_temple.png";
-  //String templePlaceHolder = "assets/images/icons/no_tower_image.png";
   String templePlaceHolder =
       "https://www.tripsavvy.com/thmb/QW72TY8cFl91jto3DQJQwzf8mlw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/_DSC1048_Snapseed-56a3bd775f9b58b7d0d38fee.jpg";
 

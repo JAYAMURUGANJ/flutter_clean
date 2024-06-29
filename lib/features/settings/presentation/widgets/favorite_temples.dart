@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
-import '../../../../config/common/class/local_language_controller.dart';
-import '../../../temple_list/domain/entities/worship_god_list.dart';
-import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
+import '../../../../config/common/class/local_language_controller.dart';
+import '../../../temple_list/domain/entities/worship_god_list.dart';
+import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 
 class FavoriteTemplesWidget extends StatefulWidget {
   const FavoriteTemplesWidget({Key? key}) : super(key: key);
@@ -35,12 +36,15 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
           return Center(
             child: SizedBox(
               height: 300,
-              child: SomethingWentWrong(error: state.responseStatus!),
+              child: SomethingWentWrong(
+                error: state.responseStatus!,
+                errorIcon: LocalImages().noDataAvailable,
+              ),
             ),
           );
         }
 
-        if (state is WorshipLoadingSomthingWentWrong) {
+        if (state is WorshipLoading) {
           return const Center(child: CupertinoActivityIndicator());
         }
 

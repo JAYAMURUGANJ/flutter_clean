@@ -74,7 +74,9 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                 }
                 if (state is PhotoGalleryLoadingSomthingWentWrong) {
                   return SomethingWentWrong(
-                      error: state.responseStatus.toString());
+                    error: state.responseStatus!,
+                    errorIcon: LocalImages().noDataAvailable,
+                  );
                 }
                 if (state is PhotoGalleryLoaded) {
                   List<PhotoGalleryEntity> photoGalleryList =

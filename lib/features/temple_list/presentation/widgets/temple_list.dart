@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/entities/temple_list.dart';
-import '../bloc/temple_list/temple_list_bloc.dart';
-import '../bloc/temple_list/temple_list_state.dart';
-import '../bloc/worship_god_list/worship_god_list_bloc.dart';
-import '../pages/temple_list.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/features/temple_list/domain/entities/worship_god_list.dart';
+import '../../domain/entities/temple_list.dart';
+import '../bloc/temple_list/temple_list_bloc.dart';
+import '../bloc/temple_list/temple_list_state.dart';
+import '../bloc/worship_god_list/worship_god_list_bloc.dart';
+import '../pages/temple_list.dart';
 import 'search_bar.dart';
 import 'temple_tile.dart';
 
@@ -31,7 +31,10 @@ alltempleListBlocBuilder() {
         return Center(
           child: SizedBox(
             height: 300,
-            child: SomethingWentWrong(error: state.responseStatus!),
+            child: SomethingWentWrong(
+              error: state.responseStatus!,
+              errorIcon: LocalImages().noNearByTemple,
+            ),
           ),
         );
       }

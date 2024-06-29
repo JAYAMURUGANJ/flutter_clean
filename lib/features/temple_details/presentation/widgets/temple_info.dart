@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
-import '../../domain/entities/temple_info.dart';
-import '../bloc/temple_info/temple_info_bloc.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
+import '../../domain/entities/temple_info.dart';
+import '../bloc/temple_info/temple_info_bloc.dart';
 
 class TempleInfoWidget extends StatelessWidget {
   const TempleInfoWidget({Key? key}) : super(key: key);
@@ -24,7 +24,8 @@ class TempleInfoWidget extends StatelessWidget {
         }
         if (state is TempleInfoLoadingSomthingWentWrong) {
           String error = state.responseStatus!;
-          return somthingWentWrong(context, error);
+          return somthingWentWrong(context, error,
+              errorIcon: LocalImages().noDataAvailable);
         }
         if (state is TempleInfoLoaded) {
           final TempleInfoEntity? templeInfo = state.templeInfo![0];

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/live_events.dart';
 import '/core/models/itms_request.dart';
 import '/core/resources/data_state.dart';
 import '/core/resources/itms_request_handler.dart';
 import '/features/dashboard/domain/usecases/live_events_usecase.dart';
+import '../../../domain/entities/live_events.dart';
 
 part 'live_events_event.dart';
 part 'live_events_state.dart';
@@ -27,11 +27,10 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
     if (dataState is DataSuccess) {
       if (dataState.responseStatus == "SUCCESS" &&
           dataState.resultSet!.isNotEmpty) {
-          
         emit(LiveEventsLoaded(dataState.resultSet!));
       } else {
-        emit(LiveEventsSomthingWentWrong(
-            dataState.resultSet![0].responseDesc.toString()));
+        emit(
+            LiveEventsSomthingWentWrong(dataState.resultSet![0].responseDesc!));
       }
     }
   }

@@ -22,7 +22,7 @@ class _ThemeSelectionWidgetState extends State<ThemeSelectionWidget> {
         children: [
           Image.asset(
             "assets/images/icons/theme_selection.png",
-            scale: 1.5,
+            scale: 1.2,
           ),
           10.ph,
           FittedBox(

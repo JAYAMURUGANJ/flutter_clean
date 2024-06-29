@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../../temple_list/domain/entities/temple_list.dart';
-import '../../domain/entities/live_events.dart';
-import '../widgets/live_stream.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/app_header.dart';
 import '/config/common/widgets/bottom_sheet.dart';
@@ -17,6 +14,9 @@ import '/config/common/widgets/no_data_available.dart';
 import '/config/constants.dart';
 import '/core/models/live_stream.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
+import '../../domain/entities/live_events.dart';
+import '../widgets/live_stream.dart';
 
 class TempleLiveTeleCasts extends StatefulWidget {
   final TempleEntity? templeData;
@@ -54,7 +54,7 @@ class _TempleLiveTeleCastsState extends State<TempleLiveTeleCasts> {
           if (state is LiveEventsSomthingWentWrong) {
             return DataNotAvailable(
                 error: "Somthing Went Wrong",
-                img: LocalImages().noEventAvailable);
+                img: LocalImages().noLiveAvailable);
           }
           if (state is LiveEventsLoaded) {
             return Stack(

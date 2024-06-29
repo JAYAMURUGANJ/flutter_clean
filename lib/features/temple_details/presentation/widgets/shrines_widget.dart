@@ -72,7 +72,10 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
           return ErrorWidget(state.error.toString());
         }
         if (state is ShrinesLoadingSomthingWentWrong) {
-          return SomethingWentWrong(error: state.responseStatus!);
+          return SomethingWentWrong(
+            error: state.responseStatus!,
+            errorIcon: LocalImages().noDataAvailable,
+          );
         }
         if (state is ShrinesLoaded) {
           List<ShrinesDetailsEntity> shrinesList =

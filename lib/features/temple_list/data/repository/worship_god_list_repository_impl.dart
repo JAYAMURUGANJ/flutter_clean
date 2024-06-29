@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../domain/repository/worship_god_list_repository.dart';
-import '../models/worship.dart';
 import '/config/common/class/cryption.dart';
 import '/config/constants.dart';
 import '/core/data_sources/ITMS_API_service.dart';
 import '/core/models/encrypted_response.dart';
 import '/core/resources/data_state.dart';
+import '../../domain/repository/worship_god_list_repository.dart';
+import '../models/worship.dart';
 
 class WorshipRepositoryImpl implements WorshipRepository {
   final HRCEApiService _apiService;
@@ -33,6 +33,7 @@ class WorshipRepositoryImpl implements WorshipRepository {
             await compute(jsonDecode, serverserverDecryptedResponse);
         log(serverJsonResponse.toString(),
             name: "WORSHIP GOD MASTER", time: DateTime.now());
+        debugPrint(serverserverDecryptedResponse.toString());
         String responseStatus =
             EncryptedResponse.fromJson(serverJsonResponse[0])
                 .responseStatus
