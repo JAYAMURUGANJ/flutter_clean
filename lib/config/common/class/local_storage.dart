@@ -1,9 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 //key
-const String spNetworkIp = '192.168.224.50';
-const String spLocalLanguage = 'EN';
-const String spAppVersion = "1.0.0";
+String spNetworkIp = '192.168.224.50';
+String spLocalLanguage = 'EN';
+String spAppVersion = "1.0.0";
+String spOnBoardingStatus = "on_boarding_status";
 
 class Prefs {
   static SharedPreferences _prefs =
@@ -24,6 +25,10 @@ class Prefs {
     return await _prefs.setString(key, value);
   }
 
+  static Future<bool> setInt(String key, int value) async {
+    return await _prefs.setInt(key, value);
+  }
+
   //gets
   static bool? getBool(String key) {
     return _prefs.getBool(key);
@@ -31,6 +36,10 @@ class Prefs {
 
   static String? getString(String key) {
     return _prefs.getString(key);
+  }
+
+  static int? getInt(String key) {
+    return _prefs.getInt(key);
   }
 
   static Future<bool> remove(String key) async => await _prefs.remove(key);

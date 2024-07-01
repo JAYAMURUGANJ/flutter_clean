@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
 
 abstract class DataState<T> {
-  final T? resultSet;
   final String? responseStatus;
+  final T? resultSet;
   final DioException? error;
 
   const DataState({
-    this.resultSet,
     this.responseStatus,
+    this.resultSet,
     this.error,
   });
 }
 
 class DataSuccess<T> extends DataState<T> {
-  const DataSuccess(T? resultSet, String? responseStatus)
-      : super(resultSet: resultSet, responseStatus: responseStatus);
+  const DataSuccess(T? resultset, String responseStatus)
+      : super(resultSet: resultset, responseStatus: responseStatus);
 }
 
 class DataFailed<T> extends DataState<T> {

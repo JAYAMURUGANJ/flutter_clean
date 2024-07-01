@@ -13,47 +13,65 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-
-  #icon
-  ionicons: ^0.2.2
-
   #state management
-  flutter_bloc: ^8.1.2
-
+  flutter_bloc: ^8.1.6
   #comparing dart objects
   equatable: ^2.0.5
-
   #service locator
   get_it: ^7.6.0
-  
   #dateFormat
   intl: ^0.19.0
-
+  date_picker_timeline: ^1.2.5
   #make request to api
   retrofit: ^4.1.0 
-  
-  #chached image 
+  #image 
   cached_network_image: ^3.2.0
-
+  photo_view: ^0.15.0
   #api request & response
   dio: ^5.4.1
-
-  # encryption
+  #encryption
   crypto: ^3.0.3
   encrypt: ^5.0.3
-
   # model creation
   json_annotation: ^4.8.1
-
   #environment-specific
   flutter_dotenv: ^5.1.0
-
   #google_fonts
-  google_fonts: ^6.2.1
-  device_apps: ^2.2.0
+  google_fonts: ^4.0.4
+  #device-details
+  # device_apps: ^2.2.0
+  device_preview: ^1.2.0
+  #local
   shared_preferences: ^2.2.2
+  flutter_locales: ^3.0.1
+  #splash
+  flutter_native_splash: ^2.4.0
+  #map
+  google_maps_flutter: ^2.2.8
+  location: ^6.0.2
+  custom_info_window: ^1.0.1
+  map_launcher: ^3.3.0
 
-
+  flex_color_scheme: ^7.3.1
+  flutter_card_swiper: ^7.0.0
+  webview_flutter: ^4.7.0
+  table_calendar: ^3.0.9
+  youtube_player_flutter: ^9.0.1
+  wakelock_plus: ^1.2.5
+  qr_flutter: ^4.1.0
+  lottie: ^3.1.2
+  scrollable_positioned_list: ^0.3.8
+  share_plus: ^9.0.0
+  path_provider: ^2.1.3
+  url_launcher: ^6.2.6
+  flutter_staggered_grid_view: ^0.7.0
+  carousel_slider: ^4.2.1
+  shimmer: ^3.0.0
+  feedback: ^3.1.0
+  flutter_onboarding_slider: ^1.0.11
+  bloc_test: ^9.1.7
+  get: ^4.6.6
+  connectivity_plus: ^6.0.3
   
 
 dev_dependencies:
@@ -62,14 +80,39 @@ dev_dependencies:
   flutter_lints: ^3.0.1
   retrofit_generator: ^8.1.0
   json_serializable: ^6.6.0
+  flutter_launcher_icons: ^0.13.1
+  mockito: ^5.4.4
   build_runner: ^2.2.0
+
+flutter_launcher_icons:
+  android: "icon"
+  ios: true
+  image_path: "assets/images/logo/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+# Splash Screen Settings
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/images/logo/app_logo.png"
+  #background_image: "assets/images/logo/poster.png"
+  android_12:
+    image: "assets/images/logo/app_logo.png"
+    color: "#FFFFFF"
 
 
   
 
 flutter:
   assets:
-    - .env_dev
+    - .env_uat
+    - .env_pro
+    - assets/locales/
+    - assets/images/bg/
+    - assets/images/logo/
+    - assets/images/icons/
+    - assets/images/lottie/
+    - config/
+    
   uses-material-design: true
 
 

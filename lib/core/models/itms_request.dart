@@ -18,7 +18,7 @@ class ITMSRequest {
   @JsonKey(name: 'service_id')
   String serviceId;
   @JsonKey(name: 'filter_data')
-  List<FilterData> filterData;
+  List<FilterData>? filterData;
   @JsonKey(name: 'request_time')
   String requestTime;
   @JsonKey(name: 'version_date')
@@ -36,7 +36,7 @@ class ITMSRequest {
     required this.ipaddress,
     required this.langType,
     required this.serviceId,
-    required this.filterData,
+    this.filterData,
     required this.requestTime,
     required this.versionDate,
     required this.versionNumber,
@@ -94,10 +94,25 @@ class FilterData {
   String? degree360Avail;
   @JsonKey(name: 'temple_id')
   String? templeId;
+  @JsonKey(name: 'section_code')
+  String? sectionCode;
+  @JsonKey(name: 'seniorgrade_temples')
+  String? seniorgradeTemples;
+  @JsonKey(name: 'festival_month')
+  String? festivalMonth;
+  @JsonKey(name: 'festival_code')
+  String? festivalCode;
+  @JsonKey(name: 'festival_date')
+  String? festivalDate;
   FilterData({
     this.districtCode,
     this.degree360Avail,
     this.templeId,
+    this.sectionCode,
+    this.seniorgradeTemples,
+    this.festivalMonth,
+    this.festivalCode,
+    this.festivalDate,
   });
 
   factory FilterData.fromJson(Map<String, dynamic> json) =>

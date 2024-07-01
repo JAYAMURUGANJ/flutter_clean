@@ -1,9 +1,12 @@
-import 'package:news_app_clean_architecture/config/common/extensions.dart';
-import 'package:news_app_clean_architecture/config/constants.dart';
-import 'package:news_app_clean_architecture/core/models/itms_request.dart';
+import 'dart:developer';
 
-import '../../config/common/class/cryption.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+
+import '/config/common/class/cryption.dart';
+import '/config/common/extensions.dart';
+import '/core/models/itms_request.dart';
 import '../../config/common/class/local_storage.dart';
+import '../../config/constants.dart';
 
 class ITMSRequestHandler {
   String serviceId;
@@ -15,7 +18,6 @@ class ITMSRequestHandler {
 
   String getFormData() {
     String formData = "";
-    print("AM IN FORM DATA");
     List<Adparam> adparam = [
       Adparam(
           deviceTime: DateTime.now().toStringForm,
@@ -24,7 +26,7 @@ class ITMSRequestHandler {
 
     List<Ipaddress> ipAddress = [
       Ipaddress(
-          ip: "Prefs.getString(spNetworkIp)!",
+          ip: "192.168.224.50",
           deviceId: '1e7d538a43388eee',
           deviceName: 'PAX A910')
     ];
@@ -32,23 +34,23 @@ class ITMSRequestHandler {
 
     List<ITMSRequest> request = [
       ITMSRequest(
-          adparam: adparam,
-          ipaddress: ipAddress,
-          langType: "EN",
-          serviceId: serviceId,
-          filterData: filterData,
-          requestTime: requestTime,
-          versionDate: ApiCredentials.versionData!,
-          versionNumber: spAppVersion,
-          requestorUserid: ApiCredentials.requestorUserId,
-          requestorUserpwd:
-              "13dda615f7495d354a891c6406290db6cd4a443d180bac547208e769e3c18932",
-          serviceRequester: ApiCredentials.serviceRequester)
+        adparam: adparam,
+        ipaddress: ipAddress,
+        langType: Locales.lang == "en" ? "EN" : "TA",
+        serviceId: serviceId,
+        filterData: filterData,
+        requestTime: requestTime,
+        versionDate: ApiCredentials.versionData!,
+        versionNumber: spAppVersion,
+        requestorUserid: ApiCredentials.requestorUserId,
+        requestorUserpwd: ApiCredentials.requestorUserPwd!,
+        serviceRequester: ApiCredentials.serviceRequester,
+      ),
     ];
-    print("Before Encryption: ${request[0].toJson()}");
 
+    log(request[0].toJson().toString(), name: "Before Encrypt Form Data");
     formData = Authentication().encrypt(itmsRequestToJson(request));
-    print("encrypted form_data: $formData");
+    log(formData.toString(), name: "After Encrypt Form Data");
     return formData;
   }
 }

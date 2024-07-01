@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
-
-import '../../constants.dart';
+import 'package:news_app_clean_architecture/config/constants.dart';
 
 class Authentication {
+  // final key = Key.fromUtf8("fWe6qWEJCWb2gcH4+APJL1YmtZmn0NVS"); //32 chars
+  // final iv = IV.fromUtf8("c1aeB65F17A1c7f3"); //16 chars
   final key = Key.fromUtf8(ApiCredentials.keyUTF8!); //32 chars
   final iv = IV.fromUtf8(ApiCredentials.ivUTF8!); //16 chars
 
