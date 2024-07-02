@@ -100,7 +100,7 @@ class _AppState extends State<App> {
                   : ApiCredentials.tAppName,
               builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner:
-                  widget.environment == ".env_pro" ? false : true,
+                  widget.environment == ".env_prod" ? false : true,
               localizationsDelegates: Locales.delegates,
               supportedLocales: Locales.supportedLocales,
               locale: localizationController.locale.value,
