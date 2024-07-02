@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../domain/entities/temple_list.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/network_image_cache.dart';
 import '/config/constants.dart';
+import '../../domain/entities/temple_list.dart';
 
 class TempleListTile extends StatelessWidget {
   final TempleEntity? temple;
@@ -28,7 +28,7 @@ class TempleListTile extends StatelessWidget {
             buildImage(
               context,
               temple!.maintowerImage!.isNotEmpty
-                  ? ApiCredentials().documents +
+                  ? ApiCredentials.filePath! +
                       temple!.maintowerImage![0].fileLocation.toString()
                   : LocalImages().templePlaceHolder,
               width: 90,

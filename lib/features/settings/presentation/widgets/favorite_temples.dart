@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
@@ -45,7 +45,63 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
         }
 
         if (state is WorshipLoading) {
-          return const Center(child: CupertinoActivityIndicator());
+          return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Center(
+                child: Column(
+                  children: [
+                    // const LabelText(label: 'favorite_temples'),
+                    GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 180,
+                                crossAxisSpacing: 15,
+                                mainAxisExtent: 180,
+                                mainAxisSpacing: 15),
+                        itemCount: 30,
+                        itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<SelectedFavoriteTemplesCubit>(
+                                        context)
+                                    .onSelectFavorites(selectedTemples, index);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Image.asset(LocalImages().logo,
+                                          height: 120),
+                                    ),
+                                    const Flexible(
+                                      child: Text(
+                                        "NAME",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+
+                        // Text(indivualTemple[index].name!),
+                        )
+                  ],
+                ),
+              ));
         }
 
         return BlocBuilder<WorshipGodListBloc, WorshipGodListState>(
@@ -96,9 +152,7 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: Image.asset(
-                                            "assets/images/logo/tn_logo.png",
-                                            // godList[index].imageLink!,
+                                        child: Image.asset(LocalImages().tnLogo,
                                             height: 120),
                                       ),
                                       Flexible(

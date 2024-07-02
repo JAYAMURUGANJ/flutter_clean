@@ -87,7 +87,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                             ),
                             imageUrl: widget.specialityList[index]
                                     .specialityImage!.isNotEmpty
-                                ? ApiCredentials().documents +
+                                ? ApiCredentials.filePath! +
                                     widget.specialityList[index]
                                         .specialityImage![0].fileLocation
                                         .toString()
@@ -176,7 +176,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                   context,
                   widget.specialityList[selectedIndex].specialityImage!
                           .isNotEmpty
-                      ? ApiCredentials().documents +
+                      ? ApiCredentials.filePath! +
                           widget.specialityList[selectedIndex]
                               .specialityImage![index].fileLocation!
                               .toString()
@@ -191,7 +191,7 @@ class _SpecialityWidgetState extends State<SpecialityWidget> {
                 ),
                 imageUrl: widget.specialityList[selectedIndex].specialityImage!
                         .isNotEmpty
-                    ? ApiCredentials().documents +
+                    ? ApiCredentials.filePath! +
                         widget.specialityList[selectedIndex]
                             .specialityImage![index].fileLocation!
                             .toString()

@@ -21,24 +21,21 @@ void main() {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      String envFile = ".env_uat"; // Default environment file
+      const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'uat');
+      switch (flavor) {
+        case 'prod':
+          envFile = ".env_prod";
+          break;
+        case 'uat':
+          envFile = ".env_uat";
+          break;
+      }
+      await dotenv.load(fileName: envFile);
       Bloc.observer = MyBlocObserver();
       await initializeDependencies();
       await Prefs.init();
       await Locales.init(['ta', 'en']);
-      // endpoint cofiguration
-      String envFile = ".env_pro";
-      const flavor = String.fromEnvironment('FLAVOR');
-      switch (flavor) {
-        case 'development':
-          envFile = ".env_uat";
-          break;
-        case 'production':
-          envFile = ".env_pro";
-          break;
-      }
-
-      debugPrint("Flavor-$envFile");
-      await dotenv.load(fileName: envFile);
       AppInfo().getIPAddress().then((ip) async {
         await Prefs.setString(
             spNetworkIp, ip == null ? "No Network" : ip.toString());
@@ -54,7 +51,9 @@ void main() {
         (value) => runApp(
           DevicePreview(
             enabled: !kReleaseMode,
-            builder: (context) => const App(), // Wrap your app
+            builder: (context) => App(
+              environment: envFile,
+            ), // Wrap your app
           ),
         ),
       );

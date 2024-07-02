@@ -12,11 +12,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../config/common/widgets/app_header.dart';
-import '../widgets/ticket.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/app_logo.dart';
 import '/config/constants.dart';
+import '../../../../config/common/widgets/app_header.dart';
+import '../widgets/ticket.dart';
 
 class PaymentStatus extends StatefulWidget {
   const PaymentStatus({Key? key}) : super(key: key);
@@ -125,7 +125,7 @@ class _TicketDataState extends State<TicketData> {
           alignment: Alignment.center,
           child: Image.asset(
             LocalImages().wm,
-            width: 250,
+            width: 350,
             fit: BoxFit.contain,
           ),
         ),

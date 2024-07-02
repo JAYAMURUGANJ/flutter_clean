@@ -11,16 +11,7 @@ class ApiCredentials {
   static const String tAppName = "திருக்கோயில்";
 
   // api credentials
-  // static const String domain = "http://10.163.19.165/hrce/webservice/";
-  static const String domain = "https://hrce.tn.gov.in/webservice/";
-  static const String webService = "webservices.php";
-  static const String filePath = "documentview.php?file_path=";
-
-  static const String baseUrl = domain + webService;
-  String documents = domain + filePath;
-
   static String? requestorUserPwd = dotenv.env['REQUESTER_USER_PWD'];
-
   // for encryption & decryption of requests and responses
   static String? keyUTF8 = dotenv.env['KEYUTF8'];
   static String? ivUTF8 = dotenv.env['IVUTF8'];
@@ -29,20 +20,18 @@ class ApiCredentials {
   static String? versionData = dotenv.env['VERSION_DATE'];
   static const String requestorUserId = 'hrcevendor1';
   static const String serviceRequester = 'HRCEVENDR1';
+
+  static String? filePath = dotenv.env['FILE_PATH'];
 }
 
 class LocalImages {
   // Network images URLs
   String dioError = "assets/images/icons/dio_error.png";
-
   static const String somthingWentWrong = "assets/images/icons/went_wrong.png";
   String noDataAvailable = "assets/images/icons/no_data_found.png";
   String noEventAvailable = "assets/images/icons/no_event.png";
   String noLiveAvailable = "assets/images/icons/no_live.png";
   String noNearByTemple = "assets/images/icons/no_temple.png";
-  String templePlaceHolder =
-      "https://www.tripsavvy.com/thmb/QW72TY8cFl91jto3DQJQwzf8mlw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/_DSC1048_Snapseed-56a3bd775f9b58b7d0d38fee.jpg";
-
   String logo = "assets/images/logo/logo.png";
   String appLogo = "assets/images/logo/app_logo.png";
   String tnLogo = "assets/images/logo/tn_logo.png";
@@ -55,8 +44,12 @@ class LocalImages {
   String play = "assets/images/icons/media-play.png";
   String wm = "assets/images/bg/water_mark.png";
   String networkError = "assets/images/icons/network_error.png";
+
+  String templePlaceHolder =
+      "https://www.tripsavvy.com/thmb/QW72TY8cFl91jto3DQJQwzf8mlw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/_DSC1048_Snapseed-56a3bd775f9b58b7d0d38fee.jpg";
 }
 
+//For payment screen
 class LottieImage {
   String pop = "assets/images/lottie/pop.json";
   String success = "assets/images/lottie/success.json";

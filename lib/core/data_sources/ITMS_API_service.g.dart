@@ -12,16 +12,9 @@ part of 'ITMS_API_service.dart';
 
 class _HRCEApiService implements HRCEApiService {
   _HRCEApiService(
-    this._dio, {
-    this.baseUrl,
-  }) {
-    baseUrl ??= ApiCredentials.baseUrl;
-  }
-
+    this._dio,
+  );
   final Dio _dio;
-
-  String? baseUrl;
-
   @override
   Future<HttpResponse<ApiFormData>> getTempleList(
       Map<String, dynamic> json) async {
@@ -30,12 +23,13 @@ class _HRCEApiService implements HRCEApiService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(json);
-    final _result = await _dio
-        .fetch<List>(_setStreamType<HttpResponse<ApiFormData>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
+    final _result = await _dio.fetch<List>(
+      _setStreamType<HttpResponse<ApiFormData>>(
+        Options(
+          method: 'POST',
+          headers: _headers,
+          extra: _extra,
+        )
             .compose(
               _dio.options,
               '',
@@ -43,10 +37,13 @@ class _HRCEApiService implements HRCEApiService {
               data: _data,
             )
             .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+              baseUrl: _combineBaseUrls(
+                _dio.options.baseUrl,
+                dotenv.env['BASE_URL'],
+              ),
+            ),
+      ),
+    );
     final value = ApiFormData.fromJson(_result.data![0]);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

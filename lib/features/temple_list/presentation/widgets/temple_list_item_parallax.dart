@@ -18,7 +18,7 @@ class TempleListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String imageUrl = temple!.maintowerImage!.isNotEmpty
-        ? ApiCredentials().documents +
+        ? ApiCredentials.filePath! +
             temple!.maintowerImage![0].fileLocation.toString()
         : 'https://pics.craiyon.com/2023-07-04/d2196b89b47448e3aa40073992249187.webp';
     String? templeName = temple!.templeName;

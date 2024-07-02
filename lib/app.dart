@@ -37,8 +37,13 @@ import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_event.dart';
 import 'injection_container.dart';
 
+// ignore: must_be_immutable
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  String environment;
+  App({
+    Key? key,
+    required this.environment,
+  }) : super(key: key);
 
   @override
   State<App> createState() => _AppState();
@@ -94,7 +99,8 @@ class _AppState extends State<App> {
                   ? ApiCredentials.appName
                   : ApiCredentials.tAppName,
               builder: DevicePreview.appBuilder,
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner:
+                  widget.environment == ".env_pro" ? false : true,
               localizationsDelegates: Locales.delegates,
               supportedLocales: Locales.supportedLocales,
               locale: localizationController.locale.value,

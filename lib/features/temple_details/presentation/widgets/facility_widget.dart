@@ -128,7 +128,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                                     imageUrl: facilityList[index]
                                             .facilityImage!
                                             .isNotEmpty
-                                        ? ApiCredentials().documents +
+                                        ? ApiCredentials.filePath! +
                                             facilityList[index]
                                                 .facilityImage![0]
                                                 .fileLocation
@@ -214,7 +214,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                 fullScreenImageViewer(
                   context,
                   facilityList.facilityImage!.isNotEmpty
-                      ? ApiCredentials().documents +
+                      ? ApiCredentials.filePath! +
                           facilityList.facilityImage![index].fileLocation!
                               .toString()
                       : LocalImages().templePlaceHolder,
@@ -227,7 +227,7 @@ class _FacilityWidgetState extends State<FacilityWidget> {
                   child: CupertinoActivityIndicator(),
                 ),
                 imageUrl: facilityList.facilityImage!.isNotEmpty
-                    ? ApiCredentials().documents +
+                    ? ApiCredentials.filePath! +
                         facilityList.facilityImage![index].fileLocation!
                             .toString()
                     : LocalImages().templePlaceHolder,

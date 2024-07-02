@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
-import '../../../temple_list/domain/entities/temple_list.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/parallax_image.dart';
 import '/config/constants.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
 
 class MainTempleListTile extends StatelessWidget {
   final TempleEntity? temple;
@@ -44,7 +44,7 @@ class MainTempleListTile extends StatelessWidget {
                   const BorderRadius.only(topRight: Radius.circular(40)),
               child: ParallaxImage(
                 imageUrl: temple!.maintowerImage!.isNotEmpty
-                    ? ApiCredentials().documents +
+                    ? ApiCredentials.filePath! +
                         temple!.maintowerImage![0].fileLocation.toString()
                     : LocalImages().templePlaceHolder,
                 backgroundImageKey: backgroundImageKey,

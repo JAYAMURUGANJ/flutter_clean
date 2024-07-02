@@ -108,7 +108,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                                 imageUrl: photoGalleryList[index]
                                         .photoInfo!
                                         .isNotEmpty
-                                    ? ApiCredentials().documents +
+                                    ? ApiCredentials.filePath! +
                                         photoGalleryList[index]
                                             .photoInfo![0]
                                             .fileLocation
@@ -172,7 +172,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                       fullScreenImageViewer(
                         context,
                         photoData.photoInfo!.isNotEmpty
-                            ? ApiCredentials().documents +
+                            ? ApiCredentials.filePath! +
                                 photoData.photoInfo![index].fileLocation
                                     .toString()
                             : LocalImages().templePlaceHolder,
@@ -185,7 +185,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
                         child: CupertinoActivityIndicator(),
                       ),
                       imageUrl: photoData.photoInfo!.isNotEmpty
-                          ? ApiCredentials().documents +
+                          ? ApiCredentials.filePath! +
                               photoData.photoInfo![index].fileLocation
                                   .toString()
                           : LocalImages().templePlaceHolder,

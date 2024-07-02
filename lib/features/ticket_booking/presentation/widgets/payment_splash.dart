@@ -44,15 +44,6 @@ class _PaymentSplashScreenState extends State<PaymentSplashScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: theme.colorScheme.onPrimaryContainer,
-        // appBar: appHeader(
-        //     context: context,
-        //     leading: const SizedBox(),
-        //     body: const LocaleText("txn_details",
-        //         textAlign: TextAlign.center,
-        //         style: TextStyle(fontSize: 24, color: Colors.white)),
-        //     trailing: IconButton(
-        //         onPressed: () => Navigator.pop(context),
-        //         icon: const Icon(Icons.close, color: Colors.white))),
         body: Center(
           child: SizedBox(
             height: MediaQuery.sizeOf(context).width + 100,

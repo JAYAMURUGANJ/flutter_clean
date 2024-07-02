@@ -89,7 +89,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
                 return ImageDescWidget(
                   pageController: _pageController,
                   imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
-                      ? ApiCredentials().documents +
+                      ? ApiCredentials.filePath! +
                           shrinesList[index].subshrineImage![0].fileLocation!
                       : LocalImages().templePlaceHolder,
                   name: shrinesList[index].subshrineName,

@@ -55,7 +55,7 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
               return ImageDescWidget(
                 pageController: _pageController,
                 imageUrl: sculpturesList[index].sculptureInfo!.isNotEmpty
-                    ? ApiCredentials().documents +
+                    ? ApiCredentials.filePath! +
                         sculpturesList[index].sculptureInfo![0].fileLocation!
                     : LocalImages().templePlaceHolder,
                 name: sculpturesList[index].sculpturesName ?? "",
