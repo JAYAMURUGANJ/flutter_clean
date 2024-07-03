@@ -89,6 +89,8 @@ class ScrollDatum extends Equatable {
   @JsonKey(name: "liveurl")
   final String? liveurl;
   @JsonKey(name: "liveurl_type")
+  final String? videoid;
+  @JsonKey(name: "videoid")
   final String? liveurlType;
   @JsonKey(name: "telecast_timing")
   final List<TelecastTiming>? telecastTiming;
@@ -107,6 +109,7 @@ class ScrollDatum extends Equatable {
     this.eventUrl,
     this.contentType,
     this.liveurl,
+    this.videoid,
     this.liveurlType,
     this.telecastTiming,
     this.functionDate,
@@ -128,6 +131,7 @@ class ScrollDatum extends Equatable {
       eventUrl,
       contentType,
       liveurl,
+      videoid,
       liveurlType,
       telecastTiming,
       functionDate,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 extension UrlValidator on String {
   bool isUrl() {
@@ -29,13 +28,27 @@ extension CustomSizedBox on num {
 }
 
 extension StringExtension on String {
+  String? get youtubeVideoId {
+    final regex = RegExp(
+        r'((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu\.be))(\/(?:[\w\-]+\?v=|embed\/|v\/|live\/)?)([\w\-]+)(\S+)?',
+        caseSensitive: false);
+
+    try {
+      if (regex.hasMatch(this)) {
+        return regex.firstMatch(this)?.group(5);
+      }
+    } catch (e) {
+      return '';
+    }
+    return null;
+  }
+
   String? get youtubeLiveUrl {
     if (youtubeVideoId == null) {
       return "";
     } else {
       var parts = split('/');
-      var prefix = parts[3];
-      if (prefix == 'live') {
+      if (parts.length > 4 && parts[3] == 'live') {
         return parts[4];
       } else {
         return '';
@@ -43,26 +56,11 @@ extension StringExtension on String {
     }
   }
 
-  String? get youtubeVideoId {
-    final regex1 = RegExp(
-        r'((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?',
-        caseSensitive: false);
-
-    try {
-      if (regex1.hasMatch(this)) {
-        return regex1.firstMatch(this)!.group(1);
-      } else {}
-    } catch (e) {
-      return '';
-    }
-    return null;
-  }
-
   String? youtubeImageUrl() {
-    if (youtubeLiveUrl == null) {
+    if (youtubeVideoId == null) {
       return null;
     } else {
-      return YoutubePlayer.convertUrlToId(this)!;
+      return 'https://img.youtube.com/vi/$youtubeVideoId/0.jpg';
     }
   }
 }

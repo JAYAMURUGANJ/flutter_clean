@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../temple_details/presentation/widgets/main_tower.dart';
-import '/config/common/extensions.dart';
 import '/config/common/widgets/no_data_available.dart';
 import '/config/constants.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
+import '../../../temple_details/presentation/widgets/main_tower.dart';
 
 class TempleLiveStreams extends StatefulWidget {
   final List<LiveEventsEntity> liveEvents;
@@ -89,8 +89,11 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
         dividerColor: Colors.grey,
         children: liveEvent.scrollData!
             .map<ExpansionPanelRadio>((ScrollDatum scrollData) {
+          print("video id:  ${scrollData.videoid}");
+          print("video id:  ${scrollData.eventUrl}");
+          print("video id:  ${scrollData.eventUrl!.youtubeVideoId}");
           controller = YoutubePlayerController(
-            initialVideoId: scrollData.eventUrl!.youtubeLiveUrl ?? "",
+            initialVideoId: scrollData.eventUrl!.youtubeVideoId.toString(),
             flags: const YoutubePlayerFlags(
               mute: false,
               autoPlay: false,
@@ -124,7 +127,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 ),
               ),
             ),
-            value: "${scrollData.eventUrl}${scrollData.eventDesc}",
+            value: scrollData.videoid!,
           );
         }).toList(),
       ),

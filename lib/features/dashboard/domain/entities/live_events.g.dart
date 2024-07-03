@@ -56,6 +56,7 @@ ScrollDatum _$ScrollDatumFromJson(Map<String, dynamic> json) => ScrollDatum(
       eventUrl: json['event_url'] as String?,
       contentType: json['content_type'] as String?,
       liveurl: json['liveurl'] as String?,
+      videoid: json['videoid'] as String?,
       liveurlType: json['liveurl_type'] as String?,
       telecastTiming: (json['telecast_timing'] as List<dynamic>?)
           ?.map((e) => TelecastTiming.fromJson(e as Map<String, dynamic>))
@@ -78,6 +79,7 @@ Map<String, dynamic> _$ScrollDatumToJson(ScrollDatum instance) =>
       'event_url': instance.eventUrl,
       'content_type': instance.contentType,
       'liveurl': instance.liveurl,
+      'videoid': instance.videoid,
       'liveurl_type': instance.liveurlType,
       'telecast_timing': instance.telecastTiming,
       'function_date': instance.functionDate,

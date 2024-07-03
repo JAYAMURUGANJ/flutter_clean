@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../temple_details/presentation/widgets/main_tower.dart';
 import '/config/common/extensions.dart';
 import '/config/common/widgets/bottom_sheet.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/features/dashboard/domain/entities/live_events.dart';
 import '/features/dashboard/presentation/bloc/live_events/live_events_bloc.dart';
+import '../../../temple_details/presentation/widgets/main_tower.dart';
 import 'live_stream.dart';
 
 class DashboardLive extends StatefulWidget {
@@ -47,20 +47,24 @@ class _DashboardLiveState extends State<DashboardLive> {
             // Check if the temple IDs match or if the temple ID is null
 
             var filteredScrollData = element.scrollData!.where((data) {
-              return data.eventUrl!.youtubeLiveUrl != "" &&
-                  data.liveurl == widget.liveurl &&
-                  data.liveurlType == widget.liveurlType &&
-                  data.publishedUpto!.isBefore(DateTime.now());
+              return
+                  //data.videoid != "" &&
+                  data.eventUrl!.youtubeLiveUrl != "" &&
+                      data.liveurl == widget.liveurl &&
+                      data.liveurlType == widget.liveurlType &&
+                      data.publishedUpto!.isBefore(DateTime.now());
             }).toList();
 
             if (filteredScrollData.isNotEmpty) {
-              liveEvents.add(LiveEventsEntity(
-                templeId: element.templeId,
-                ttempleName: element.ttempleName,
-                templeName: element.templeName,
-                maintowerImage: element.maintowerImage,
-                scrollData: filteredScrollData,
-              ));
+              liveEvents.add(
+                LiveEventsEntity(
+                  templeId: element.templeId,
+                  ttempleName: element.ttempleName,
+                  templeName: element.templeName,
+                  maintowerImage: element.maintowerImage,
+                  scrollData: filteredScrollData,
+                ),
+              );
             }
           }
 
