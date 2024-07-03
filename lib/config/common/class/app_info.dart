@@ -1,27 +1,16 @@
 import 'dart:io';
 
+import 'package:package_info_plus/package_info_plus.dart';
+
 // import 'package:device_apps/device_apps.dart';
 
 class AppInfo {
   String response = "";
 
   Future<String> getAppVersion() async {
-    // Fetch all the installed applications on the device
-    // List<Application> apps = await DeviceApps.getInstalledApplications(
-    //   includeSystemApps: true,
-    //   includeAppIcons: true,
-    //   onlyAppsWithLaunchIntent: false,
-    // );
-    // // Sort the applications alphabetically by name
-    // String? versionNumber = "";
-    // for (var element in apps) {
-    //   if (element.packageName
-    //       .contains('com.example.news_app_clean_architecture')) {
-    //     versionNumber = element.versionName;
-    //   }
-    // }
-    // return versionNumber!;
-    return "1.0.0";
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    return version;
   }
 
   Future<String?> getIPAddress() async {
