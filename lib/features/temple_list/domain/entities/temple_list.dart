@@ -79,9 +79,9 @@ class TempleEntity extends Equatable {
   });
 
   factory TempleEntity.fromJson(Map<String, dynamic> json) =>
-      _$TempleListEntityFromJson(json);
+      _$TempleEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TempleListEntityToJson(this);
+  Map<String, dynamic> toJson() => _$TempleEntityToJson(this);
 
   @override
   List<Object?> get props {

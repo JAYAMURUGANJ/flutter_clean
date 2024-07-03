@@ -27,6 +27,7 @@
     "chariot_booking": "Chariot Booking",
     "dcb_collection": "DCB Collection",
     "favorite_temples": "Favorite Temples",
+    "favorite_god": "Favorite God",
     "submit": "Submit",
     "services": "Services",
     "details": "Details",
@@ -96,5 +97,5 @@
     "choose_language": "Choose\nLanguage",
     "choose_theme": "Choose Theme",
     "choose_favorite_god": "Choose\nFavorite God",
-    "no_network":"Check mobile\nnetwork connection"
+    "no_network": "Check mobile\nnetwork connection"
 }

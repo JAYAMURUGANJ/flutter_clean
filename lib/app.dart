@@ -33,6 +33,7 @@ import 'features/temple_details/presentation/bloc/show_nearby_temples/show_nearb
 import 'features/temple_details/presentation/bloc/temple_info/temple_info_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_pooja/temple_pooja_bloc.dart';
 import 'features/temple_details/presentation/bloc/temple_timing/temple_timing_bloc.dart';
+import 'features/temple_list/presentation/bloc/district/district_bloc.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_event.dart';
 import 'injection_container.dart';
@@ -90,6 +91,8 @@ class _AppState extends State<App> {
         BlocProvider<WorshipGodListBloc>(
             create: (context) => sl()..add(GetWorship())),
         BlocProvider<SelectedFavoriteTemplesCubit>(create: (context) => sl()),
+        BlocProvider<DistrictBloc>(
+            create: (context) => sl()..add(GetDistrict())),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) {

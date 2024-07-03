@@ -7,12 +7,14 @@ class WorshipGod extends WorshipGodEntity {
     final int? worshipCode,
     final String? worshipDesc,
     final String? tworshipDesc,
+    final List<ImgfileInfo>? imgfileInfo,
     String? errorCode,
     String? responseDesc,
   }) : super(
           worshipCode: worshipCode,
           worshipDesc: worshipDesc,
           tworshipDesc: tworshipDesc,
+          imgfileInfo: imgfileInfo,
           errorCode: errorCode,
           responseDesc: responseDesc,
         );
@@ -24,6 +26,9 @@ class WorshipGod extends WorshipGodEntity {
         worshipCode: json["worship_code"],
         worshipDesc: json["worship_desc"],
         tworshipDesc: json["tworship_desc"],
+        imgfileInfo: (json['imgfile_info'] as List<dynamic>?)
+            ?.map((e) => ImgfileInfo.fromJson(e as Map<String, dynamic>))
+            .toList(),
         errorCode: json["error_code"] ?? "",
         responseDesc: json["response_desc"] ?? "",
       );

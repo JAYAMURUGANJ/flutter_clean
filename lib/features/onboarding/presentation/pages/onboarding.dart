@@ -44,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   bottomNavigationBar: SizedBox(
-                    height: 100,
+                    height: 110,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,12 +52,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: List.generate(
                               _onBoardingScreens.length,
                               (index) => Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 3),
+                                        horizontal: 3, vertical: 8),
                                     child: CircleAvatar(
                                       radius: currentIndex == index ? 5 : 4,
                                       backgroundColor: currentIndex == index

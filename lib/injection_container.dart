@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:news_app_clean_architecture/features/temple_list/data/repository/district_repository_impl.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/repository/district_repository.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/usecases/district_usecase.dart';
+import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/district/district_bloc.dart';
 
 import '/features/dashboard/data/repository/live_events_repository_impl.dart';
 import '/features/dashboard/domain/repository/live_events_repository.dart';
@@ -68,6 +72,8 @@ import 'features/temple_list/domain/usecases/temple_list_usecase.dart';
 import 'features/temple_list/domain/usecases/worship_god_list_usecase.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import 'features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
+import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
+import 'features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -99,6 +105,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<PhotoGalleryRepository>(
       PhotoGalleryRepositoryImpl(sl()));
   sl.registerSingleton<WorshipRepository>(WorshipRepositoryImpl(sl()));
+  sl.registerSingleton<DistrictRepository>(DistrictRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<TempleListUseCase>(TempleListUseCase(sl()));
@@ -117,6 +124,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SpecialityUseCase>(SpecialityUseCase(sl()));
   sl.registerSingleton<PhotoGalleryUseCase>(PhotoGalleryUseCase(sl()));
   sl.registerSingleton<WorshipUseCase>(WorshipUseCase(sl()));
+  sl.registerSingleton<DistrictUseCase>(DistrictUseCase(sl()));
 
   //Blocs
   sl.registerFactory<TempleListBloc>(() => TempleListBloc(sl()));
@@ -142,4 +150,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<WorshipGodListBloc>(() => WorshipGodListBloc(sl()));
   sl.registerFactory<SelectedFavoriteTemplesCubit>(
       () => SelectedFavoriteTemplesCubit());
+  sl.registerFactory<DistrictBloc>(() => DistrictBloc(sl()));
 }

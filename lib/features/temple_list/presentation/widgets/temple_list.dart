@@ -1,8 +1,12 @@
 // ignore_for_file: dead_code
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/features/temple_list/data/models/district.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/district_entity.dart';
+import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/district/district_bloc.dart';
 
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
@@ -19,6 +23,7 @@ import 'temple_tile.dart';
 
 ValueNotifier<List<TempleEntity>>? _templeListNotifier;
 ValueNotifier<int> godSelected = ValueNotifier(-1);
+ValueNotifier<int> districtSelected = ValueNotifier(-1);
 alltempleListBlocBuilder() {
   return BlocConsumer<TempleListBloc, TempleListState>(
     listener: (context, state) {
@@ -128,6 +133,7 @@ allTempleListPageView(
                         ),
                       ),
                     ),
+                    _buildDistrictFilter(state),
                     Visibility(
                         visible:
                             searchFieldController.text.isEmpty && showFilter,
@@ -138,6 +144,52 @@ allTempleListPageView(
                 );
               });
         }),
+  );
+}
+
+BlocBuilder<DistrictBloc, DistrictState> _buildDistrictFilter(
+    TempleListLoaded templeLoadedstate) {
+  List<TempleEntity> templeList =
+      templeLoadedstate.templeList as List<TempleEntity>;
+  return BlocBuilder<DistrictBloc, DistrictState>(
+    builder: (context, state) {
+      if (state is DistrictLoaded) {
+        List<DistrictEntity>? districtList =
+            state.district as List<DistrictEntity>;
+        return ValueListenableBuilder<int>(
+            valueListenable: districtSelected,
+            builder: (context, isDistrictSelected, child) {
+              return SizedBox(
+                height: 75,
+                child: ListView.builder(
+                  itemCount: districtList.length,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ChoiceChip(
+                        showCheckmark: false,
+                        label: Text(districtList[index].districtName ?? ""),
+                        selected: index == isDistrictSelected,
+                        onSelected: (value) {
+                          districtSelected.value = index;
+                          List<TempleEntity> filteredTemples = templeList
+                              .where((item) =>
+                                  (item.districtCode ?? "0") ==
+                                  (districtList[index].districtCode))
+                              .toList();
+                          _templeListNotifier!.value = filteredTemples;
+                        },
+                      ),
+                    );
+                  },
+                ),
+              );
+            });
+      }
+      return 0.ph;
+    },
   );
 }
 
@@ -177,11 +229,79 @@ _godCategories(TempleListLoaded templeLoadedstate) {
   return BlocBuilder<WorshipGodListBloc, WorshipGodListState>(
     builder: (context, state) {
       if (state is WorshipLoaded) {
-        List<WorshipGodEntity> godList =
+        List<WorshipGodEntity> loadedGodList =
             state.worship as List<WorshipGodEntity>;
+
+        List<WorshipGodEntity> godList = loadedGodList.where((god) {
+          return (god.imgfileInfo != null &&
+              god.imgfileInfo!.isNotEmpty &&
+              god.imgfileInfo![0].fileLocation != null &&
+              god.imgfileInfo![0].fileLocation!.isNotEmpty);
+        }).toList();
         return ValueListenableBuilder(
             valueListenable: godSelected,
-            builder: (context, isSelected, child) {
+            builder: (context, isGodSelected, child) {
+              return SizedBox(
+                height: 90,
+                child: ListView.builder(
+                  // padding: const EdgeInsets.only(right: 2),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemExtent: 90,
+                  itemCount: godList.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      godSelected.value = index;
+                      List<TempleEntity> filteredTemples = templeList
+                          .where((item) =>
+                              (item.worshipCode ?? 0) ==
+                              (godList[index].worshipCode))
+                          .toList();
+                      _templeListNotifier!.value = filteredTemples;
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        // color: godList[index].bgColor,
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            godList[index]
+                                    .imgfileInfo![0]
+                                    .fileLocation!
+                                    .isNotEmpty
+                                ? ApiCredentials.filePath! +
+                                    godList[index]
+                                        .imgfileInfo![0]
+                                        .fileLocation!
+                                        .toString()
+                                : LocalImages().templePlaceHolder,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                        border: index == isGodSelected
+                            ? Border.all(
+                                width: 2,
+                                color: Theme.of(context).colorScheme.primary)
+                            : null,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: index == isGodSelected
+                            ? null
+                            : [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+
               return SizedBox(
                 height: 75,
                 child: ListView.builder(
@@ -194,7 +314,7 @@ _godCategories(TempleListLoaded templeLoadedstate) {
                       child: ChoiceChip(
                         showCheckmark: false,
                         label: Text(godList[index].worshipDesc!),
-                        selected: index == isSelected,
+                        selected: index == isGodSelected,
                         onSelected: (value) {
                           godSelected.value = index;
                           List<TempleEntity> filteredTemples = templeList

@@ -5,21 +5,20 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../config/common/class/cryption.dart';
-import '../../../../config/constants.dart';
-import '../../../../core/data_sources/ITMS_API_service.dart';
-import '../../../../core/models/encrypted_response.dart';
-import '../../../../core/resources/data_state.dart';
-import '../../domain/repository/contact_details_repository.dart';
-import '../model/contact_details.dart';
+import '../../domain/repository/district_repository.dart';
+import '../models/district.dart';
+import '/config/common/class/cryption.dart';
+import '/config/constants.dart';
+import '/core/data_sources/ITMS_API_service.dart';
+import '/core/models/encrypted_response.dart';
+import '/core/resources/data_state.dart';
 
-class ContactDetailsRepositoryImpl implements ContactDetailsRepository {
+class DistrictRepositoryImpl implements DistrictRepository {
   final HRCEApiService _apiService;
-  ContactDetailsRepositoryImpl(this._apiService);
+  DistrictRepositoryImpl(this._apiService);
 
   @override
-  Future<DataState<List<ContactDetails>>> getResponse(
-      formData, serviceId) async {
+  Future<DataState<List<District>>> getResponse(formData, serviceId) async {
     try {
       final httpResponse = await _apiService.getTempleList({
         'service_requester': ApiCredentials.serviceRequester,
@@ -32,26 +31,29 @@ class ContactDetailsRepositoryImpl implements ContactDetailsRepository {
             Authentication().decrypt(httpResponse.data.formData);
         var serverJsonResponse =
             await compute(jsonDecode, serverserverDecryptedResponse);
-        debugPrint(serverJsonResponse.toString());
+        // debugPrint(" aa  ==> $serverJsonResponse");
         log(serverJsonResponse.toString(),
-            name: "CONTACT DETAILS", time: DateTime.now());
+            name: "District MASTER", time: DateTime.now());
         String responseStatus =
-            EncryptedResponse.fromJson(serverJsonResponse[0]).responseStatus!;
+            EncryptedResponse.fromJson(serverJsonResponse[0])
+                .responseStatus
+                .toString();
 
         if (responseStatus.isNotEmpty) {
-          List<ContactDetails> resultSet =
+          List<District> resultSet =
               EncryptedResponse.fromJson(serverJsonResponse[0])
                   .resultSet!
-                  .map<ContactDetails>((dynamic i) =>
-                      ContactDetails.fromMap(i as Map<String, dynamic>))
+                  .map<District>((dynamic i) =>
+                      District.fromMap(i as Map<String, dynamic>))
                   .toList();
           return DataSuccess(resultSet, responseStatus);
         } else {
+          //condition for ---- [{"result_set":null,"response_status":""}]
           return const DataSuccess([
-            ContactDetails(
+            District(
                 errorCode: "ITMSSE01",
                 responseDesc:
-                    "🚫 ITMS-Server,\nContact Details return NULL value❗")
+                    "🚫 ITMS-Server,\nDistrict Gods return NULL value❗")
           ], "FAILURE");
         }
       } else {

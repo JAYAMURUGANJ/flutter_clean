@@ -1,9 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../config/common/class/local_language_controller.dart';
+import '../../../../config/constants.dart';
+import '../../../temple_list/domain/entities/worship_god_list.dart';
+import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
@@ -107,8 +113,16 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
         return BlocBuilder<WorshipGodListBloc, WorshipGodListState>(
           builder: (context, state) {
             if (state is WorshipLoaded) {
-              List<WorshipGodEntity> godList =
+              List<WorshipGodEntity> loadedGodList =
                   state.worship as List<WorshipGodEntity>;
+
+              List<WorshipGodEntity> godList = loadedGodList.where((god) {
+                return (god.imgfileInfo != null &&
+                    god.imgfileInfo!.isNotEmpty &&
+                    god.imgfileInfo![0].fileLocation != null &&
+                    god.imgfileInfo![0].fileLocation!.isNotEmpty);
+              }).toList();
+
               return BlocBuilder<SelectedFavoriteTemplesCubit,
                   SelectedFavoriteTemplesState>(
                 builder: (context, selectionState) {
@@ -152,8 +166,48 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: Image.asset(LocalImages().tnLogo,
-                                            height: 120),
+                                        child: CachedNetworkImage(
+                                          width: double.infinity,
+                                          height: 100,
+                                          placeholder: (context, url) =>
+                                              const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 24),
+                                            child: CupertinoActivityIndicator(),
+                                          ),
+                                          imageUrl: godList[index]
+                                                  .imgfileInfo![0]
+                                                  .fileLocation!
+                                                  .isNotEmpty
+                                              ? ApiCredentials.filePath! +
+                                                  godList[index]
+                                                      .imgfileInfo![0]
+                                                      .fileLocation!
+                                                      .toString()
+                                              : LocalImages().templePlaceHolder,
+                                          fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) =>
+                                              Icon(
+                                            Icons.error_outline,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black
+                                                      .withOpacity(0.08),
+                                                  image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover)),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
