@@ -1,7 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,9 +25,9 @@ class _PaymentSplashScreenState extends State<PaymentSplashScreen>
       vsync: this,
     );
 
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, "/PayStatus");
-    });
+    // Timer(const Duration(seconds: 2), () {
+    //   Navigator.pushReplacementNamed(context, "/PayStatus");
+    // });
   }
 
   @override
@@ -44,48 +42,66 @@ class _PaymentSplashScreenState extends State<PaymentSplashScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: theme.colorScheme.onPrimaryContainer,
-        body: Center(
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).width + 100,
-            child: Stack(
-              alignment: AlignmentDirectional.topCenter,
-              children: [
-                20.ph,
-                Lottie.asset(
-                  LottieImage().pop,
-                  controller: _controller,
-                  onLoaded: (composition) {
-                    // Configure the AnimationController with the duration of the
-                    // Lottie file and start the animation.
-                    _controller.duration = composition.duration;
-                  },
-                ),
-                Lottie.asset(
-                  LottieImage().success,
-                  controller: _controller,
-                  width: 200,
-                  onLoaded: (composition) {
-                    // Configure the AnimationController with the duration of the
-                    // Lottie file and start the animation.
-                    _controller
-                      ..duration = composition.duration
-                      ..forward();
-                  },
-                ),
-                20.ph,
-                Align(
-                  alignment: AlignmentDirectional.center,
-                  child: Text(
-                    "Payemt Success",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(color: Colors.white),
-                  ),
-                )
-              ],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            20.ph,
+            Lottie.asset(
+              LottieImage().success,
+              controller: _controller,
+              width: 500,
+              onLoaded: (composition) {
+                // Configure the AnimationController with the duration of the
+                // Lottie file and start the animation.
+                _controller
+                  ..duration = composition.duration
+                  ..forward();
+              },
             ),
-          ),
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                "Done",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: Colors.white)
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            5.ph,
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                "Your ticket purchase\n successfully completed",
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(color: Colors.grey),
+              ),
+            ),
+            100.ph,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width * 0.8,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Colors.white),
+                ),
+                onPressed: () =>
+                    //  Navigator.pushReplacementNamed(context, "/loading"),
+
+                    Navigator.pushReplacementNamed(context, "/PayStatus"),
+                child: Text(
+                  'View Ticket',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

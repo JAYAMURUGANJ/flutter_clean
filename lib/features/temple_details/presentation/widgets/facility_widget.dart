@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:lottie/lottie.dart';
 
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
@@ -13,6 +12,7 @@ import '/config/common/widgets/full_screen_image_viewer.dart';
 import '/config/constants.dart';
 import '/features/temple_details/domain/entities/facility.dart';
 import '/features/temple_details/presentation/bloc/facility/facility_bloc.dart';
+import '../../../../config/common/widgets/loader.dart';
 import '../../../temple_list/domain/entities/temple_list.dart';
 
 class FacilityWidget extends StatefulWidget {
@@ -69,19 +69,7 @@ class _FacilityWidgetState extends State<FacilityWidget>
         body: BlocBuilder<FacilityBloc, FacilityState>(
           builder: (context, state) {
             if (state is FacilityLoading) {
-              return Center(
-                child: Lottie.asset(
-                  LottieImage().loading,
-                  controller: _controller,
-                  animate: true,
-                  repeat: true,
-                  onLoaded: (composition) {
-                    _controller
-                      ..duration = composition.duration
-                      ..forward();
-                  },
-                ),
-              );
+              return Loader(controller: _controller);
             }
             if (state is FacilityLoadingError) {
               return Center(
