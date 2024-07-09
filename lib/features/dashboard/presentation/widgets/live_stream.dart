@@ -89,9 +89,9 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
         dividerColor: Colors.grey,
         children: liveEvent.scrollData!
             .map<ExpansionPanelRadio>((ScrollDatum scrollData) {
-          print("video id:  ${scrollData.videoid}");
-          print("video id:  ${scrollData.eventUrl}");
-          print("video id:  ${scrollData.eventUrl!.youtubeVideoId}");
+          debugPrint("video id:  ${scrollData.videoid}");
+          debugPrint("video id:  ${scrollData.eventUrl}");
+          debugPrint("video id:  ${scrollData.eventUrl!.youtubeVideoId}");
           controller = YoutubePlayerController(
             initialVideoId: scrollData.eventUrl!.youtubeVideoId.toString(),
             flags: const YoutubePlayerFlags(
@@ -127,7 +127,7 @@ class _TempleLiveStreamsState extends State<TempleLiveStreams> {
                 ),
               ),
             ),
-            value: scrollData.videoid!,
+            value: "${scrollData.eventDesc}+${scrollData.videoid!}",
           );
         }).toList(),
       ),

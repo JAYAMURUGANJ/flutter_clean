@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:lottie/lottie.dart';
 
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
@@ -22,13 +23,25 @@ class FacilityWidget extends StatefulWidget {
   State<FacilityWidget> createState() => _FacilityWidgetState();
 }
 
-class _FacilityWidgetState extends State<FacilityWidget> {
+class _FacilityWidgetState extends State<FacilityWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   final ValueNotifier<int> _showDesc = ValueNotifier(-1);
   @override
   void initState() {
+    super.initState();
     BlocProvider.of<FacilityBloc>(context).add(
         GetFacilityEvent(templeId: widget.templeData!.templeId.toString()));
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,7 +69,19 @@ class _FacilityWidgetState extends State<FacilityWidget> {
         body: BlocBuilder<FacilityBloc, FacilityState>(
           builder: (context, state) {
             if (state is FacilityLoading) {
-              return const Center(child: CupertinoActivityIndicator());
+              return Center(
+                child: Lottie.asset(
+                  LottieImage().loading,
+                  controller: _controller,
+                  animate: true,
+                  repeat: true,
+                  onLoaded: (composition) {
+                    _controller
+                      ..duration = composition.duration
+                      ..forward();
+                  },
+                ),
+              );
             }
             if (state is FacilityLoadingError) {
               return Center(

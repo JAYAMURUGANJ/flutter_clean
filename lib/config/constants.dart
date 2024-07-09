@@ -53,6 +53,7 @@ class LocalImages {
 class LottieImage {
   String pop = "assets/images/lottie/pop.json";
   String success = "assets/images/lottie/success.json";
+  String loading = "assets/images/lottie/loading.json";
 }
 
 // map radius list
