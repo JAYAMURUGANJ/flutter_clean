@@ -5,13 +5,6 @@ import 'package:news_app_clean_architecture/features/temple_details/data/model/l
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/photo_gallery_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/speciality_widget.dart';
 
-import '../../features/temple_details/domain/entities/speciality.dart';
-import '../../features/temple_details/presentation/widgets/facility_widget.dart';
-import '../../features/temple_list/domain/entities/temple_list.dart';
-import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
-import '../common/pages/error/dio_exception_screen.dart';
-import '../common/pages/error/something_went_wrong_screen.dart';
-import '../common/pages/splash.dart';
 import '/features/dashboard/presentation/pages/live_telecast.dart';
 import '/features/event_calendar/presentation/pages/event_calendar.dart';
 import '/features/home/presentation/pages/home.dart';
@@ -22,6 +15,14 @@ import '/features/temple_list/presentation/pages/temple_list.dart';
 import '/features/ticket_booking/presentation/pages/booking_service.dart';
 import '/features/ticket_booking/presentation/pages/paid_service.dart';
 import '/features/ticket_booking/presentation/pages/ticket_status.dart';
+import '../../features/temple_details/domain/entities/speciality.dart';
+import '../../features/temple_details/presentation/pages/loading_page.dart';
+import '../../features/temple_details/presentation/widgets/facility_widget.dart';
+import '../../features/temple_list/domain/entities/temple_list.dart';
+import '../../features/ticket_booking/presentation/widgets/payment_splash.dart';
+import '../common/pages/error/dio_exception_screen.dart';
+import '../common/pages/error/something_went_wrong_screen.dart';
+import '../common/pages/splash.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
@@ -51,6 +52,8 @@ class AppRoutes {
         return _materialRoute(const PaymentStatus());
       case '/PaySplash':
         return _materialRoute(const PaymentSplashScreen());
+      case '/loading':
+        return _materialRoute(const LoadingPage());
       case '/NearByTemples':
         return _materialRoute(
             NearByTemplesWidget(data: settings.arguments as LocationInfo));
