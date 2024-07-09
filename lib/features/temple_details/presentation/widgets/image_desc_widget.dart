@@ -1,17 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
+import '../../../../config/common/class/text_fade_up_animation.dart';
+import '../../../../config/common/class/text_slide_animation_widget.dart';
 import '../../../../config/common/widgets/full_screen_image_viewer.dart';
 
-class ImageDescWidget extends StatefulWidget {
+class ImageDescPageViewer extends StatefulWidget {
   final PageController pageController;
   final String imageUrl;
   final String? name;
   final String? desc;
   final int length;
   final int index;
-  const ImageDescWidget({
+  const ImageDescPageViewer({
     Key? key,
     required this.pageController,
     required this.imageUrl,
@@ -22,10 +25,11 @@ class ImageDescWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ImageDescWidget> createState() => _ImageDescWidgetState();
+  State<ImageDescPageViewer> createState() => _ImageDescPageViewerState();
 }
 
-class _ImageDescWidgetState extends State<ImageDescWidget> {
+class _ImageDescPageViewerState extends State<ImageDescPageViewer>
+    with SingleTickerProviderStateMixin {
   final ScrollController _mainScrollController = ScrollController();
   final ScrollController _descriptionScrollController = ScrollController();
   final ValueNotifier<bool> _scrollDesc = ValueNotifier(false);
@@ -57,6 +61,7 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
 
   @override
   void dispose() {
+    widget.pageController.dispose();
     _mainScrollController.removeListener(_mainScrollListener);
     _mainScrollController.dispose();
     _descriptionScrollController.dispose();
@@ -74,6 +79,9 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                 width: double.infinity,
                 height: double.infinity,
                 imageUrl: widget.imageUrl,
+                errorWidget: (context, url, error) {
+                  return errorImageWidget(size: 120);
+                },
                 imageBuilder: (context, imageProvider) => ClipRRect(
                   clipBehavior: Clip.antiAlias,
                   child: DecoratedBox(
@@ -85,71 +93,6 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                   ),
                 ),
               ),
-              // NotificationListener<ScrollNotification>(
-              //     onNotification: (scrollNotification) {
-              //       SchedulerBinding.instance.addPostFrameCallback((_) {
-              //         _mainScrollListener();
-              //       });
-              //       return true;
-              //     },
-              //     child: SingleChildScrollView(
-              //       controller: _mainScrollController,
-              //       physics: const AlwaysScrollableScrollPhysics(),
-              //       child: Column(
-              //         children: [
-              //           SizedBox(
-              //             height: MediaQuery.of(context).size.height / 2,
-              //           ),
-              //           Container(
-              //             padding: const EdgeInsets.all(16.0),
-              //             decoration: const BoxDecoration(
-              //                 color: Colors.black87,
-              //                 borderRadius: BorderRadius.only(
-              //                     topLeft: Radius.circular(8),
-              //                     topRight: Radius.circular(8))),
-              //             child: Column(
-              //               crossAxisAlignment: CrossAxisAlignment.start,
-              //               children: [
-              //                 Text(
-              //                   widget.name ?? "",
-              //                   style: Theme.of(context)
-              //                       .textTheme
-              //                       .titleLarge!
-              //                       .copyWith(
-              //                           color: Colors.white,
-              //                           fontWeight: FontWeight.bold),
-              //                 ),
-              //                 Divider(
-              //                   height: 50,
-              //                   thickness: 6,
-              //                   color: Theme.of(context).colorScheme.primary,
-              //                   endIndent:
-              //                       MediaQuery.of(context).size.width * .35,
-              //                 ),
-              //                 SizedBox(
-              //                   height: MediaQuery.of(context).size.height / 2,
-              //                   child: SingleChildScrollView(
-              //                     controller: _descriptionScrollController,
-              //                     physics: scrollDescValue
-              //                         ? const AlwaysScrollableScrollPhysics()
-              //                         : const NeverScrollableScrollPhysics(),
-              //                     child: Text(
-              //                       widget.desc ?? "",
-              //                       style: Theme.of(context)
-              //                           .textTheme
-              //                           .titleMedium!
-              //                           .copyWith(
-              //                               color: Colors.white,
-              //                               fontWeight: FontWeight.w400),
-              //                     ),
-              //                   ),
-              //                 )
-              //               ],
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     )),
               // navigation button
               if (widget.length > 1)
                 Positioned(
@@ -239,9 +182,10 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                widget.name ?? "",
-                                style: Theme.of(context)
+                              TextSlideAnimationWidget(
+                                text: widget.name ?? "",
+                                textColor: Colors.white,
+                                textStyle: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
                                     .copyWith(
@@ -255,15 +199,19 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
                                 endIndent:
                                     MediaQuery.of(context).size.width * .35,
                               ),
-                              Text(
-                                widget.desc ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400),
-                              )
+                              SizedBox(
+                                  child: TextFadeUpAnimationWidget(
+                                text: widget.desc ?? "",
+                              )),
+                              // Text(
+                              //   widget.desc ?? "",
+                              //   style: Theme.of(context)
+                              //       .textTheme
+                              //       .titleMedium!
+                              //       .copyWith(
+                              //           color: Colors.white,
+                              //           fontWeight: FontWeight.w400),
+                              // ),
                             ],
                           )),
                     );
@@ -271,5 +219,21 @@ class _ImageDescWidgetState extends State<ImageDescWidget> {
             ],
           );
         });
+  }
+
+  Padding errorImageWidget({required double size}) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * .2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.image_not_supported_outlined,
+            size: size,
+          ),
+          const LocaleText("No Image Found !"),
+        ],
+      ),
+    );
   }
 }

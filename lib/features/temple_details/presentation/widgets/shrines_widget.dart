@@ -19,45 +19,22 @@ class ShrinesWidget extends StatefulWidget {
 }
 
 class _ShrinesWidgetState extends State<ShrinesWidget> {
-  final PageController _pageController = PageController(
+  final PageController _shrinesPageController = PageController(
     initialPage: 0,
     keepPage: true,
   );
   ValueNotifier<int> currentIndex = ValueNotifier(0);
-  final ScrollController _mainScrollController = ScrollController();
-  final ScrollController _descriptionScrollController = ScrollController();
-  final ValueNotifier<bool> _scrollDesc = ValueNotifier(false);
 
   @override
   void initState() {
     BlocProvider.of<ShrinesBloc>(context)
         .add(GetShrinesEvent(templeId: widget.templeData!.templeId.toString()));
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _mainScrollController.addListener(_mainScrollListener);
-    });
-  }
-
-  void _mainScrollListener() {
-    if (_mainScrollController.offset >=
-        MediaQuery.of(context).size.height * .19) {
-      if (_descriptionScrollController.position.userScrollDirection ==
-              ScrollDirection.forward &&
-          _descriptionScrollController.offset <= 0.0) {
-        _scrollDesc.value = false;
-      } else {
-        _scrollDesc.value = true;
-      }
-    } else {
-      _scrollDesc.value = false;
-    }
   }
 
   @override
   void dispose() {
-    _mainScrollController.removeListener(_mainScrollListener);
-    _mainScrollController.dispose();
-    _descriptionScrollController.dispose();
+    _shrinesPageController.dispose();
     super.dispose();
   }
 
@@ -83,11 +60,11 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
 
           ///===>
           return PageView.builder(
-              controller: _pageController,
+              controller: _shrinesPageController,
               itemCount: shrinesList.length,
               itemBuilder: (context, index) {
-                return ImageDescWidget(
-                  pageController: _pageController,
+                return ImageDescPageViewer(
+                  pageController: _shrinesPageController,
                   imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
                       ? ApiCredentials.filePath! +
                           shrinesList[index].subshrineImage![0].fileLocation!

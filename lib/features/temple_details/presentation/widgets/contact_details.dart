@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/models/dio_exception_arguments.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/constants.dart';
@@ -57,7 +58,13 @@ class _BuildContactDetailsState extends State<BuildContactDetails> {
             listener: (context, state) {
               if (state is ContactDetailsLoadingError) {
                 Navigator.pushNamed(context, '/DioException',
-                    arguments: state.error!);
+                    arguments: DioExceptionArguments(
+                        onRefresh: () {
+                          BlocProvider.of<ContactDetailsBloc>(context).add(
+                              GetContactDetails(
+                                  templeId: widget.temple.templeId.toString()));
+                        },
+                        error: state.error!));
               }
             },
             builder: (context, state) {

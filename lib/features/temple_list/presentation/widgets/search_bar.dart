@@ -13,7 +13,8 @@ TextField searchWidget(
     onChanged: (value) {
       List<TempleEntity> filteredTemples = loadedTempleList
           .where((item) =>
-              item.templeName!.toLowerCase().contains(value.toLowerCase()))
+              (item.templeName!.toLowerCase().contains(value.toLowerCase())) ||
+              item.ttempleName!.toLowerCase().contains(value.toLowerCase()))
           .toList();
       templeListNotifier!.value = filteredTemples;
     },

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/pages/error/dio_exception_screen.dart';
 
+import '../../../../core/models/dio_exception_arguments.dart';
 import '/config/common/extensions.dart';
 import '/config/constants.dart';
 import '../../../../config/common/widgets/something_went_wrong.dart';
@@ -11,7 +13,8 @@ import '../../domain/entities/temple_timing.dart';
 import '../bloc/temple_timing/temple_timing_bloc.dart';
 
 class TempleTiming extends StatelessWidget {
-  const TempleTiming({Key? key}) : super(key: key);
+  final String templeId;
+  const TempleTiming({Key? key, required this.templeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,12 @@ class TempleTiming extends StatelessWidget {
       listener: (context, state) {
         if (state is TempleTimingLoadingError) {
           Navigator.pushNamed(context, '/DioException',
-              arguments: state.error!);
+              arguments: DioExceptionArguments(
+                  onRefresh: () {
+                    BlocProvider.of<TempleTimingBloc>(context)
+                        .add(GetTempleTiming(templeId: templeId.toString()));
+                  },
+                  error: state.error!));
         }
         if (state is TempleTimingLoadingSomthingWentWrong) {
           Navigator.pushNamed(context, '/SomthingWentWrong',
@@ -58,6 +66,11 @@ class TempleTiming extends StatelessWidget {
               ],
             ),
           );
+        }
+        if (state is TempleTimingLoadingError) {
+          return DioExceptionScreen(
+              onException:
+                  DioExceptionArguments(onRefresh: () {}, error: state.error!));
         }
         return const Center(child: Text(" No data Available"));
       },

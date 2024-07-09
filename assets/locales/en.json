@@ -97,5 +97,6 @@
     "choose_language": "Choose\nLanguage",
     "choose_theme": "Choose Theme",
     "choose_favorite_god": "Choose\nFavorite God",
-    "no_network": "Check mobile\nnetwork connection"
+    "no_network": "Check mobile\nnetwork connection",
+    "ok": "ok"
 }

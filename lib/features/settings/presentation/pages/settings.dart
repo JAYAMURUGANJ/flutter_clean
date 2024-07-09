@@ -106,7 +106,7 @@ class _SettingsState extends State<Settings> {
                         onPressed: () {
                           Navigator.pop(sheetContext);
                         },
-                        child: const LocaleText("ok")),
+                        child: const LocaleText("submit")),
                   )
                 ],
               )),

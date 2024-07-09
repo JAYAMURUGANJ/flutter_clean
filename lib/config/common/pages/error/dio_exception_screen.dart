@@ -1,18 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
+import '../../../../core/models/dio_exception_arguments.dart';
 import '../../class/exception.dart';
 import '/config/constants.dart';
 
 class DioExceptionScreen extends StatelessWidget {
-  final DioException error;
-  const DioExceptionScreen({Key? key, required this.error}) : super(key: key);
+  final DioExceptionArguments onException;
+  const DioExceptionScreen({Key? key, required this.onException})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     ApiException ae = ApiException();
-    String errorMessage = ae.getExceptionMessage(error).errorMsg;
-    String errorDescription = ae.getExceptionMessage(error).description;
+    String errorMessage = ae.getExceptionMessage(onException.error).errorMsg;
+    String errorDescription =
+        ae.getExceptionMessage(onException.error).description;
     return Scaffold(
       body: SizedBox(
         child: Center(
@@ -36,6 +41,12 @@ class DioExceptionScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.grey, fontSize: 15),
               ),
+              10.ph,
+              FilledButton.icon(
+                onPressed: onException.onRefresh,
+                label: const LocaleText("refresh"),
+                icon: const Icon(Icons.refresh),
+              )
             ],
           ),
         ),

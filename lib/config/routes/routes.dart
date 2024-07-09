@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app_clean_architecture/core/models/dio_exception_arguments.dart';
 import 'package:news_app_clean_architecture/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:news_app_clean_architecture/features/temple_details/data/model/location_info.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/photo_gallery_widget.dart';
@@ -67,8 +67,8 @@ class AppRoutes {
         return _materialRoute(
             SomethingWentWrong(error: settings.arguments as String));
       case '/DioException':
-        return _materialRoute(
-            DioExceptionScreen(error: settings.arguments as DioException));
+        return _materialRoute(DioExceptionScreen(
+            onException: settings.arguments as DioExceptionArguments));
 
       default:
         return _materialRoute(const TempleListPage());
