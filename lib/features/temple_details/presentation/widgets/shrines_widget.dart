@@ -19,14 +19,15 @@ class ShrinesWidget extends StatefulWidget {
 }
 
 class _ShrinesWidgetState extends State<ShrinesWidget> {
-  final PageController _shrinesPageController = PageController(
-    initialPage: 0,
-    keepPage: true,
-  );
+  late PageController _shrinesPageController;
   ValueNotifier<int> currentIndex = ValueNotifier(0);
 
   @override
   void initState() {
+    _shrinesPageController = PageController(
+      initialPage: 0,
+      keepPage: true,
+    );
     BlocProvider.of<ShrinesBloc>(context)
         .add(GetShrinesEvent(templeId: widget.templeData!.templeId.toString()));
     super.initState();
@@ -40,44 +41,46 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShrinesBloc, ShrinesState>(
-      builder: (context, state) {
-        if (state is ShrinesLoading) {
-          return const Center(child: CupertinoActivityIndicator());
-        }
-        if (state is ShrinesLoadingError) {
-          return ErrorWidget(state.error.toString());
-        }
-        if (state is ShrinesLoadingSomthingWentWrong) {
-          return SomethingWentWrong(
-            error: state.responseStatus!,
-            errorIcon: LocalImages().noDataAvailable,
-          );
-        }
-        if (state is ShrinesLoaded) {
-          List<ShrinesDetailsEntity> shrinesList =
-              state.shrines!.cast<ShrinesDetailsEntity>();
+    return SafeArea(
+      child: BlocBuilder<ShrinesBloc, ShrinesState>(
+        builder: (context, state) {
+          if (state is ShrinesLoading) {
+            return const Center(child: CupertinoActivityIndicator());
+          }
+          if (state is ShrinesLoadingError) {
+            return ErrorWidget(state.error.toString());
+          }
+          if (state is ShrinesLoadingSomthingWentWrong) {
+            return SomethingWentWrong(
+              error: state.responseStatus!,
+              errorIcon: LocalImages().noDataAvailable,
+            );
+          }
+          if (state is ShrinesLoaded) {
+            List<ShrinesDetailsEntity> shrinesList =
+                state.shrines!.cast<ShrinesDetailsEntity>();
 
-          ///===>
-          return PageView.builder(
-              controller: _shrinesPageController,
-              itemCount: shrinesList.length,
-              itemBuilder: (context, index) {
-                return ImageDescPageViewer(
-                  pageController: _shrinesPageController,
-                  imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
-                      ? ApiCredentials.filePath! +
-                          shrinesList[index].subshrineImage![0].fileLocation!
-                      : LocalImages().templePlaceHolder,
-                  name: shrinesList[index].subshrineName,
-                  desc: shrinesList[index].subshrineDesc,
-                  length: shrinesList.length,
-                  index: index,
-                );
-              });
-        }
-        return 0.pw;
-      },
+            ///===>
+            return PageView.builder(
+                controller: _shrinesPageController,
+                itemCount: shrinesList.length,
+                itemBuilder: (context, index) {
+                  return ImageDescPageViewer(
+                    pageController: _shrinesPageController,
+                    imageUrl: shrinesList[index].subshrineImage!.isNotEmpty
+                        ? ApiCredentials.filePath! +
+                            shrinesList[index].subshrineImage![0].fileLocation!
+                        : LocalImages().templePlaceHolder,
+                    name: shrinesList[index].subshrineName,
+                    desc: shrinesList[index].subshrineDesc,
+                    length: shrinesList.length,
+                    index: index,
+                  );
+                });
+          }
+          return 0.pw;
+        },
+      ),
     );
   }
 }
