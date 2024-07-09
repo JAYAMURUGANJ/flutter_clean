@@ -52,6 +52,12 @@ class _TextSlideAnimationWidgetState extends State<TextSlideAnimationWidget>
     );
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void setTextWidthAndHeight(String text, TextStyle style) {
     size = textSize(
       text: text,
@@ -64,9 +70,9 @@ class _TextSlideAnimationWidgetState extends State<TextSlideAnimationWidget>
 
   void _startAnimation() async {
     await Future.delayed(const Duration(milliseconds: 100));
-    _positionNotifier.value = const MapEntry(0, 200.0);
+    _positionNotifier.value = MapEntry(0, textWidth);
     await Future.delayed(const Duration(milliseconds: 300));
-    _positionNotifier.value = const MapEntry(200.0, 0);
+    _positionNotifier.value = MapEntry(textWidth, 0);
   }
 
   @override
@@ -80,6 +86,7 @@ class _TextSlideAnimationWidgetState extends State<TextSlideAnimationWidget>
               child: Text(
                 widget.text,
                 style: widget.textStyle,
+                maxLines: 2,
               )),
           Container(
             height: textHeight,

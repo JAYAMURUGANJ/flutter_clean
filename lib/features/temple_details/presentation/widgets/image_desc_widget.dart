@@ -61,7 +61,6 @@ class _ImageDescPageViewerState extends State<ImageDescPageViewer>
 
   @override
   void dispose() {
-    widget.pageController.dispose();
     _mainScrollController.removeListener(_mainScrollListener);
     _mainScrollController.dispose();
     _descriptionScrollController.dispose();
@@ -182,15 +181,18 @@ class _ImageDescPageViewerState extends State<ImageDescPageViewer>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TextSlideAnimationWidget(
-                                text: widget.name ?? "",
-                                textColor: Colors.white,
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                              FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: TextSlideAnimationWidget(
+                                  text: widget.name ?? "",
+                                  textColor: Colors.white,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                ),
                               ),
                               Divider(
                                 height: 50,
@@ -199,10 +201,9 @@ class _ImageDescPageViewerState extends State<ImageDescPageViewer>
                                 endIndent:
                                     MediaQuery.of(context).size.width * .35,
                               ),
-                              SizedBox(
-                                  child: TextFadeUpAnimationWidget(
+                              TextFadeUpAnimationWidget(
                                 text: widget.desc ?? "",
-                              )),
+                              ),
                               // Text(
                               //   widget.desc ?? "",
                               //   style: Theme.of(context)
