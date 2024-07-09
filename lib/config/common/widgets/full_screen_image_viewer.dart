@@ -19,8 +19,8 @@ fullScreenImageViewer(BuildContext context, String url) {
             child: CloseButton(
               color: Colors.white,
               style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(8),
-                  backgroundColor: MaterialStateProperty.all(Colors.black)),
+                  elevation: WidgetStateProperty.all(8),
+                  backgroundColor: WidgetStateProperty.all(Colors.black)),
             )),
       ],
     ),

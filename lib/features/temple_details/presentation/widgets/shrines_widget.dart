@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import 'package:news_app_clean_architecture/config/common/pages/error/something_went_wrong_screen.dart';

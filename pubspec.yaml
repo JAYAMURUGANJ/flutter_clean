@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  billDeskSDK:
+    path: ./billDeskSDK
 
   cupertino_icons: ^1.0.2
   #state management
@@ -56,7 +58,7 @@ dependencies:
   flutter_card_swiper: ^7.0.0
   webview_flutter: ^4.7.0
   table_calendar: ^3.0.9
-  youtube_player_flutter: ^9.0.1
+  youtube_player_flutter: ^8.1.2
   wakelock_plus: ^1.2.5
   qr_flutter: ^4.1.0
   lottie: ^3.1.2

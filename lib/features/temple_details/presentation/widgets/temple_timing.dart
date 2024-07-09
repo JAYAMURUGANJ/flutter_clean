@@ -96,7 +96,7 @@ class TempleTiming extends StatelessWidget {
                   width: 1,
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.black),
-              headingRowColor: MaterialStateProperty.all(
+              headingRowColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.primaryContainer),
               headingRowHeight: 45,
               headingTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(

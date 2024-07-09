@@ -3,9 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
-import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/district/district_bloc.dart';
 
 import '../../constants.dart';
 import '../class/local_storage.dart';
