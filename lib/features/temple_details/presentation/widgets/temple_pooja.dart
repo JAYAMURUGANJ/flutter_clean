@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/models/dio_exception_arguments.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/constants.dart';
 import '../../domain/entities/temple_pooja.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
 
 class TemplePooja extends StatelessWidget {
-  const TemplePooja({Key? key}) : super(key: key);
+  final String templeId;
+  const TemplePooja({Key? key, required this.templeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,12 @@ class TemplePooja extends StatelessWidget {
       listener: (context, state) {
         if (state is TemplePoojaLoadingError) {
           Navigator.pushNamed(context, '/DioException',
-              arguments: state.error!);
+              arguments: DioExceptionArguments(
+                  onRefresh: () {
+                    BlocProvider.of<TemplePoojaBloc>(context)
+                        .add(GetTemplePooja(templeId: templeId));
+                  },
+                  error: state.error!));
         }
         if (state is TemplePoojaLoadingSomthingWentWrong) {
           Navigator.pushNamed(context, '/SomthingWentWrong',

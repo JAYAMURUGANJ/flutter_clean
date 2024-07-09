@@ -41,6 +41,10 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
     ).animate(_buttonAnimationController);
 
     super.initState();
+    getTempledata();
+  }
+
+  void getTempledata() {
     BlocProvider.of<TempleInfoBloc>(context)
         .add(GetTempleInfo(templeId: widget.temple!.templeId.toString()));
     BlocProvider.of<TempleTimingBloc>(context)
@@ -82,7 +86,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView>
                   ),
                 ];
               },
-              body: buildTabView(context, tabController),
+              body: buildTabView(context, tabController, widget.temple),
             ),
           ),
         ),

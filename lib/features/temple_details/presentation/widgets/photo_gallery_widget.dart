@@ -165,7 +165,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
               textAlign: TextAlign.center,
             ),
           ),
-          CarouselSlider.builder(
+          CarouselSlider.builder( 
               itemCount: photoData.photoInfo!.length,
               itemBuilder: (context, index, realIndex) => GestureDetector(
                     onTap: () {

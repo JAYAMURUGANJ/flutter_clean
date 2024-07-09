@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:news_app_clean_architecture/core/models/dio_exception_arguments.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../temple_list/presentation/bloc/temple_list/temple_list_event.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
@@ -17,7 +19,13 @@ mainTempleListBlocBuilder() {
   return BlocConsumer<TempleListBloc, TempleListState>(
     listener: (context, state) {
       if (state is TempleListLoadingError) {
-        Navigator.pushNamed(context, '/DioException', arguments: state.error!);
+        Navigator.pushNamed(context, '/DioException',
+            arguments: DioExceptionArguments(
+                onRefresh: () {
+                  BlocProvider.of<TempleListBloc>(context)
+                      .add(GetTempleList(seniorgradeTemples: 'Y'));
+                },
+                error: state.error!));
       }
     },
     builder: (context, state) {

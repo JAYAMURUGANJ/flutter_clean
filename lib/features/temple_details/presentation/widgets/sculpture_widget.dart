@@ -18,7 +18,7 @@ class SculpturesWidget extends StatefulWidget {
 }
 
 class _SculpturesWidgetState extends State<SculpturesWidget> {
-  final PageController _pageController = PageController(
+  final PageController _sculpturePageController = PageController(
     initialPage: 0,
     keepPage: true,
   );
@@ -27,6 +27,12 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
     BlocProvider.of<SculpturesBloc>(context).add(
         GetSculpturesEvent(templeId: widget.templeData!.templeId.toString()));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _sculpturePageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,11 +55,11 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
         List<SculptureEntity> sculpturesList =
             state.sculptures!.cast<SculptureEntity>();
         return PageView.builder(
-            controller: _pageController,
+            controller: _sculpturePageController,
             itemCount: sculpturesList.length,
             itemBuilder: (context, index) {
-              return ImageDescWidget(
-                pageController: _pageController,
+              return ImageDescPageViewer(
+                pageController: _sculpturePageController,
                 imageUrl: sculpturesList[index].sculptureInfo!.isNotEmpty
                     ? ApiCredentials.filePath! +
                         sculpturesList[index].sculptureInfo![0].fileLocation!

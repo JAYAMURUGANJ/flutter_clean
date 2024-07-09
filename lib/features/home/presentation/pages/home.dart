@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NetworkAware(
+     
       child: PopScope(
         canPop: false,
         onPopInvoked: (bool didPop) async {

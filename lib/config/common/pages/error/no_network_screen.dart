@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
 import '../../../constants.dart';
 import '../../widgets/app_header.dart';
 
 class NoNetWork extends StatefulWidget {
-  const NoNetWork({Key? key}) : super(key: key);
+  const NoNetWork({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NoNetWork> createState() => _NoNetWorkState();
@@ -44,6 +47,7 @@ class _NoNetWorkState extends State<NoNetWork> {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18, color: Colors.red),
             ),
+            25.ph,
           ],
         ),
       ),

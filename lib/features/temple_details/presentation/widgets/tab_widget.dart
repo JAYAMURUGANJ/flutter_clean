@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list.dart';
 
 import '/config/constants.dart';
 import 'temple_info.dart';
@@ -32,16 +33,23 @@ buildTabBar(BuildContext context, TabController tabController) {
   );
 }
 
-buildTabView(BuildContext context, TabController tabController) {
+buildTabView(
+    BuildContext context, TabController tabController, TempleEntity? temple) {
   return Padding(
     padding: defaultPadding,
     child: TabBarView(
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          SingleChildScrollView(child: TempleInfoWidget()),
-          SingleChildScrollView(child: TempleTiming()),
-          SingleChildScrollView(child: TemplePooja()),
+        children: [
+          const SingleChildScrollView(child: TempleInfoWidget()),
+          SingleChildScrollView(
+              child: TempleTiming(
+            templeId: temple!.templeId.toString(),
+          )),
+          SingleChildScrollView(
+              child: TemplePooja(
+            templeId: temple.templeId.toString(),
+          )),
         ]),
   );
 }

@@ -72,8 +72,6 @@ import 'features/temple_list/domain/usecases/temple_list_usecase.dart';
 import 'features/temple_list/domain/usecases/worship_god_list_usecase.dart';
 import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
 import 'features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
-import 'features/temple_list/presentation/bloc/temple_list/temple_list_bloc.dart';
-import 'features/temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
 
 final sl = GetIt.instance;
 
