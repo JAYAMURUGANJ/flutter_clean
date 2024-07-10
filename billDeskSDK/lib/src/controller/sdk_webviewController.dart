@@ -2,21 +2,23 @@ library sdk;
 
 import 'dart:async';
 import 'dart:io';
+
 import 'package:billDeskSDK/src/utilities/sdk_logger.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:safe_device/safe_device.dart';
+
 import '../../sdk.dart';
 
-class SDKWebviewController{
-
+class SDKWebviewController {
   late SdkConfig sdkConfig;
   late InAppWebViewController inAppWebViewController;
   Rx<bool> shouldModelClose = false.obs;
-  late Map<String,dynamic> paymentsConfig;
+  late Map<String, dynamic> paymentsConfig;
   String? orderId;
+  // ignore: prefer_typing_uninitialized_variables
   late var customerRefId;
   late SdkPresenter presenter;
   late String merchantId;
@@ -32,35 +34,36 @@ class SDKWebviewController{
   SDKWebviewController(this.sdkConfig);
 
   checkJailBreakOrRootStatus() async {
-
     final bool jailBreak = await SafeDevice.isJailBroken;
     final bool isPhysicalDevice = await SafeDevice.isRealDevice;
 
     if (jailBreak && !isPhysicalDevice) {
-      throw SdkException(sdkError: SdkError(msg: "Oops! It seems like your device is jailbroken or emulator. Please note that our app is not compatible with jailbroken devices for security reasons.",
-          description: 'Forbidden',
-          code: 403,
-          SDK_ERROR: SdkError.SERVICE_ERROR));
+      throw SdkException(
+          sdkError: SdkError(
+              msg:
+                  "Oops! It seems like your device is jailbroken or emulator. Please note that our app is not compatible with jailbroken devices for security reasons.",
+              description: 'Forbidden',
+              code: 403,
+              SDK_ERROR: SdkError.SERVICE_ERROR));
     }
-
   }
 
   checkDevModeStatus() async {
     bool devMode = false;
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       devMode = await SafeDevice.isDevelopmentModeEnable;
-    }
-    else if(Platform.isIOS) {
+    } else if (Platform.isIOS) {
       devMode = !await isPhysicalDevice();
     }
 
     if (devMode) {
-      throw SdkException(sdkError: SdkError(msg: "SDK is disabled in developer mode.",
-          description: 'Forbidden',
-          code: 403,
-          SDK_ERROR: SdkError.SERVICE_ERROR));
+      throw SdkException(
+          sdkError: SdkError(
+              msg: "SDK is disabled in developer mode.",
+              description: 'Forbidden',
+              code: 403,
+              SDK_ERROR: SdkError.SERVICE_ERROR));
     }
-
   }
 
   Future<bool> isPhysicalDevice() async {
@@ -69,11 +72,11 @@ class SDKWebviewController{
     return iosInfo.isPhysicalDevice;
   }
 
-  Future<Response<dynamic>?> getApiResponse(
-      FlowType flowType, Response<dynamic>? response, SdkPresenter presenter) async {
+  Future<Response<dynamic>?> getApiResponse(FlowType flowType,
+      Response<dynamic>? response, SdkPresenter presenter) async {
     var authToken = paymentsConfig["authToken"];
-        merchantId = paymentsConfig["merchantId"];
-        bdOrderId = paymentsConfig["bdOrderId"] ?? "";
+    merchantId = paymentsConfig["merchantId"];
+    bdOrderId = paymentsConfig["bdOrderId"] ?? "";
 
     switch (flowType) {
       case FlowType.payments:
@@ -85,15 +88,15 @@ class SDKWebviewController{
         }
       case FlowType.e_mandate:
         {
-          response = await presenter.getMandateOrder(
-              authToken, merchantId, paymentsConfig["mandateTokenId"], sdkConfig);
+          response = await presenter.getMandateOrder(authToken, merchantId,
+              paymentsConfig["mandateTokenId"], sdkConfig);
           orderId = response?.body["mandate_tokenid"];
           break;
         }
       case FlowType.modify_mandate:
         {
-          response = await presenter.getModifyMandateOrder(
-              authToken, merchantId, paymentsConfig["mandateTokenId"], sdkConfig);
+          response = await presenter.getModifyMandateOrder(authToken,
+              merchantId, paymentsConfig["mandateTokenId"], sdkConfig);
           orderId = response?.body["mandate_tokenid"];
           break;
         }
@@ -112,18 +115,23 @@ class SDKWebviewController{
 
   bool isCallBackInvoked = false;
 
-  exitAndInvokeCallback(bool upiIntentFlow, SdkPresenter? presenter, BuildContext context,{ bool isSSLError = false}) async {
+  exitAndInvokeCallback(
+      bool upiIntentFlow, SdkPresenter? presenter, BuildContext context,
+      {bool isSSLError = false}) async {
     isCallBackInvoked = true;
     String finalOrderId = orderId ?? "";
     try {
       bool isCancelledByUser = true;
-      if(presenter?.sdkContext?.scope.get("final_response.isCancelledByUser")!=null){
-        isCancelledByUser = presenter?.sdkContext?.scope.get("final_response.isCancelledByUser");
-      } else if(upiIntentFlow==true){
+      if (presenter?.sdkContext?.scope
+              .get("final_response.isCancelledByUser") !=
+          null) {
+        isCancelledByUser = presenter?.sdkContext?.scope
+            .get("final_response.isCancelledByUser");
+      } else if (upiIntentFlow == true) {
         isCancelledByUser = false;
       }
 
-      if(isSSLError){
+      if (isSSLError) {
         isCancelledByUser = false;
       }
 
@@ -140,8 +148,7 @@ class SDKWebviewController{
       sdkConfig.responseHandler.onTransactionResponse(
         txnInfo,
       );
-
-    }catch(e) {
+    } catch (e) {
       Get.back();
       SdkError sdkError = SdkError(
           msg: 'An unexpected exception occurred.',
@@ -150,8 +157,6 @@ class SDKWebviewController{
       SdkLogger.e(e);
       Navigator.of(context).pop();
       sdkConfig.responseHandler.onError(sdkError);
-
     }
   }
-
 }

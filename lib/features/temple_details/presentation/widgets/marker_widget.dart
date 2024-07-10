@@ -58,6 +58,7 @@ Future getMarkerIcon(String imageUrl, Size size) async {
       await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
   final Uint8List uint8List = byteData!.buffer.asUint8List();
 
+  // ignore: deprecated_member_use
   return BitmapDescriptor.fromBytes(uint8List);
 }
 

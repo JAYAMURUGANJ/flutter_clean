@@ -28,6 +28,7 @@ class ShowNearbyTemplesBloc
     emit(ViewNearbyTemplesLoading());
     Set<Marker> markers;
 
+    // ignore: deprecated_member_use
     BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: Size(40, 40)), LocalImages().mapMarker);
 
@@ -61,6 +62,7 @@ class ShowNearbyTemplesBloc
       Emitter<ShowNearbyTemplesState> emit) async {
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
+      // ignore: deprecated_member_use
       BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
           const ImageConfiguration(size: Size(40, 40)),
           LocalImages().mapMarker);
@@ -151,6 +153,7 @@ class ShowNearbyTemplesBloc
       Emitter<ShowNearbyTemplesState> emit) async {
     emit(ViewNearbyTemplesLoading());
     if (event.listOfTemples.isNotEmpty) {
+      // ignore: deprecated_member_use
       BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
           const ImageConfiguration(size: Size(40, 40)),
           LocalImages().mapMarker);

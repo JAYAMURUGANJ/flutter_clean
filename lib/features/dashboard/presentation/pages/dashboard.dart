@@ -8,16 +8,17 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '/config/common/extensions.dart';
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/app_refer_card.dart';
 import '../../../../config/common/widgets/navigation_drawer.dart';
 import '../../../../config/constants.dart';
 import '../../../temple_details/data/model/location_info.dart';
 import '../bloc/current_location/current_location_bloc.dart';
+import '../bloc/live_events/live_events_bloc.dart';
 import '../widgets/dashboard_live.dart';
 import '../widgets/main_temple_swiper.dart';
 import '../widgets/service_list.dart';
-import '/config/common/extensions.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
+    BlocProvider.of<LiveEventsBloc>(context).add(GetLiveEvents());
     super.initState();
     WakelockPlus.enable();
     // Simulate a delay to show the shimmer effect

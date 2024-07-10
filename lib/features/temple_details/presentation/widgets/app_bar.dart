@@ -30,7 +30,7 @@ appBar(BuildContext context, dynamic temple) {
     ),
     trailing: Align(
       alignment: Alignment.centerRight,
-      child: languageChanger(context),
+      child: languageChanger(context, temple!.templeId.toString()),
     ),
   );
 }

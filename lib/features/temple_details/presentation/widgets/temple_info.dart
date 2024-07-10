@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -7,20 +6,40 @@ import 'package:news_app_clean_architecture/config/common/extensions.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
+import '../../../../config/common/widgets/loader.dart';
 import '../../domain/entities/temple_info.dart';
 import '../bloc/temple_info/temple_info_bloc.dart';
 
-class TempleInfoWidget extends StatelessWidget {
+class TempleInfoWidget extends StatefulWidget {
   const TempleInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  State<TempleInfoWidget> createState() => _TempleInfoWidgetState();
+}
+
+class _TempleInfoWidgetState extends State<TempleInfoWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TempleInfoBloc, TempleInfoState>(
       builder: (context, state) {
         if (state is TempleInfoLoading) {
-          return SizedBox(
-              height: MediaQuery.of(context).size.height * .25,
-              child: const CupertinoActivityIndicator());
+          return Loader(controller: _controller);
         }
         if (state is TempleInfoLoadingSomthingWentWrong) {
           String error = state.responseStatus!;

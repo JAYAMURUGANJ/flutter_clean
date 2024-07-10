@@ -28,34 +28,34 @@ class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return _materialRoute(const SplashScreen());
+        return _animatedRoute(const SplashScreen());
       case '/OnBoarding':
         return _materialRoute(const OnboardingScreen());
       case 'Home':
-        return _materialRoute(const Home());
+        return _animatedRoute(const Home());
       case '/TempleDetails':
-        return _materialRoute(
+        return _animatedRoute(
             TempleDetailsView(temple: settings.arguments as TempleEntity));
       case '/TempleList':
         return _materialRoute(const TempleListPage());
       case '/PaidService':
-        return _materialRoute(const PaidServicePage());
+        return _animatedRoute(const PaidServicePage());
       case '/BookingService':
-        return _materialRoute(const BookingServicePage());
+        return _animatedRoute(const BookingServicePage());
       case '/Settings':
         return _materialRoute(const Settings());
       case '/Events':
-        return _materialRoute(const TempleEventCalendar());
+        return _animatedRoute(const TempleEventCalendar());
       case '/Livestream':
-        return _materialRoute(const TempleLiveTeleCasts());
+        return _animatedRoute(const TempleLiveTeleCasts());
       case '/PayStatus':
-        return _materialRoute(const PaymentStatus());
+        return _animatedRoute(const PaymentStatus());
       case '/PaySplash':
-        return _materialRoute(const PaymentSplashScreen());
+        return _animatedRoute(const PaymentSplashScreen());
       case '/loading':
-        return _materialRoute(const LoadingPage());
+        return _animatedRoute(const LoadingPage());
       case '/NearByTemples':
-        return _materialRoute(
+        return _animatedRoute(
             NearByTemplesWidget(data: settings.arguments as LocationInfo));
       case '/PhotoGallery':
         return _materialRoute(
@@ -64,21 +64,41 @@ class AppRoutes {
         return _materialRoute(SpecialityWidget(
             specialityList: settings.arguments as List<SpecialityEntity>));
       case '/Facility':
-        return _materialRoute(
+        return _animatedRoute(
             FacilityWidget(templeData: settings.arguments as TempleEntity));
       case '/SomthingWentWrong':
-        return _materialRoute(
+        return _animatedRoute(
             SomethingWentWrong(error: settings.arguments as String));
       case '/DioException':
-        return _materialRoute(DioExceptionScreen(
+        return _animatedRoute(DioExceptionScreen(
             onException: settings.arguments as DioExceptionArguments));
 
       default:
-        return _materialRoute(const TempleListPage());
+        return _animatedRoute(const TempleListPage());
     }
   }
 
   static Route<dynamic> _materialRoute(Widget view) {
     return MaterialPageRoute(builder: (_) => view);
+  }
+
+  static Route<dynamic> _animatedRoute(Widget view) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => view,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var fadeTween = Tween(begin: 0.0, end: 1.0)
+            .chain(CurveTween(curve: Curves.fastEaseInToSlowEaseOut));
+        var scaleTween = Tween(begin: 0.8, end: 1.0)
+            .chain(CurveTween(curve: Curves.fastEaseInToSlowEaseOut));
+
+        return FadeTransition(
+          opacity: animation.drive(fadeTween),
+          child: ScaleTransition(
+            scale: animation.drive(scaleTween),
+            child: child,
+          ),
+        );
+      },
+    );
   }
 }

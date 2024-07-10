@@ -6,15 +6,15 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/sculpture_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/shrines_widget.dart';
 
-import '../../../event_calendar/presentation/pages/event_calendar.dart';
-import '../../../temple_list/domain/entities/temple_list.dart';
-import '../pages/live_telecast.dart';
 import '/config/common/widgets/bottom_sheet.dart';
 import '/config/common/widgets/no_data_available.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/core/models/booking_services.dart';
 import '/features/dashboard/presentation/bloc/current_location/current_location_bloc.dart';
+import '../../../event_calendar/presentation/pages/event_calendar.dart';
+import '../../../temple_list/domain/entities/temple_list.dart';
+import '../pages/live_telecast.dart';
 
 buildTempleServicesList(
     {required String listType,

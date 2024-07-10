@@ -1,16 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/models/dio_exception_arguments.dart';
 import '/config/common/widgets/something_went_wrong.dart';
 import '/config/constants.dart';
+import '../../../../config/common/widgets/loader.dart';
+import '../../../../core/models/dio_exception_arguments.dart';
 import '../../domain/entities/temple_pooja.dart';
 import '../bloc/temple_pooja/temple_pooja_bloc.dart';
 
-class TemplePooja extends StatelessWidget {
+class TemplePooja extends StatefulWidget {
   final String templeId;
   const TemplePooja({Key? key, required this.templeId}) : super(key: key);
+
+  @override
+  State<TemplePooja> createState() => _TemplePoojaState();
+}
+
+class _TemplePoojaState extends State<TemplePooja>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +42,7 @@ class TemplePooja extends StatelessWidget {
               arguments: DioExceptionArguments(
                   onRefresh: () {
                     BlocProvider.of<TemplePoojaBloc>(context)
-                        .add(GetTemplePooja(templeId: templeId));
+                        .add(GetTemplePooja(templeId: widget.templeId));
                   },
                   error: state.error!));
         }
@@ -32,9 +53,7 @@ class TemplePooja extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is TemplePoojaLoading) {
-          return SizedBox(
-              height: MediaQuery.of(context).size.height * .25,
-              child: const CupertinoActivityIndicator());
+          return Loader(controller: _controller);
         }
         if (state is TemplePoojaLoadingSomthingWentWrong) {
           String error = state.responseStatus!;

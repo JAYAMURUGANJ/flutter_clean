@@ -7,6 +7,7 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import 'package:news_app_clean_architecture/features/temple_details/presentation/widgets/image_desc_widget.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/temple_list.dart';
 
+import '../../../../config/common/widgets/loader.dart';
 import '../../../../config/constants.dart';
 
 class ShrinesWidget extends StatefulWidget {
@@ -17,7 +18,9 @@ class ShrinesWidget extends StatefulWidget {
   State<ShrinesWidget> createState() => _ShrinesWidgetState();
 }
 
-class _ShrinesWidgetState extends State<ShrinesWidget> {
+class _ShrinesWidgetState extends State<ShrinesWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   late PageController _shrinesPageController;
   ValueNotifier<int> currentIndex = ValueNotifier(0);
 
@@ -29,11 +32,15 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
     );
     BlocProvider.of<ShrinesBloc>(context)
         .add(GetShrinesEvent(templeId: widget.templeData!.templeId.toString()));
+    _controller = AnimationController(
+      vsync: this,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     _shrinesPageController.dispose();
     super.dispose();
   }
@@ -44,7 +51,7 @@ class _ShrinesWidgetState extends State<ShrinesWidget> {
       child: BlocBuilder<ShrinesBloc, ShrinesState>(
         builder: (context, state) {
           if (state is ShrinesLoading) {
-            return const Center(child: CupertinoActivityIndicator());
+            return Loader(controller: _controller);
           }
           if (state is ShrinesLoadingError) {
             return ErrorWidget(state.error.toString());

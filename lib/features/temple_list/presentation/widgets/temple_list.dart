@@ -7,15 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/temple_list/domain/entities/district_entity.dart';
 import 'package:news_app_clean_architecture/features/temple_list/presentation/bloc/district/district_bloc.dart';
 
-import '../../../../core/models/dio_exception_arguments.dart';
-import '../bloc/temple_list/temple_list_event.dart';
 import '/config/common/extensions.dart';
 import '/config/common/pages/error/something_went_wrong_screen.dart';
 import '/config/common/widgets/text_widgets.dart';
 import '/config/constants.dart';
 import '/features/temple_list/domain/entities/worship_god_list.dart';
+import '../../../../core/models/dio_exception_arguments.dart';
 import '../../domain/entities/temple_list.dart';
 import '../bloc/temple_list/temple_list_bloc.dart';
+import '../bloc/temple_list/temple_list_event.dart';
 import '../bloc/temple_list/temple_list_state.dart';
 import '../bloc/worship_god_list/worship_god_list_bloc.dart';
 import '../pages/temple_list.dart';
@@ -154,6 +154,7 @@ allTempleListPageView(
   );
 }
 
+// ignore: unused_element
 BlocBuilder<DistrictBloc, DistrictState> _buildDistrictFilter(
     TempleListLoaded templeLoadedstate) {
   List<TempleEntity> templeList =

@@ -18,16 +18,19 @@ class _LoaderState extends State<Loader> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Lottie.asset(
-        LottieImage().loading,
-        controller: widget.controller,
-        animate: true,
-        repeat: true,
-        onLoaded: (composition) {
-          widget.controller
-            ..duration = composition.duration
-            ..repeat();
-        },
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * .25,
+        child: Lottie.asset(
+          LottieImage().loading,
+          controller: widget.controller,
+          animate: true,
+          repeat: true,
+          onLoaded: (composition) {
+            widget.controller
+              ..duration = composition.duration
+              ..repeat();
+          },
+        ),
       ),
     );
   }

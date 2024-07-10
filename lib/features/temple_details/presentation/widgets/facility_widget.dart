@@ -29,13 +29,13 @@ class _FacilityWidgetState extends State<FacilityWidget>
   final ValueNotifier<int> _showDesc = ValueNotifier(-1);
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<FacilityBloc>(context).add(
         GetFacilityEvent(templeId: widget.templeData!.templeId.toString()));
-    super.initState();
+
     _controller = AnimationController(
       vsync: this,
     );
+    super.initState();
   }
 
   @override

@@ -7,6 +7,7 @@ import '/config/constants.dart';
 import '/features/temple_details/domain/entities/sculpture.dart';
 import '/features/temple_details/presentation/bloc/sculptures/sculptures_bloc.dart';
 import '/features/temple_details/presentation/widgets/image_desc_widget.dart';
+import '../../../../config/common/widgets/loader.dart';
 import '../../../temple_list/domain/entities/temple_list.dart';
 
 class SculpturesWidget extends StatefulWidget {
@@ -17,22 +18,27 @@ class SculpturesWidget extends StatefulWidget {
   State<SculpturesWidget> createState() => _SculpturesWidgetState();
 }
 
-class _SculpturesWidgetState extends State<SculpturesWidget> {
+class _SculpturesWidgetState extends State<SculpturesWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   late PageController _sculpturePageController;
   @override
   void initState() {
     _sculpturePageController = PageController(
-      
       initialPage: 0,
       keepPage: true,
     );
     BlocProvider.of<SculpturesBloc>(context).add(
         GetSculpturesEvent(templeId: widget.templeData!.templeId.toString()));
+    _controller = AnimationController(
+      vsync: this,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     _sculpturePageController.dispose();
     super.dispose();
   }
@@ -43,7 +49,7 @@ class _SculpturesWidgetState extends State<SculpturesWidget> {
       child: BlocBuilder<SculpturesBloc, SculpturesState>(
           builder: (context, state) {
         if (state is SculpturesLoading) {
-          return const Center(child: CupertinoActivityIndicator());
+          return Loader(controller: _controller);
         }
         if (state is SculpturesLoadingError) {
           return ErrorWidget(state.error.toString());

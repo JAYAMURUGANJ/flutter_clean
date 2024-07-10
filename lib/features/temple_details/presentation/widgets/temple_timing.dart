@@ -1,20 +1,41 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/pages/error/dio_exception_screen.dart';
 
-import '../../../../core/models/dio_exception_arguments.dart';
 import '/config/common/extensions.dart';
 import '/config/constants.dart';
+import '../../../../config/common/widgets/loader.dart';
 import '../../../../config/common/widgets/something_went_wrong.dart';
 import '../../../../config/common/widgets/text_widgets.dart';
+import '../../../../core/models/dio_exception_arguments.dart';
 import '../../domain/entities/temple_timing.dart';
 import '../bloc/temple_timing/temple_timing_bloc.dart';
 
-class TempleTiming extends StatelessWidget {
+class TempleTiming extends StatefulWidget {
   final String templeId;
   const TempleTiming({Key? key, required this.templeId}) : super(key: key);
+
+  @override
+  State<TempleTiming> createState() => _TempleTimingState();
+}
+
+class _TempleTimingState extends State<TempleTiming>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +45,8 @@ class TempleTiming extends StatelessWidget {
           Navigator.pushNamed(context, '/DioException',
               arguments: DioExceptionArguments(
                   onRefresh: () {
-                    BlocProvider.of<TempleTimingBloc>(context)
-                        .add(GetTempleTiming(templeId: templeId.toString()));
+                    BlocProvider.of<TempleTimingBloc>(context).add(
+                        GetTempleTiming(templeId: widget.templeId.toString()));
                   },
                   error: state.error!));
         }
@@ -36,9 +57,7 @@ class TempleTiming extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is TempleTimingLoading) {
-          return SizedBox(
-              height: MediaQuery.of(context).size.height * .25,
-              child: const CupertinoActivityIndicator());
+          return Loader(controller: _controller);
         }
         if (state is TempleTimingLoadingSomthingWentWrong) {
           String error = state.responseStatus!;

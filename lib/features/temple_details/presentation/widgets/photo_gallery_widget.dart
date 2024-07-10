@@ -11,6 +11,7 @@ import 'package:news_app_clean_architecture/features/temple_details/presentation
 import '../../../../config/common/pages/error/something_went_wrong_screen.dart';
 import '../../../../config/common/widgets/app_header.dart';
 import '../../../../config/common/widgets/full_screen_image_viewer.dart';
+import '../../../../config/common/widgets/loader.dart';
 import '../../../../config/constants.dart';
 import '../../../temple_list/domain/entities/temple_list.dart';
 import '../../domain/entities/photo_gallery.dart';
@@ -25,13 +26,24 @@ class PhotoGalleryWidget extends StatefulWidget {
   State<PhotoGalleryWidget> createState() => _PhotoGalleryWidgetState();
 }
 
-class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
+class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   @override
   void initState() {
     BlocProvider.of<PhotoGalleryDescCubit>(context).closePhotoGalleryDesc();
     BlocProvider.of<PhotoGalleryBloc>(context)
         .add(GetPhotoGallery(templeId: widget.templeData.templeId.toString()));
+    _controller = AnimationController(
+      vsync: this,
+    );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,7 +79,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
             return BlocBuilder<PhotoGalleryBloc, PhotoGalleryState>(
               builder: (context, state) {
                 if (state is PhotoGalleryLoading) {
-                  return const Center(child: CupertinoActivityIndicator());
+                  return Loader(controller: _controller);
                 }
                 if (state is PhotoGalleryLoadingError) {
                   return ErrorWidget(state.error.toString());
@@ -165,7 +177,7 @@ class _PhotoGalleryWidgetState extends State<PhotoGalleryWidget> {
               textAlign: TextAlign.center,
             ),
           ),
-          CarouselSlider.builder( 
+          CarouselSlider.builder(
               itemCount: photoData.photoInfo!.length,
               itemBuilder: (context, index, realIndex) => GestureDetector(
                     onTap: () {
