@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
-import '../widgets/favorite_temples.dart';
+import '../widgets/favorite_god.dart';
 import '../widgets/language_list.dart';
 import '../widgets/theme_list.dart';
 import '/config/common/widgets/app_header.dart';

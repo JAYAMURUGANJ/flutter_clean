@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import 'package:news_app_clean_architecture/config/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '/config/common/extensions.dart';
+import '/config/common/pages/error/something_went_wrong_screen.dart';
+import '/features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
 import '../../../../config/common/class/local_language_controller.dart';
 import '../../../../core/models/dio_exception_arguments.dart';
 import '../../../temple_list/domain/entities/worship_god_list.dart';
 import '../../../temple_list/presentation/bloc/worship_god_list/worship_god_list_bloc.dart';
-import '/config/common/extensions.dart';
-import '/config/common/pages/error/something_went_wrong_screen.dart';
-import '/features/settings/presentation/bloc/selected_favorite_temples/selected_favorite_temples_cubit.dart';
 
 class FavoriteTemplesWidget extends StatefulWidget {
   const FavoriteTemplesWidget({Key? key}) : super(key: key);
@@ -65,11 +65,11 @@ class _FavoriteTemplesWidgetState extends State<FavoriteTemplesWidget> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 180,
+                                maxCrossAxisExtent: 120,
                                 crossAxisSpacing: 15,
-                                mainAxisExtent: 180,
+                                mainAxisExtent: 150,
                                 mainAxisSpacing: 15),
-                        itemCount: 30,
+                        itemCount: 12,
                         itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
                                 BlocProvider.of<SelectedFavoriteTemplesCubit>(

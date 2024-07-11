@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:news_app_clean_architecture/config/common/extensions.dart';
 
-import '../../../settings/presentation/widgets/favorite_temples.dart';
+import '../../../settings/presentation/widgets/favorite_god.dart';
 
 class FavoriteTemplesSelection extends StatefulWidget {
   const FavoriteTemplesSelection({Key? key}) : super(key: key);
